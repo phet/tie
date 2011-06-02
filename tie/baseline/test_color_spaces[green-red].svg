@@ -1,0 +1,485 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" 
+                     "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg viewBox="-500.000000 -200.000000 1000.000000 400.000000" version="1.1"
+     xmlns="http://www.w3.org/2000/svg"
+     xmlns:xlink="http://www.w3.org/1999/xlink"
+     xmlns:tie="http://tie-illustrates-everything.com/xmlns/mixin/svg/1.0/"
+     tie:version="v.0.9.1">
+
+  <title>Color Spaces: RGB lerp v. HSL transition v. HSL hue transition</title>
+
+    <!-- viewBox: (-500.000000, -200.000000) -+ 1000.000000 x 400.000000 -->
+    <g transform="translate(0.000000, -103.750000)">
+    <g transform="translate(-467.500000, 0.000000)">
+    <g stroke="black" fill="none">
+    <g fill="green">
+  <path d="m-25.0,-25.0 h50.0 v50.0 h-50.0 v-50.0 z"/>
+    </g>
+    </g>
+    <g transform="translate(0.000000, 35.000000)">
+    <g fill="black">
+    <text text-anchor="start" writing-mode="lr-tb" x="-17.340820" y="-7.500000">
+      <tspan x="-17.340820" y="5.625000" direction="ltr">
+        <tspan font-family="Arial" font-size="12.0" font-style="normal" font-weight="700" text-decoration="none">
+Green
+        </tspan>
+      </tspan>
+    </text>
+    </g>
+    </g>
+    </g>
+    <g transform="translate(467.500000, 0.000000)">
+    <g stroke="black" fill="none">
+    <g fill="red">
+  <path d="m-25.0,-25.0 h50.0 v50.0 h-50.0 v-50.0 z"/>
+    </g>
+    </g>
+    <g transform="translate(0.000000, 35.000000)">
+    <g fill="black">
+    <text text-anchor="start" writing-mode="lr-tb" x="-11.334961" y="-7.500000">
+      <tspan x="-11.334961" y="5.625000" direction="ltr">
+        <tspan font-family="Arial" font-size="12.0" font-style="normal" font-weight="700" text-decoration="none">
+Red
+        </tspan>
+      </tspan>
+    </text>
+    </g>
+    </g>
+    </g>
+    <g transform="translate(0.000000, -40.000000)">
+    <g stroke="black" fill="none">
+    <g transform="translate(-410.666667, 0.000000)">
+    <g transform="translate(0.000000, 0.000000)">
+    <g fill="rgb(16, 120, 0)">
+  <path d="m-26.833333333333332,-25.0 h53.666666666666664 v50.0 h-53.666666666666664 v-50.0 Z"/>
+    </g>
+    </g>
+    <g transform="translate(58.666667, 0.000000)">
+    <g fill="rgb(32, 112, 0)">
+  <path d="m-26.833333333333332,-25.0 h53.666666666666664 v50.0 h-53.666666666666664 v-50.0 Z"/>
+    </g>
+    </g>
+    <g transform="translate(117.333333, 0.000000)">
+    <g fill="rgb(48, 104, 0)">
+  <path d="m-26.833333333333332,-25.0 h53.666666666666664 v50.0 h-53.666666666666664 v-50.0 z"/>
+    </g>
+    </g>
+    <g transform="translate(176.000000, 0.000000)">
+    <g fill="rgb(64, 96, 0)">
+  <path d="m-26.833333333333332,-25.0 h53.666666666666664 v50.0 h-53.666666666666664 v-50.0 Z"/>
+    </g>
+    </g>
+    <g transform="translate(234.666667, 0.000000)">
+    <g fill="rgb(80, 88, 0)">
+  <path d="m-26.833333333333332,-25.0 h53.666666666666664 v50.0 h-53.666666666666664 v-50.0 Z"/>
+    </g>
+    </g>
+    <g transform="translate(293.333333, 0.000000)">
+    <g fill="rgb(96, 80, 0)">
+  <path d="m-26.833333333333332,-25.0 h53.666666666666664 v50.0 h-53.666666666666664 v-50.0 z"/>
+    </g>
+    </g>
+    <g transform="translate(352.000000, 0.000000)">
+    <g fill="rgb(112, 72, 0)">
+  <path d="m-26.833333333333332,-25.0 h53.666666666666664 v50.0 h-53.666666666666664 v-50.0 z"/>
+    </g>
+    </g>
+    <g transform="translate(410.666667, 0.000000)">
+    <g fill="rgb(128, 64, 0)">
+  <path d="m-26.833333333333332,-25.0 h53.666666666666664 v50.0 h-53.666666666666664 v-50.0 z"/>
+    </g>
+    </g>
+    <g transform="translate(469.333333, 0.000000)">
+    <g fill="rgb(143, 56, 0)">
+  <path d="m-26.833333333333332,-25.0 h53.666666666666664 v50.0 h-53.666666666666664 v-50.0 Z"/>
+    </g>
+    </g>
+    <g transform="translate(528.000000, 0.000000)">
+    <g fill="rgb(159, 48, 0)">
+  <path d="m-26.833333333333332,-25.0 h53.666666666666664 v50.0 h-53.666666666666664 v-50.0 Z"/>
+    </g>
+    </g>
+    <g transform="translate(586.666667, 0.000000)">
+    <g fill="rgb(175, 40, 0)">
+  <path d="m-26.833333333333332,-25.0 h53.666666666666664 v50.0 h-53.666666666666664 v-50.0 z"/>
+    </g>
+    </g>
+    <g transform="translate(645.333333, 0.000000)">
+    <g fill="rgb(191, 32, 0)">
+  <path d="m-26.833333333333332,-25.0 h53.666666666666664 v50.0 h-53.666666666666664 v-50.0 z"/>
+    </g>
+    </g>
+    <g transform="translate(704.000000, 0.000000)">
+    <g fill="rgb(207, 24, 0)">
+  <path d="m-26.833333333333332,-25.0 h53.666666666666664 v50.0 h-53.666666666666664 v-50.0 Z"/>
+    </g>
+    </g>
+    <g transform="translate(762.666667, 0.000000)">
+    <g fill="rgb(223, 16, 0)">
+  <path d="m-26.833333333333332,-25.0 h53.666666666666664 v50.0 h-53.666666666666664 v-50.0 Z"/>
+    </g>
+    </g>
+    <g transform="translate(821.333333, 0.000000)">
+    <g fill="rgb(239, 8, 0)">
+  <path d="m-26.833333333333332,-25.0 h53.666666666666664 v50.0 h-53.666666666666664 v-50.0 z"/>
+    </g>
+    </g>
+    </g>
+    </g>
+    <g transform="translate(0.000000, 35.000000)">
+    <g fill="black">
+    <text text-anchor="start" writing-mode="lr-tb" x="-72.014648" y="-7.500000">
+      <tspan x="-72.014648" y="5.625000" direction="ltr">
+        <tspan font-family="Arial" font-size="12.0" font-style="normal" font-weight="700" text-decoration="none">
+Green ... Red [RGB lerps]
+        </tspan>
+      </tspan>
+    </text>
+    </g>
+    </g>
+    </g>
+    <g transform="translate(0.000000, 40.000000)">
+    <g stroke="black" fill="none">
+    <g transform="translate(-410.666667, 0.000000)">
+    <g transform="translate(0.000000, 0.000000)">
+    <g fill="rgb(17, 136, 0)">
+  <path d="m-26.833333333333332,-25.0 h53.666666666666664 v50.0 h-53.666666666666664 v-50.0 z"/>
+    </g>
+    </g>
+    <g transform="translate(58.666667, 0.000000)">
+    <g fill="rgb(36, 144, 0)">
+  <path d="m-26.833333333333332,-25.0 h53.666666666666664 v50.0 h-53.666666666666664 v-50.0 z"/>
+    </g>
+    </g>
+    <g transform="translate(117.333333, 0.000000)">
+    <g fill="rgb(57, 152, 0)">
+  <path d="m-26.833333333333332,-25.0 h53.666666666666664 v50.0 h-53.666666666666664 v-50.0 Z"/>
+    </g>
+    </g>
+    <g transform="translate(176.000000, 0.000000)">
+    <g fill="rgb(80, 160, 0)">
+  <path d="m-26.833333333333332,-25.0 h53.666666666666664 v50.0 h-53.666666666666664 v-50.0 z"/>
+    </g>
+    </g>
+    <g transform="translate(234.666667, 0.000000)">
+    <g fill="rgb(105, 168, 0)">
+  <path d="m-26.833333333333332,-25.0 h53.666666666666664 v50.0 h-53.666666666666664 v-50.0 z"/>
+    </g>
+    </g>
+    <g transform="translate(293.333333, 0.000000)">
+    <g fill="rgb(132, 176, 0)">
+  <path d="m-26.833333333333332,-25.0 h53.666666666666664 v50.0 h-53.666666666666664 v-50.0 Z"/>
+    </g>
+    </g>
+    <g transform="translate(352.000000, 0.000000)">
+    <g fill="rgb(161, 184, 0)">
+  <path d="m-26.833333333333332,-25.0 h53.666666666666664 v50.0 h-53.666666666666664 v-50.0 Z"/>
+    </g>
+    </g>
+    <g transform="translate(410.666667, 0.000000)">
+    <g fill="rgb(192, 192, 0)">
+  <path d="m-26.833333333333332,-25.0 h53.666666666666664 v50.0 h-53.666666666666664 v-50.0 Z"/>
+    </g>
+    </g>
+    <g transform="translate(469.333333, 0.000000)">
+    <g fill="rgb(199, 175, 0)">
+  <path d="m-26.833333333333332,-25.0 h53.666666666666664 v50.0 h-53.666666666666664 v-50.0 z"/>
+    </g>
+    </g>
+    <g transform="translate(528.000000, 0.000000)">
+    <g fill="rgb(207, 156, 0)">
+  <path d="m-26.833333333333332,-25.0 h53.666666666666664 v50.0 h-53.666666666666664 v-50.0 Z"/>
+    </g>
+    </g>
+    <g transform="translate(586.666667, 0.000000)">
+    <g fill="rgb(215, 135, 0)">
+  <path d="m-26.833333333333332,-25.0 h53.666666666666664 v50.0 h-53.666666666666664 v-50.0 z"/>
+    </g>
+    </g>
+    <g transform="translate(645.333333, 0.000000)">
+    <g fill="rgb(223, 112, 0)">
+  <path d="m-26.833333333333332,-25.0 h53.666666666666664 v50.0 h-53.666666666666664 v-50.0 z"/>
+    </g>
+    </g>
+    <g transform="translate(704.000000, 0.000000)">
+    <g fill="rgb(231, 87, 0)">
+  <path d="m-26.833333333333332,-25.0 h53.666666666666664 v50.0 h-53.666666666666664 v-50.0 Z"/>
+    </g>
+    </g>
+    <g transform="translate(762.666667, 0.000000)">
+    <g fill="rgb(239, 60, 0)">
+  <path d="m-26.833333333333332,-25.0 h53.666666666666664 v50.0 h-53.666666666666664 v-50.0 Z"/>
+    </g>
+    </g>
+    <g transform="translate(821.333333, 0.000000)">
+    <g fill="rgb(247, 31, 0)">
+  <path d="m-26.833333333333332,-25.0 h53.666666666666664 v50.0 h-53.666666666666664 v-50.0 z"/>
+    </g>
+    </g>
+    </g>
+    </g>
+    <g transform="translate(0.000000, 35.000000)">
+    <g fill="black">
+    <text text-anchor="start" writing-mode="lr-tb" x="-87.011719" y="-7.500000">
+      <tspan x="-87.011719" y="5.625000" direction="ltr">
+        <tspan font-family="Arial" font-size="12.0" font-style="normal" font-weight="700" text-decoration="none">
+Green ... Red [HSL transitions]
+        </tspan>
+      </tspan>
+    </text>
+    </g>
+    </g>
+    </g>
+    </g>
+    <g transform="translate(0.000000, 103.750000)">
+    <g transform="translate(-467.500000, 0.000000)">
+    <g stroke="black" fill="none">
+    <g fill="green">
+  <path d="m-25.0,-25.0 h50.0 v50.0 h-50.0 v-50.0 Z"/>
+    </g>
+    </g>
+    <g transform="translate(0.000000, 35.000000)">
+    <g fill="black">
+    <text text-anchor="start" writing-mode="lr-tb" x="-17.340820" y="-7.500000">
+      <tspan x="-17.340820" y="5.625000" direction="ltr">
+        <tspan font-family="Arial" font-size="12.0" font-style="normal" font-weight="700" text-decoration="none">
+Green
+        </tspan>
+      </tspan>
+    </text>
+    </g>
+    </g>
+    </g>
+    <g transform="translate(467.500000, 0.000000)">
+    <g stroke="black" fill="none">
+    <g fill="red">
+  <path d="m-25.0,-25.0 h50.0 v50.0 h-50.0 v-50.0 Z"/>
+    </g>
+    </g>
+    <g transform="translate(0.000000, 35.000000)">
+    <g fill="black">
+    <text text-anchor="start" writing-mode="lr-tb" x="-11.334961" y="-7.500000">
+      <tspan x="-11.334961" y="5.625000" direction="ltr">
+        <tspan font-family="Arial" font-size="12.0" font-style="normal" font-weight="700" text-decoration="none">
+Red
+        </tspan>
+      </tspan>
+    </text>
+    </g>
+    </g>
+    </g>
+    <g transform="translate(0.000000, -40.000000)">
+    <g stroke="black" fill="none">
+    <g transform="translate(-410.666667, 0.000000)">
+    <g transform="translate(0.000000, 0.000000)">
+    <g fill="rgb(16, 128, 0)">
+  <path d="m-26.833333333333332,-25.0 h53.666666666666664 v50.0 h-53.666666666666664 v-50.0 z"/>
+    </g>
+    </g>
+    <g transform="translate(58.666667, 0.000000)">
+    <g fill="rgb(32, 128, 0)">
+  <path d="m-26.833333333333332,-25.0 h53.666666666666664 v50.0 h-53.666666666666664 v-50.0 z"/>
+    </g>
+    </g>
+    <g transform="translate(117.333333, 0.000000)">
+    <g fill="rgb(48, 128, 0)">
+  <path d="m-26.833333333333332,-25.0 h53.666666666666664 v50.0 h-53.666666666666664 v-50.0 Z"/>
+    </g>
+    </g>
+    <g transform="translate(176.000000, 0.000000)">
+    <g fill="rgb(64, 128, 0)">
+  <path d="m-26.833333333333332,-25.0 h53.666666666666664 v50.0 h-53.666666666666664 v-50.0 Z"/>
+    </g>
+    </g>
+    <g transform="translate(234.666667, 0.000000)">
+    <g fill="rgb(80, 128, 0)">
+  <path d="m-26.833333333333332,-25.0 h53.666666666666664 v50.0 h-53.666666666666664 v-50.0 z"/>
+    </g>
+    </g>
+    <g transform="translate(293.333333, 0.000000)">
+    <g fill="rgb(96, 128, 0)">
+  <path d="m-26.833333333333332,-25.0 h53.666666666666664 v50.0 h-53.666666666666664 v-50.0 Z"/>
+    </g>
+    </g>
+    <g transform="translate(352.000000, 0.000000)">
+    <g fill="rgb(112, 128, 0)">
+  <path d="m-26.833333333333332,-25.0 h53.666666666666664 v50.0 h-53.666666666666664 v-50.0 z"/>
+    </g>
+    </g>
+    <g transform="translate(410.666667, 0.000000)">
+    <g fill="rgb(128, 128, 0)">
+  <path d="m-26.833333333333332,-25.0 h53.666666666666664 v50.0 h-53.666666666666664 v-50.0 Z"/>
+    </g>
+    </g>
+    <g transform="translate(469.333333, 0.000000)">
+    <g fill="rgb(128, 112, 0)">
+  <path d="m-26.833333333333332,-25.0 h53.666666666666664 v50.0 h-53.666666666666664 v-50.0 Z"/>
+    </g>
+    </g>
+    <g transform="translate(528.000000, 0.000000)">
+    <g fill="rgb(128, 96, 0)">
+  <path d="m-26.833333333333332,-25.0 h53.666666666666664 v50.0 h-53.666666666666664 v-50.0 z"/>
+    </g>
+    </g>
+    <g transform="translate(586.666667, 0.000000)">
+    <g fill="rgb(128, 80, 0)">
+  <path d="m-26.833333333333332,-25.0 h53.666666666666664 v50.0 h-53.666666666666664 v-50.0 Z"/>
+    </g>
+    </g>
+    <g transform="translate(645.333333, 0.000000)">
+    <g fill="rgb(128, 64, 0)">
+  <path d="m-26.833333333333332,-25.0 h53.666666666666664 v50.0 h-53.666666666666664 v-50.0 Z"/>
+    </g>
+    </g>
+    <g transform="translate(704.000000, 0.000000)">
+    <g fill="rgb(128, 48, 0)">
+  <path d="m-26.833333333333332,-25.0 h53.666666666666664 v50.0 h-53.666666666666664 v-50.0 Z"/>
+    </g>
+    </g>
+    <g transform="translate(762.666667, 0.000000)">
+    <g fill="rgb(128, 32, 0)">
+  <path d="m-26.833333333333332,-25.0 h53.666666666666664 v50.0 h-53.666666666666664 v-50.0 z"/>
+    </g>
+    </g>
+    <g transform="translate(821.333333, 0.000000)">
+    <g fill="rgb(128, 16, 0)">
+  <path d="m-26.833333333333332,-25.0 h53.666666666666664 v50.0 h-53.666666666666664 v-50.0 Z"/>
+    </g>
+    </g>
+    </g>
+    </g>
+    <g transform="translate(0.000000, 35.000000)">
+    <g fill="black">
+    <text text-anchor="start" writing-mode="lr-tb" x="-183.870117" y="-7.500000">
+      <tspan x="-183.870117" y="5.625000" direction="ltr">
+        <tspan font-family="Arial" font-size="12.0" font-style="normal" font-weight="700" text-decoration="none">
+Green ... Red [HSL transition hue (constant lightness of 'Green')]
+        </tspan>
+      </tspan>
+    </text>
+    </g>
+    </g>
+    </g>
+    <g transform="translate(0.000000, 40.000000)">
+    <g stroke="black" fill="none">
+    <g transform="translate(-410.666667, 0.000000)">
+    <g transform="translate(0.000000, 0.000000)">
+    <g fill="rgb(32, 255, 0)">
+  <path d="m-26.833333333333332,-25.0 h53.666666666666664 v50.0 h-53.666666666666664 v-50.0 Z"/>
+    </g>
+    </g>
+    <g transform="translate(58.666667, 0.000000)">
+    <g fill="rgb(64, 255, 0)">
+  <path d="m-26.833333333333332,-25.0 h53.666666666666664 v50.0 h-53.666666666666664 v-50.0 z"/>
+    </g>
+    </g>
+    <g transform="translate(117.333333, 0.000000)">
+    <g fill="rgb(96, 255, 0)">
+  <path d="m-26.833333333333332,-25.0 h53.666666666666664 v50.0 h-53.666666666666664 v-50.0 z"/>
+    </g>
+    </g>
+    <g transform="translate(176.000000, 0.000000)">
+    <g fill="rgb(128, 255, 0)">
+  <path d="m-26.833333333333332,-25.0 h53.666666666666664 v50.0 h-53.666666666666664 v-50.0 Z"/>
+    </g>
+    </g>
+    <g transform="translate(234.666667, 0.000000)">
+    <g fill="rgb(159, 255, 0)">
+  <path d="m-26.833333333333332,-25.0 h53.666666666666664 v50.0 h-53.666666666666664 v-50.0 Z"/>
+    </g>
+    </g>
+    <g transform="translate(293.333333, 0.000000)">
+    <g fill="rgb(191, 255, 0)">
+  <path d="m-26.833333333333332,-25.0 h53.666666666666664 v50.0 h-53.666666666666664 v-50.0 Z"/>
+    </g>
+    </g>
+    <g transform="translate(352.000000, 0.000000)">
+    <g fill="rgb(223, 255, 0)">
+  <path d="m-26.833333333333332,-25.0 h53.666666666666664 v50.0 h-53.666666666666664 v-50.0 z"/>
+    </g>
+    </g>
+    <g transform="translate(410.666667, 0.000000)">
+    <g fill="rgb(255, 255, 0)">
+  <path d="m-26.833333333333332,-25.0 h53.666666666666664 v50.0 h-53.666666666666664 v-50.0 Z"/>
+    </g>
+    </g>
+    <g transform="translate(469.333333, 0.000000)">
+    <g fill="rgb(255, 223, 0)">
+  <path d="m-26.833333333333332,-25.0 h53.666666666666664 v50.0 h-53.666666666666664 v-50.0 z"/>
+    </g>
+    </g>
+    <g transform="translate(528.000000, 0.000000)">
+    <g fill="rgb(255, 191, 0)">
+  <path d="m-26.833333333333332,-25.0 h53.666666666666664 v50.0 h-53.666666666666664 v-50.0 Z"/>
+    </g>
+    </g>
+    <g transform="translate(586.666667, 0.000000)">
+    <g fill="rgb(255, 159, 0)">
+  <path d="m-26.833333333333332,-25.0 h53.666666666666664 v50.0 h-53.666666666666664 v-50.0 z"/>
+    </g>
+    </g>
+    <g transform="translate(645.333333, 0.000000)">
+    <g fill="rgb(255, 128, 0)">
+  <path d="m-26.833333333333332,-25.0 h53.666666666666664 v50.0 h-53.666666666666664 v-50.0 Z"/>
+    </g>
+    </g>
+    <g transform="translate(704.000000, 0.000000)">
+    <g fill="rgb(255, 96, 0)">
+  <path d="m-26.833333333333332,-25.0 h53.666666666666664 v50.0 h-53.666666666666664 v-50.0 z"/>
+    </g>
+    </g>
+    <g transform="translate(762.666667, 0.000000)">
+    <g fill="rgb(255, 64, 0)">
+  <path d="m-26.833333333333332,-25.0 h53.666666666666664 v50.0 h-53.666666666666664 v-50.0 z"/>
+    </g>
+    </g>
+    <g transform="translate(821.333333, 0.000000)">
+    <g fill="rgb(255, 32, 0)">
+  <path d="m-26.833333333333332,-25.0 h53.666666666666664 v50.0 h-53.666666666666664 v-50.0 z"/>
+    </g>
+    </g>
+    </g>
+    </g>
+    <g transform="translate(0.000000, 35.000000)">
+    <g fill="black">
+    <text text-anchor="start" writing-mode="lr-tb" x="-177.864258" y="-7.500000">
+      <tspan x="-177.864258" y="5.625000" direction="ltr">
+        <tspan font-family="Arial" font-size="12.0" font-style="normal" font-weight="700" text-decoration="none">
+Green ... Red [HSL transition hue (constant lightness of 'Red')]
+        </tspan>
+      </tspan>
+    </text>
+    </g>
+    </g>
+    </g>
+    </g>
+    <g id="tie-l-i-c-e-n-s-e-s-t-a-m-p" opacity="0.0">
+    <g transform="translate(-381.208591, 90.625000)">
+    <g transform="scale(0.220870, 0.220870)">
+    <g stroke="lavender" fill="papayawhip" stroke-width="8.000000">
+  <path d="m-119.7158203125,-95.03999999999998 h239.431640625 l17.957373046874977,95.03999999999998 l-17.957373046874977,95.03999999999998 h-239.431640625 l-17.957373046874977,-95.03999999999998 Z"/>
+    </g>
+    <g stroke="none" fill="black">
+    <text text-anchor="start" writing-mode="lr-tb" x="-119.715820" y="-52.800000">
+      <tspan x="-119.715820" y="-38.100000" direction="ltr">
+<tspan xml:space="preserve" font-family="Arial" font-size="12.0" font-style="normal" font-weight="400" text-decoration="none">Prepared by tie, v.0.9.1:</tspan>      </tspan>
+      <tspan x="-119.715820" y="-21.300000" direction="ltr">
+<tspan xml:space="preserve" font-family="Arial" font-size="12.0" font-style="normal" font-weight="400" text-decoration="none">  http://tie-illustrates-everything.com/</tspan>      </tspan>
+      <tspan x="-119.715820" y="-4.500000" direction="ltr">
+<tspan xml:space="preserve" font-family="Arial" font-size="12.0" font-style="normal" font-weight="400" text-decoration="none">rendered: 2011-06-01 01:12:35+0000</tspan>      </tspan>
+      <tspan x="-119.715820" y="12.300000" direction="ltr">
+<tspan xml:space="preserve" font-family="Arial" font-size="12.0" font-style="normal" font-weight="400" text-decoration="none">under Apache License, v.2.0 // see:</tspan>      </tspan>
+      <tspan x="-119.715820" y="29.100000" direction="ltr">
+<tspan xml:space="preserve" font-family="Arial" font-size="12.0" font-style="normal" font-weight="400" text-decoration="none">  http://tie-illustrates-everything.com/licensing</tspan>      </tspan>
+      <tspan x="-119.715820" y="50.100000" direction="ltr">
+<tspan xml:space="preserve" font-family="Arial" font-size="7.199999999999999" font-style="normal" font-weight="400" text-decoration="none">   (-500.000000, -200.000000) -+ 1000.000000 x 400.000000</tspan>      </tspan>
+    </text>
+    </g>
+    </g>
+    </g>
+    </g>
+
+  <defs>
+  </defs>
+</svg>

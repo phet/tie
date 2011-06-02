@@ -1,0 +1,147 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" 
+                     "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg viewBox="-225.000000 -225.000000 450.000000 450.000000" version="1.1"
+     xmlns="http://www.w3.org/2000/svg"
+     xmlns:xlink="http://www.w3.org/1999/xlink"
+     xmlns:tie="http://tie-illustrates-everything.com/xmlns/mixin/svg/1.0/"
+     tie:version="v.0.9.1">
+
+  <title>Color Stripes v. (Linear) Gradient</title>
+
+    <!-- viewBox: (-225.000000, -225.000000) -+ 450.000000 x 450.000000 -->
+    <g transform="translate(0.000000, -100.000000)">
+    <g transform="translate(-115.000000, 0.000000)">
+    <g stroke="black" fill="none">
+    <g transform="translate(-85.714286, 0.000000)">
+    <g transform="translate(0.000000, 0.000000)">
+    <g fill="red">
+  <path d="m-14.285714285714286,-80.0 h28.571428571428573 v160.0 h-28.571428571428573 v-160.0 Z"/>
+    </g>
+    </g>
+    <g transform="translate(28.571429, 0.000000)">
+    <g fill="orange">
+  <path d="m-14.285714285714286,-80.0 h28.571428571428573 v160.0 h-28.571428571428573 v-160.0 Z"/>
+    </g>
+    </g>
+    <g transform="translate(57.142857, 0.000000)">
+    <g fill="yellow">
+  <path d="m-14.285714285714286,-80.0 h28.571428571428573 v160.0 h-28.571428571428573 v-160.0 z"/>
+    </g>
+    </g>
+    <g transform="translate(85.714286, 0.000000)">
+    <g fill="green">
+  <path d="m-14.285714285714286,-80.0 h28.571428571428573 v160.0 h-28.571428571428573 v-160.0 Z"/>
+    </g>
+    </g>
+    <g transform="translate(114.285714, 0.000000)">
+    <g fill="blue">
+  <path d="m-14.285714285714286,-80.0 h28.571428571428573 v160.0 h-28.571428571428573 v-160.0 z"/>
+    </g>
+    </g>
+    <g transform="translate(142.857143, 0.000000)">
+    <g fill="indigo">
+  <path d="m-14.285714285714286,-80.0 h28.571428571428573 v160.0 h-28.571428571428573 v-160.0 Z"/>
+    </g>
+    </g>
+    <g transform="translate(171.428571, 0.000000)">
+    <g fill="violet">
+  <path d="m-14.285714285714286,-80.0 h28.571428571428573 v160.0 h-28.571428571428573 v-160.0 Z"/>
+    </g>
+    </g>
+    </g>
+    </g>
+    <g transform="translate(0.000000, 90.000000)">
+    <g fill="black">
+    <text text-anchor="start" writing-mode="lr-tb" x="-36.011719" y="-7.500000">
+      <tspan x="-36.011719" y="5.625000" direction="ltr">
+        <tspan font-family="Arial" font-size="12.0" font-style="normal" font-weight="700" text-decoration="none">
+color stripes
+        </tspan>
+      </tspan>
+    </text>
+    </g>
+    </g>
+    </g>
+    <g transform="translate(115.000000, 0.000000)">
+    <g stroke="black" fill="none">
+    <g fill="url(#tie-Gradient01)">
+  <path d="m-100.0,-80.0 h200.0 v160.0 h-200.0 v-160.0 z"/>
+    </g>
+    </g>
+    <g transform="translate(0.000000, 90.000000)">
+    <g fill="black">
+    <text text-anchor="start" writing-mode="lr-tb" x="-45.339844" y="-7.500000">
+      <tspan x="-45.339844" y="5.625000" direction="ltr">
+        <tspan font-family="Arial" font-size="12.0" font-style="normal" font-weight="700" text-decoration="none">
+(linear) gradient
+        </tspan>
+      </tspan>
+    </text>
+    </g>
+    </g>
+    </g>
+    </g>
+    <g transform="translate(0.000000, 100.000000)">
+    <g stroke="black" fill="none">
+    <g transform="translate(-115.000000, 0.000000)">
+    <g fill="url(#tie-Gradient01)">
+  <path d="m-100.0,0.0 a100.0,80.0 0.0 1 1 200.0,0.0 a100.0,80.0 0.0 1 1 -200.0,0.0 z"/>
+    </g>
+    </g>
+    <g transform="translate(115.000000, 0.000000)">
+    <g fill="url(#tie-Gradient01)">
+  <path d="m-60.0,-80.0 h120.0 l40.0,80.0 l-40.0,80.0 h-120.0 l-40.0,-80.0 Z"/>
+    </g>
+    </g>
+    </g>
+    <g transform="translate(0.000000, 90.000000)">
+    <g fill="black">
+    <text text-anchor="start" writing-mode="lr-tb" x="-78.676758" y="-7.500000">
+      <tspan x="-78.676758" y="5.625000" direction="ltr">
+        <tspan font-family="Arial" font-size="12.0" font-style="normal" font-weight="700" text-decoration="none">
+additional (linear) gradients
+        </tspan>
+      </tspan>
+    </text>
+    </g>
+    </g>
+    </g>
+    <g id="tie-l-i-c-e-n-s-e-s-t-a-m-p" opacity="0.0">
+    <g transform="translate(-148.634094, 154.687500)">
+    <g transform="scale(0.141988, 0.141988)">
+    <g stroke="lavender" fill="papayawhip" stroke-width="8.000000">
+  <path d="m-119.7158203125,-95.03999999999998 h239.431640625 l17.957373046874977,95.03999999999998 l-17.957373046874977,95.03999999999998 h-239.431640625 l-17.957373046874977,-95.03999999999998 z"/>
+    </g>
+    <g stroke="none" fill="black">
+    <text text-anchor="start" writing-mode="lr-tb" x="-119.715820" y="-52.800000">
+      <tspan x="-119.715820" y="-38.100000" direction="ltr">
+<tspan xml:space="preserve" font-family="Arial" font-size="12.0" font-style="normal" font-weight="400" text-decoration="none">Prepared by tie, v.0.9.1:</tspan>      </tspan>
+      <tspan x="-119.715820" y="-21.300000" direction="ltr">
+<tspan xml:space="preserve" font-family="Arial" font-size="12.0" font-style="normal" font-weight="400" text-decoration="none">  http://tie-illustrates-everything.com/</tspan>      </tspan>
+      <tspan x="-119.715820" y="-4.500000" direction="ltr">
+<tspan xml:space="preserve" font-family="Arial" font-size="12.0" font-style="normal" font-weight="400" text-decoration="none">rendered: 2011-06-01 01:12:36+0000</tspan>      </tspan>
+      <tspan x="-119.715820" y="12.300000" direction="ltr">
+<tspan xml:space="preserve" font-family="Arial" font-size="12.0" font-style="normal" font-weight="400" text-decoration="none">under Apache License, v.2.0 // see:</tspan>      </tspan>
+      <tspan x="-119.715820" y="29.100000" direction="ltr">
+<tspan xml:space="preserve" font-family="Arial" font-size="12.0" font-style="normal" font-weight="400" text-decoration="none">  http://tie-illustrates-everything.com/licensing</tspan>      </tspan>
+      <tspan x="-119.715820" y="50.100000" direction="ltr">
+<tspan xml:space="preserve" font-family="Arial" font-size="7.199999999999999" font-style="normal" font-weight="400" text-decoration="none">   (-225.000000, -225.000000) -+ 450.000000 x 450.000000</tspan>      </tspan>
+    </text>
+    </g>
+    </g>
+    </g>
+    </g>
+
+  <defs>
+    <linearGradient id="tie-Gradient01" spreadMethod="pad" color-interpolation="sRGB">
+      <stop offset="0.000000%" stop-color="red" stop-opacity="1.000000"/>
+      <stop offset="16.666667%" stop-color="orange" stop-opacity="1.000000"/>
+      <stop offset="33.333333%" stop-color="yellow" stop-opacity="1.000000"/>
+      <stop offset="50.000000%" stop-color="green" stop-opacity="1.000000"/>
+      <stop offset="66.666667%" stop-color="blue" stop-opacity="1.000000"/>
+      <stop offset="83.333333%" stop-color="indigo" stop-opacity="1.000000"/>
+      <stop offset="100.000000%" stop-color="violet" stop-opacity="1.000000"/>
+    </linearGradient>
+  </defs>
+</svg>
