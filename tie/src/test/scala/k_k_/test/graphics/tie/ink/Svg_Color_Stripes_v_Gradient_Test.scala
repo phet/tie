@@ -71,10 +71,10 @@ class Svg_Color_Stripes_v_Linear_Gradient_Test extends Svg_Test_Base {
       Drawing_Shape = {
     val each_stripe_w = w / colors.length
     val colored_shapes =
-          colors map { Shape(each_stripe_w, h) -~ Pen.fill(_) }
+          colors.map { Shape(each_stripe_w, h) -~ Pen.fill(_) }
     val translated_colored_shapes =
           colored_shapes.zipWithIndex.
-                         map ( x => x._1 -+ (x._2 * each_stripe_w, 0) )
+                         map { p => p._1 -+ (p._2 * each_stripe_w, 0) }
     (Null_Shape /: translated_colored_shapes) ( _ -& _ ) -+
       (-w/2 + each_stripe_w/2, 0)
   }
@@ -82,12 +82,10 @@ class Svg_Color_Stripes_v_Linear_Gradient_Test extends Svg_Test_Base {
   // vertical linear gradient
   def draw_gradient(Shape: (Double, Double) => Drawing_Shape)
                    (w: Double, h: Double)(colors: Seq[Color]): Drawing_Shape = {
-    val each_stripe_offset_pct = 100.0 / (colors.length - 1)
+    val each_stripe_pct = 100.0 / (colors.length - 1) // percentage offset
     val shape = Shape(w, h)
     val color_stops = colors.zipWithIndex.
-                             map ( x => Color_Stop(x._1,
-                                                   x._2 *
-                                                     each_stripe_offset_pct) )
+                             map { p => Color_Stop(p._1, p._2 * each_stripe_pct) }
     shape -~ Pen.fill(Linear_Gradient(color_stops))
   }
 }

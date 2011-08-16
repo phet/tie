@@ -86,7 +86,7 @@ class Svg_Sierpinski_Triangle_Test extends Svg_Test_Base {
   }
 
   // 'sierpinskify' every Iso_Triangle found within, mapping each component of
-  // result with `ink_func(_, iteration, n)`, for n = {0,1,2} counted LR-TB
+  // result with `ink_func(_, iteration, n)`, for n = {0,1,2} counted TB-LR
   def sierpinskify(s: Drawing_Shape, iteration: Int,
                    ink_func: (Drawing_Shape, Int, Int) => Drawing_Shape):
       Drawing_Shape = {

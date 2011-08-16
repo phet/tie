@@ -72,16 +72,14 @@ class Svg_Color_Rings_v_Radial_Gradient_Test extends Svg_Test_Base {
     val each_ring_w = w / colors.length
     val each_ring_h = h / colors.length
     val colored_shapes = colors.reverse.zipWithIndex.
-                           map( x => (x._1, x._2 + 1) ).
+                           map { p => (p._1, p._2 + 1) }.
                            map { case (color, i) =>
-                                   val pen_transform =
-                                         if (i == colors.length)
-                                           (p: Pen) => identity(p)
-                                         else
-                                           (p: Pen) => p.stroke(Null_Ink)
-                                   Shape(each_ring_w * i, each_ring_h * i) -~
-                                     pen_transform(Pen.fill(color))
-                               }
+                               val pen_transform: Pen => Pen =
+                                     if (i == colors.length) identity _
+                                     else                    _.stroke(Null_Ink)
+                               Shape(each_ring_w * i, each_ring_h * i) -~
+                                 pen_transform(Pen.fill(color))
+                             }
     // reverse so smaller shapes over larger ones, and thereby not occluded
     (Null_Shape /: colored_shapes.reverse) ( _ -& _ )
   }
@@ -92,8 +90,8 @@ class Svg_Color_Rings_v_Radial_Gradient_Test extends Svg_Test_Base {
     val each_stripe_offset_pct = 100.0 / (colors.length - 1)
     val shape = Shape(w, h)
     val color_stops = colors.reverse.zipWithIndex.
-                        map ( x => Color_Stop(x._1,
-                                              x._2 * each_stripe_offset_pct) )
+                        map ( p => Color_Stop(p._1,
+                                              p._2 * each_stripe_offset_pct) )
     shape -~ Pen.fill(Radial_Gradient(color_stops, Reflect_Colors))
   }
 }
