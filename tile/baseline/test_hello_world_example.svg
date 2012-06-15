@@ -1,0 +1,231 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" 
+                     "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg viewBox="-162.500000 -162.500000 325.000000 325.000000" version="1.1"
+     xmlns="http://www.w3.org/2000/svg"
+     xmlns:xlink="http://www.w3.org/1999/xlink"
+     xmlns:tie="http://tie-illustrates-everything.com/xmlns/mixin/svg/1.0/"
+     tie:version="v.0.10.0">
+
+  <title>Hello World!</title>
+
+    <!-- viewBox: (-162.500000, -162.500000) -+ 325.000000 x 325.000000 -->
+    <g transform="translate(0.000000, -55.000000)">
+    <g transform="translate(-0.000000, 15.000000)">
+  <!-- 'invisible' rectangle (214.600000 x 110.000000):
+  <path d="m-107.30000000000001,-55.0 h214.60000000000002 v110.0 h-214.60000000000002 v-110.0 Z"/>
+  -->
+    </g>
+    <g transform="translate(-107.300050, 39.999950)">
+    <g transform="translate(51.000050, -39.999950)">
+    <g transform="translate(-20.000000, -0.000000)">
+  <!-- 'invisible' rectangle (62.000000 x 80.000000):
+  <path d="m-31.0,-40.0 h62.0 v80.0 h-62.0 v-80.0 Z"/>
+  -->
+    </g>
+    <g fill="orange">
+  <path d="m-9.0,-40.0 h18.0 v80.0 h-18.0 v-80.0 z"/>
+    </g>
+    <g transform="translate(-20.000000, -0.000000)">
+    <g fill="royalblue">
+    <g transform="scale(0.500000, 1.000000)">
+    <g transform="rotate(90.000000, 0.000000, 0.000000)">
+  <path d="m-9.0,-40.0 h18.0 v80.0 h-18.0 v-80.0 z"/>
+    </g>
+    </g>
+    </g>
+    <g transform="translate(-20.000000, -0.000000)">
+    <g fill="orange">
+  <path d="m-9.0,-40.0 h18.0 v80.0 h-18.0 v-80.0 Z"/>
+    </g>
+    </g>
+    </g>
+    </g>
+    <g transform="translate(88.427636, -26.799950)">
+    <g transform="translate(0.872414, 0.900000)">
+  <!-- 'invisible' rectangle (54.600000 x 51.800000):
+  <path d="m-27.3,-25.9 h54.6 v51.8 h-54.6 v-51.8 Z"/>
+  -->
+    </g>
+    <g stroke="url(#tie-Gradient01)" fill="none" stroke-width="10.000000" stroke-linecap="round">
+  <path d="m-19.599999999999998,0.0 h40.599999999999994 a21.0,21.0 0.0 1 0 -7.0,16.799999999999997"/>
+    </g>
+    </g>
+    <g transform="translate(127.600050, -39.999950)">
+    <g transform="translate(-0.000000, -0.000000)">
+  <!-- 'invisible' rectangle (22.000000 x 80.000000):
+  <path d="m-11.0,-40.0 h22.0 v80.0 h-22.0 v-80.0 z"/>
+  -->
+    </g>
+    <g fill="url(#tie-Gradient01)">
+  <path d="m-9.0,-40.0 h18.0 v80.0 h-18.0 v-80.0 z"/>
+    </g>
+    </g>
+    <g transform="translate(149.600050, -39.999950)">
+    <g transform="translate(-0.000000, -0.000000)">
+  <!-- 'invisible' rectangle (22.000000 x 80.000000):
+  <path d="m-11.0,-40.0 h22.0 v80.0 h-22.0 v-80.0 Z"/>
+  -->
+    </g>
+    <g fill="url(#tie-Gradient02)">
+  <path d="m-9.0,-40.0 h18.0 v80.0 h-18.0 v-80.0 Z"/>
+    </g>
+    </g>
+    <g transform="translate(187.600050, -24.999950)">
+    <g transform="translate(0.000000, -0.000500)">
+  <!-- 'invisible' rectangle (54.000000 x 50.001000):
+  <path d="m-27.0,-25.0005 h54.0 v50.001 h-54.0 v-50.001 Z"/>
+  -->
+    </g>
+    <g fill="url(#tie-Pattern01)" fill-rule="evenodd">
+  <path d="m-25.0,0.0 a25.0,25.0 0.0 1 1 50.0,0.0 a25.0,25.0 0.0 1 1 -50.0,0.0 z m15.0,0.0 a10.0,10.0 0.0 1 1 20.0,0.0 a10.0,10.0 0.0 1 1 -20.0,0.0 Z"/>
+    </g>
+    </g>
+    </g>
+    <g transform="translate(-119.980519, 149.999950)">
+    <g transform="translate(37.000050, -39.999950)">
+    <g transform="translate(-0.000000, -0.000000)">
+  <!-- 'invisible' rectangle (74.000000 x 80.000000):
+  <path d="m-37.00000000000001,-40.00000000000001 h74.00000000000001 v80.00000000000001 h-74.00000000000001 v-80.00000000000001 Z"/>
+  -->
+    </g>
+    <g fill="orange">
+    <g transform="rotate(180.000000, 0.000000, 0.000000)">
+  <path d="m-25.0,-40.0 h50.0 l10.0,80.0 h-70.0 z"/>
+    </g>
+    </g>
+    <g transform="translate(-0.000000, 20.000000)">
+    <g fill="royalblue">
+  <path d="m0.0,-20.0 l10.0,40.0 h-20.0 Z"/>
+    </g>
+    </g>
+    <g transform="translate(-0.000000, -15.000000)">
+    <g fill="royalblue">
+    <g transform="translate(-12.000000, 0.000000)">
+    <g transform="rotate(180.000000, 0.000000, 0.000000)">
+  <path d="m0.0,-25.0 l7.0,50.0 h-14.0 z"/>
+    </g>
+    </g>
+    <g transform="translate(12.000000, 0.000000)">
+    <g transform="rotate(180.000000, 0.000000, 0.000000)">
+  <path d="m0.0,-25.0 l7.0,50.0 h-14.0 Z"/>
+    </g>
+    </g>
+    <g transform="translate(0.000000, -15.000000)">
+  <path d="m-5.0,-10.0 h10.0 l5.0,20.0 h-20.0 z"/>
+    </g>
+    </g>
+    </g>
+    </g>
+    <g transform="translate(103.500050, -27.499950)">
+    <g transform="translate(-0.000000, -0.000000)">
+  <!-- 'invisible' rectangle (59.000000 x 55.000000):
+  <path d="m-29.5,-27.5 h59.0 v55.0 h-59.0 v-55.0 Z"/>
+  -->
+    </g>
+    <g clip-path="url(#tie-Clip01)">
+    <g transform="scale(0.250000, 0.250000)">
+  <image xlink:href="../images/earth_centered_w_africa.png" x="-160.000000" y="-131.500000" width="320.000000" height="263.000000"/>
+    </g>
+    </g>
+    </g>
+    <g transform="translate(154.980519, -0.599950)">
+    <g transform="translate(-0.000000, -0.000000)">
+  <!-- 'invisible' rectangle (43.960938 x 1.200000):
+  <path d="m-21.98046875,-0.6 h43.9609375 v1.2 h-43.9609375 v-1.2 z"/>
+  -->
+    </g>
+    <g fill="royalblue">
+    <text text-anchor="start" writing-mode="lr-tb" x="-19.980469" y="-0.600000">
+      <tspan x="-19.980469" y="0.450000" direction="ltr">
+        <tspan font-family="Times New Roman" font-size="120.0" font-style="normal" font-weight="400" text-decoration="none">
+r
+        </tspan>
+      </tspan>
+    </text>
+    </g>
+    </g>
+    <g transform="translate(187.960988, -39.999950)">
+    <g transform="translate(-0.000000, -0.000000)">
+  <!-- 'invisible' rectangle (22.000000 x 80.000000):
+  <path d="m-11.0,-40.0 h22.0 v80.0 h-22.0 v-80.0 Z"/>
+  -->
+    </g>
+    <g fill="url(#tie-Gradient03)">
+  <path d="m-9.0,-40.0 h18.0 v80.0 h-18.0 v-80.0 z"/>
+    </g>
+    </g>
+    <g transform="translate(225.960988, -79.999950)">
+    <g transform="translate(-6.500000, 40.000000)">
+  <!-- 'invisible' rectangle (41.000000 x 80.000000):
+  <path d="m-20.5,-40.0 h41.0 v80.0 h-41.0 v-80.0 z"/>
+  -->
+    </g>
+    <g stroke="royalblue" fill="orange">
+  <path d="m0.0,0.0 h12.0 v80.0 h-12.0 a24.0,22.0 0.0 1 1 0.0,-44.0 Z m3.0,48.0 a12.0,12.0 0.0 1 0 0.0,22.0 Z"/>
+    </g>
+    </g>
+    </g>
+    </g>
+    <g opacity="0.2">
+    <g transform="translate(0.000000, -7.000000)">
+    <g transform="scale(1.500000, 1.500000)">
+  <image xlink:href="../images/earth_centered_w_africa.png" x="-160.000000" y="-131.500000" width="320.000000" height="263.000000"/>
+    </g>
+    </g>
+    </g>
+    <g id="tie-l-i-c-e-n-s-e-s-t-a-m-p" opacity="0.0">
+    <g transform="translate(-107.346846, 111.718750)">
+    <g transform="scale(0.102547, 0.102547)">
+    <g stroke="lavender" fill="papayawhip" stroke-width="8.000000">
+  <path d="m-119.7158203125,-95.03999999999998 h239.431640625 l17.957373046874977,95.03999999999998 l-17.957373046874977,95.03999999999998 h-239.431640625 l-17.957373046874977,-95.03999999999998 Z"/>
+    </g>
+    <g stroke="none" fill="black">
+    <text text-anchor="start" writing-mode="lr-tb" x="-119.715820" y="-52.800000">
+      <tspan x="-119.715820" y="-38.100000" direction="ltr">
+<tspan xml:space="preserve" font-family="Arial" font-size="12.0" font-style="normal" font-weight="400" text-decoration="none">Prepared by tie, v.0.10.0:</tspan>      </tspan>
+      <tspan x="-119.715820" y="-21.300000" direction="ltr">
+<tspan xml:space="preserve" font-family="Arial" font-size="12.0" font-style="normal" font-weight="400" text-decoration="none">  http://tie-illustrates-everything.com/</tspan>      </tspan>
+      <tspan x="-119.715820" y="-4.500000" direction="ltr">
+<tspan xml:space="preserve" font-family="Arial" font-size="12.0" font-style="normal" font-weight="400" text-decoration="none">rendered: 2012-06-15 19:27:12+0000</tspan>      </tspan>
+      <tspan x="-119.715820" y="12.300000" direction="ltr">
+<tspan xml:space="preserve" font-family="Arial" font-size="12.0" font-style="normal" font-weight="400" text-decoration="none">under Apache License, v.2.0 // see:</tspan>      </tspan>
+      <tspan x="-119.715820" y="29.100000" direction="ltr">
+<tspan xml:space="preserve" font-family="Arial" font-size="12.0" font-style="normal" font-weight="400" text-decoration="none">  http://tie-illustrates-everything.com/licensing</tspan>      </tspan>
+      <tspan x="-119.715820" y="50.100000" direction="ltr">
+<tspan xml:space="preserve" font-family="Arial" font-size="7.199999999999999" font-style="normal" font-weight="400" text-decoration="none">   (-162.500000, -162.500000) -+ 325.000000 x 325.000000</tspan>      </tspan>
+    </text>
+    </g>
+    </g>
+    </g>
+    </g>
+
+  <defs>
+    <linearGradient id="tie-Gradient01" gradientTransform="rotate(90.000000, 0.000000, 0.000000)" spreadMethod="pad" color-interpolation="sRGB">
+      <stop offset="0.000000%" stop-color="orange" stop-opacity="1.000000"/>
+      <stop offset="100.000000%" stop-color="royalblue" stop-opacity="1.000000"/>
+    </linearGradient>
+    <linearGradient id="tie-Gradient02" spreadMethod="pad" color-interpolation="sRGB">
+      <stop offset="0.000000%" stop-color="orange" stop-opacity="1.000000"/>
+      <stop offset="100.000000%" stop-color="royalblue" stop-opacity="1.000000"/>
+    </linearGradient>
+    <pattern id="tie-Pattern01" width="5.656854" height="5.656854" patternUnits="userSpaceOnUse">
+    <g fill="orange">
+    <g transform="translate(2.000000, 2.000000)">
+    <g transform="rotate(45.000000, 0.000000, 0.000000)">
+  <path d="m-2.0,-2.0 h4.0 v4.0 h-4.0 v-4.0 Z"/>
+    </g>
+    </g>
+    </g>
+    </pattern>
+    <clipPath id="tie-Clip01" clipPathUnits="userSpaceOnUse">
+    <g clip-rule="nonzero">
+  <path d="m-27.5,-27.5 h55.0 v55.0 h-55.0 v-55.0 Z"/>
+    </g>
+    </clipPath>
+    <radialGradient id="tie-Gradient03" spreadMethod="repeat" color-interpolation="sRGB">
+      <stop offset="15.000000%" stop-color="orange" stop-opacity="1.000000"/>
+      <stop offset="25.000000%" stop-color="royalblue" stop-opacity="1.000000"/>
+    </radialGradient>
+  </defs>
+</svg>

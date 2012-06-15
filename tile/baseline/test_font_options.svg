@@ -1,0 +1,519 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" 
+                     "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg viewBox="-410.000000 -225.000000 820.000000 450.000000" version="1.1"
+     xmlns="http://www.w3.org/2000/svg"
+     xmlns:xlink="http://www.w3.org/1999/xlink"
+     xmlns:tie="http://tie-illustrates-everything.com/xmlns/mixin/svg/1.0/"
+     tie:version="v.0.10.0">
+
+  <title>Font Options</title>
+
+    <!-- viewBox: (-410.000000, -225.000000) -+ 820.000000 x 450.000000 -->
+    <g transform="translate(-393.536183, -110.000000)">
+    <g transform="translate(393.536183, -0.000000)">
+  <!-- 'invisible' rectangle (787.072266 x 235.000000):
+  <path d="m-393.5361328125,-117.5 h787.072265625 v235.0 h-787.072265625 v-235.0 z"/>
+  -->
+    </g>
+    <g transform="translate(176.566456, -97.500050)">
+    <g transform="translate(-0.000000, 97.500050)">
+  <!-- 'invisible' rectangle (353.132813 x 195.000000):
+  <path d="m-176.56640625,-97.5 h353.1328125 v195.0 h-353.1328125 v-195.0 Z"/>
+  -->
+    </g>
+    <g transform="translate(-0.000000, -0.000000)">
+    <g transform="translate(-0.000000, 8.750050)">
+    <g transform="translate(-0.000000, -0.000000)">
+  <!-- 'invisible' rectangle (180.620117 x 17.500000):
+  <path d="m-90.31005859375,-8.75 h180.6201171875 v17.5 h-180.6201171875 v-17.5 z"/>
+  -->
+    </g>
+    <g stroke="none" fill="black">
+    <text text-anchor="start" writing-mode="lr-tb" x="-87.810059" y="-6.250000">
+      <tspan x="-87.810059" y="4.687500" direction="ltr">
+        <tspan font-family="Arial" font-size="10.0" font-style="normal" font-weight="400" text-decoration="none">
+Font(Arial,Std_Size(10.0),Plain,Normal)
+        </tspan>
+      </tspan>
+    </text>
+    </g>
+    </g>
+    <g transform="translate(-0.000000, 26.250050)">
+    <g transform="translate(-0.000000, -0.000000)">
+  <!-- 'invisible' rectangle (178.945313 x 17.500000):
+  <path d="m-89.47265625,-8.75 h178.9453125 v17.5 h-178.9453125 v-17.5 z"/>
+  -->
+    </g>
+    <g stroke="none" fill="black">
+    <text text-anchor="start" writing-mode="lr-tb" x="-86.972656" y="-6.250000">
+      <tspan x="-86.972656" y="4.687500" direction="ltr">
+        <tspan font-family="Arial" font-size="10.0" font-style="italic" font-weight="400" text-decoration="none">
+Font(Arial,Std_Size(10.0),Italic,Normal)
+        </tspan>
+      </tspan>
+    </text>
+    </g>
+    </g>
+    <g transform="translate(-0.000000, 43.750050)">
+    <g transform="translate(-0.000000, -0.000000)">
+  <!-- 'invisible' rectangle (192.851563 x 17.500000):
+  <path d="m-96.42578125,-8.75 h192.8515625 v17.5 h-192.8515625 v-17.5 z"/>
+  -->
+    </g>
+    <g stroke="none" fill="black">
+    <text text-anchor="start" writing-mode="lr-tb" x="-93.925781" y="-6.250000">
+      <tspan x="-93.925781" y="4.687500" direction="ltr">
+        <tspan font-family="Arial" font-size="10.0" font-style="oblique" font-weight="400" text-decoration="none">
+Font(Arial,Std_Size(10.0),Oblique,Normal)
+        </tspan>
+      </tspan>
+    </text>
+    </g>
+    </g>
+    </g>
+    <g transform="translate(-0.000000, 52.500000)">
+    <g transform="translate(-0.000000, 10.000050)">
+    <g transform="translate(-0.000000, -0.000000)">
+  <!-- 'invisible' rectangle (215.744141 x 20.000000):
+  <path d="m-107.8720703125,-10.0 h215.744140625 v20.0 h-215.744140625 v-20.0 Z"/>
+  -->
+    </g>
+    <g stroke="none" fill="black">
+    <text text-anchor="start" writing-mode="lr-tb" x="-105.372070" y="-7.500000">
+      <tspan x="-105.372070" y="5.625000" direction="ltr">
+        <tspan font-family="Arial" font-size="12.0" font-style="normal" font-weight="400" text-decoration="none">
+Font(Arial,Std_Size(12.0),Plain,Normal)
+        </tspan>
+      </tspan>
+    </text>
+    </g>
+    </g>
+    <g transform="translate(-0.000000, 30.000050)">
+    <g transform="translate(-0.000000, -0.000000)">
+  <!-- 'invisible' rectangle (213.734375 x 20.000000):
+  <path d="m-106.8671875,-10.0 h213.734375 v20.0 h-213.734375 v-20.0 z"/>
+  -->
+    </g>
+    <g stroke="none" fill="black">
+    <text text-anchor="start" writing-mode="lr-tb" x="-104.367188" y="-7.500000">
+      <tspan x="-104.367188" y="5.625000" direction="ltr">
+        <tspan font-family="Arial" font-size="12.0" font-style="italic" font-weight="400" text-decoration="none">
+Font(Arial,Std_Size(12.0),Italic,Normal)
+        </tspan>
+      </tspan>
+    </text>
+    </g>
+    </g>
+    <g transform="translate(-0.000000, 50.000050)">
+    <g transform="translate(-0.000000, -0.000000)">
+  <!-- 'invisible' rectangle (230.421875 x 20.000000):
+  <path d="m-115.2109375,-10.0 h230.421875 v20.0 h-230.421875 v-20.0 Z"/>
+  -->
+    </g>
+    <g stroke="none" fill="black">
+    <text text-anchor="start" writing-mode="lr-tb" x="-112.710938" y="-7.500000">
+      <tspan x="-112.710938" y="5.625000" direction="ltr">
+        <tspan font-family="Arial" font-size="12.0" font-style="oblique" font-weight="400" text-decoration="none">
+Font(Arial,Std_Size(12.0),Oblique,Normal)
+        </tspan>
+      </tspan>
+    </text>
+    </g>
+    </g>
+    </g>
+    <g transform="translate(-0.000000, 112.500000)">
+    <g transform="translate(-0.000000, 13.750050)">
+    <g transform="translate(-0.000000, -0.000000)">
+  <!-- 'invisible' rectangle (321.116211 x 27.500000):
+  <path d="m-160.55810546875,-13.75 h321.1162109375 v27.5 h-321.1162109375 v-27.5 Z"/>
+  -->
+    </g>
+    <g stroke="none" fill="black">
+    <text text-anchor="start" writing-mode="lr-tb" x="-158.058105" y="-11.250000">
+      <tspan x="-158.058105" y="8.437500" direction="ltr">
+        <tspan font-family="Arial" font-size="18.0" font-style="normal" font-weight="400" text-decoration="none">
+Font(Arial,Std_Size(18.0),Plain,Normal)
+        </tspan>
+      </tspan>
+    </text>
+    </g>
+    </g>
+    <g transform="translate(-0.000000, 41.250050)">
+    <g transform="translate(-0.000000, -0.000000)">
+  <!-- 'invisible' rectangle (318.101563 x 27.500000):
+  <path d="m-159.05078125,-13.75 h318.1015625 v27.5 h-318.1015625 v-27.5 Z"/>
+  -->
+    </g>
+    <g stroke="none" fill="black">
+    <text text-anchor="start" writing-mode="lr-tb" x="-156.550781" y="-11.250000">
+      <tspan x="-156.550781" y="8.437500" direction="ltr">
+        <tspan font-family="Arial" font-size="18.0" font-style="italic" font-weight="400" text-decoration="none">
+Font(Arial,Std_Size(18.0),Italic,Normal)
+        </tspan>
+      </tspan>
+    </text>
+    </g>
+    </g>
+    <g transform="translate(-0.000000, 68.750050)">
+    <g transform="translate(-0.000000, -0.000000)">
+  <!-- 'invisible' rectangle (343.132813 x 27.500000):
+  <path d="m-171.56640625,-13.75 h343.1328125 v27.5 h-343.1328125 v-27.5 Z"/>
+  -->
+    </g>
+    <g stroke="none" fill="black">
+    <text text-anchor="start" writing-mode="lr-tb" x="-169.066406" y="-11.250000">
+      <tspan x="-169.066406" y="8.437500" direction="ltr">
+        <tspan font-family="Arial" font-size="18.0" font-style="oblique" font-weight="400" text-decoration="none">
+Font(Arial,Std_Size(18.0),Oblique,Normal)
+        </tspan>
+      </tspan>
+    </text>
+    </g>
+    </g>
+    </g>
+    </g>
+    <g transform="translate(570.102589, -97.500050)">
+    <g transform="translate(-0.000000, 97.500050)">
+  <!-- 'invisible' rectangle (433.939453 x 195.000000):
+  <path d="m-216.9697265625,-97.5 h433.939453125 v195.0 h-433.939453125 v-195.0 z"/>
+  -->
+    </g>
+    <g transform="translate(-0.000000, -0.000000)">
+    <g transform="translate(-0.000000, 13.750050)">
+    <g transform="translate(-0.000000, -0.000000)">
+  <!-- 'invisible' rectangle (423.939453 x 27.500000):
+  <path d="m-211.9697265625,-13.75 h423.939453125 v27.5 h-423.939453125 v-27.5 z"/>
+  -->
+    </g>
+    <g stroke="none" fill="black">
+    <text text-anchor="start" writing-mode="lr-tb" x="-209.469727" y="-11.250000">
+      <tspan x="-209.469727" y="8.437500" direction="ltr">
+        <tspan font-family="Times New Roman" font-size="18.0" font-style="oblique" font-weight="400" text-decoration="none">
+Font(Times New Roman,Std_Size(18.0),Oblique,Normal)
+        </tspan>
+      </tspan>
+    </text>
+    </g>
+    </g>
+    <g transform="translate(-0.000000, 41.250050)">
+    <g transform="translate(-0.000000, -0.000000)">
+  <!-- 'invisible' rectangle (402.924805 x 27.500000):
+  <path d="m-201.46240234375,-13.75 h402.9248046875 v27.5 h-402.9248046875 v-27.5 z"/>
+  -->
+    </g>
+    <g stroke="none" fill="black">
+    <text text-anchor="start" writing-mode="lr-tb" x="-198.962402" y="-11.250000">
+      <tspan x="-198.962402" y="8.437500" direction="ltr">
+        <tspan font-family="Times New Roman" font-size="18.0" font-style="italic" font-weight="400" text-decoration="none">
+Font(Times New Roman,Std_Size(18.0),Italic,Normal)
+        </tspan>
+      </tspan>
+    </text>
+    </g>
+    </g>
+    <g transform="translate(-0.000000, 68.750050)">
+    <g transform="translate(-0.000000, -0.000000)">
+  <!-- 'invisible' rectangle (402.951172 x 27.500000):
+  <path d="m-201.4755859375,-13.75 h402.951171875 v27.5 h-402.951171875 v-27.5 z"/>
+  -->
+    </g>
+    <g stroke="none" fill="black">
+    <text text-anchor="start" writing-mode="lr-tb" x="-198.975586" y="-11.250000">
+      <tspan x="-198.975586" y="8.437500" direction="ltr">
+        <tspan font-family="Times New Roman" font-size="18.0" font-style="normal" font-weight="400" text-decoration="none">
+Font(Times New Roman,Std_Size(18.0),Plain,Normal)
+        </tspan>
+      </tspan>
+    </text>
+    </g>
+    </g>
+    </g>
+    <g transform="translate(-0.000000, 82.500000)">
+    <g transform="translate(-0.000000, 10.000050)">
+    <g transform="translate(-0.000000, -0.000000)">
+  <!-- 'invisible' rectangle (284.292969 x 20.000000):
+  <path d="m-142.146484375,-10.0 h284.29296875 v20.0 h-284.29296875 v-20.0 z"/>
+  -->
+    </g>
+    <g stroke="none" fill="black">
+    <text text-anchor="start" writing-mode="lr-tb" x="-139.646484" y="-7.500000">
+      <tspan x="-139.646484" y="5.625000" direction="ltr">
+        <tspan font-family="Times New Roman" font-size="12.0" font-style="oblique" font-weight="400" text-decoration="none">
+Font(Times New Roman,Std_Size(12.0),Oblique,Normal)
+        </tspan>
+      </tspan>
+    </text>
+    </g>
+    </g>
+    <g transform="translate(-0.000000, 30.000050)">
+    <g transform="translate(-0.000000, -0.000000)">
+  <!-- 'invisible' rectangle (270.283203 x 20.000000):
+  <path d="m-135.1416015625,-10.0 h270.283203125 v20.0 h-270.283203125 v-20.0 Z"/>
+  -->
+    </g>
+    <g stroke="none" fill="black">
+    <text text-anchor="start" writing-mode="lr-tb" x="-132.641602" y="-7.500000">
+      <tspan x="-132.641602" y="5.625000" direction="ltr">
+        <tspan font-family="Times New Roman" font-size="12.0" font-style="italic" font-weight="400" text-decoration="none">
+Font(Times New Roman,Std_Size(12.0),Italic,Normal)
+        </tspan>
+      </tspan>
+    </text>
+    </g>
+    </g>
+    <g transform="translate(-0.000000, 50.000050)">
+    <g transform="translate(-0.000000, -0.000000)">
+  <!-- 'invisible' rectangle (270.300781 x 20.000000):
+  <path d="m-135.150390625,-10.0 h270.30078125 v20.0 h-270.30078125 v-20.0 z"/>
+  -->
+    </g>
+    <g stroke="none" fill="black">
+    <text text-anchor="start" writing-mode="lr-tb" x="-132.650391" y="-7.500000">
+      <tspan x="-132.650391" y="5.625000" direction="ltr">
+        <tspan font-family="Times New Roman" font-size="12.0" font-style="normal" font-weight="400" text-decoration="none">
+Font(Times New Roman,Std_Size(12.0),Plain,Normal)
+        </tspan>
+      </tspan>
+    </text>
+    </g>
+    </g>
+    </g>
+    <g transform="translate(-0.000000, 142.500000)">
+    <g transform="translate(-0.000000, 8.750050)">
+    <g transform="translate(-0.000000, -0.000000)">
+  <!-- 'invisible' rectangle (237.744141 x 17.500000):
+  <path d="m-118.8720703125,-8.75 h237.744140625 v17.5 h-237.744140625 v-17.5 z"/>
+  -->
+    </g>
+    <g stroke="none" fill="black">
+    <text text-anchor="start" writing-mode="lr-tb" x="-116.372070" y="-6.250000">
+      <tspan x="-116.372070" y="4.687500" direction="ltr">
+        <tspan font-family="Times New Roman" font-size="10.0" font-style="oblique" font-weight="400" text-decoration="none">
+Font(Times New Roman,Std_Size(10.0),Oblique,Normal)
+        </tspan>
+      </tspan>
+    </text>
+    </g>
+    </g>
+    <g transform="translate(-0.000000, 26.250050)">
+    <g transform="translate(-0.000000, -0.000000)">
+  <!-- 'invisible' rectangle (226.069336 x 17.500000):
+  <path d="m-113.03466796875,-8.75 h226.0693359375 v17.5 h-226.0693359375 v-17.5 Z"/>
+  -->
+    </g>
+    <g stroke="none" fill="black">
+    <text text-anchor="start" writing-mode="lr-tb" x="-110.534668" y="-6.250000">
+      <tspan x="-110.534668" y="4.687500" direction="ltr">
+        <tspan font-family="Times New Roman" font-size="10.0" font-style="italic" font-weight="400" text-decoration="none">
+Font(Times New Roman,Std_Size(10.0),Italic,Normal)
+        </tspan>
+      </tspan>
+    </text>
+    </g>
+    </g>
+    <g transform="translate(-0.000000, 43.750050)">
+    <g transform="translate(-0.000000, -0.000000)">
+  <!-- 'invisible' rectangle (226.083984 x 17.500000):
+  <path d="m-113.0419921875,-8.75 h226.083984375 v17.5 h-226.083984375 v-17.5 z"/>
+  -->
+    </g>
+    <g stroke="none" fill="black">
+    <text text-anchor="start" writing-mode="lr-tb" x="-110.541992" y="-6.250000">
+      <tspan x="-110.541992" y="4.687500" direction="ltr">
+        <tspan font-family="Times New Roman" font-size="10.0" font-style="normal" font-weight="400" text-decoration="none">
+Font(Times New Roman,Std_Size(10.0),Plain,Normal)
+        </tspan>
+      </tspan>
+    </text>
+    </g>
+    </g>
+    </g>
+    </g>
+    <g transform="translate(393.536183, 137.499950)">
+    <g transform="translate(0.000000, 90.000050)">
+  <!-- 'invisible' rectangle (295.800000 x 220.000000):
+  <path d="m-147.8999999999999,-110.0 h295.7999999999998 v220.0 h-295.7999999999998 v-220.0 Z"/>
+  -->
+    </g>
+    <g transform="translate(-0.000000, -0.000000)">
+    <g transform="translate(-0.000000, 10.000050)">
+    <g transform="translate(-0.000000, -0.000000)">
+  <!-- 'invisible' rectangle (260.840000 x 20.000000):
+  <path d="m-130.4199999999999,-10.0 h260.8399999999998 v20.0 h-260.8399999999998 v-20.0 Z"/>
+  -->
+    </g>
+    <g stroke="none" fill="black">
+    <text text-anchor="start" writing-mode="lr-tb" x="-127.920000" y="-7.500000">
+      <tspan x="-127.920000" y="5.625000" direction="ltr">
+        <tspan font-family="Arial" font-size="12.0" font-style="normal" font-weight="100" text-decoration="none">
+Font(Arial,Std_Size(12.0),Plain,Lightest)
+        </tspan>
+      </tspan>
+    </text>
+    </g>
+    </g>
+    <g transform="translate(-0.000000, 30.000050)">
+    <g transform="translate(-0.000000, -0.000000)">
+  <!-- 'invisible' rectangle (242.120000 x 20.000000):
+  <path d="m-121.05999999999992,-10.0 h242.11999999999983 v20.0 h-242.11999999999983 v-20.0 z"/>
+  -->
+    </g>
+    <g stroke="none" fill="black">
+    <text text-anchor="start" writing-mode="lr-tb" x="-118.560000" y="-7.500000">
+      <tspan x="-118.560000" y="5.625000" direction="ltr">
+        <tspan font-family="Arial" font-size="12.0" font-style="normal" font-weight="200" text-decoration="none">
+Font(Arial,Std_Size(12.0),Plain,Light)
+        </tspan>
+      </tspan>
+    </text>
+    </g>
+    </g>
+    <g transform="translate(-0.000000, 50.000050)">
+    <g transform="translate(-0.000000, -0.000000)">
+  <!-- 'invisible' rectangle (285.800000 x 20.000000):
+  <path d="m-142.8999999999999,-10.0 h285.7999999999998 v20.0 h-285.7999999999998 v-20.0 Z"/>
+  -->
+    </g>
+    <g stroke="none" fill="black">
+    <text text-anchor="start" writing-mode="lr-tb" x="-140.400000" y="-7.500000">
+      <tspan x="-140.400000" y="5.625000" direction="ltr">
+        <tspan font-family="Arial" font-size="12.0" font-style="normal" font-weight="300" text-decoration="none">
+Font(Arial,Std_Size(12.0),Plain,Little_Light)
+        </tspan>
+      </tspan>
+    </text>
+    </g>
+    </g>
+    </g>
+    <g transform="translate(-0.000000, 60.000000)">
+    <g transform="translate(-0.000000, 10.000050)">
+    <g transform="translate(-0.000000, -0.000000)">
+  <!-- 'invisible' rectangle (215.744141 x 20.000000):
+  <path d="m-107.8720703125,-10.0 h215.744140625 v20.0 h-215.744140625 v-20.0 Z"/>
+  -->
+    </g>
+    <g stroke="none" fill="black">
+    <text text-anchor="start" writing-mode="lr-tb" x="-105.372070" y="-7.500000">
+      <tspan x="-105.372070" y="5.625000" direction="ltr">
+        <tspan font-family="Arial" font-size="12.0" font-style="normal" font-weight="400" text-decoration="none">
+Font(Arial,Std_Size(12.0),Plain,Normal)
+        </tspan>
+      </tspan>
+    </text>
+    </g>
+    </g>
+    <g transform="translate(-0.000000, 30.000050)">
+    <g transform="translate(-0.000000, -0.000000)">
+  <!-- 'invisible' rectangle (279.560000 x 20.000000):
+  <path d="m-139.7799999999999,-10.0 h279.5599999999998 v20.0 h-279.5599999999998 v-20.0 Z"/>
+  -->
+    </g>
+    <g stroke="none" fill="black">
+    <text text-anchor="start" writing-mode="lr-tb" x="-137.280000" y="-7.500000">
+      <tspan x="-137.280000" y="5.625000" direction="ltr">
+        <tspan font-family="Arial" font-size="12.0" font-style="normal" font-weight="500" text-decoration="none">
+Font(Arial,Std_Size(12.0),Plain,Little_Bold)
+        </tspan>
+      </tspan>
+    </text>
+    </g>
+    </g>
+    <g transform="translate(-0.000000, 50.000050)">
+    <g transform="translate(-0.000000, -0.000000)">
+  <!-- 'invisible' rectangle (279.560000 x 20.000000):
+  <path d="m-139.7799999999999,-10.0 h279.5599999999998 v20.0 h-279.5599999999998 v-20.0 z"/>
+  -->
+    </g>
+    <g stroke="none" fill="black">
+    <text text-anchor="start" writing-mode="lr-tb" x="-137.280000" y="-7.500000">
+      <tspan x="-137.280000" y="5.625000" direction="ltr">
+        <tspan font-family="Arial" font-size="12.0" font-style="normal" font-weight="600" text-decoration="none">
+Font(Arial,Std_Size(12.0),Plain,Nearly_Bold)
+        </tspan>
+      </tspan>
+    </text>
+    </g>
+    </g>
+    </g>
+    <g transform="translate(-0.000000, 120.000000)">
+    <g transform="translate(-0.000000, 10.000050)">
+    <g transform="translate(-0.000000, -0.000000)">
+  <!-- 'invisible' rectangle (212.357422 x 20.000000):
+  <path d="m-106.1787109375,-10.0 h212.357421875 v20.0 h-212.357421875 v-20.0 Z"/>
+  -->
+    </g>
+    <g stroke="none" fill="black">
+    <text text-anchor="start" writing-mode="lr-tb" x="-103.678711" y="-7.500000">
+      <tspan x="-103.678711" y="5.625000" direction="ltr">
+        <tspan font-family="Arial" font-size="12.0" font-style="normal" font-weight="700" text-decoration="none">
+Font(Arial,Std_Size(12.0),Plain,Bold)
+        </tspan>
+      </tspan>
+    </text>
+    </g>
+    </g>
+    <g transform="translate(-0.000000, 30.000050)">
+    <g transform="translate(-0.000000, -0.000000)">
+  <!-- 'invisible' rectangle (248.360000 x 20.000000):
+  <path d="m-124.17999999999992,-10.0 h248.35999999999984 v20.0 h-248.35999999999984 v-20.0 z"/>
+  -->
+    </g>
+    <g stroke="none" fill="black">
+    <text text-anchor="start" writing-mode="lr-tb" x="-121.680000" y="-7.500000">
+      <tspan x="-121.680000" y="5.625000" direction="ltr">
+        <tspan font-family="Arial" font-size="12.0" font-style="normal" font-weight="800" text-decoration="none">
+Font(Arial,Std_Size(12.0),Plain,Bolder)
+        </tspan>
+      </tspan>
+    </text>
+    </g>
+    </g>
+    <g transform="translate(-0.000000, 50.000050)">
+    <g transform="translate(-0.000000, -0.000000)">
+  <!-- 'invisible' rectangle (254.600000 x 20.000000):
+  <path d="m-127.29999999999993,-10.0 h254.59999999999985 v20.0 h-254.59999999999985 v-20.0 Z"/>
+  -->
+    </g>
+    <g stroke="none" fill="black">
+    <text text-anchor="start" writing-mode="lr-tb" x="-124.800000" y="-7.500000">
+      <tspan x="-124.800000" y="5.625000" direction="ltr">
+        <tspan font-family="Arial" font-size="12.0" font-style="normal" font-weight="900" text-decoration="none">
+Font(Arial,Std_Size(12.0),Plain,Boldest)
+        </tspan>
+      </tspan>
+    </text>
+    </g>
+    </g>
+    </g>
+    </g>
+    </g>
+    <g id="tie-l-i-c-e-n-s-e-s-t-a-m-p" opacity="0.0">
+    <g transform="translate(-302.239222, 125.781250)">
+    <g transform="scale(0.200361, 0.200361)">
+    <g stroke="lavender" fill="papayawhip" stroke-width="8.000000">
+  <path d="m-119.7158203125,-95.03999999999998 h239.431640625 l17.957373046874977,95.03999999999998 l-17.957373046874977,95.03999999999998 h-239.431640625 l-17.957373046874977,-95.03999999999998 Z"/>
+    </g>
+    <g stroke="none" fill="black">
+    <text text-anchor="start" writing-mode="lr-tb" x="-119.715820" y="-52.800000">
+      <tspan x="-119.715820" y="-38.100000" direction="ltr">
+<tspan xml:space="preserve" font-family="Arial" font-size="12.0" font-style="normal" font-weight="400" text-decoration="none">Prepared by tie, v.0.10.0:</tspan>      </tspan>
+      <tspan x="-119.715820" y="-21.300000" direction="ltr">
+<tspan xml:space="preserve" font-family="Arial" font-size="12.0" font-style="normal" font-weight="400" text-decoration="none">  http://tie-illustrates-everything.com/</tspan>      </tspan>
+      <tspan x="-119.715820" y="-4.500000" direction="ltr">
+<tspan xml:space="preserve" font-family="Arial" font-size="12.0" font-style="normal" font-weight="400" text-decoration="none">rendered: 2012-06-15 19:27:11+0000</tspan>      </tspan>
+      <tspan x="-119.715820" y="12.300000" direction="ltr">
+<tspan xml:space="preserve" font-family="Arial" font-size="12.0" font-style="normal" font-weight="400" text-decoration="none">under Apache License, v.2.0 // see:</tspan>      </tspan>
+      <tspan x="-119.715820" y="29.100000" direction="ltr">
+<tspan xml:space="preserve" font-family="Arial" font-size="12.0" font-style="normal" font-weight="400" text-decoration="none">  http://tie-illustrates-everything.com/licensing</tspan>      </tspan>
+      <tspan x="-119.715820" y="50.100000" direction="ltr">
+<tspan xml:space="preserve" font-family="Arial" font-size="7.199999999999999" font-style="normal" font-weight="400" text-decoration="none">   (-410.000000, -225.000000) -+ 820.000000 x 450.000000</tspan>      </tspan>
+    </text>
+    </g>
+    </g>
+    </g>
+    </g>
+
+  <defs>
+  </defs>
+</svg>

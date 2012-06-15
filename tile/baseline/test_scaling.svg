@@ -1,0 +1,973 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" 
+                     "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg viewBox="0.000000 0.000000 1280.000000 500.000000" version="1.1"
+     xmlns="http://www.w3.org/2000/svg"
+     xmlns:xlink="http://www.w3.org/1999/xlink"
+     xmlns:tie="http://tie-illustrates-everything.com/xmlns/mixin/svg/1.0/"
+     tie:version="v.0.10.0">
+
+  <title>Scaling to Bounding Box</title>
+
+    <!-- viewBox: (0.000000, 0.000000) -+ 1280.000000 x 500.000000 -->
+    <g transform="translate(80.000000, 50.000000)">
+    <g stroke="black" fill="none" stroke-width="2.000000">
+  <path d="m-35.0,0.0 a35.0,25.0 0.0 1 1 70.0,0.0 a35.0,25.0 0.0 1 1 -70.0,0.0 Z"/>
+    </g>
+    <g stroke="red" fill="none" stroke-width="0.800000" stroke-dasharray="10.0 10.0" stroke-dashoffset="0.000000">
+  <path d="m-50.0,-40.0 h100.0 v80.0 h-100.0 v-80.0 z"/>
+    </g>
+    <g transform="translate(130.800000, 0.000000)">
+    <g stroke="gray" fill="none" stroke-width="0.400000">
+    <g transform="rotate(90.000000, 0.000000, 0.000000)">
+  <path d="m0.0,-25.0 l17.5,50.0 h-35.0 Z"/>
+    </g>
+    <g transform="translate(-40.000000, -8.000000)">
+  <path d="m-15.0,0.0 h30.0"/>
+    </g>
+    <g transform="translate(-40.000000, 8.000000)">
+  <path d="m-15.0,0.0 h30.0"/>
+    </g>
+    </g>
+    </g>
+    <g transform="translate(227.000000, 0.000000)">
+    <g transform="scale(1.000000, 1.000000)">
+    <g stroke="black" fill="none" stroke-width="2.000000">
+  <path d="m-35.0,0.0 a35.0,25.0 0.0 1 1 70.0,0.0 a35.0,25.0 0.0 1 1 -70.0,0.0 z"/>
+    </g>
+    <g stroke="gray" fill="none" stroke-width="0.400000">
+    <g transform="rotate(45.000000, 0.000000, 0.000000)">
+  <path d="m-5.0,0.0 h10.0"/>
+    </g>
+    <g transform="rotate(-45.000000, 0.000000, 0.000000)">
+  <path d="m-5.0,0.0 h10.0"/>
+    </g>
+    </g>
+    </g>
+    <g transform="translate(0.000000, 50.400000)">
+    <g fill="black">
+    <text text-anchor="start" writing-mode="lr-tb" x="-29.680664" y="-7.500000">
+      <tspan x="-29.680664" y="5.625000" direction="ltr">
+        <tspan font-family="Arial" font-size="12.0" font-style="normal" font-weight="700" text-decoration="none">
+orig. scale
+        </tspan>
+      </tspan>
+    </text>
+    </g>
+    </g>
+    </g>
+    <g transform="translate(333.400000, 0.000000)">
+    <g transform="scale(1.388889, 1.388889)">
+    <g stroke="black" fill="none" stroke-width="2.000000">
+  <path d="m-35.0,0.0 a35.0,25.0 0.0 1 1 70.0,0.0 a35.0,25.0 0.0 1 1 -70.0,0.0 Z"/>
+    </g>
+    <g stroke="gray" fill="none" stroke-width="0.400000">
+    <g transform="rotate(45.000000, 0.000000, 0.000000)">
+  <path d="m-5.0,0.0 h10.0"/>
+    </g>
+    <g transform="rotate(-45.000000, 0.000000, 0.000000)">
+  <path d="m-5.0,0.0 h10.0"/>
+    </g>
+    </g>
+    </g>
+    <g stroke="red" fill="none" stroke-width="0.800000" stroke-dasharray="10.0 10.0" stroke-dashoffset="0.000000">
+  <path d="m-50.0,-40.0 h100.0 v80.0 h-100.0 v-80.0 z"/>
+    </g>
+    <g transform="translate(0.000000, 50.400000)">
+    <g fill="black">
+    <text text-anchor="start" writing-mode="lr-tb" x="-22.344727" y="-7.500000">
+      <tspan x="-22.344727" y="5.625000" direction="ltr">
+        <tspan font-family="Arial" font-size="12.0" font-style="normal" font-weight="700" text-decoration="none">
+scale to
+        </tspan>
+      </tspan>
+    </text>
+    </g>
+    </g>
+    </g>
+    <g transform="translate(454.200000, 0.000000)">
+    <g transform="scale(1.388889, 1.538462)">
+    <g stroke="black" fill="none" stroke-width="2.000000">
+  <path d="m-35.0,0.0 a35.0,25.0 0.0 1 1 70.0,0.0 a35.0,25.0 0.0 1 1 -70.0,0.0 Z"/>
+    </g>
+    <g stroke="gray" fill="none" stroke-width="0.400000">
+    <g transform="rotate(45.000000, 0.000000, 0.000000)">
+  <path d="m-5.0,0.0 h10.0"/>
+    </g>
+    <g transform="rotate(-45.000000, 0.000000, 0.000000)">
+  <path d="m-5.0,0.0 h10.0"/>
+    </g>
+    </g>
+    </g>
+    <g stroke="red" fill="none" stroke-width="0.800000" stroke-dasharray="10.0 10.0" stroke-dashoffset="0.000000">
+  <path d="m-50.0,-40.0 h100.0 v80.0 h-100.0 v-80.0 z"/>
+    </g>
+    <g transform="translate(0.000000, 50.400000)">
+    <g fill="black">
+    <text text-anchor="start" writing-mode="lr-tb" x="-43.353516" y="-7.500000">
+      <tspan x="-43.353516" y="5.625000" direction="ltr">
+        <tspan font-family="Arial" font-size="12.0" font-style="normal" font-weight="700" text-decoration="none">
+scale to (asym)
+        </tspan>
+      </tspan>
+    </text>
+    </g>
+    </g>
+    </g>
+    <g transform="translate(575.000000, 0.000000)">
+    <g transform="scale(1.000000, 1.000000)">
+    <g stroke="black" fill="none" stroke-width="2.000000">
+  <path d="m-35.0,0.0 a35.0,25.0 0.0 1 1 70.0,0.0 a35.0,25.0 0.0 1 1 -70.0,0.0 Z"/>
+    </g>
+    <g stroke="gray" fill="none" stroke-width="0.400000">
+    <g transform="rotate(45.000000, 0.000000, 0.000000)">
+  <path d="m-5.0,0.0 h10.0"/>
+    </g>
+    <g transform="rotate(-45.000000, 0.000000, 0.000000)">
+  <path d="m-5.0,0.0 h10.0"/>
+    </g>
+    </g>
+    </g>
+    <g stroke="red" fill="none" stroke-width="0.800000" stroke-dasharray="10.0 10.0" stroke-dashoffset="0.000000">
+  <path d="m-50.0,-40.0 h100.0 v80.0 h-100.0 v-80.0 z"/>
+    </g>
+    <g transform="translate(0.000000, 50.400000)">
+    <g fill="black">
+    <text text-anchor="start" writing-mode="lr-tb" x="-40.690430" y="-7.500000">
+      <tspan x="-40.690430" y="5.625000" direction="ltr">
+        <tspan font-family="Arial" font-size="12.0" font-style="normal" font-weight="700" text-decoration="none">
+scale to *max*
+        </tspan>
+      </tspan>
+    </text>
+    </g>
+    </g>
+    </g>
+    <g transform="translate(695.800000, 0.000000)">
+    <g transform="scale(1.000000, 1.000000)">
+    <g stroke="black" fill="none" stroke-width="2.000000">
+  <path d="m-35.0,0.0 a35.0,25.0 0.0 1 1 70.0,0.0 a35.0,25.0 0.0 1 1 -70.0,0.0 z"/>
+    </g>
+    <g stroke="gray" fill="none" stroke-width="0.400000">
+    <g transform="rotate(45.000000, 0.000000, 0.000000)">
+  <path d="m-5.0,0.0 h10.0"/>
+    </g>
+    <g transform="rotate(-45.000000, 0.000000, 0.000000)">
+  <path d="m-5.0,0.0 h10.0"/>
+    </g>
+    </g>
+    </g>
+    <g stroke="red" fill="none" stroke-width="0.800000" stroke-dasharray="10.0 10.0" stroke-dashoffset="0.000000">
+  <path d="m-50.0,-40.0 h100.0 v80.0 h-100.0 v-80.0 Z"/>
+    </g>
+    <g transform="translate(0.000000, 50.400000)">
+    <g fill="black">
+    <text text-anchor="start" writing-mode="lr-tb" x="-61.699219" y="-7.500000">
+      <tspan x="-61.699219" y="5.625000" direction="ltr">
+        <tspan font-family="Arial" font-size="12.0" font-style="normal" font-weight="700" text-decoration="none">
+scale to *max* (asym)
+        </tspan>
+      </tspan>
+    </text>
+    </g>
+    </g>
+    </g>
+    <g transform="translate(821.584615, 0.000000)">
+    <g transform="scale(1.538462, 1.538462)">
+    <g stroke="black" fill="none" stroke-width="2.000000">
+  <path d="m-35.0,0.0 a35.0,25.0 0.0 1 1 70.0,0.0 a35.0,25.0 0.0 1 1 -70.0,0.0 Z"/>
+    </g>
+    <g stroke="gray" fill="none" stroke-width="0.400000">
+    <g transform="rotate(45.000000, 0.000000, 0.000000)">
+  <path d="m-5.0,0.0 h10.0"/>
+    </g>
+    <g transform="rotate(-45.000000, 0.000000, 0.000000)">
+  <path d="m-5.0,0.0 h10.0"/>
+    </g>
+    </g>
+    </g>
+    <g stroke="red" fill="none" stroke-width="0.800000" stroke-dasharray="10.0 10.0" stroke-dashoffset="0.000000">
+  <path d="m-50.0,-40.0 h100.0 v80.0 h-100.0 v-80.0 Z"/>
+    </g>
+    <g transform="translate(0.000000, 50.400000)">
+    <g fill="black">
+    <text text-anchor="start" writing-mode="lr-tb" x="-39.348633" y="-7.500000">
+      <tspan x="-39.348633" y="5.625000" direction="ltr">
+        <tspan font-family="Arial" font-size="12.0" font-style="normal" font-weight="700" text-decoration="none">
+scale to *min*
+        </tspan>
+      </tspan>
+    </text>
+    </g>
+    </g>
+    </g>
+    <g transform="translate(947.369231, 0.000000)">
+    <g transform="scale(1.388889, 1.538462)">
+    <g stroke="black" fill="none" stroke-width="2.000000">
+  <path d="m-35.0,0.0 a35.0,25.0 0.0 1 1 70.0,0.0 a35.0,25.0 0.0 1 1 -70.0,0.0 z"/>
+    </g>
+    <g stroke="gray" fill="none" stroke-width="0.400000">
+    <g transform="rotate(45.000000, 0.000000, 0.000000)">
+  <path d="m-5.0,0.0 h10.0"/>
+    </g>
+    <g transform="rotate(-45.000000, 0.000000, 0.000000)">
+  <path d="m-5.0,0.0 h10.0"/>
+    </g>
+    </g>
+    </g>
+    <g stroke="red" fill="none" stroke-width="0.800000" stroke-dasharray="10.0 10.0" stroke-dashoffset="0.000000">
+  <path d="m-50.0,-40.0 h100.0 v80.0 h-100.0 v-80.0 z"/>
+    </g>
+    <g transform="translate(0.000000, 50.400000)">
+    <g fill="black">
+    <text text-anchor="start" writing-mode="lr-tb" x="-60.357422" y="-7.500000">
+      <tspan x="-60.357422" y="5.625000" direction="ltr">
+        <tspan font-family="Arial" font-size="12.0" font-style="normal" font-weight="700" text-decoration="none">
+scale to *min* (asym)
+        </tspan>
+      </tspan>
+    </text>
+    </g>
+    </g>
+    </g>
+    </g>
+    <g transform="translate(80.000000, 180.000000)">
+    <g stroke="black" fill="none" stroke-width="2.000000">
+  <path d="m20.0,-25.0 v50.0 h-40.0 Z"/>
+    </g>
+    <g stroke="red" fill="none" stroke-width="0.800000" stroke-dasharray="10.0 10.0" stroke-dashoffset="0.000000">
+  <path d="m-50.0,-40.0 h100.0 v80.0 h-100.0 v-80.0 Z"/>
+    </g>
+    <g transform="translate(130.800000, 0.000000)">
+    <g stroke="gray" fill="none" stroke-width="0.400000">
+    <g transform="rotate(90.000000, 0.000000, 0.000000)">
+  <path d="m0.0,-25.0 l17.5,50.0 h-35.0 z"/>
+    </g>
+    <g transform="translate(-40.000000, -8.000000)">
+  <path d="m-15.0,0.0 h30.0"/>
+    </g>
+    <g transform="translate(-40.000000, 8.000000)">
+  <path d="m-15.0,0.0 h30.0"/>
+    </g>
+    </g>
+    </g>
+    <g transform="translate(212.000000, 0.000000)">
+    <g transform="scale(1.000000, 1.000000)">
+    <g stroke="black" fill="none" stroke-width="2.000000">
+  <path d="m20.0,-25.0 v50.0 h-40.0 z"/>
+    </g>
+    <g stroke="gray" fill="none" stroke-width="0.400000">
+    <g transform="rotate(45.000000, 0.000000, 0.000000)">
+  <path d="m-5.0,0.0 h10.0"/>
+    </g>
+    <g transform="rotate(-45.000000, 0.000000, 0.000000)">
+  <path d="m-5.0,0.0 h10.0"/>
+    </g>
+    </g>
+    </g>
+    <g transform="translate(0.000000, 71.904762)">
+    <g fill="black">
+    <text text-anchor="start" writing-mode="lr-tb" x="-29.680664" y="-7.500000">
+      <tspan x="-29.680664" y="5.625000" direction="ltr">
+        <tspan font-family="Arial" font-size="12.0" font-style="normal" font-weight="700" text-decoration="none">
+orig. scale
+        </tspan>
+      </tspan>
+    </text>
+    </g>
+    </g>
+    </g>
+    <g transform="translate(303.400000, 0.000000)">
+    <g transform="scale(1.538462, 1.538462)">
+    <g stroke="black" fill="none" stroke-width="2.000000">
+  <path d="m20.0,-25.0 v50.0 h-40.0 z"/>
+    </g>
+    <g stroke="gray" fill="none" stroke-width="0.400000">
+    <g transform="rotate(45.000000, 0.000000, 0.000000)">
+  <path d="m-5.0,0.0 h10.0"/>
+    </g>
+    <g transform="rotate(-45.000000, 0.000000, 0.000000)">
+  <path d="m-5.0,0.0 h10.0"/>
+    </g>
+    </g>
+    </g>
+    <g stroke="red" fill="none" stroke-width="0.800000" stroke-dasharray="10.0 10.0" stroke-dashoffset="0.000000">
+  <path d="m-50.0,-40.0 h100.0 v80.0 h-100.0 v-80.0 Z"/>
+    </g>
+    <g transform="translate(0.000000, 71.904762)">
+    <g fill="black">
+    <text text-anchor="start" writing-mode="lr-tb" x="-22.344727" y="-7.500000">
+      <tspan x="-22.344727" y="5.625000" direction="ltr">
+        <tspan font-family="Arial" font-size="12.0" font-style="normal" font-weight="700" text-decoration="none">
+scale to
+        </tspan>
+      </tspan>
+    </text>
+    </g>
+    </g>
+    </g>
+    <g transform="translate(424.200000, 0.000000)">
+    <g transform="scale(2.380952, 1.538462)">
+    <g stroke="black" fill="none" stroke-width="2.000000">
+  <path d="m20.0,-25.0 v50.0 h-40.0 z"/>
+    </g>
+    <g stroke="gray" fill="none" stroke-width="0.400000">
+    <g transform="rotate(45.000000, 0.000000, 0.000000)">
+  <path d="m-5.0,0.0 h10.0"/>
+    </g>
+    <g transform="rotate(-45.000000, 0.000000, 0.000000)">
+  <path d="m-5.0,0.0 h10.0"/>
+    </g>
+    </g>
+    </g>
+    <g stroke="red" fill="none" stroke-width="0.800000" stroke-dasharray="10.0 10.0" stroke-dashoffset="0.000000">
+  <path d="m-50.0,-40.0 h100.0 v80.0 h-100.0 v-80.0 z"/>
+    </g>
+    <g transform="translate(0.000000, 71.904762)">
+    <g fill="black">
+    <text text-anchor="start" writing-mode="lr-tb" x="-43.353516" y="-7.500000">
+      <tspan x="-43.353516" y="5.625000" direction="ltr">
+        <tspan font-family="Arial" font-size="12.0" font-style="normal" font-weight="700" text-decoration="none">
+scale to (asym)
+        </tspan>
+      </tspan>
+    </text>
+    </g>
+    </g>
+    </g>
+    <g transform="translate(545.000000, 0.000000)">
+    <g transform="scale(1.000000, 1.000000)">
+    <g stroke="black" fill="none" stroke-width="2.000000">
+  <path d="m20.0,-25.0 v50.0 h-40.0 Z"/>
+    </g>
+    <g stroke="gray" fill="none" stroke-width="0.400000">
+    <g transform="rotate(45.000000, 0.000000, 0.000000)">
+  <path d="m-5.0,0.0 h10.0"/>
+    </g>
+    <g transform="rotate(-45.000000, 0.000000, 0.000000)">
+  <path d="m-5.0,0.0 h10.0"/>
+    </g>
+    </g>
+    </g>
+    <g stroke="red" fill="none" stroke-width="0.800000" stroke-dasharray="10.0 10.0" stroke-dashoffset="0.000000">
+  <path d="m-50.0,-40.0 h100.0 v80.0 h-100.0 v-80.0 z"/>
+    </g>
+    <g transform="translate(0.000000, 71.904762)">
+    <g fill="black">
+    <text text-anchor="start" writing-mode="lr-tb" x="-40.690430" y="-7.500000">
+      <tspan x="-40.690430" y="5.625000" direction="ltr">
+        <tspan font-family="Arial" font-size="12.0" font-style="normal" font-weight="700" text-decoration="none">
+scale to *max*
+        </tspan>
+      </tspan>
+    </text>
+    </g>
+    </g>
+    </g>
+    <g transform="translate(665.800000, 0.000000)">
+    <g transform="scale(1.000000, 1.000000)">
+    <g stroke="black" fill="none" stroke-width="2.000000">
+  <path d="m20.0,-25.0 v50.0 h-40.0 z"/>
+    </g>
+    <g stroke="gray" fill="none" stroke-width="0.400000">
+    <g transform="rotate(45.000000, 0.000000, 0.000000)">
+  <path d="m-5.0,0.0 h10.0"/>
+    </g>
+    <g transform="rotate(-45.000000, 0.000000, 0.000000)">
+  <path d="m-5.0,0.0 h10.0"/>
+    </g>
+    </g>
+    </g>
+    <g stroke="red" fill="none" stroke-width="0.800000" stroke-dasharray="10.0 10.0" stroke-dashoffset="0.000000">
+  <path d="m-50.0,-40.0 h100.0 v80.0 h-100.0 v-80.0 z"/>
+    </g>
+    <g transform="translate(0.000000, 71.904762)">
+    <g fill="black">
+    <text text-anchor="start" writing-mode="lr-tb" x="-61.699219" y="-7.500000">
+      <tspan x="-61.699219" y="5.625000" direction="ltr">
+        <tspan font-family="Arial" font-size="12.0" font-style="normal" font-weight="700" text-decoration="none">
+scale to *max* (asym)
+        </tspan>
+      </tspan>
+    </text>
+    </g>
+    </g>
+    </g>
+    <g transform="translate(786.600000, 0.000000)">
+    <g transform="scale(2.380952, 2.380952)">
+    <g stroke="black" fill="none" stroke-width="2.000000">
+  <path d="m20.0,-25.0 v50.0 h-40.0 z"/>
+    </g>
+    <g stroke="gray" fill="none" stroke-width="0.400000">
+    <g transform="rotate(45.000000, 0.000000, 0.000000)">
+  <path d="m-5.0,0.0 h10.0"/>
+    </g>
+    <g transform="rotate(-45.000000, 0.000000, 0.000000)">
+  <path d="m-5.0,0.0 h10.0"/>
+    </g>
+    </g>
+    </g>
+    <g stroke="red" fill="none" stroke-width="0.800000" stroke-dasharray="10.0 10.0" stroke-dashoffset="0.000000">
+  <path d="m-50.0,-40.0 h100.0 v80.0 h-100.0 v-80.0 Z"/>
+    </g>
+    <g transform="translate(0.000000, 71.904762)">
+    <g fill="black">
+    <text text-anchor="start" writing-mode="lr-tb" x="-39.348633" y="-7.500000">
+      <tspan x="-39.348633" y="5.625000" direction="ltr">
+        <tspan font-family="Arial" font-size="12.0" font-style="normal" font-weight="700" text-decoration="none">
+scale to *min*
+        </tspan>
+      </tspan>
+    </text>
+    </g>
+    </g>
+    </g>
+    <g transform="translate(907.400000, 0.000000)">
+    <g transform="scale(2.380952, 1.538462)">
+    <g stroke="black" fill="none" stroke-width="2.000000">
+  <path d="m20.0,-25.0 v50.0 h-40.0 z"/>
+    </g>
+    <g stroke="gray" fill="none" stroke-width="0.400000">
+    <g transform="rotate(45.000000, 0.000000, 0.000000)">
+  <path d="m-5.0,0.0 h10.0"/>
+    </g>
+    <g transform="rotate(-45.000000, 0.000000, 0.000000)">
+  <path d="m-5.0,0.0 h10.0"/>
+    </g>
+    </g>
+    </g>
+    <g stroke="red" fill="none" stroke-width="0.800000" stroke-dasharray="10.0 10.0" stroke-dashoffset="0.000000">
+  <path d="m-50.0,-40.0 h100.0 v80.0 h-100.0 v-80.0 Z"/>
+    </g>
+    <g transform="translate(0.000000, 71.904762)">
+    <g fill="black">
+    <text text-anchor="start" writing-mode="lr-tb" x="-60.357422" y="-7.500000">
+      <tspan x="-60.357422" y="5.625000" direction="ltr">
+        <tspan font-family="Arial" font-size="12.0" font-style="normal" font-weight="700" text-decoration="none">
+scale to *min* (asym)
+        </tspan>
+      </tspan>
+    </text>
+    </g>
+    </g>
+    </g>
+    </g>
+    <g transform="translate(80.000000, 330.000000)">
+    <g stroke="black" fill="none" stroke-width="2.000000">
+    <g transform="scale(2.250000, 2.250000)">
+  <path d="m-12.5,-25.0 h25.0 l12.5,12.5 v25.0 l-12.5,12.5 h-25.0 l-12.5,-12.5 v-25.0 z"/>
+    </g>
+    </g>
+    <g stroke="red" fill="none" stroke-width="0.800000" stroke-dasharray="10.0 10.0" stroke-dashoffset="0.000000">
+  <path d="m-50.0,-40.0 h100.0 v80.0 h-100.0 v-80.0 Z"/>
+    </g>
+    <g transform="translate(144.500000, 0.000000)">
+    <g stroke="gray" fill="none" stroke-width="0.400000">
+    <g transform="rotate(90.000000, 0.000000, 0.000000)">
+  <path d="m0.0,-25.0 l17.5,50.0 h-35.0 Z"/>
+    </g>
+    <g transform="translate(-40.000000, -8.000000)">
+  <path d="m-15.0,0.0 h30.0"/>
+    </g>
+    <g transform="translate(-40.000000, 8.000000)">
+  <path d="m-15.0,0.0 h30.0"/>
+    </g>
+    </g>
+    </g>
+    <g transform="translate(261.950000, 0.000000)">
+    <g transform="scale(1.000000, 1.000000)">
+    <g stroke="black" fill="none" stroke-width="2.000000">
+    <g transform="scale(2.250000, 2.250000)">
+  <path d="m-12.5,-25.0 h25.0 l12.5,12.5 v25.0 l-12.5,12.5 h-25.0 l-12.5,-12.5 v-25.0 z"/>
+    </g>
+    </g>
+    <g stroke="gray" fill="none" stroke-width="0.400000">
+    <g transform="rotate(45.000000, 0.000000, 0.000000)">
+  <path d="m-5.0,0.0 h10.0"/>
+    </g>
+    <g transform="rotate(-45.000000, 0.000000, 0.000000)">
+  <path d="m-5.0,0.0 h10.0"/>
+    </g>
+    </g>
+    </g>
+    <g transform="translate(0.000000, 67.250000)">
+    <g fill="black">
+    <text text-anchor="start" writing-mode="lr-tb" x="-29.680664" y="-7.500000">
+      <tspan x="-29.680664" y="5.625000" direction="ltr">
+        <tspan font-family="Arial" font-size="12.0" font-style="normal" font-weight="700" text-decoration="none">
+orig. scale
+        </tspan>
+      </tspan>
+    </text>
+    </g>
+    </g>
+    </g>
+    <g transform="translate(389.600000, 0.000000)">
+    <g transform="scale(0.698690, 0.698690)">
+    <g stroke="black" fill="none" stroke-width="2.000000">
+    <g transform="scale(2.250000, 2.250000)">
+  <path d="m-12.5,-25.0 h25.0 l12.5,12.5 v25.0 l-12.5,12.5 h-25.0 l-12.5,-12.5 v-25.0 z"/>
+    </g>
+    </g>
+    <g stroke="gray" fill="none" stroke-width="0.400000">
+    <g transform="rotate(45.000000, 0.000000, 0.000000)">
+  <path d="m-5.0,0.0 h10.0"/>
+    </g>
+    <g transform="rotate(-45.000000, 0.000000, 0.000000)">
+  <path d="m-5.0,0.0 h10.0"/>
+    </g>
+    </g>
+    </g>
+    <g stroke="red" fill="none" stroke-width="0.800000" stroke-dasharray="10.0 10.0" stroke-dashoffset="0.000000">
+  <path d="m-50.0,-40.0 h100.0 v80.0 h-100.0 v-80.0 z"/>
+    </g>
+    <g transform="translate(0.000000, 67.250000)">
+    <g fill="black">
+    <text text-anchor="start" writing-mode="lr-tb" x="-22.344727" y="-7.500000">
+      <tspan x="-22.344727" y="5.625000" direction="ltr">
+        <tspan font-family="Arial" font-size="12.0" font-style="normal" font-weight="700" text-decoration="none">
+scale to
+        </tspan>
+      </tspan>
+    </text>
+    </g>
+    </g>
+    </g>
+    <g transform="translate(510.400000, 0.000000)">
+    <g transform="scale(0.873362, 0.698690)">
+    <g stroke="black" fill="none" stroke-width="2.000000">
+    <g transform="scale(2.250000, 2.250000)">
+  <path d="m-12.5,-25.0 h25.0 l12.5,12.5 v25.0 l-12.5,12.5 h-25.0 l-12.5,-12.5 v-25.0 z"/>
+    </g>
+    </g>
+    <g stroke="gray" fill="none" stroke-width="0.400000">
+    <g transform="rotate(45.000000, 0.000000, 0.000000)">
+  <path d="m-5.0,0.0 h10.0"/>
+    </g>
+    <g transform="rotate(-45.000000, 0.000000, 0.000000)">
+  <path d="m-5.0,0.0 h10.0"/>
+    </g>
+    </g>
+    </g>
+    <g stroke="red" fill="none" stroke-width="0.800000" stroke-dasharray="10.0 10.0" stroke-dashoffset="0.000000">
+  <path d="m-50.0,-40.0 h100.0 v80.0 h-100.0 v-80.0 Z"/>
+    </g>
+    <g transform="translate(0.000000, 67.250000)">
+    <g fill="black">
+    <text text-anchor="start" writing-mode="lr-tb" x="-43.353516" y="-7.500000">
+      <tspan x="-43.353516" y="5.625000" direction="ltr">
+        <tspan font-family="Arial" font-size="12.0" font-style="normal" font-weight="700" text-decoration="none">
+scale to (asym)
+        </tspan>
+      </tspan>
+    </text>
+    </g>
+    </g>
+    </g>
+    <g transform="translate(631.200000, 0.000000)">
+    <g transform="scale(0.698690, 0.698690)">
+    <g stroke="black" fill="none" stroke-width="2.000000">
+    <g transform="scale(2.250000, 2.250000)">
+  <path d="m-12.5,-25.0 h25.0 l12.5,12.5 v25.0 l-12.5,12.5 h-25.0 l-12.5,-12.5 v-25.0 Z"/>
+    </g>
+    </g>
+    <g stroke="gray" fill="none" stroke-width="0.400000">
+    <g transform="rotate(45.000000, 0.000000, 0.000000)">
+  <path d="m-5.0,0.0 h10.0"/>
+    </g>
+    <g transform="rotate(-45.000000, 0.000000, 0.000000)">
+  <path d="m-5.0,0.0 h10.0"/>
+    </g>
+    </g>
+    </g>
+    <g stroke="red" fill="none" stroke-width="0.800000" stroke-dasharray="10.0 10.0" stroke-dashoffset="0.000000">
+  <path d="m-50.0,-40.0 h100.0 v80.0 h-100.0 v-80.0 z"/>
+    </g>
+    <g transform="translate(0.000000, 67.250000)">
+    <g fill="black">
+    <text text-anchor="start" writing-mode="lr-tb" x="-40.690430" y="-7.500000">
+      <tspan x="-40.690430" y="5.625000" direction="ltr">
+        <tspan font-family="Arial" font-size="12.0" font-style="normal" font-weight="700" text-decoration="none">
+scale to *max*
+        </tspan>
+      </tspan>
+    </text>
+    </g>
+    </g>
+    </g>
+    <g transform="translate(752.000000, 0.000000)">
+    <g transform="scale(0.873362, 0.698690)">
+    <g stroke="black" fill="none" stroke-width="2.000000">
+    <g transform="scale(2.250000, 2.250000)">
+  <path d="m-12.5,-25.0 h25.0 l12.5,12.5 v25.0 l-12.5,12.5 h-25.0 l-12.5,-12.5 v-25.0 z"/>
+    </g>
+    </g>
+    <g stroke="gray" fill="none" stroke-width="0.400000">
+    <g transform="rotate(45.000000, 0.000000, 0.000000)">
+  <path d="m-5.0,0.0 h10.0"/>
+    </g>
+    <g transform="rotate(-45.000000, 0.000000, 0.000000)">
+  <path d="m-5.0,0.0 h10.0"/>
+    </g>
+    </g>
+    </g>
+    <g stroke="red" fill="none" stroke-width="0.800000" stroke-dasharray="10.0 10.0" stroke-dashoffset="0.000000">
+  <path d="m-50.0,-40.0 h100.0 v80.0 h-100.0 v-80.0 z"/>
+    </g>
+    <g transform="translate(0.000000, 67.250000)">
+    <g fill="black">
+    <text text-anchor="start" writing-mode="lr-tb" x="-61.699219" y="-7.500000">
+      <tspan x="-61.699219" y="5.625000" direction="ltr">
+        <tspan font-family="Arial" font-size="12.0" font-style="normal" font-weight="700" text-decoration="none">
+scale to *max* (asym)
+        </tspan>
+      </tspan>
+    </text>
+    </g>
+    </g>
+    </g>
+    <g transform="translate(879.650000, 0.000000)">
+    <g transform="scale(1.000000, 1.000000)">
+    <g stroke="black" fill="none" stroke-width="2.000000">
+    <g transform="scale(2.250000, 2.250000)">
+  <path d="m-12.5,-25.0 h25.0 l12.5,12.5 v25.0 l-12.5,12.5 h-25.0 l-12.5,-12.5 v-25.0 Z"/>
+    </g>
+    </g>
+    <g stroke="gray" fill="none" stroke-width="0.400000">
+    <g transform="rotate(45.000000, 0.000000, 0.000000)">
+  <path d="m-5.0,0.0 h10.0"/>
+    </g>
+    <g transform="rotate(-45.000000, 0.000000, 0.000000)">
+  <path d="m-5.0,0.0 h10.0"/>
+    </g>
+    </g>
+    </g>
+    <g stroke="red" fill="none" stroke-width="0.800000" stroke-dasharray="10.0 10.0" stroke-dashoffset="0.000000">
+  <path d="m-50.0,-40.0 h100.0 v80.0 h-100.0 v-80.0 Z"/>
+    </g>
+    <g transform="translate(0.000000, 67.250000)">
+    <g fill="black">
+    <text text-anchor="start" writing-mode="lr-tb" x="-39.348633" y="-7.500000">
+      <tspan x="-39.348633" y="5.625000" direction="ltr">
+        <tspan font-family="Arial" font-size="12.0" font-style="normal" font-weight="700" text-decoration="none">
+scale to *min*
+        </tspan>
+      </tspan>
+    </text>
+    </g>
+    </g>
+    </g>
+    <g transform="translate(1014.150000, 0.000000)">
+    <g transform="scale(1.000000, 1.000000)">
+    <g stroke="black" fill="none" stroke-width="2.000000">
+    <g transform="scale(2.250000, 2.250000)">
+  <path d="m-12.5,-25.0 h25.0 l12.5,12.5 v25.0 l-12.5,12.5 h-25.0 l-12.5,-12.5 v-25.0 z"/>
+    </g>
+    </g>
+    <g stroke="gray" fill="none" stroke-width="0.400000">
+    <g transform="rotate(45.000000, 0.000000, 0.000000)">
+  <path d="m-5.0,0.0 h10.0"/>
+    </g>
+    <g transform="rotate(-45.000000, 0.000000, 0.000000)">
+  <path d="m-5.0,0.0 h10.0"/>
+    </g>
+    </g>
+    </g>
+    <g stroke="red" fill="none" stroke-width="0.800000" stroke-dasharray="10.0 10.0" stroke-dashoffset="0.000000">
+  <path d="m-50.0,-40.0 h100.0 v80.0 h-100.0 v-80.0 Z"/>
+    </g>
+    <g transform="translate(0.000000, 67.250000)">
+    <g fill="black">
+    <text text-anchor="start" writing-mode="lr-tb" x="-60.357422" y="-7.500000">
+      <tspan x="-60.357422" y="5.625000" direction="ltr">
+        <tspan font-family="Arial" font-size="12.0" font-style="normal" font-weight="700" text-decoration="none">
+scale to *min* (asym)
+        </tspan>
+      </tspan>
+    </text>
+    </g>
+    </g>
+    </g>
+    </g>
+    <g transform="translate(80.000000, 460.000000)">
+    <g stroke="black" fill="none" stroke-width="2.000000">
+    <g transform="scale(2.400000, 1.200000)">
+    <g transform="rotate(90.000000, 0.000000, 0.000000)">
+  <path d="m-15.0,-25.0 h30.0 l10.0,25.0 l-10.0,25.0 h-30.0 l-10.0,-25.0 Z"/>
+    </g>
+    </g>
+    </g>
+    <g stroke="red" fill="none" stroke-width="0.800000" stroke-dasharray="10.0 10.0" stroke-dashoffset="0.000000">
+  <path d="m-50.0,-40.0 h100.0 v80.0 h-100.0 v-80.0 z"/>
+    </g>
+    <g transform="translate(152.000000, 0.000000)">
+    <g stroke="gray" fill="none" stroke-width="0.400000">
+    <g transform="rotate(90.000000, 0.000000, 0.000000)">
+  <path d="m0.0,-25.0 l17.5,50.0 h-35.0 Z"/>
+    </g>
+    <g transform="translate(-40.000000, -8.000000)">
+  <path d="m-15.0,0.0 h30.0"/>
+    </g>
+    <g transform="translate(-40.000000, 8.000000)">
+  <path d="m-15.0,0.0 h30.0"/>
+    </g>
+    </g>
+    </g>
+    <g transform="translate(273.200000, 0.000000)">
+    <g transform="scale(1.000000, 1.000000)">
+    <g stroke="black" fill="none" stroke-width="2.000000">
+    <g transform="scale(2.400000, 1.200000)">
+    <g transform="rotate(90.000000, 0.000000, 0.000000)">
+  <path d="m-15.0,-25.0 h30.0 l10.0,25.0 l-10.0,25.0 h-30.0 l-10.0,-25.0 Z"/>
+    </g>
+    </g>
+    </g>
+    <g stroke="gray" fill="none" stroke-width="0.400000">
+    <g transform="rotate(45.000000, 0.000000, 0.000000)">
+  <path d="m-5.0,0.0 h10.0"/>
+    </g>
+    <g transform="rotate(-45.000000, 0.000000, 0.000000)">
+  <path d="m-5.0,0.0 h10.0"/>
+    </g>
+    </g>
+    </g>
+    <g transform="translate(0.000000, 50.400000)">
+    <g fill="black">
+    <text text-anchor="start" writing-mode="lr-tb" x="-29.680664" y="-7.500000">
+      <tspan x="-29.680664" y="5.625000" direction="ltr">
+        <tspan font-family="Arial" font-size="12.0" font-style="normal" font-weight="700" text-decoration="none">
+orig. scale
+        </tspan>
+      </tspan>
+    </text>
+    </g>
+    </g>
+    </g>
+    <g transform="translate(404.600000, 0.000000)">
+    <g transform="scale(0.819672, 0.819672)">
+    <g stroke="black" fill="none" stroke-width="2.000000">
+    <g transform="scale(2.400000, 1.200000)">
+    <g transform="rotate(90.000000, 0.000000, 0.000000)">
+  <path d="m-15.0,-25.0 h30.0 l10.0,25.0 l-10.0,25.0 h-30.0 l-10.0,-25.0 z"/>
+    </g>
+    </g>
+    </g>
+    <g stroke="gray" fill="none" stroke-width="0.400000">
+    <g transform="rotate(45.000000, 0.000000, 0.000000)">
+  <path d="m-5.0,0.0 h10.0"/>
+    </g>
+    <g transform="rotate(-45.000000, 0.000000, 0.000000)">
+  <path d="m-5.0,0.0 h10.0"/>
+    </g>
+    </g>
+    </g>
+    <g stroke="red" fill="none" stroke-width="0.800000" stroke-dasharray="10.0 10.0" stroke-dashoffset="0.000000">
+  <path d="m-50.0,-40.0 h100.0 v80.0 h-100.0 v-80.0 Z"/>
+    </g>
+    <g transform="translate(0.000000, 50.400000)">
+    <g fill="black">
+    <text text-anchor="start" writing-mode="lr-tb" x="-22.344727" y="-7.500000">
+      <tspan x="-22.344727" y="5.625000" direction="ltr">
+        <tspan font-family="Arial" font-size="12.0" font-style="normal" font-weight="700" text-decoration="none">
+scale to
+        </tspan>
+      </tspan>
+    </text>
+    </g>
+    </g>
+    </g>
+    <g transform="translate(525.400000, 0.000000)">
+    <g transform="scale(0.819672, 1.290323)">
+    <g stroke="black" fill="none" stroke-width="2.000000">
+    <g transform="scale(2.400000, 1.200000)">
+    <g transform="rotate(90.000000, 0.000000, 0.000000)">
+  <path d="m-15.0,-25.0 h30.0 l10.0,25.0 l-10.0,25.0 h-30.0 l-10.0,-25.0 z"/>
+    </g>
+    </g>
+    </g>
+    <g stroke="gray" fill="none" stroke-width="0.400000">
+    <g transform="rotate(45.000000, 0.000000, 0.000000)">
+  <path d="m-5.0,0.0 h10.0"/>
+    </g>
+    <g transform="rotate(-45.000000, 0.000000, 0.000000)">
+  <path d="m-5.0,0.0 h10.0"/>
+    </g>
+    </g>
+    </g>
+    <g stroke="red" fill="none" stroke-width="0.800000" stroke-dasharray="10.0 10.0" stroke-dashoffset="0.000000">
+  <path d="m-50.0,-40.0 h100.0 v80.0 h-100.0 v-80.0 Z"/>
+    </g>
+    <g transform="translate(0.000000, 50.400000)">
+    <g fill="black">
+    <text text-anchor="start" writing-mode="lr-tb" x="-43.353516" y="-7.500000">
+      <tspan x="-43.353516" y="5.625000" direction="ltr">
+        <tspan font-family="Arial" font-size="12.0" font-style="normal" font-weight="700" text-decoration="none">
+scale to (asym)
+        </tspan>
+      </tspan>
+    </text>
+    </g>
+    </g>
+    </g>
+    <g transform="translate(646.200000, 0.000000)">
+    <g transform="scale(0.819672, 0.819672)">
+    <g stroke="black" fill="none" stroke-width="2.000000">
+    <g transform="scale(2.400000, 1.200000)">
+    <g transform="rotate(90.000000, 0.000000, 0.000000)">
+  <path d="m-15.0,-25.0 h30.0 l10.0,25.0 l-10.0,25.0 h-30.0 l-10.0,-25.0 Z"/>
+    </g>
+    </g>
+    </g>
+    <g stroke="gray" fill="none" stroke-width="0.400000">
+    <g transform="rotate(45.000000, 0.000000, 0.000000)">
+  <path d="m-5.0,0.0 h10.0"/>
+    </g>
+    <g transform="rotate(-45.000000, 0.000000, 0.000000)">
+  <path d="m-5.0,0.0 h10.0"/>
+    </g>
+    </g>
+    </g>
+    <g stroke="red" fill="none" stroke-width="0.800000" stroke-dasharray="10.0 10.0" stroke-dashoffset="0.000000">
+  <path d="m-50.0,-40.0 h100.0 v80.0 h-100.0 v-80.0 z"/>
+    </g>
+    <g transform="translate(0.000000, 50.400000)">
+    <g fill="black">
+    <text text-anchor="start" writing-mode="lr-tb" x="-40.690430" y="-7.500000">
+      <tspan x="-40.690430" y="5.625000" direction="ltr">
+        <tspan font-family="Arial" font-size="12.0" font-style="normal" font-weight="700" text-decoration="none">
+scale to *max*
+        </tspan>
+      </tspan>
+    </text>
+    </g>
+    </g>
+    </g>
+    <g transform="translate(767.000000, 0.000000)">
+    <g transform="scale(0.819672, 1.000000)">
+    <g stroke="black" fill="none" stroke-width="2.000000">
+    <g transform="scale(2.400000, 1.200000)">
+    <g transform="rotate(90.000000, 0.000000, 0.000000)">
+  <path d="m-15.0,-25.0 h30.0 l10.0,25.0 l-10.0,25.0 h-30.0 l-10.0,-25.0 z"/>
+    </g>
+    </g>
+    </g>
+    <g stroke="gray" fill="none" stroke-width="0.400000">
+    <g transform="rotate(45.000000, 0.000000, 0.000000)">
+  <path d="m-5.0,0.0 h10.0"/>
+    </g>
+    <g transform="rotate(-45.000000, 0.000000, 0.000000)">
+  <path d="m-5.0,0.0 h10.0"/>
+    </g>
+    </g>
+    </g>
+    <g stroke="red" fill="none" stroke-width="0.800000" stroke-dasharray="10.0 10.0" stroke-dashoffset="0.000000">
+  <path d="m-50.0,-40.0 h100.0 v80.0 h-100.0 v-80.0 Z"/>
+    </g>
+    <g transform="translate(0.000000, 50.400000)">
+    <g fill="black">
+    <text text-anchor="start" writing-mode="lr-tb" x="-61.699219" y="-7.500000">
+      <tspan x="-61.699219" y="5.625000" direction="ltr">
+        <tspan font-family="Arial" font-size="12.0" font-style="normal" font-weight="700" text-decoration="none">
+scale to *max* (asym)
+        </tspan>
+      </tspan>
+    </text>
+    </g>
+    </g>
+    </g>
+    <g transform="translate(916.109677, 0.000000)">
+    <g transform="scale(1.290323, 1.290323)">
+    <g stroke="black" fill="none" stroke-width="2.000000">
+    <g transform="scale(2.400000, 1.200000)">
+    <g transform="rotate(90.000000, 0.000000, 0.000000)">
+  <path d="m-15.0,-25.0 h30.0 l10.0,25.0 l-10.0,25.0 h-30.0 l-10.0,-25.0 Z"/>
+    </g>
+    </g>
+    </g>
+    <g stroke="gray" fill="none" stroke-width="0.400000">
+    <g transform="rotate(45.000000, 0.000000, 0.000000)">
+  <path d="m-5.0,0.0 h10.0"/>
+    </g>
+    <g transform="rotate(-45.000000, 0.000000, 0.000000)">
+  <path d="m-5.0,0.0 h10.0"/>
+    </g>
+    </g>
+    </g>
+    <g stroke="red" fill="none" stroke-width="0.800000" stroke-dasharray="10.0 10.0" stroke-dashoffset="0.000000">
+  <path d="m-50.0,-40.0 h100.0 v80.0 h-100.0 v-80.0 z"/>
+    </g>
+    <g transform="translate(0.000000, 50.400000)">
+    <g fill="black">
+    <text text-anchor="start" writing-mode="lr-tb" x="-39.348633" y="-7.500000">
+      <tspan x="-39.348633" y="5.625000" direction="ltr">
+        <tspan font-family="Arial" font-size="12.0" font-style="normal" font-weight="700" text-decoration="none">
+scale to *min*
+        </tspan>
+      </tspan>
+    </text>
+    </g>
+    </g>
+    </g>
+    <g transform="translate(1075.819355, 0.000000)">
+    <g transform="scale(1.000000, 1.290323)">
+    <g stroke="black" fill="none" stroke-width="2.000000">
+    <g transform="scale(2.400000, 1.200000)">
+    <g transform="rotate(90.000000, 0.000000, 0.000000)">
+  <path d="m-15.0,-25.0 h30.0 l10.0,25.0 l-10.0,25.0 h-30.0 l-10.0,-25.0 Z"/>
+    </g>
+    </g>
+    </g>
+    <g stroke="gray" fill="none" stroke-width="0.400000">
+    <g transform="rotate(45.000000, 0.000000, 0.000000)">
+  <path d="m-5.0,0.0 h10.0"/>
+    </g>
+    <g transform="rotate(-45.000000, 0.000000, 0.000000)">
+  <path d="m-5.0,0.0 h10.0"/>
+    </g>
+    </g>
+    </g>
+    <g stroke="red" fill="none" stroke-width="0.800000" stroke-dasharray="10.0 10.0" stroke-dashoffset="0.000000">
+  <path d="m-50.0,-40.0 h100.0 v80.0 h-100.0 v-80.0 z"/>
+    </g>
+    <g transform="translate(0.000000, 50.400000)">
+    <g fill="black">
+    <text text-anchor="start" writing-mode="lr-tb" x="-60.357422" y="-7.500000">
+      <tspan x="-60.357422" y="5.625000" direction="ltr">
+        <tspan font-family="Arial" font-size="12.0" font-style="normal" font-weight="700" text-decoration="none">
+scale to *min* (asym)
+        </tspan>
+      </tspan>
+    </text>
+    </g>
+    </g>
+    </g>
+    </g>
+    <g id="tie-l-i-c-e-n-s-e-s-t-a-m-p" opacity="0.0">
+    <g transform="translate(151.034791, 360.937500)">
+    <g transform="scale(0.280821, 0.280821)">
+    <g stroke="lavender" fill="papayawhip" stroke-width="8.000000">
+  <path d="m-119.7158203125,-95.03999999999998 h239.431640625 l17.957373046874977,95.03999999999998 l-17.957373046874977,95.03999999999998 h-239.431640625 l-17.957373046874977,-95.03999999999998 z"/>
+    </g>
+    <g stroke="none" fill="black">
+    <text text-anchor="start" writing-mode="lr-tb" x="-119.715820" y="-52.800000">
+      <tspan x="-119.715820" y="-38.100000" direction="ltr">
+<tspan xml:space="preserve" font-family="Arial" font-size="12.0" font-style="normal" font-weight="400" text-decoration="none">Prepared by tie, v.0.10.0:</tspan>      </tspan>
+      <tspan x="-119.715820" y="-21.300000" direction="ltr">
+<tspan xml:space="preserve" font-family="Arial" font-size="12.0" font-style="normal" font-weight="400" text-decoration="none">  http://tie-illustrates-everything.com/</tspan>      </tspan>
+      <tspan x="-119.715820" y="-4.500000" direction="ltr">
+<tspan xml:space="preserve" font-family="Arial" font-size="12.0" font-style="normal" font-weight="400" text-decoration="none">rendered: 2012-06-15 19:27:16+0000</tspan>      </tspan>
+      <tspan x="-119.715820" y="12.300000" direction="ltr">
+<tspan xml:space="preserve" font-family="Arial" font-size="12.0" font-style="normal" font-weight="400" text-decoration="none">under Apache License, v.2.0 // see:</tspan>      </tspan>
+      <tspan x="-119.715820" y="29.100000" direction="ltr">
+<tspan xml:space="preserve" font-family="Arial" font-size="12.0" font-style="normal" font-weight="400" text-decoration="none">  http://tie-illustrates-everything.com/licensing</tspan>      </tspan>
+      <tspan x="-119.715820" y="50.100000" direction="ltr">
+<tspan xml:space="preserve" font-family="Arial" font-size="7.199999999999999" font-style="normal" font-weight="400" text-decoration="none">   (0.000000, 0.000000) -+ 1280.000000 x 500.000000</tspan>      </tspan>
+    </text>
+    </g>
+    </g>
+    </g>
+    </g>
+
+  <defs>
+  </defs>
+</svg>
