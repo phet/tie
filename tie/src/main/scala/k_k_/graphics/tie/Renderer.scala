@@ -21,7 +21,7 @@ import java.io.{File, BufferedOutputStream, FileOutputStream, OutputStream,
 
 
 object Version {
-  val (major, minor, rev) = (0, 9, 1)
+  val (major, minor, rev) = (0, 10, 0)
 
   val (info_url, license_url, xmlns_uri) =
         ("http://tie-illustrates-everything.com/",
