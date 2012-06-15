@@ -43,7 +43,7 @@
     <g id="measured">
     <g transform="translate(200.000000, 100.000000)">
     <g stroke="black" fill="none">
-  <path d="m-40.0,0.0 a40.0,30.0 0.0 1 1 80.0,0.0 a40.0,30.0 0.0 1 1 -80.0,0.0 Z"/>
+  <path d="m-40.0,0.0 a40.0,30.0 0.0 1 1 80.0,0.0 a40.0,30.0 0.0 1 1 -80.0,0.0 z"/>
     </g>
     <g transform="translate(-20.000000, -35.000000)">
     <g stroke="brown" fill="none" stroke-width="2.000000">
@@ -89,7 +89,7 @@
     </a>
     <g transform="translate(300.000000, 100.000000)">
     <g fill="brown">
-  <path d="m-10.0,-20.0 h40.0 l-20.0,40.0 h-40.0 z"/>
+  <path d="m-10.0,-20.0 h40.0 l-20.0,40.0 h-40.0 Z"/>
     </g>
     <g transform="translate(10.000000, -25.000000)">
     <g stroke="brown" fill="none" stroke-width="2.000000">
@@ -121,7 +121,7 @@
     </g>
     </g>
     <g stroke="pink" fill="none" stroke-width="0.600000" stroke-dasharray="10.0 10.0" stroke-dashoffset="0.000000">
-  <path d="m-30.0,-20.0 h60.0 v40.0 h-60.0 v-40.0 Z"/>
+  <path d="m-30.0,-20.0 h60.0 v40.0 h-60.0 v-40.0 z"/>
     </g>
     </g>
     <g fill="url(#tie-Gradient01)">
@@ -213,13 +213,13 @@
     </g>
     </g>
     <g stroke="pink" fill="none" stroke-width="0.600000" stroke-dasharray="10.0 10.0" stroke-dashoffset="0.000000">
-  <path d="m-40.0,-40.0 h80.0 v80.0 h-80.0 v-80.0 Z"/>
+  <path d="m-40.0,-40.0 h80.0 v80.0 h-80.0 v-80.0 z"/>
     </g>
     </g>
     <g transform="translate(350.000000, 350.000000)">
     <g transform="rotate(45.000000, 0.000000, 0.000000)">
     <g fill="url(#tie-Gradient02)">
-  <path d="m-25.0,-25.0 h50.0 v50.0 h-50.0 v-50.0 Z"/>
+  <path d="m-25.0,-25.0 h50.0 v50.0 h-50.0 v-50.0 z"/>
     </g>
     <g transform="translate(0.000000, -30.000000)">
     <g stroke="brown" fill="none" stroke-width="2.000000">
@@ -246,7 +246,7 @@
     </g>
     <g stroke="pink" fill="none" stroke-width="0.600000" stroke-dasharray="10.0 10.0" stroke-dashoffset="0.000000">
     <g transform="translate(0.000000, 0.000000)">
-  <path d="m-35.35533905932738,-35.35533905932738 h70.71067811865476 v70.71067811865476 h-70.71067811865476 v-70.71067811865476 Z"/>
+  <path d="m-35.35533905932738,-35.35533905932738 h70.71067811865476 v70.71067811865476 h-70.71067811865476 v-70.71067811865476 z"/>
     </g>
     </g>
     </g>
@@ -362,7 +362,7 @@
     <g transform="translate(350.000000, 410.000000)">
     <g transform="rotate(90.000000, 0.000000, 0.000000)">
     <g fill="lightgreen">
-  <path d="m0.0,-20.0 l15.0,40.0 h-30.0 z"/>
+  <path d="m0.0,-20.0 l15.0,40.0 h-30.0 Z"/>
     </g>
     <g transform="translate(0.000000, 25.000000)">
     <g stroke="brown" fill="none" stroke-width="2.000000">
@@ -389,7 +389,7 @@
     </g>
     <g stroke="pink" fill="none" stroke-width="0.600000" stroke-dasharray="10.0 10.0" stroke-dashoffset="0.000000">
     <g transform="translate(-2.502500, -2.502500)">
-  <path d="m-23.502499999999998,-18.5025 h47.004999999999995 v37.005 h-47.004999999999995 v-37.005 Z"/>
+  <path d="m-23.502499999999998,-18.5025 h47.004999999999995 v37.005 h-47.004999999999995 v-37.005 z"/>
     </g>
     </g>
     </g>
@@ -424,7 +424,7 @@
     </g>
     <g transform="translate(400.000000, 400.000000)">
     <g fill="gold">
-  <path d="m0.0,-21.650635094610966 l25.0,43.30127018922193 h-50.0 z"/>
+  <path d="m0.0,-21.650635094610966 l25.0,43.30127018922193 h-50.0 Z"/>
     </g>
     <g transform="translate(0.000000, 27.500000)">
     <g stroke="brown" fill="none" stroke-width="2.000000">
@@ -501,7 +501,7 @@
     <g opacity="0.75">
     <g transform="rotate(180.000000, 0.000000, 0.000000)">
     <g id="home-plate" fill="purple">
-  <path d="m0.0,-27.5 l25.0,20.0 l-0.0,35.0 h-50.0 l-0.0,-35.0 z"/>
+  <path d="m0.0,-27.5 l25.0,20.0 l-0.0,35.0 h-50.0 l-0.0,-35.0 Z"/>
     </g>
     <g transform="translate(0.000000, -32.500000)">
     <g stroke="brown" fill="none" stroke-width="2.000000">
@@ -545,7 +545,7 @@
     <g transform="translate(450.000000, 300.000000)">
     <g stroke="black" fill="none" stroke-width="1.000000">
     <g transform="scale(2.000000, 0.750000)">
-  <path id="vase" d="m0.0,160.0 q-30.0,-60.0 0.0,-120.0 q10.0,-20.0 0.0,-40.0 h40.0 q-10.0,20.0 0.0,40.0 q30.0,60.0 0.0,120.0 Z"/>
+  <path id="vase" d="m0.0,160.0 q-30.0,-60.0 0.0,-120.0 q10.0,-20.0 0.0,-40.0 h40.0 q-10.0,20.0 0.0,40.0 q30.0,60.0 0.0,120.0 z"/>
     </g>
     </g>
     <g stroke="pink" fill="none" stroke-width="0.600000" stroke-dasharray="10.0 10.0" stroke-dashoffset="0.000000">
@@ -566,7 +566,7 @@
     </g>
     <g transform="translate(100.000000, 400.000000)">
     <g fill="url(#tie-Pattern01)">
-  <path d="m0.0,-20.0 l25.0,25.0 l-7.5,15.0 h-35.0 l-7.5,-15.0 z"/>
+  <path d="m0.0,-20.0 l25.0,25.0 l-7.5,15.0 h-35.0 l-7.5,-15.0 Z"/>
     </g>
     <g transform="translate(0.000000, -25.000000)">
     <g stroke="brown" fill="none" stroke-width="2.000000">
@@ -607,7 +607,7 @@
     </g>
     <g transform="translate(100.000000, 330.000000)">
     <g fill="green">
-  <path d="m-25.0,-20.0 h50.0 l10.0,40.0 h-70.0 Z"/>
+  <path d="m-25.0,-20.0 h50.0 l10.0,40.0 h-70.0 z"/>
     </g>
     <g transform="translate(0.000000, -25.000000)">
     <g stroke="brown" fill="none" stroke-width="2.000000">
@@ -748,7 +748,7 @@ testing 1, 2, 3
     <g transform="translate(605.000000, 170.000000)">
     <g transform="skewX(45.000000)">
     <g stroke="blue" fill="url(#tie-Pattern02)">
-  <path d="m-40.0,0.0 a40.0,30.0 0.0 1 1 80.0,0.0 a40.0,30.0 0.0 1 1 -80.0,0.0 Z"/>
+  <path d="m-40.0,0.0 a40.0,30.0 0.0 1 1 80.0,0.0 a40.0,30.0 0.0 1 1 -80.0,0.0 z"/>
     </g>
     <g stroke="green" fill="url(#tie-Pattern02)">
   <path d="m-40.0,-30.0 h80.0 v60.0 h-80.0 v-60.0 Z"/>
@@ -771,10 +771,10 @@ testing 1, 2, 3
     <g transform="translate(605.000000, 280.000000)">
     <g transform="skewY(45.000000)">
     <g stroke="blue" fill="url(#tie-Pattern02)">
-  <path d="m-40.0,0.0 a40.0,30.0 0.0 1 1 80.0,0.0 a40.0,30.0 0.0 1 1 -80.0,0.0 z"/>
+  <path d="m-40.0,0.0 a40.0,30.0 0.0 1 1 80.0,0.0 a40.0,30.0 0.0 1 1 -80.0,0.0 Z"/>
     </g>
     <g stroke="green" fill="url(#tie-Pattern02)">
-  <path d="m-40.0,-30.0 h80.0 v60.0 h-80.0 v-60.0 z"/>
+  <path d="m-40.0,-30.0 h80.0 v60.0 h-80.0 v-60.0 Z"/>
     </g>
     </g>
     <g stroke="pink" fill="none" stroke-width="0.600000" stroke-dasharray="10.0 10.0" stroke-dashoffset="0.000000">
@@ -794,22 +794,22 @@ testing 1, 2, 3
     <g transform="translate(590.000000, 390.000000)">
     <g transform="translate(0.000000, -3.000000)">
     <g fill="yellow">
-  <path d="m-22.5,-35.0 h45.0 v70.0 h-45.0 v-70.0 z"/>
+  <path d="m-22.5,-35.0 h45.0 v70.0 h-45.0 v-70.0 Z"/>
     </g>
     </g>
     <g transform="translate(-15.000000, -19.000000)">
     <g fill="indigo">
-  <path d="m15.0,-20.0 v40.0 h-30.0 Z"/>
+  <path d="m15.0,-20.0 v40.0 h-30.0 z"/>
     </g>
     </g>
     <g transform="translate(12.000000, 15.000000)">
     <g fill="url(#tie-Gradient04)">
-  <path d="m-20.0,0.0 a20.0,20.0 0.0 1 1 40.0,0.0 a20.0,20.0 0.0 1 1 -40.0,0.0 z"/>
+  <path d="m-20.0,0.0 a20.0,20.0 0.0 1 1 40.0,0.0 a20.0,20.0 0.0 1 1 -40.0,0.0 Z"/>
     </g>
     </g>
     <g stroke="black" fill="none">
     <g transform="scale(2.000000, 2.000000)">
-  <path d="m-5.0,1.0 a10.0,10.0 0.0 1 1 10.0,0.0 l1.0,16.0 h-12.0 l1.0,-16.0 Z"/>
+  <path d="m-5.0,1.0 a10.0,10.0 0.0 1 1 10.0,0.0 l1.0,16.0 h-12.0 l1.0,-16.0 z"/>
     </g>
     </g>
     <g stroke="gray" fill="none" stroke-width="0.400000">
@@ -825,17 +825,17 @@ testing 1, 2, 3
     <g clip-path="url(#tie-Clip01)">
     <g transform="translate(0.000000, -3.000000)">
     <g fill="yellow">
-  <path d="m-22.5,-35.0 h45.0 v70.0 h-45.0 v-70.0 z"/>
+  <path d="m-22.5,-35.0 h45.0 v70.0 h-45.0 v-70.0 Z"/>
     </g>
     </g>
     <g transform="translate(-15.000000, -19.000000)">
     <g fill="indigo">
-  <path d="m15.0,-20.0 v40.0 h-30.0 z"/>
+  <path d="m15.0,-20.0 v40.0 h-30.0 Z"/>
     </g>
     </g>
     <g transform="translate(12.000000, 15.000000)">
     <g fill="url(#tie-Gradient04)">
-  <path d="m-20.0,0.0 a20.0,20.0 0.0 1 1 40.0,0.0 a20.0,20.0 0.0 1 1 -40.0,0.0 Z"/>
+  <path d="m-20.0,0.0 a20.0,20.0 0.0 1 1 40.0,0.0 a20.0,20.0 0.0 1 1 -40.0,0.0 z"/>
     </g>
     </g>
     </g>
@@ -852,12 +852,12 @@ testing 1, 2, 3
     <g mask="url(#tie-Mask01)">
     <g transform="translate(0.000000, -3.000000)">
     <g fill="yellow">
-  <path d="m-22.5,-35.0 h45.0 v70.0 h-45.0 v-70.0 Z"/>
+  <path d="m-22.5,-35.0 h45.0 v70.0 h-45.0 v-70.0 z"/>
     </g>
     </g>
     <g transform="translate(-15.000000, -19.000000)">
     <g fill="indigo">
-  <path d="m15.0,-20.0 v40.0 h-30.0 z"/>
+  <path d="m15.0,-20.0 v40.0 h-30.0 Z"/>
     </g>
     </g>
     <g transform="translate(12.000000, 15.000000)">
@@ -879,7 +879,7 @@ testing 1, 2, 3
     <g transform="translate(102.669717, 405.468750)">
     <g transform="scale(0.190895, 0.190895)">
     <g stroke="lavender" fill="papayawhip" stroke-width="8.000000">
-  <path d="m-119.7158203125,-95.03999999999998 h239.431640625 l17.957373046874977,95.03999999999998 l-17.957373046874977,95.03999999999998 h-239.431640625 l-17.957373046874977,-95.03999999999998 Z"/>
+  <path d="m-119.7158203125,-95.03999999999998 h239.431640625 l17.957373046874977,95.03999999999998 l-17.957373046874977,95.03999999999998 h-239.431640625 l-17.957373046874977,-95.03999999999998 z"/>
     </g>
     <g stroke="none" fill="black">
     <text text-anchor="start" writing-mode="lr-tb" x="-119.715820" y="-52.800000">
@@ -888,7 +888,7 @@ testing 1, 2, 3
       <tspan x="-119.715820" y="-21.300000" direction="ltr">
 <tspan xml:space="preserve" font-family="Arial" font-size="12.0" font-style="normal" font-weight="400" text-decoration="none">  http://tie-illustrates-everything.com/</tspan>      </tspan>
       <tspan x="-119.715820" y="-4.500000" direction="ltr">
-<tspan xml:space="preserve" font-family="Arial" font-size="12.0" font-style="normal" font-weight="400" text-decoration="none">rendered: 2011-06-01 01:12:34+0000</tspan>      </tspan>
+<tspan xml:space="preserve" font-family="Arial" font-size="12.0" font-style="normal" font-weight="400" text-decoration="none">rendered: 2012-06-15 16:42:56+0000</tspan>      </tspan>
       <tspan x="-119.715820" y="12.300000" direction="ltr">
 <tspan xml:space="preserve" font-family="Arial" font-size="12.0" font-style="normal" font-weight="400" text-decoration="none">under Apache License, v.2.0 // see:</tspan>      </tspan>
       <tspan x="-119.715820" y="29.100000" direction="ltr">

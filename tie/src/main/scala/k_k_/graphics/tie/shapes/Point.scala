@@ -28,7 +28,7 @@ object Point {
     (pt.x, pt.y)
 }
 
-@serializable @SerialVersionUID(11610510158494648L)
+@SerialVersionUID(11610510158494648L)
 final case class Point(x: Double, y: Double)
     extends Transformable[Point]
        with Placeable[Point] {

@@ -82,7 +82,7 @@ hemisphere
     </g>
     <g transform="translate(0.000000, 150.000000)">
     <g stroke="black" fill="none">
-  <path d="m0.0,-25.0 l17.5,50.0 h-35.0 Z"/>
+  <path d="m0.0,-25.0 l17.5,50.0 h-35.0 z"/>
     </g>
     <g transform="translate(0.000000, 35.000000)">
     <g fill="black">
@@ -120,7 +120,7 @@ iso_triangle
     </g>
     <g transform="translate(0.000000, 250.000000)">
     <g stroke="black" fill="none">
-  <path d="m20.0,-25.0 v50.0 h-40.0 z"/>
+  <path d="m20.0,-25.0 v50.0 h-40.0 Z"/>
     </g>
     <g transform="translate(0.000000, 35.000000)">
     <g fill="black">
@@ -158,7 +158,7 @@ right_triangle
     </g>
     <g transform="translate(0.000000, 350.000000)">
     <g stroke="gray" fill="none">
-  <path d="m0.0,-25.980762113533157 l30.0,51.96152422706631 h-60.0 z"/>
+  <path d="m0.0,-25.980762113533157 l30.0,51.96152422706631 h-60.0 Z"/>
     </g>
     <g transform="translate(0.000000, 35.980762)">
     <g fill="gray">
@@ -411,7 +411,7 @@ pentagon
     </g>
     <g transform="translate(0.000000, 150.000000)">
     <g stroke="black" fill="none">
-  <path d="m-20.0,-25.0 h40.0 l15.0,25.0 l-15.0,25.0 h-40.0 l-15.0,-25.0 z"/>
+  <path d="m-20.0,-25.0 h40.0 l15.0,25.0 l-15.0,25.0 h-40.0 l-15.0,-25.0 Z"/>
     </g>
     <g transform="translate(0.000000, 35.000000)">
     <g fill="black">
@@ -508,7 +508,7 @@ octagon
     </g>
     <g transform="translate(0.000000, 350.000000)">
     <g stroke="gray" fill="none">
-  <path d="m0.0,-28.531695488854613 l30.0,21.79627584016084 l-11.458980337503153,35.26711513754839 h-37.082039324993694 l-11.458980337503153,-35.26711513754839 z"/>
+  <path d="m0.0,-28.531695488854613 l30.0,21.79627584016084 l-11.458980337503153,35.26711513754839 h-37.082039324993694 l-11.458980337503153,-35.26711513754839 Z"/>
     </g>
     <g transform="translate(0.000000, 38.531695)">
     <g fill="gray">
@@ -541,7 +541,7 @@ reg_pentagon
     <g transform="translate(350.000000, 0.000000)">
     <g transform="translate(0.000000, 50.000000)">
     <g stroke="black" fill="none">
-  <path d="m0.0,-25.0 l30.0,30.0 l-10.0,20.0 h-40.0 l-10.0,-20.0 Z"/>
+  <path d="m0.0,-25.0 l30.0,30.0 l-10.0,20.0 h-40.0 l-10.0,-20.0 z"/>
     </g>
     <g transform="translate(0.000000, 35.000000)">
     <g fill="black">
@@ -901,7 +901,7 @@ Vertical Arg 1 - (opt) shape arg 2 or 3
     </g>
     <g transform="translate(0.000000, 75.000000)">
     <g fill="red">
-  <path d="m-8.0,-8.0 h16.0 v16.0 h-16.0 v-16.0 z"/>
+  <path d="m-8.0,-8.0 h16.0 v16.0 h-16.0 v-16.0 Z"/>
     </g>
     <g transform="translate(117.026367, 0.000000)">
     <g fill="black">
@@ -921,7 +921,7 @@ Vertical Arg 2 - (opt) shape arg 3 or 4
     <g transform="translate(89.093556, 367.968750)">
     <g transform="scale(0.165653, 0.165653)">
     <g stroke="lavender" fill="papayawhip" stroke-width="8.000000">
-  <path d="m-119.7158203125,-95.03999999999998 h239.431640625 l17.957373046874977,95.03999999999998 l-17.957373046874977,95.03999999999998 h-239.431640625 l-17.957373046874977,-95.03999999999998 z"/>
+  <path d="m-119.7158203125,-95.03999999999998 h239.431640625 l17.957373046874977,95.03999999999998 l-17.957373046874977,95.03999999999998 h-239.431640625 l-17.957373046874977,-95.03999999999998 Z"/>
     </g>
     <g stroke="none" fill="black">
     <text text-anchor="start" writing-mode="lr-tb" x="-119.715820" y="-52.800000">
@@ -930,7 +930,7 @@ Vertical Arg 2 - (opt) shape arg 3 or 4
       <tspan x="-119.715820" y="-21.300000" direction="ltr">
 <tspan xml:space="preserve" font-family="Arial" font-size="12.0" font-style="normal" font-weight="400" text-decoration="none">  http://tie-illustrates-everything.com/</tspan>      </tspan>
       <tspan x="-119.715820" y="-4.500000" direction="ltr">
-<tspan xml:space="preserve" font-family="Arial" font-size="12.0" font-style="normal" font-weight="400" text-decoration="none">rendered: 2011-06-01 01:12:36+0000</tspan>      </tspan>
+<tspan xml:space="preserve" font-family="Arial" font-size="12.0" font-style="normal" font-weight="400" text-decoration="none">rendered: 2012-06-15 16:42:58+0000</tspan>      </tspan>
       <tspan x="-119.715820" y="12.300000" direction="ltr">
 <tspan xml:space="preserve" font-family="Arial" font-size="12.0" font-style="normal" font-weight="400" text-decoration="none">under Apache License, v.2.0 // see:</tspan>      </tspan>
       <tspan x="-119.715820" y="29.100000" direction="ltr">

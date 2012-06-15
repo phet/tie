@@ -21,32 +21,32 @@
     </g>
     <g transform="translate(28.571429, 0.000000)">
     <g fill="orange">
-  <path d="m-14.285714285714286,-80.0 h28.571428571428573 v160.0 h-28.571428571428573 v-160.0 Z"/>
+  <path d="m-14.285714285714286,-80.0 h28.571428571428573 v160.0 h-28.571428571428573 v-160.0 z"/>
     </g>
     </g>
     <g transform="translate(57.142857, 0.000000)">
     <g fill="yellow">
-  <path d="m-14.285714285714286,-80.0 h28.571428571428573 v160.0 h-28.571428571428573 v-160.0 z"/>
+  <path d="m-14.285714285714286,-80.0 h28.571428571428573 v160.0 h-28.571428571428573 v-160.0 Z"/>
     </g>
     </g>
     <g transform="translate(85.714286, 0.000000)">
     <g fill="green">
-  <path d="m-14.285714285714286,-80.0 h28.571428571428573 v160.0 h-28.571428571428573 v-160.0 Z"/>
+  <path d="m-14.285714285714286,-80.0 h28.571428571428573 v160.0 h-28.571428571428573 v-160.0 z"/>
     </g>
     </g>
     <g transform="translate(114.285714, 0.000000)">
     <g fill="blue">
-  <path d="m-14.285714285714286,-80.0 h28.571428571428573 v160.0 h-28.571428571428573 v-160.0 z"/>
+  <path d="m-14.285714285714286,-80.0 h28.571428571428573 v160.0 h-28.571428571428573 v-160.0 Z"/>
     </g>
     </g>
     <g transform="translate(142.857143, 0.000000)">
     <g fill="indigo">
-  <path d="m-14.285714285714286,-80.0 h28.571428571428573 v160.0 h-28.571428571428573 v-160.0 Z"/>
+  <path d="m-14.285714285714286,-80.0 h28.571428571428573 v160.0 h-28.571428571428573 v-160.0 z"/>
     </g>
     </g>
     <g transform="translate(171.428571, 0.000000)">
     <g fill="violet">
-  <path d="m-14.285714285714286,-80.0 h28.571428571428573 v160.0 h-28.571428571428573 v-160.0 Z"/>
+  <path d="m-14.285714285714286,-80.0 h28.571428571428573 v160.0 h-28.571428571428573 v-160.0 z"/>
     </g>
     </g>
     </g>
@@ -66,7 +66,7 @@ color stripes
     <g transform="translate(115.000000, 0.000000)">
     <g stroke="black" fill="none">
     <g fill="url(#tie-Gradient01)">
-  <path d="m-100.0,-80.0 h200.0 v160.0 h-200.0 v-160.0 z"/>
+  <path d="m-100.0,-80.0 h200.0 v160.0 h-200.0 v-160.0 Z"/>
     </g>
     </g>
     <g transform="translate(0.000000, 90.000000)">
@@ -111,7 +111,7 @@ additional (linear) gradients
     <g transform="translate(-148.634094, 154.687500)">
     <g transform="scale(0.141988, 0.141988)">
     <g stroke="lavender" fill="papayawhip" stroke-width="8.000000">
-  <path d="m-119.7158203125,-95.03999999999998 h239.431640625 l17.957373046874977,95.03999999999998 l-17.957373046874977,95.03999999999998 h-239.431640625 l-17.957373046874977,-95.03999999999998 z"/>
+  <path d="m-119.7158203125,-95.03999999999998 h239.431640625 l17.957373046874977,95.03999999999998 l-17.957373046874977,95.03999999999998 h-239.431640625 l-17.957373046874977,-95.03999999999998 Z"/>
     </g>
     <g stroke="none" fill="black">
     <text text-anchor="start" writing-mode="lr-tb" x="-119.715820" y="-52.800000">
@@ -120,7 +120,7 @@ additional (linear) gradients
       <tspan x="-119.715820" y="-21.300000" direction="ltr">
 <tspan xml:space="preserve" font-family="Arial" font-size="12.0" font-style="normal" font-weight="400" text-decoration="none">  http://tie-illustrates-everything.com/</tspan>      </tspan>
       <tspan x="-119.715820" y="-4.500000" direction="ltr">
-<tspan xml:space="preserve" font-family="Arial" font-size="12.0" font-style="normal" font-weight="400" text-decoration="none">rendered: 2011-06-01 01:12:36+0000</tspan>      </tspan>
+<tspan xml:space="preserve" font-family="Arial" font-size="12.0" font-style="normal" font-weight="400" text-decoration="none">rendered: 2012-06-15 16:42:58+0000</tspan>      </tspan>
       <tspan x="-119.715820" y="12.300000" direction="ltr">
 <tspan xml:space="preserve" font-family="Arial" font-size="12.0" font-style="normal" font-weight="400" text-decoration="none">under Apache License, v.2.0 // see:</tspan>      </tspan>
       <tspan x="-119.715820" y="29.100000" direction="ltr">

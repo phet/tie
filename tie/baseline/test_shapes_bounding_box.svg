@@ -27,7 +27,7 @@ line
     </g>
     </g>
     <g stroke="pink" fill="none" stroke-width="1.500000" stroke-dasharray="10.0 10.0" stroke-dashoffset="0.000000">
-  <path d="m-25.0,-0.0050 h50.0 v0.01 h-50.0 v-0.01 Z"/>
+  <path d="m-25.0,-0.0050 h50.0 v0.01 h-50.0 v-0.01 z"/>
     </g>
     <g stroke="blue" fill="none" stroke-width="0.400000">
     <g transform="rotate(45.000000, 0.000000, 0.000000)">
@@ -54,7 +54,7 @@ hemisphere
     </g>
     </g>
     <g stroke="pink" fill="none" stroke-width="1.500000" stroke-dasharray="10.0 10.0" stroke-dashoffset="0.000000">
-  <path d="m-35.0,-12.5 h70.0 v25.0 h-70.0 v-25.0 z"/>
+  <path d="m-35.0,-12.5 h70.0 v25.0 h-70.0 v-25.0 Z"/>
     </g>
     <g stroke="blue" fill="none" stroke-width="0.400000">
     <g transform="rotate(45.000000, 0.000000, 0.000000)">
@@ -67,7 +67,7 @@ hemisphere
     </g>
     <g transform="translate(0.000000, 150.000000)">
     <g stroke="black" fill="none">
-  <path d="m0.0,-25.0 l17.5,50.0 h-35.0 z"/>
+  <path d="m0.0,-25.0 l17.5,50.0 h-35.0 Z"/>
     </g>
     <g transform="translate(0.000000, 35.000000)">
     <g fill="black">
@@ -150,7 +150,7 @@ equi_triangle
     <g transform="translate(150.000000, 0.000000)">
     <g transform="translate(0.000000, 50.000000)">
     <g stroke="black" fill="none">
-  <path d="m-40.0,-25.0 h80.0 v50.0 h-80.0 v-50.0 z"/>
+  <path d="m-40.0,-25.0 h80.0 v50.0 h-80.0 v-50.0 Z"/>
     </g>
     <g transform="translate(0.000000, 35.000000)">
     <g fill="black">
@@ -177,7 +177,7 @@ rectangle
     </g>
     <g transform="translate(0.000000, 150.000000)">
     <g stroke="black" fill="none">
-  <path d="m-15.0,-25.0 h50.0 l-20.0,50.0 h-50.0 z"/>
+  <path d="m-15.0,-25.0 h50.0 l-20.0,50.0 h-50.0 Z"/>
     </g>
     <g transform="translate(0.000000, 35.000000)">
     <g fill="black">
@@ -191,7 +191,7 @@ parallelogram
     </g>
     </g>
     <g stroke="pink" fill="none" stroke-width="1.500000" stroke-dasharray="10.0 10.0" stroke-dashoffset="0.000000">
-  <path d="m-35.0,-25.0 h70.0 v50.0 h-70.0 v-50.0 Z"/>
+  <path d="m-35.0,-25.0 h70.0 v50.0 h-70.0 v-50.0 z"/>
     </g>
     <g stroke="blue" fill="none" stroke-width="0.400000">
     <g transform="rotate(45.000000, 0.000000, 0.000000)">
@@ -341,7 +341,7 @@ octagon
     </g>
     <g transform="translate(0.000000, 350.000000)">
     <g stroke="gray" fill="none">
-  <path d="m0.0,-28.531695488854613 l30.0,21.79627584016084 l-11.458980337503153,35.26711513754839 h-37.082039324993694 l-11.458980337503153,-35.26711513754839 z"/>
+  <path d="m0.0,-28.531695488854613 l30.0,21.79627584016084 l-11.458980337503153,35.26711513754839 h-37.082039324993694 l-11.458980337503153,-35.26711513754839 Z"/>
     </g>
     <g transform="translate(0.000000, 38.531695)">
     <g fill="gray">
@@ -355,7 +355,7 @@ reg_pentagon
     </g>
     </g>
     <g stroke="pink" fill="none" stroke-width="1.500000" stroke-dasharray="10.0 10.0" stroke-dashoffset="0.000000">
-  <path d="m-30.0,-28.531695488854613 h60.0 v57.063390977709226 h-60.0 v-57.063390977709226 z"/>
+  <path d="m-30.0,-28.531695488854613 h60.0 v57.063390977709226 h-60.0 v-57.063390977709226 Z"/>
     </g>
     <g stroke="blue" fill="none" stroke-width="0.400000">
     <g transform="rotate(45.000000, 0.000000, 0.000000)">
@@ -370,7 +370,7 @@ reg_pentagon
     <g transform="translate(350.000000, 0.000000)">
     <g transform="translate(0.000000, 50.000000)">
     <g stroke="black" fill="none">
-  <path d="m0.0,-25.0 l30.0,30.0 l-10.0,20.0 h-40.0 l-10.0,-20.0 Z"/>
+  <path d="m0.0,-25.0 l30.0,30.0 l-10.0,20.0 h-40.0 l-10.0,-20.0 z"/>
     </g>
     <g transform="translate(0.000000, 35.000000)">
     <g fill="black">
@@ -455,7 +455,7 @@ reg_hexagon
     <g transform="translate(450.000000, 0.000000)">
     <g transform="translate(0.000000, 50.000000)">
     <g stroke="black" fill="none">
-  <path d="m-35.0,0.0 a35.0,25.0 0.0 1 1 70.0,0.0 a35.0,25.0 0.0 1 1 -70.0,0.0 Z"/>
+  <path d="m-35.0,0.0 a35.0,25.0 0.0 1 1 70.0,0.0 a35.0,25.0 0.0 1 1 -70.0,0.0 z"/>
     </g>
     <g transform="translate(0.000000, 35.000000)">
     <g fill="black">
@@ -496,7 +496,7 @@ circle
     </g>
     </g>
     <g stroke="pink" fill="none" stroke-width="1.500000" stroke-dasharray="10.0 10.0" stroke-dashoffset="0.000000">
-  <path d="m-25.0,-25.0 h50.0 v50.0 h-50.0 v-50.0 Z"/>
+  <path d="m-25.0,-25.0 h50.0 v50.0 h-50.0 v-50.0 z"/>
     </g>
     <g stroke="blue" fill="none" stroke-width="0.400000">
     <g transform="rotate(45.000000, 0.000000, 0.000000)">
@@ -509,7 +509,7 @@ circle
     </g>
     <g transform="translate(0.000000, 350.000000)">
     <g stroke="gray" fill="none">
-  <path d="m-12.426406871192851,-30.0 h24.852813742385703 l17.573593128807147,17.573593128807147 v24.852813742385703 l-17.573593128807147,17.573593128807147 h-24.852813742385703 l-17.573593128807147,-17.573593128807147 v-24.852813742385703 Z"/>
+  <path d="m-12.426406871192851,-30.0 h24.852813742385703 l17.573593128807147,17.573593128807147 v24.852813742385703 l-17.573593128807147,17.573593128807147 h-24.852813742385703 l-17.573593128807147,-17.573593128807147 v-24.852813742385703 z"/>
     </g>
     <g transform="translate(0.000000, 40.000000)">
     <g fill="gray">
@@ -538,7 +538,7 @@ reg_octagon
     <g transform="translate(550.000000, 0.000000)">
     <g transform="translate(0.000000, 62.500000)">
     <g stroke="gray" fill="none">
-  <path d="m-17.5,0.0 a17.5,12.5 0.0 1 1 35.0,0.0 a17.5,12.5 0.0 1 1 -35.0,0.0 Z"/>
+  <path d="m-17.5,0.0 a17.5,12.5 0.0 1 1 35.0,0.0 a17.5,12.5 0.0 1 1 -35.0,0.0 z"/>
     </g>
     <g transform="translate(0.000000, 22.500000)">
     <g fill="gray">
@@ -552,7 +552,7 @@ diam_ellipse
     </g>
     </g>
     <g stroke="pink" fill="none" stroke-width="1.500000" stroke-dasharray="10.0 10.0" stroke-dashoffset="0.000000">
-  <path d="m-17.5,-12.5 h35.0 v25.0 h-35.0 v-25.0 z"/>
+  <path d="m-17.5,-12.5 h35.0 v25.0 h-35.0 v-25.0 Z"/>
     </g>
     <g stroke="blue" fill="none" stroke-width="0.400000">
     <g transform="rotate(45.000000, 0.000000, 0.000000)">
@@ -565,7 +565,7 @@ diam_ellipse
     </g>
     <g transform="translate(0.000000, 162.500000)">
     <g stroke="gray" fill="none">
-  <path d="m-12.5,0.0 a12.5,12.5 0.0 1 1 25.0,0.0 a12.5,12.5 0.0 1 1 -25.0,0.0 z"/>
+  <path d="m-12.5,0.0 a12.5,12.5 0.0 1 1 25.0,0.0 a12.5,12.5 0.0 1 1 -25.0,0.0 Z"/>
     </g>
     <g transform="translate(0.000000, 22.500000)">
     <g fill="gray">
@@ -579,7 +579,7 @@ diam_circle
     </g>
     </g>
     <g stroke="pink" fill="none" stroke-width="1.500000" stroke-dasharray="10.0 10.0" stroke-dashoffset="0.000000">
-  <path d="m-12.5,-12.5 h25.0 v25.0 h-25.0 v-25.0 z"/>
+  <path d="m-12.5,-12.5 h25.0 v25.0 h-25.0 v-25.0 Z"/>
     </g>
     <g stroke="blue" fill="none" stroke-width="0.400000">
     <g transform="rotate(45.000000, 0.000000, 0.000000)">
@@ -604,7 +604,7 @@ diam_circle
       <tspan x="-119.715820" y="-21.300000" direction="ltr">
 <tspan xml:space="preserve" font-family="Arial" font-size="12.0" font-style="normal" font-weight="400" text-decoration="none">  http://tie-illustrates-everything.com/</tspan>      </tspan>
       <tspan x="-119.715820" y="-4.500000" direction="ltr">
-<tspan xml:space="preserve" font-family="Arial" font-size="12.0" font-style="normal" font-weight="400" text-decoration="none">rendered: 2011-06-01 01:12:34+0000</tspan>      </tspan>
+<tspan xml:space="preserve" font-family="Arial" font-size="12.0" font-style="normal" font-weight="400" text-decoration="none">rendered: 2012-06-15 16:42:55+0000</tspan>      </tspan>
       <tspan x="-119.715820" y="12.300000" direction="ltr">
 <tspan xml:space="preserve" font-family="Arial" font-size="12.0" font-style="normal" font-weight="400" text-decoration="none">under Apache License, v.2.0 // see:</tspan>      </tspan>
       <tspan x="-119.715820" y="29.100000" direction="ltr">
