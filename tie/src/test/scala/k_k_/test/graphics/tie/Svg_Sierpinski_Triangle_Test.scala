@@ -40,33 +40,32 @@ class Svg_Sierpinski_Triangle_Test extends Svg_Test_Base {
 
   protected def create_canvas() = {
     val (tri_w, tri_h) = (200, 180)
-    val orig_tri: Drawing_Shape = Iso_Triangle(tri_w, tri_h)
+    val orig_tri: Shape = Iso_Triangle(tri_w, tri_h)
 
-    val noop_pen_func = (a: Drawing_Shape, iter_num: Int, tri_num: Int) => a
+    val noop_pen = (s: Shape, iter_num: Int, tri_num: Int) => s
 
-    val rand_fill_pen_func = {
+    val rand_fill_pen = {
       val rand = new Random
       def rand_int = rand.nextInt(colors.length)
       def rand_color = colors(rand_int)
 
-      (a: Drawing_Shape, iter_num: Int, tri_num: Int) =>
-        a -~ Pen.fill(rand_color)
+      (s: Shape, iter_num: Int, tri_num: Int) => s -~ Pen.fill(rand_color)
     }
 
     /*
       NOTE: the scanning fold below is equivalent to the following:
 
       iterations(0) = orig_tri
-      iterations(1) = sierpinskify(orig_tri, 1, pen_func)
-      iterations(2) = sierpinskify(iter1,    2, pen_func)
-      iterations(3) = sierpinskify(iter2,    3, pen_func)
-      iterations(4) = sierpinskify(iter3,    4, pen_func)
-      iterations(5) = sierpinskify(iter4,    5, pen_func)
-      iterations(6) = sierpinskify(iter5,    6, pen_func)
+      iterations(1) = sierpinskify(iterations(0),    1, rand_fill_pen)
+      iterations(2) = sierpinskify(iterations(1),    2, rand_fill_pen)
+      iterations(3) = sierpinskify(iterations(2),    3, rand_fill_pen)
+      iterations(4) = sierpinskify(iterations(3),    4, rand_fill_pen)
+      iterations(5) = sierpinskify(iterations(4),    5, rand_fill_pen)
+      iterations(6) = sierpinskify(iterations(5),    6, rand_fill_pen)
     */
     val iterations = ((1 to 6) scanLeft orig_tri) {
-                       sierpinskify(_, _, rand_fill_pen_func)
-                     }
+      sierpinskify(_, _, rand_fill_pen)
+    }
 
     new Canvas(Canvas_Props(700, 450, title = title),
                ((label_shape(iterations(0), "original")
@@ -87,11 +86,11 @@ class Svg_Sierpinski_Triangle_Test extends Svg_Test_Base {
 
   // 'sierpinskify' every Iso_Triangle found within, mapping each component of
   // result with `ink_func(_, iteration, n)`, for n = {0,1,2} counted TB-LR
-  def sierpinskify(s: Drawing_Shape, iteration: Int,
-                   ink_func: (Drawing_Shape, Int, Int) => Drawing_Shape):
-      Drawing_Shape = {
+  def sierpinskify(s: Shape, iteration: Int,
+                   ink_func: (Shape, Int, Int) => Shape):
+      Shape = {
 
-    def sierpinski_rewrite(iso_tri: Iso_Triangle): Drawing_Shape = {
+    def sierpinski_rewrite(iso_tri: Iso_Triangle): Shape = {
       val Iso_Triangle(base_width, height) = iso_tri
       val half_tri = Iso_Triangle(base_width/2, height/2)
       (ink_func(half_tri, iteration, 0) -+ ( 0,           -height/4)) -&
@@ -107,13 +106,13 @@ class Svg_Sierpinski_Triangle_Test extends Svg_Test_Base {
 /*
     orig. impl. (which inspired Shape_Op trait hierarchy:
 
-  def sierpinskify(s: Drawing_Shape, iteration: Int,
-                   ink_func: (Drawing_Shape, Int, Int) => Drawing_Shape):
-      Drawing_Shape = {
+  def sierpinskify(s: Shape, iteration: Int,
+                   ink_func: (Shape, Int, Int) => Shape):
+      Shape = {
 
-    def sierpinskify_shape(s: Drawing_Shape): Drawing_Shape = {
+    def sierpinskify_shape(s: Shape): Shape = {
 
-      def sierpinski_rewrite(iso_tri: Iso_Triangle): Drawing_Shape = {
+      def sierpinski_rewrite(iso_tri: Iso_Triangle): Shape = {
         val Iso_Triangle(base_width, height) = iso_tri
         val half_tri = Iso_Triangle(base_width/2, height/2)
         (ink_func(half_tri, iteration, 0) -+ ( 0,           -height/4)) -&

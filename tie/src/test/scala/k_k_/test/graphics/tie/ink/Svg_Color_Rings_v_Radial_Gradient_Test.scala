@@ -66,32 +66,30 @@ class Svg_Color_Rings_v_Radial_Gradient_Test extends Svg_Test_Base {
   }
 
   // concentric colored rings
-  def draw_color_rings(Shape: (Double, Double) => Drawing_Shape)
+  def draw_color_rings(S: (Double, Double) => Shape)
                       (w: Double, h: Double)(colors: Seq[Color]):
-      Drawing_Shape = {
+      Shape = {
     val each_ring_w = w / colors.length
     val each_ring_h = h / colors.length
-    val colored_shapes = colors.reverse.zipWithIndex.
-                           map { p => (p._1, p._2 + 1) }.
-                           map { case (color, i) =>
-                               val pen_transform: Pen => Pen =
-                                     if (i == colors.length) identity _
-                                     else                    _.stroke(Null_Ink)
-                               Shape(each_ring_w * i, each_ring_h * i) -~
-                                 pen_transform(Pen.fill(color))
-                             }
+    val colored_shapes = colors.reverse.zipWithIndex.map { p =>
+      (p._1, p._2 + 1)
+    }.map { case (color, i) =>
+      val pen_transform: Pen => Pen =
+          if (i == colors.length) identity _ else _.stroke(Null_Ink)
+      S(each_ring_w * i, each_ring_h * i) -~ pen_transform(Pen.fill(color))
+    }
     // reverse so smaller shapes over larger ones, and thereby not occluded
     (Null_Shape /: colored_shapes.reverse) ( _ -& _ )
   }
 
   // concentric radial gradient
-  def draw_gradient(Shape: (Double, Double) => Drawing_Shape)
-                   (w: Double, h: Double)(colors: Seq[Color]): Drawing_Shape = {
+  def draw_gradient(S: (Double, Double) => Shape)
+                   (w: Double, h: Double)(colors: Seq[Color]): Shape = {
     val each_stripe_offset_pct = 100.0 / (colors.length - 1)
-    val shape = Shape(w, h)
-    val color_stops = colors.reverse.zipWithIndex.
-                        map ( p => Color_Stop(p._1,
-                                              p._2 * each_stripe_offset_pct) )
+    val shape = S(w, h)
+    val color_stops = colors.reverse.zipWithIndex.map { p =>
+      Color_Stop(p._1, p._2 * each_stripe_offset_pct)
+    }
     shape -~ Pen.fill(Radial_Gradient(color_stops, Reflect_Colors))
   }
 }

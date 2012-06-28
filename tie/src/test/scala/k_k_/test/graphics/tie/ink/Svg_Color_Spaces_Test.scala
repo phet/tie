@@ -148,8 +148,7 @@ abstract class Svg_Color_Spaces_Test_Base extends Svg_Test_Base {
   }
 
 
-  def draw_rgb_hsl_cmp(color_a: Named_Color, color_b: Named_Color):
-      Drawing_Shape = {
+  def draw_rgb_hsl_cmp(color_a: Named_Color, color_b: Named_Color): Shape = {
     val (color_a_name, color_b_name) = (color_a.name, color_b.name)
 
     val color_a_swatch = swatch_ctor(swatch_w, swatch_h) -~ Pen.fill(color_a)
@@ -167,23 +166,24 @@ abstract class Svg_Color_Spaces_Test_Base extends Svg_Test_Base {
   }
 
   // horizontally aligned color swatches
-  def draw_color_swatch_row(Shape: (Double, Double) => Drawing_Shape)
+  def draw_color_swatch_row(S: (Double, Double) => Shape)
                            (row_w: Double, row_h: Double, horiz_pad: Double)
                            (colors: Seq[Color]):
-      Drawing_Shape = {
+      Shape = {
     val each_col_w = row_w / colors.length
     val each_swatch_w = each_col_w - horiz_pad
-    val swatches = colors map { Shape(each_swatch_w, row_h) -~ Pen.fill(_) }
-    val translated_swatches =
-          swatches.zipWithIndex.map ( x => x._1 -+ (x._2 * each_col_w, 0) )
+    val swatches = colors map { S(each_swatch_w, row_h) -~ Pen.fill(_) }
+    val translated_swatches = swatches.zipWithIndex.map { x =>
+      x._1 -+ (x._2 * each_col_w, 0)
+    }
     (Null_Shape /: translated_swatches) ( _ -& _ ) -+
       (-row_w/2 + each_col_w/2, 0)
   }
 
   def draw_swatch_cmp(swatch_x_colors: Seq[Color], swatch_x_label: String,
                       swatch_y_colors: Seq[Color], swatch_y_label: String,
-                      open_shape: Drawing_Shape, close_shape: Drawing_Shape):
-      Drawing_Shape = {
+                      open_shape: Shape, close_shape: Shape):
+      Shape = {
 
     val swatch_colors = draw_color_swatch_row(swatch_ctor)(row_w, row_h,
                                                            each_swatch_pad_x) _
@@ -200,9 +200,9 @@ abstract class Svg_Color_Spaces_Test_Base extends Svg_Test_Base {
   }
 
   def layout_swatch_row_cmp(row_w: Double, row_h: Double, horiz_pad: Double)
-                           (swatch_a: Drawing_Shape, swatch_b: Drawing_Shape,
-                            row_x: Drawing_Shape, row_y: Drawing_Shape):
-      Drawing_Shape = {
+                           (swatch_a: Shape, swatch_b: Shape,
+                            row_x: Shape, row_y: Shape):
+      Shape = {
     // NOTE: size of both swatches expected to be identical
     val Rectangular(swatch_w, _) = swatch_a.bounding_box
     ((swatch_a -+ (-(row_w + swatch_w + horiz_pad)/2, 0)) -&

@@ -74,7 +74,7 @@ trait Bounding_Shaped { self: Bounding_Boxed =>
 }
 
 
-sealed trait Shape_Op { self: Drawing_Shape =>
+sealed trait Shape_Op { self: Shape =>
 }
 
 
@@ -88,75 +88,73 @@ object Nullary_Shape_Op {
   //   case nop @ Nullary_Shape_Op => ...
   // or prepare for the error: pattern type is incompatible with expected type;
   // [INFO]  found   : object k_k_.graphics.tie.shapes.Nullary_Shape_Op
-  // [INFO]  required: k_k_.graphics.tie.shapes.Drawing_Shape
+  // [INFO]  required: k_k_.graphics.tie.shapes.Shape
   // [INFO]         case Nullary_Shape_Op => (None, true)
   // [INFO]              ^
   def unapply(s: Nullary_Shape_Op): Boolean =
     true
 }
 
-trait Nullary_Shape_Op extends Shape_Op { self: Drawing_Shape =>
+trait Nullary_Shape_Op extends Shape_Op { self: Shape =>
 }
 
 
 object Unary_Shape_Op {
 
-  def unapply(s: Unary_Shape_Op): Option[Drawing_Shape] =
+  def unapply(s: Unary_Shape_Op): Option[Shape] =
     Some(s.shape)
 }
 
-trait Unary_Shape_Op extends Shape_Op { self: Drawing_Shape =>
+trait Unary_Shape_Op extends Shape_Op { self: Shape =>
 
-  val shape: Drawing_Shape
+  val shape: Shape
 
   def child =
     shape
 
-  def child_=(replacement_shape: Drawing_Shape) =
+  def child_=(replacement_shape: Shape) =
     replace(replacement_shape)
 
   // NOTE: `with` included in result type for symmetry with Binary_Shape_Op;
   // does enable the ridiculous: (u_shape_op.child = shape1).child = shape2
-  def replace(replacement_shape: Drawing_Shape):
-    Drawing_Shape with Unary_Shape_Op
+  def replace(replacement_shape: Shape): Shape with Unary_Shape_Op
 }
 
 
 object Binary_Shape_Op {
 
-  def unapply(s: Binary_Shape_Op): Option[(Drawing_Shape, Drawing_Shape)] =
+  def unapply(s: Binary_Shape_Op): Option[(Shape, Shape)] =
     Some(s.left, s.right)
 }
 
-trait Binary_Shape_Op extends Shape_Op { self: Drawing_Shape =>
+trait Binary_Shape_Op extends Shape_Op { self: Shape =>
 
-  def left:  Drawing_Shape
+  def left:  Shape
 
-  def right: Drawing_Shape
+  def right: Shape
 
-  def left_=(replacement_shape: Drawing_Shape) =
+  def left_=(replacement_shape: Shape) =
     replace_left(replacement_shape)
 
-  def right_=(replacement_shape: Drawing_Shape) =
+  def right_=(replacement_shape: Shape) =
     replace_right(replacement_shape)
 
   // NOTE: `with` in result type allows for chaining in the form of:
   //   (bin_shape_op.left = shape1).right = shape2
-  def replace(replacement_left: Drawing_Shape = left,
-              replacement_right: Drawing_Shape = right):
-    Drawing_Shape with Binary_Shape_Op
+  def replace(replacement_left: Shape = left, replacement_right: Shape = right):
+    Shape with Binary_Shape_Op
 
-  def replace_left(replacement_left: Drawing_Shape) =
+  def replace_left(replacement_left: Shape) =
     replace(replacement_left, right)
 
-  def replace_right(replacement_right: Drawing_Shape) =
+  def replace_right(replacement_right: Shape) =
     replace(left, replacement_right)
 }
 
 
-trait Drawing_Shape_Traversal { self: Drawing_Shape =>
+trait Shape_Traversal { self: Shape =>
 
-  final def mapped(f: Drawing_Shape => Drawing_Shape): Drawing_Shape =
+  final def mapped(f: Shape => Shape): Shape =
     this match {
       case nshape @ Nullary_Shape_Op()    => f(nshape)
       case ushape @ Unary_Shape_Op(s)     => ushape.replace(f(s))
@@ -164,12 +162,11 @@ trait Drawing_Shape_Traversal { self: Drawing_Shape =>
     }
 
   // NOTE: distinct name precludes 'missing param type for expanded func' error
-  final def mapped_when(pf: PartialFunction[Drawing_Shape, Drawing_Shape]):
-      Drawing_Shape = {
+  final def mapped_when(pf: PartialFunction[Shape, Shape]): Shape = {
 
     val lifted_pf = pf.lift
 
-    def walk(curr_shape: Drawing_Shape): Option[Drawing_Shape] =
+    def walk(curr_shape: Shape): Option[Shape] =
       curr_shape match {
         case nshape @ Nullary_Shape_Op()    => lifted_pf(nshape)
         case ushape @ Unary_Shape_Op(s)     => walk(s).map(ushape.replace(_))
@@ -183,7 +180,7 @@ trait Drawing_Shape_Traversal { self: Drawing_Shape =>
     walk(this).getOrElse(this)
 
 // impl. which would always rebuild the entire tree
-//    def walk(curr_shape: Drawing_Shape): Drawing_Shape =
+//    def walk(curr_shape: Shape): Shape =
 //      curr_shape match {
 //        case s if pf.isDefinedAt(s)         => pf(s)
 //        case nshape @ Nullary_Shape_Op()    => nshape
@@ -193,56 +190,52 @@ trait Drawing_Shape_Traversal { self: Drawing_Shape =>
 //    walk(this)//way!
   }
 
-  final def map[T](ordering: => Seq[Drawing_Shape])
-                  (f: Drawing_Shape => T): Seq[T] =
+  final def map[T](ordering: => Seq[Shape])(f: Shape => T): Seq[T] =
     ordering map f
 
   // pre-order traversal:
-  final def map[T](f: Drawing_Shape => T): Seq[T] =
+  final def map[T](f: Shape => T): Seq[T] =
     map(pre_order)(f)
 
-  final def collect[T](ordering: => Seq[Drawing_Shape])
-                      (pf: PartialFunction[Drawing_Shape, T]): Seq[T] =
+  final def collect[T](ordering: => Seq[Shape])
+                      (pf: PartialFunction[Shape, T]): Seq[T] =
     (ordering map pf.lift) filter ( _ ne None ) map ( _.get )
 
   // pre-order traversal:
-  final def collect[T](pf: PartialFunction[Drawing_Shape, T]): Seq[T] =
+  final def collect[T](pf: PartialFunction[Shape, T]): Seq[T] =
     collect(pre_order)(pf)
 
-  final def contains(ordering: => Seq[Drawing_Shape])
-                    (elem: Drawing_Shape): Boolean =
+  final def contains(ordering: => Seq[Shape])(elem: Shape): Boolean =
     ordering contains elem
 
-  final def contains(elem: Drawing_Shape): Boolean =
+  final def contains(elem: Shape): Boolean =
     contains(pre_order)(elem)
 
 
-  final def count(ordering: => Seq[Drawing_Shape])
-                 (pred: Drawing_Shape => Boolean): Int =
+  final def count(ordering: => Seq[Shape])(pred: Shape => Boolean): Int =
     ordering count pred
 
-  final def count(pred: Drawing_Shape => Boolean): Int =
+  final def count(pred: Shape => Boolean): Int =
     count(pre_order)(pred)
 
 
-  final def exists(ordering: => Seq[Drawing_Shape])
-                  (pred: Drawing_Shape => Boolean): Boolean =
+  final def exists(ordering: => Seq[Shape])(pred: Shape => Boolean): Boolean =
     ordering exists pred
 
-  final def exists(pred: Drawing_Shape => Boolean): Boolean =
+  final def exists(pred: Shape => Boolean): Boolean =
     exists(pre_order)(pred)
 
 
-  final def find(ordering: => Seq[Drawing_Shape])
-                (pred: Drawing_Shape => Boolean): Option[Drawing_Shape] =
+  final def find(ordering: => Seq[Shape])
+                (pred: Shape => Boolean): Option[Shape] =
     ordering find pred
 
-  final def find(pred: Drawing_Shape => Boolean): Option[Drawing_Shape] =
+  final def find(pred: Shape => Boolean): Option[Shape] =
     find(pre_order)(pred)
 
 
-  final def pre_order: Seq[Drawing_Shape] = {
-    def walk_in_steps(shape: Drawing_Shape): Stream[Drawing_Shape] =
+  final def pre_order: Seq[Shape] = {
+    def walk_in_steps(shape: Shape): Stream[Shape] =
       shape match {
         case nshape @ Nullary_Shape_Op() =>
           Stream(nshape)
@@ -254,8 +247,8 @@ trait Drawing_Shape_Traversal { self: Drawing_Shape =>
     walk_in_steps(this)
   }
 
-  final def post_order: Seq[Drawing_Shape] = {
-    def walk_in_steps(shape: Drawing_Shape): Stream[Drawing_Shape] =
+  final def post_order: Seq[Shape] = {
+    def walk_in_steps(shape: Shape): Stream[Shape] =
       shape match {
         case nshape @ Nullary_Shape_Op() =>
           Stream(nshape)
@@ -375,7 +368,7 @@ trait Presentable_Shape[T <: Presentable_Shape[T]] { self: T =>
 }
 
 
-object Drawing_Shape {
+object Shape {
 
   /** calculate 'least common fit' bounding box, with center at (0, 0)
    *
@@ -383,7 +376,7 @@ object Drawing_Shape {
    *  box capable of fully containing every respective bounding box of all
    *  `shapes`, if each of their bounding box were centered at (0, 0)
    */
-  def common_fit_bounding_box(shapes: Traversable[Drawing_Shape]):
+  def common_fit_bounding_box(shapes: Traversable[Shape]):
       Ortho_Rectangle =
     Origin_Ortho_Rectangle.apply _ tupled
       ((0.0, 0.0) /: shapes) { (cf_dims, shape) =>
@@ -393,12 +386,12 @@ object Drawing_Shape {
       }
 }
 
-sealed abstract class Drawing_Shape
-    extends Transforming[Drawing_Shape]
-       with Placeable[Drawing_Shape]
-       with Presentable_Shape[Drawing_Shape]
+sealed abstract class Shape
+    extends Transforming[Shape]
+       with Placeable[Shape]
+       with Presentable_Shape[Shape]
        with Bounding_Boxed with Bounding_Shaped
-       with Drawing_Shape_Traversal { self: Shape_Op =>
+       with Shape_Traversal { self: Shape_Op =>
 
   // technically, this method with it's 'conversion' is useless; yet, it nicely
   // captures a useful invariant
@@ -425,7 +418,7 @@ sealed abstract class Drawing_Shape
   protected val Skewed_Vert  = Skewed_Vert_Shape
 
 
-  protected def create_composite_shape(other: Drawing_Shape): Drawing_Shape = {
+  protected def create_composite_shape(other: Shape): Shape = {
 
     // combo successive Invis_Rectangle`s (for padding) into singular containing
 
@@ -434,11 +427,11 @@ sealed abstract class Drawing_Shape
     // (see is_invis_rect() below)
 
     // NOTE: code here is directly informed by the usage of Invis_Rectangle in 
-    // _._._.tile.adjust.Drawing_Shape_Adjustment_Methods.pad()--namely it is
+    // _._._.tile.adjust.Shape_Adjustment_Methods.pad()--namely it is
     // neither scaled, rotated, reflected, skewed, nor inked, and is always
     // `under` in a composite
 
-    def is_invis_rect(shape: Drawing_Shape): Boolean =
+    def is_invis_rect(shape: Shape): Boolean =
       shape match {
         case Invis_Rectangle(_, _)         => true
         case Translated_Shape(inner, _, _) => is_invis_rect(inner)
@@ -462,10 +455,10 @@ sealed abstract class Drawing_Shape
         case _ => false
       }
 
-    def merge_invis_rects(r1: Drawing_Shape, r2: Drawing_Shape): Drawing_Shape =
+    def merge_invis_rects(r1: Shape, r2: Shape): Shape =
       // NOTE: crucial to combo, not each shape, but each shape's bounding_box,
       // to eliminate potential for infinite recursion, since
-      // (Drawing_Shape).combo implemented ITO this very method
+      // (Shape).combo implemented ITO this very method
       // Invis_Rectangle.cloak_rect((r1 -& r2).bounding_box.as_drawing_shape)
       Invis_Rectangle.cloak_rect((r1.bounding_box -& r2.bounding_box).
                                    as_drawing_shape)
@@ -487,23 +480,22 @@ sealed abstract class Drawing_Shape
     }
   }
 
-  protected def create_clipped_shape(clipping: Drawing_Shape, rule: Clip_Rule):
-      Drawing_Shape =
+  protected def create_clipped_shape(clipping: Shape, rule: Clip_Rule): Shape =
     clipping match {
       case Identity_Shape() => Null_Shape // Identity_Shape clips everything
       case _                => Clipped_Shape(this, clipping, rule)
     }
 
-  protected def create_masked_shape(mask: Drawing_Shape): Drawing_Shape =
+  protected def create_masked_shape(mask: Shape): Shape =
     mask match {
       case Identity_Shape() => Null_Shape // Identity_Shape masks everything
       case _                => Masked_Shape(this, mask)
     }
 
-  protected def create_inked_shape(pen: Pen): Drawing_Shape =
+  protected def create_inked_shape(pen: Pen): Shape =
     Inked_Shape(this, pen)
 
-  protected def create_effected_shape(effect: Effect): Drawing_Shape =
+  protected def create_effected_shape(effect: Effect): Shape =
     effect match {
       case Opacity_Effect(opacity) => this match {
         case Non_Opaque_Shape(shape, prev_opacity) =>
@@ -518,25 +510,24 @@ sealed abstract class Drawing_Shape
       case Filter_Effect(filter)   => Filtered_Shape(this, filter)
     }
 
-  protected def create_attributed_shape(attribution: Attribution):
-      Drawing_Shape =
+  protected def create_attributed_shape(attribution: Attribution): Shape =
     Attributed_Shape(this, attribution)
 }
 
 
-sealed abstract class True_Drawing_Shape
-    extends Drawing_Shape { self: Shape_Op =>
+sealed abstract class True_Shape
+    extends Shape { self: Shape_Op =>
 
   def as_path: Path
 }
 
 
-sealed abstract class Faux_Drawing_Shape
-    extends Drawing_Shape with Nullary_Shape_Op
+sealed abstract class Faux_Shape
+    extends Shape with Nullary_Shape_Op
 
 // for 'best' bounding shape (where shape must be necessarily 'closed')
 sealed abstract class Pre_Formulated_Shape
-    extends True_Drawing_Shape {  self: Shape_Op =>
+    extends True_Shape {  self: Shape_Op =>
 
 //     with Transforming[Pre_Formulated_Shape]
 //     with Placeable[Pre_Formulated_Shape] {
@@ -558,7 +549,7 @@ sealed abstract class Pre_Formulated_Shape
 
 [ERROR] .../tie/tie/src/main/scala/k_k_/graphics/tie/shapes.scala:1096: error: illegal inheritance;
 [INFO]  class Rotated_Pre_Formulated_Shape inherits different type instances of trait Transforming:
-[INFO] k_k_.graphics.tie.transformable.Transforming[k_k_.graphics.tie.shapes.Pre_Formulated_Shape] and k_k_.graphics.tie.transformable.Transforming[k_k_.graphics.tie.shapes.Drawing_Shape]
+[INFO] k_k_.graphics.tie.transformable.Transforming[k_k_.graphics.tie.shapes.Pre_Formulated_Shape] and k_k_.graphics.tie.transformable.Transforming[k_k_.graphics.tie.shapes.Shape]
 [INFO] final case class Rotated_Pre_Formulated_Shape(shape: Pre_Formulated_Shape,
 [INFO]                  ^
 
@@ -641,8 +632,7 @@ sealed abstract class Pre_Formulated_Shape
 
 
   override
-  def scale(x_scaling: Double, y_scaling: Double):
-      Pre_Formulated_Shape = {
+  def scale(x_scaling: Double, y_scaling: Double): Pre_Formulated_Shape = {
     this match {
       case Scaled_Pre_Formulated_Shape(inner,
                                        existing_x_scaling,existing_y_scaling) =>
@@ -737,11 +727,11 @@ sealed abstract class Pre_Formulated_Shape
 
 
 sealed abstract class Segment
-    extends True_Drawing_Shape with Nullary_Shape_Op
+    extends True_Shape with Nullary_Shape_Op
 
 object Line {
 
-  def between(p1: Point, p2: Point): Drawing_Shape =
+  def between(p1: Point, p2: Point): Shape =
     if (p1 == p2) Line(0.001) -+@ p1
     else {
       val (run, rise) = p2 - p1
@@ -1048,7 +1038,7 @@ object Free_Form {
 }
 
 sealed class Free_Form(val path: Path)
-    extends True_Drawing_Shape with Nullary_Shape_Op {
+    extends True_Shape with Nullary_Shape_Op {
 
   def bounding_box = {
 
@@ -1260,7 +1250,7 @@ object Writing {
 }
 
 final case class Writing(text: Text)
-    extends Faux_Drawing_Shape {
+    extends Faux_Shape {
 
   def bounding_box =
     text.text_bounding_box(Writing.text_ruler_factory)
@@ -1295,7 +1285,7 @@ object Image {
 
 final class Image private (val path: String, dims: (Double, Double),
                            path_mapper: String => String)
-    extends Faux_Drawing_Shape with Rectangular {
+    extends Faux_Shape with Rectangular {
 
   def this(path: String, path_mapper: String => String) =
     this(path, Image.calc_dims(path), path_mapper)
@@ -1390,22 +1380,22 @@ sealed class Circle(val rad: Double)
 object Invis_Rectangle {
 
   // HINT: an expensive noop--be sure `shape` actually contains a Rectangle!
-  def cloak_rect(shape: Drawing_Shape): Drawing_Shape =
-      shape match {
-        case Rectangle(width, height) =>
-          Invis_Rectangle(width, height)
-        case Translated_Shape(inner, x_dist, y_dist) =>
-          Translated_Shape(cloak_rect(inner), x_dist, y_dist)
+  def cloak_rect(shape: Shape): Shape =
+    shape match {
+      case Rectangle(width, height) =>
+        Invis_Rectangle(width, height)
+      case Translated_Shape(inner, x_dist, y_dist) =>
+        Translated_Shape(cloak_rect(inner), x_dist, y_dist)
 
-        // NOTE: no Invis_Rectangle is expected to be scaled, rotated, reflected
-        // skewed, inked, nor composed (in non-'under' pos); yet, for
-        // robustness, implement anyway:
-        case ushape @ Unary_Shape_Op(s)     => ushape.replace(cloak_rect(s))
-        case bshape @ Binary_Shape_Op(l, r) => bshape.replace(cloak_rect(l),
-                                                              cloak_rect(r))
-        case nshape @ Nullary_Shape_Op()    =>
-          nshape // ouch!--no Rectangle here, return unchanged
-      }
+      // NOTE: no Invis_Rectangle is expected to be scaled, rotated, reflected
+      // skewed, inked, nor composed (in non-'under' pos); yet, for
+      // robustness, implement anyway:
+      case ushape @ Unary_Shape_Op(s)     => ushape.replace(cloak_rect(s))
+      case bshape @ Binary_Shape_Op(l, r) => bshape.replace(cloak_rect(l),
+                                                            cloak_rect(r))
+      case nshape @ Nullary_Shape_Op()    =>
+        nshape // ouch!--no Rectangle here, return unchanged
+    }
 }
 
 sealed case class Invis_Rectangle(w: Double, h: Double)
@@ -1425,10 +1415,10 @@ final case class Diam_Circle(diam: Double)
 
 object Translated_Shape {
 
-  def apply(shape: Drawing_Shape, x_dist: Double, y_dist: Double) =
+  def apply(shape: Shape, x_dist: Double, y_dist: Double) =
     Translated_Non_Pre_Formulated_Shape(shape, x_dist, y_dist)
 
-  def unapply(shape: Drawing_Shape) =
+  def unapply(shape: Shape) =
     shape match {
       case s: Translated_Non_Pre_Formulated_Shape =>
         Some(s.shape, s.x_dist, s.y_dist)
@@ -1439,21 +1429,21 @@ object Translated_Shape {
 }
 
 object Translated_Non_Pre_Formulated_Shape
-    extends Translated_Transformable[Drawing_Shape] {
+    extends Translated_Transformable[Shape] {
 
   protected def isInstanceOfCompanion(x: Any): Boolean =
     x.isInstanceOf[Translated_Non_Pre_Formulated_Shape]
 }
 
-final case class Translated_Non_Pre_Formulated_Shape(shape: Drawing_Shape,
+final case class Translated_Non_Pre_Formulated_Shape(shape: Shape,
                                                      x_dist: Double,
                                                      y_dist: Double)
-    extends Drawing_Shape with Unary_Shape_Op {
+    extends Shape with Unary_Shape_Op {
 
   lazy val bounding_box =
     shape.bounding_box.move(x_dist, y_dist)
 
-  def replace(replacement_shape: Drawing_Shape) =
+  def replace(replacement_shape: Shape) =
     copy(shape = replacement_shape)
 }
 
@@ -1477,7 +1467,7 @@ final case class Translated_Pre_Formulated_Shape(shape: Pre_Formulated_Shape,
   def as_path: Path =
     shape.as_path.move(x_dist, y_dist)
 
-  def replace(replacement_shape: Drawing_Shape) =
+  def replace(replacement_shape: Shape) =
     replacement_shape match {
       case pre_form_shape: Pre_Formulated_Shape =>
         copy(shape = pre_form_shape)
@@ -1489,10 +1479,10 @@ final case class Translated_Pre_Formulated_Shape(shape: Pre_Formulated_Shape,
 
 object Scaled_Shape {
 
-  def apply(shape: Drawing_Shape, x_scaling: Double, y_scaling: Double) =
+  def apply(shape: Shape, x_scaling: Double, y_scaling: Double) =
     Scaled_Non_Pre_Formulated_Shape(shape, x_scaling, y_scaling)
 
-  def unapply(shape: Drawing_Shape) =
+  def unapply(shape: Shape) =
     shape match {
       case s: Scaled_Non_Pre_Formulated_Shape =>
         Some(s.shape, s.x_scaling, s.y_scaling)
@@ -1503,21 +1493,21 @@ object Scaled_Shape {
 }
 
 object Scaled_Non_Pre_Formulated_Shape
-    extends Scaled_Transformable[Drawing_Shape] {
+    extends Scaled_Transformable[Shape] {
 
   protected def isInstanceOfCompanion(x: Any): Boolean =
     x.isInstanceOf[Scaled_Non_Pre_Formulated_Shape]
 }
 
-final case class Scaled_Non_Pre_Formulated_Shape(shape: Drawing_Shape,
+final case class Scaled_Non_Pre_Formulated_Shape(shape: Shape,
                                                  x_scaling: Double,
                                                  y_scaling: Double)
-    extends Drawing_Shape with Unary_Shape_Op {
+    extends Shape with Unary_Shape_Op {
 
   lazy val bounding_box =
     shape.bounding_box.scale(x_scaling, y_scaling)
 
-  def replace(replacement_shape: Drawing_Shape) =
+  def replace(replacement_shape: Shape) =
     copy(shape = replacement_shape)
 }
 
@@ -1532,7 +1522,7 @@ final case class Scaled_Pre_Formulated_Shape(shape: Pre_Formulated_Shape,
   def as_path: Path =
     shape.as_path.scale(x_scaling, y_scaling)
 
-  def replace(replacement_shape: Drawing_Shape) =
+  def replace(replacement_shape: Shape) =
     replacement_shape match {
       case pre_form_shape: Pre_Formulated_Shape =>
         copy(shape = pre_form_shape)
@@ -1544,11 +1534,11 @@ final case class Scaled_Pre_Formulated_Shape(shape: Pre_Formulated_Shape,
 
 object Rotated_Shape {
 
-  def apply(shape: Drawing_Shape,
+  def apply(shape: Shape,
             degrees: Double, x_pivot: Double, y_pivot: Double) =
     Rotated_Non_Pre_Formulated_Shape(shape, degrees, x_pivot, y_pivot)
 
-  def unapply(shape: Drawing_Shape) =
+  def unapply(shape: Shape) =
     shape match {
       case s: Rotated_Non_Pre_Formulated_Shape =>
         Some(s.shape, s.degrees, s.x_pivot, s.y_pivot)
@@ -1559,22 +1549,22 @@ object Rotated_Shape {
 }
 
 object Rotated_Non_Pre_Formulated_Shape
-    extends Rotated_Transformable[Drawing_Shape] {
+    extends Rotated_Transformable[Shape] {
 
   protected def isInstanceOfCompanion(x: Any): Boolean =
     x.isInstanceOf[Rotated_Non_Pre_Formulated_Shape]
 }
 
-final case class Rotated_Non_Pre_Formulated_Shape(shape: Drawing_Shape,
+final case class Rotated_Non_Pre_Formulated_Shape(shape: Shape,
                                                   degrees: Double,
                                                   x_pivot: Double,
                                                   y_pivot: Double)
-    extends Drawing_Shape with Unary_Shape_Op {
+    extends Shape with Unary_Shape_Op {
 
   lazy val bounding_box =
     shape.bounding_box.rotate(degrees, x_pivot, y_pivot)
 
-  def replace(replacement_shape: Drawing_Shape) =
+  def replace(replacement_shape: Shape) =
     copy(shape = replacement_shape)
 }
 
@@ -1589,7 +1579,7 @@ final case class Rotated_Pre_Formulated_Shape(shape: Pre_Formulated_Shape,
   def as_path: Path =
     shape.as_path.rotate(degrees, x_pivot, y_pivot)
 
-  def replace(replacement_shape: Drawing_Shape) =
+  def replace(replacement_shape: Shape) =
     replacement_shape match {
       case pre_form_shape: Pre_Formulated_Shape =>
         copy(shape = pre_form_shape)
@@ -1601,11 +1591,11 @@ final case class Rotated_Pre_Formulated_Shape(shape: Pre_Formulated_Shape,
 
 object Reflected_Shape {
 
-  def apply(shape: Drawing_Shape,
+  def apply(shape: Shape,
             degrees: Double, x_pivot: Double, y_pivot: Double) =
     Reflected_Non_Pre_Formulated_Shape(shape, degrees, x_pivot, y_pivot)
 
-  def unapply(shape: Drawing_Shape) =
+  def unapply(shape: Shape) =
     shape match {
       case s: Reflected_Non_Pre_Formulated_Shape =>
         Some(s.shape, s.degrees, s.x_pivot, s.y_pivot)
@@ -1616,22 +1606,22 @@ object Reflected_Shape {
 }
 
 object Reflected_Non_Pre_Formulated_Shape
-    extends Reflected_Transformable[Drawing_Shape] {
+    extends Reflected_Transformable[Shape] {
 
   protected def isInstanceOfCompanion(x: Any): Boolean =
     x.isInstanceOf[Reflected_Non_Pre_Formulated_Shape]
 }
 
-final case class Reflected_Non_Pre_Formulated_Shape(shape: Drawing_Shape,
+final case class Reflected_Non_Pre_Formulated_Shape(shape: Shape,
                                                     degrees: Double,
                                                     x_pivot: Double,
                                                     y_pivot: Double)
-    extends Drawing_Shape with Unary_Shape_Op {
+    extends Shape with Unary_Shape_Op {
 
   lazy val bounding_box =
     shape.bounding_box.reflect(degrees, x_pivot, y_pivot)
 
-  def replace(replacement_shape: Drawing_Shape) =
+  def replace(replacement_shape: Shape) =
     copy(shape = replacement_shape)
 }
 
@@ -1646,7 +1636,7 @@ final case class Reflected_Pre_Formulated_Shape(shape: Pre_Formulated_Shape,
   def as_path: Path =
     shape.as_path.reflect(degrees, x_pivot, y_pivot)
 
-  def replace(replacement_shape: Drawing_Shape) =
+  def replace(replacement_shape: Shape) =
     replacement_shape match {
       case pre_form_shape: Pre_Formulated_Shape =>
         copy(shape = pre_form_shape)
@@ -1656,42 +1646,42 @@ final case class Reflected_Pre_Formulated_Shape(shape: Pre_Formulated_Shape,
 }
 
 
-object Skewed_Horiz_Shape extends Skewed_Horiz_Transformable[Drawing_Shape] {
+object Skewed_Horiz_Shape extends Skewed_Horiz_Transformable[Shape] {
 
   protected def isInstanceOfCompanion(x: Any): Boolean =
     x.isInstanceOf[Skewed_Horiz_Shape]
 }
 
-final case class Skewed_Horiz_Shape(shape: Drawing_Shape, degrees: Double)
-    extends Drawing_Shape with Unary_Shape_Op {
+final case class Skewed_Horiz_Shape(shape: Shape, degrees: Double)
+    extends Shape with Unary_Shape_Op {
 
   lazy val bounding_box =
     shape.bounding_box.skew_horiz(degrees)
 
-  def replace(replacement_shape: Drawing_Shape) =
+  def replace(replacement_shape: Shape) =
     copy(shape = replacement_shape)
 }
 
 
-object Skewed_Vert_Shape extends Skewed_Vert_Transformable[Drawing_Shape] {
+object Skewed_Vert_Shape extends Skewed_Vert_Transformable[Shape] {
 
   protected def isInstanceOfCompanion(x: Any): Boolean =
     x.isInstanceOf[Skewed_Vert_Shape]
 }
 
-final case class Skewed_Vert_Shape(shape: Drawing_Shape, degrees: Double)
-    extends Drawing_Shape with Unary_Shape_Op {
+final case class Skewed_Vert_Shape(shape: Shape, degrees: Double)
+    extends Shape with Unary_Shape_Op {
 
   lazy val bounding_box =
     shape.bounding_box.skew_vert(degrees)
 
-  def replace(replacement_shape: Drawing_Shape) =
+  def replace(replacement_shape: Shape) =
     copy(shape = replacement_shape)
 }
 
 
-final case class Composite_Shape(under: Drawing_Shape, over: Drawing_Shape)
-    extends Drawing_Shape with Binary_Shape_Op {
+final case class Composite_Shape(under: Shape, over: Shape)
+    extends Shape with Binary_Shape_Op {
 
   lazy val bounding_box =
     under.bounding_box.combo(over.bounding_box)
@@ -1699,14 +1689,14 @@ final case class Composite_Shape(under: Drawing_Shape, over: Drawing_Shape)
   def left  = under
   def right = over
 
-  def replace(replacement_left: Drawing_Shape,
-              replacement_right: Drawing_Shape) =
+  def replace(replacement_left: Shape,
+              replacement_right: Shape) =
     copy(under = replacement_left, over = replacement_right)
 }
 
-final case class Clipped_Shape(clipped: Drawing_Shape, clipping: Drawing_Shape, 
+final case class Clipped_Shape(clipped: Shape, clipping: Shape, 
                                rule: Clip_Rule)
-    extends Drawing_Shape with Binary_Shape_Op {
+    extends Shape with Binary_Shape_Op {
 
   lazy val bounding_box =
     clipped.bounding_box.clip_by(clipping.bounding_box)
@@ -1714,13 +1704,13 @@ final case class Clipped_Shape(clipped: Drawing_Shape, clipping: Drawing_Shape,
   def left  = clipped
   def right = clipping
 
-  def replace(replacement_left: Drawing_Shape,
-              replacement_right: Drawing_Shape) =
+  def replace(replacement_left: Shape,
+              replacement_right: Shape) =
     copy(clipped = replacement_left, clipping = replacement_right)
 }
 
-final case class Masked_Shape(masked: Drawing_Shape, mask: Drawing_Shape)
-    extends Drawing_Shape with Binary_Shape_Op {
+final case class Masked_Shape(masked: Shape, mask: Shape)
+    extends Shape with Binary_Shape_Op {
 
   lazy val bounding_box =
     masked.bounding_box.mask_by(mask.bounding_box)
@@ -1732,13 +1722,13 @@ final case class Masked_Shape(masked: Drawing_Shape, mask: Drawing_Shape)
   def best_bounding_shape: Pre_Formulated_Shape =
     masked.best_bounding_shape
 
-  def replace(replacement_left: Drawing_Shape,
-              replacement_right: Drawing_Shape) =
+  def replace(replacement_left: Shape,
+              replacement_right: Shape) =
     copy(masked = replacement_left, mask = replacement_right)
 }
 
-final case class Inked_Shape(shape: Drawing_Shape, pen: Pen)
-    extends Drawing_Shape with Unary_Shape_Op {
+final case class Inked_Shape(shape: Shape, pen: Pen)
+    extends Shape with Unary_Shape_Op {
 
   lazy val bounding_box =
     shape.bounding_box.using(pen)
@@ -1747,12 +1737,12 @@ final case class Inked_Shape(shape: Drawing_Shape, pen: Pen)
   def best_bounding_shape: Pre_Formulated_Shape =
     shape.best_bounding_shape
 
-  def replace(replacement_shape: Drawing_Shape) =
+  def replace(replacement_shape: Shape) =
     copy(shape = replacement_shape)
 }
 
-final case class Non_Opaque_Shape(shape: Drawing_Shape, opacity: Double)
-    extends Drawing_Shape with Unary_Shape_Op {
+final case class Non_Opaque_Shape(shape: Shape, opacity: Double)
+    extends Shape with Unary_Shape_Op {
 
   lazy val bounding_box =
     shape.bounding_box.exhibit(Opacity_Effect(opacity))
@@ -1761,12 +1751,12 @@ final case class Non_Opaque_Shape(shape: Drawing_Shape, opacity: Double)
   def best_bounding_shape: Pre_Formulated_Shape =
     shape.best_bounding_shape
 
-  def replace(replacement_shape: Drawing_Shape) =
+  def replace(replacement_shape: Shape) =
     copy(shape = replacement_shape)
 }
 
-final case class Filtered_Shape(shape: Drawing_Shape, filter: Filter)
-    extends Drawing_Shape with Unary_Shape_Op {
+final case class Filtered_Shape(shape: Shape, filter: Filter)
+    extends Shape with Unary_Shape_Op {
 
   lazy val bounding_box =
     shape.bounding_box.exhibit(Filter_Effect(filter))
@@ -1775,13 +1765,13 @@ final case class Filtered_Shape(shape: Drawing_Shape, filter: Filter)
   def best_bounding_shape: Pre_Formulated_Shape =
     shape.best_bounding_shape
 
-  def replace(replacement_shape: Drawing_Shape) =
+  def replace(replacement_shape: Shape) =
     copy(shape = replacement_shape)
 }
 
-final case class Attributed_Shape(shape: Drawing_Shape,
+final case class Attributed_Shape(shape: Shape,
                                   attribution: Attribution)
-    extends Drawing_Shape with Unary_Shape_Op {
+    extends Shape with Unary_Shape_Op {
 
   lazy val bounding_box =
     shape.bounding_box.as(attribution)
@@ -1790,7 +1780,7 @@ final case class Attributed_Shape(shape: Drawing_Shape,
   def best_bounding_shape: Pre_Formulated_Shape =
     shape.best_bounding_shape
 
-  def replace(replacement_shape: Drawing_Shape) =
+  def replace(replacement_shape: Shape) =
     copy(shape = replacement_shape)
 }
 
@@ -1820,7 +1810,7 @@ sealed abstract class Ortho_Rectangle
   def bounding_box =
     this
 
-  def as_drawing_shape: Pre_Formulated_Shape // derived class of `Drawing_Shape`
+  def as_drawing_shape: Pre_Formulated_Shape // derived class of `Shape`
 
   type Translated_T          = Translated_Ortho_Rectangle
   protected val Translated   = Translated_Ortho_Rectangle
@@ -2129,13 +2119,13 @@ import k_k_.graphics.tie.shapes.path.Path
 
 object Identity_Shape {
 
-  def unapply(shape: Drawing_Shape): Boolean =
+  def unapply(shape: Shape): Boolean =
     shape eq Null_PF_Shape
 }
 
 // NOTE: define as `val` in package object rather than as object, to avoid need
 // to always down-qualify to generalized type; e.g. to simplify the following:
-//    ((Null_Shape: Drawing_Shape) /: shapes_seq) ( _ -& _ )
+//    ((Null_Shape: Shape) /: shapes_seq) ( _ -& _ )
 //   to:
 //    (Null_Shape /: shapes_seq) ( _ -& _ )
 // case object Null_Shape extends Invis_Rectangle(0.0001, 0.0001) {
@@ -2179,52 +2169,52 @@ val Null_PF_Shape: Pre_Formulated_Shape =
     this
 
   override
-  def skew_horiz(degrees: Double): Drawing_Shape =
+  def skew_horiz(degrees: Double): Shape =
     this
 
   override
-  def skew_vert(degrees: Double): Drawing_Shape =
+  def skew_vert(degrees: Double): Shape =
     this
 
 
   // ...results in an identity when combined with another shape
 
   override
-  protected def create_composite_shape(other: Drawing_Shape): Drawing_Shape =
+  protected def create_composite_shape(other: Shape): Shape =
     other
 
   // ...clipped and masked with no effect
 
   override
-  protected def create_clipped_shape(clipping: Drawing_Shape, rule: Clip_Rule):
-      Drawing_Shape =
+  protected def create_clipped_shape(clipping: Shape, rule: Clip_Rule):
+      Shape =
     this
 
   override
-  protected def create_masked_shape(mask: Drawing_Shape): Drawing_Shape =
+  protected def create_masked_shape(mask: Shape): Shape =
     this
 
   // ...unchanged under the pen
 
   override
-  protected def create_inked_shape(pen: Pen): Drawing_Shape =
+  protected def create_inked_shape(pen: Pen): Shape =
     this
 
   // ...impervious to every Effect
 
   override
-  protected def create_effected_shape(effect: Effect): Drawing_Shape =
+  protected def create_effected_shape(effect: Effect): Shape =
     this
 
   // ...and likewise unattributable
 
   override
   protected def create_attributed_shape(attribution: Attribution):
-      Drawing_Shape =
+      Shape =
     this
 }
 
-val Null_Shape: Drawing_Shape = Null_PF_Shape
+val Null_Shape: Shape = Null_PF_Shape
 
 }
 

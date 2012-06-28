@@ -6,7 +6,7 @@
 
   <groupId>k_k_.graphics</groupId>
   <artifactId>k_k_.graphics.tie</artifactId>
-  <version>0.10.0</version>
+  <version>0.11.0</version>
 
   <name>Tie Library for Two-Dimensional Drawing in Scala</name>
   <description>

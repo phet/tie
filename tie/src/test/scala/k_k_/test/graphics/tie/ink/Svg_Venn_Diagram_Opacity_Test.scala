@@ -76,16 +76,16 @@ class Svg_Venn_Diagram_Opacity_Test extends Svg_Test_Base {
   }
 
   // triple-overlapping venn diagram
-  def draw_venn_diagram(Shape: (Double, Double) => Drawing_Shape)
+  def draw_venn_diagram(S: (Double, Double) => Shape)
                        (w: Double, h: Double)
                        (colors: Seq[Color], opacity: Double):
-      Drawing_Shape = {
+      Shape = {
     val each_shape_w = w * 2/3
     val each_shape_h = h * 2/3
     val diagram_colors = colors.take(3)
-    val colored_shapes = diagram_colors.map( _ -# opacity ).
-                                        map( Shape(each_shape_w, each_shape_h)
-                                             -~ Pen.fill(_) )
+    val colored_shapes = diagram_colors.map { _ -# opacity }.map {
+      S(each_shape_w, each_shape_h) -~ Pen.fill(_)
+    }
     val (x_shift, y_shift) = (w/2 - w/3,
                               h/2 - h/3)
     (colored_shapes(0) -+ (0, -y_shift)) -&

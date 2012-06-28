@@ -18,8 +18,6 @@ package k_k_.graphics.tie
 
 package effects {
 
-import shapes.Drawing_Shape
-
 
 sealed abstract class Effect
 

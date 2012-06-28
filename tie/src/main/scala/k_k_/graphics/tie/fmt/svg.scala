@@ -65,7 +65,7 @@ trait Catenated_Transforms { self: Svg_Content_Renderer =>
   override
   protected def write_transformed_shape(defs: Defs, os: Writer,
                                         ordered_transforms: List[String],
-                                        shape: Drawing_Shape,
+                                        shape: Shape,
                                         attrs: Univ_Attrs): Defs = {
     val transform_attr = ordered_transforms.mkString("transform=\"", " ", "\"")
     write_group(defs, os, fmt(attrs) + transform_attr, shape)
@@ -194,12 +194,12 @@ sealed abstract class Svg_Content_Renderer extends Svg_Renderer_Base {
       extends Def
   protected case class Pattern_Def(pattern: Pattern, id: String)
       extends Def
-  protected case class Clip_Path_Def(clipping: Drawing_Shape,
+  protected case class Clip_Path_Def(clipping: Shape,
                                      rule: Clip_Rule, id: String)
       extends Def
   protected case class Rng_Def(rng: scala.util.Random, id: String)
       extends Def
-  protected case class Mask_Def(mask: Drawing_Shape, id: String)
+  protected case class Mask_Def(mask: Shape, id: String)
       extends Def
   protected case class Filter_Def(filter: Filter, id: String)
       extends Def
@@ -245,8 +245,7 @@ sealed abstract class Svg_Content_Renderer extends Svg_Renderer_Base {
       }
     }
 
-    def calc_clip_path_url(shape: Drawing_Shape, rule: Clip_Rule):
-        (String, Defs) = {
+    def calc_clip_path_url(shape: Shape, rule: Clip_Rule): (String, Defs) = {
       find_matching_clip_path(shape, rule) match {
         case Some(definition) =>
           ("#" + definition.id, this)
@@ -257,7 +256,7 @@ sealed abstract class Svg_Content_Renderer extends Svg_Renderer_Base {
       }
     }
 
-    def calc_mask_url(shape: Drawing_Shape): (String, Defs) = {
+    def calc_mask_url(shape: Shape): (String, Defs) = {
       find_matching_mask(shape) match {
         case Some(definition) =>
           ("#" + definition.id, this)
@@ -294,7 +293,7 @@ sealed abstract class Svg_Content_Renderer extends Svg_Renderer_Base {
     protected def find_matching_pattern(p: Pattern): Option[Def] =
       find_in(defs){ case Pattern_Def(pat, _)        if pat == p   => true }
 
-    protected def find_matching_clip_path(s: Drawing_Shape, rle: Clip_Rule):
+    protected def find_matching_clip_path(s: Shape, rle: Clip_Rule):
         Option[Def] =
       find_in(defs){ case Clip_Path_Def(shape, rule, _) if shape == s &&
                                                            rule == rle => true }
@@ -302,7 +301,7 @@ sealed abstract class Svg_Content_Renderer extends Svg_Renderer_Base {
     protected def find_matching_rng(p: Option[Pattern]): Option[Def] =
       find_in(defs){ case Rng_Def(rng, _)            if None == p => true }
 
-    protected def find_matching_mask(s: Drawing_Shape): Option[Def] =
+    protected def find_matching_mask(s: Shape): Option[Def] =
       find_in(defs){ case Mask_Def(shape, _)         if shape == s => true }
 
     protected def find_matching_filter(f: Filter): Option[Def] =
@@ -364,7 +363,7 @@ sealed abstract class Svg_Content_Renderer extends Svg_Renderer_Base {
             find_in(defs){ case Pattern_Def(pat, _)    if pat == p => true } )
 
     override
-    protected def find_matching_clip_path(s: Drawing_Shape, rle: Clip_Rule) =
+    protected def find_matching_clip_path(s: Shape, rle: Clip_Rule) =
       super.find_matching_clip_path(s, rle).orElse(
             find_in(defs){ case Clip_Path_Def(shape, rule, _) if shape == s &&
                                                                  rule == rle =>
@@ -376,7 +375,7 @@ sealed abstract class Svg_Content_Renderer extends Svg_Renderer_Base {
             find_in(defs){ case Rng_Def(rng, _)        if None == p => true } )
 
     override
-    protected def find_matching_mask(s: Drawing_Shape) =
+    protected def find_matching_mask(s: Shape) =
       super.find_matching_mask(s).orElse( 
             find_in(defs){ case Mask_Def(shape, _)     if shape == s => true } )
 
@@ -434,7 +433,7 @@ sealed abstract class Svg_Content_Renderer extends Svg_Renderer_Base {
   protected val default_shape_pen   = Default_Shape_Pen
   protected val default_writing_pen = Default_Writing_Pen
 
-  protected def ensure_ink(shape: Drawing_Shape): Drawing_Shape = {
+  protected def ensure_ink(shape: Shape): Shape = {
 
     // returns Option of updated shape 'modified' internally; iff not modified
     // (i.e. Option is None), Boolean indicates whether orig. shape needs ink.
@@ -449,8 +448,8 @@ sealed abstract class Svg_Content_Renderer extends Svg_Renderer_Base {
 
     //!!!!!also, this heavily-recursive method is not tail-recursive; perhaps a
     // different algo is in order!!!!!!!
-    def add_missing_ink(shape: Drawing_Shape, pen_tform: Option[Pen_Transform]):
-        (Option[Drawing_Shape], Boolean) =
+    def add_missing_ink(shape: Shape, pen_tform: Option[Pen_Transform]):
+        (Option[Shape], Boolean) =
       shape match {
         // neither invisible shape, nor an image requires Ink
         case Invis_Rectangle(_, _)
@@ -544,9 +543,9 @@ sealed abstract class Svg_Content_Renderer extends Svg_Renderer_Base {
     }
   }
 
-  protected final def render_shape(defs: Defs, os: Writer, shape: Drawing_Shape,
+  protected final def render_shape(defs: Defs, os: Writer, shape: Shape,
                                    attrs: Univ_Attrs = Univ_Attrs()): Defs = {
-    def write_shape(s: Drawing_Shape, transforms: List[String]): Defs =
+    def write_shape(s: Shape, transforms: List[String]): Defs =
       s match {
         case Translated_Shape(shape, x_move, y_move) =>
           val transform = "translate(%f, %f)".format(x_move, y_move)
@@ -574,7 +573,7 @@ sealed abstract class Svg_Content_Renderer extends Svg_Renderer_Base {
           write_non_transformed_shape(non_transform_shape)
       }
 
-    def write_non_transformed_shape(s: Drawing_Shape): Defs =
+    def write_non_transformed_shape(s: Shape): Defs =
       s match {
         case composite_shape @ Composite_Shape(below, above) =>
           if (attrs.isDefined) // create group for attrs around entire composite
@@ -626,7 +625,7 @@ sealed abstract class Svg_Content_Renderer extends Svg_Renderer_Base {
           // NOTE: no `attrs` for Invis_Rectangle--it's ID'ably invisible too!
           hide_invis_rectangle(defs, os, width, height)
   
-        case true_shape: True_Drawing_Shape =>
+        case true_shape: True_Shape =>
           draw_path(defs, os, true_shape.as_path, attrs)
         case _ => // peferred to using @unchecked on match!
           // WARNING: mutual recursion via unconstrained (final) match holds
@@ -751,7 +750,7 @@ sealed abstract class Svg_Content_Renderer extends Svg_Renderer_Base {
   }
 
   protected def define_clip_path(defs: Defs, os: Writer,
-                                 id: String, clipping: Drawing_Shape,
+                                 id: String, clipping: Shape,
                                  clip_rule: Clip_Rule): Defs = {
     val clip_rule_attr = "clip-rule=\"%s\"".format( clip_rule match {
       case Non_Zero_Clip => "nonzero"
@@ -768,7 +767,7 @@ sealed abstract class Svg_Content_Renderer extends Svg_Renderer_Base {
   }
 
   protected def define_mask(defs: Defs, os: Writer,
-                            id: String, mask: Drawing_Shape): Defs = {
+                            id: String, mask: Shape): Defs = {
     os.write("    <mask id=\"" + id + "\"" +
              " maskUnits=\"userSpaceOnUse\">\n")
     val new_defs = render_shape(defs, os, mask)
@@ -1103,8 +1102,8 @@ sealed abstract class Svg_Content_Renderer extends Svg_Renderer_Base {
   }
 
   protected def do_clipped_shape(defs: Defs, os: Writer,
-                                 clipped: Drawing_Shape,
-                                 clipping: Drawing_Shape,
+                                 clipped: Shape,
+                                 clipping: Shape,
                                  clip_rule: Clip_Rule,
                                  attrs: Univ_Attrs): Defs = {
     val (url, new_defs) = defs.calc_clip_path_url(clipping, clip_rule)
@@ -1113,7 +1112,7 @@ sealed abstract class Svg_Content_Renderer extends Svg_Renderer_Base {
                 clipped)
   }
 
-  protected def do_ink(defs: Defs, os: Writer, shape: Drawing_Shape,
+  protected def do_ink(defs: Defs, os: Writer, shape: Shape,
                        pen: Pen, attrs: Univ_Attrs): Defs = {
     def fmt_ink_attrs(ink: Ink, defs: Defs): (String, Option[Double], Defs) =
       ink match {
@@ -1205,8 +1204,8 @@ sealed abstract class Svg_Content_Renderer extends Svg_Renderer_Base {
     visible.hashCode
 
   protected def do_masked_shape(defs: Defs, os: Writer,
-                                masked: Drawing_Shape,
-                                mask: Drawing_Shape,
+                                masked: Shape,
+                                mask: Shape,
                                 attrs: Univ_Attrs): Defs = {
     val (url, new_defs) = defs.calc_mask_url(mask)
     write_group(new_defs, os,
@@ -1215,7 +1214,7 @@ sealed abstract class Svg_Content_Renderer extends Svg_Renderer_Base {
   }
 
   protected def do_filtered_shape(defs: Defs, os: Writer,
-                                  shape: Drawing_Shape,
+                                  shape: Shape,
                                   filter: Filter,
                                   attrs: Univ_Attrs): Defs = {
     val (url, new_defs) = defs.calc_url(filter)
@@ -1226,7 +1225,7 @@ sealed abstract class Svg_Content_Renderer extends Svg_Renderer_Base {
 
   protected def do_link(defs: Defs, os: Writer,
                         uri: String, target: Link_Target,
-                        child: Drawing_Shape, attrs: Univ_Attrs): Defs = {
+                        child: Shape, attrs: Univ_Attrs): Defs = {
     val target_str = target match {
       case Target_Blank                         => "_blank"
       case Target_Replace                       => "_replace"
@@ -1246,7 +1245,7 @@ sealed abstract class Svg_Content_Renderer extends Svg_Renderer_Base {
 
   protected def write_transformed_shape(defs: Defs, os: Writer,
                                         ordered_transforms: List[String],
-                                        shape: Drawing_Shape,
+                                        shape: Shape,
                                         attrs: Univ_Attrs): Defs = {
     def indent(s: String, level: Int) =
       ("  " * level) + s
@@ -1269,7 +1268,8 @@ sealed abstract class Svg_Content_Renderer extends Svg_Renderer_Base {
   }
 
   protected def write_group(defs: Defs, os: Writer, group_attrs: List[String],
-                            child: Drawing_Shape): Defs = {
+                            child: Shape):
+      Defs = {
     os.write("    <g" + group_attrs.mkString(" ", " ", "") + ">\n")
     val new_defs = render_shape(defs, os, child)
     os.write("    </g>\n")
@@ -1277,7 +1277,7 @@ sealed abstract class Svg_Content_Renderer extends Svg_Renderer_Base {
   }
 
   protected def write_group(defs: Defs, os: Writer, group_attr: String,
-                            child: Drawing_Shape): Defs = {
+                            child: Shape): Defs = {
     write_group(defs, os, List(group_attr), child)
   }
 
@@ -1344,9 +1344,9 @@ sealed abstract class Svg_Content_Renderer extends Svg_Renderer_Base {
       Text_Block("   " + fmt_view_box_dims(view_box), stamp_font * .6, false, 3)
     }
 
-    def place_stamp(stamp: Drawing_Shape, size_to_view_box_ratio: Double,
+    def place_stamp(stamp: Shape, size_to_view_box_ratio: Double,
                     lower_left_offset_to_view_box_ratio: Double):
-        Drawing_Shape = {
+        Shape = {
       val Rectangular(w, h) = stamp.bounding_box
       val (view_w, view_h) = (view_box.width, view_box.height)
       val view_lower_left = view_box.upper_left -+ (0, view_h)

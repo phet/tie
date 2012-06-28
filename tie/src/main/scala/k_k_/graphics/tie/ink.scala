@@ -22,7 +22,7 @@ import scala.collection.immutable.HashMap
 import scala.collection.mutable
 
 import k_k_.graphics.tie.effects.{Opacity_Effect, Opacity}
-import k_k_.graphics.tie.shapes.{Drawing_Shape, Point}
+import k_k_.graphics.tie.shapes.{Point, Shape}
 import k_k_.graphics.tie.transform._
 
 
@@ -603,10 +603,10 @@ final class Non_Opaque_Ink(val ink: Ink, override val opacity: Double)
 
 object Pattern {
 
-  def apply(shape: Drawing_Shape, width: Double, height: Double): Pattern =
+  def apply(shape: Shape, width: Double, height: Double): Pattern =
     new Shape_Pattern(shape, width, height)
 
-  def apply(shape: Drawing_Shape): Pattern =
+  def apply(shape: Shape): Pattern =
     new Shape_Pattern(shape)
 }
 
@@ -636,15 +636,14 @@ sealed abstract class Pattern
 
 object Shape_Pattern {
 
-  def apply(shape: Drawing_Shape): Pattern =
+  def apply(shape: Shape): Pattern =
     new Shape_Pattern(shape)
 }
 
-final case class Shape_Pattern(shape: Drawing_Shape,
-                               width: Double, height: Double)
+final case class Shape_Pattern(shape: Shape, width: Double, height: Double)
     extends Pattern {
 
-  def this(shape: Drawing_Shape) =
+  def this(shape: Shape) =
     this(shape, shape.bounding_box.width, shape.bounding_box.height)
 
   def center_pt: Point =

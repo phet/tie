@@ -60,22 +60,21 @@ case class Canvas_Props(width: Double, height: Double,
 
 // NOTE: add (ignored) arg to primary ctor and make private, in order to
 // introduce public one w/ equiv. signature, which, when invoked externally,
-// reverses List[Drawing_Shape], whereas list not reversed for internal invoke
-class Canvas private(props: Canvas_Props,
-                     val shapes: List[Drawing_Shape],
-                     internally_invoked_? : Boolean) {
+// reverses List[Shape], whereas list not reversed for internal invoke
+class Canvas private (props: Canvas_Props, val shapes: List[Shape],
+                      was_internally_invoked: Boolean) {
 
-  def this(props: Canvas_Props, shapes: List[Drawing_Shape] = Nil) =
+  def this(props: Canvas_Props, shapes: List[Shape] = Nil) =
     this(props, shapes reverse, true)
 
-  def this(props: Canvas_Props, shape_args: Drawing_Shape*) =
+  def this(props: Canvas_Props, shape_args: Shape*) =
     this(props, shape_args.reverse toList, true)
 
 
-  def place(shape: Drawing_Shape): Canvas =
+  def place(shape: Shape): Canvas =
     new Canvas(props, shape :: shapes, true)
 
-  def place(shape: Drawing_Shape, center_x: Double, center_y: Double): Canvas =
+  def place(shape: Shape, center_x: Double, center_y: Double): Canvas =
     (center_x, center_y) match {
       case (0, 0) => place(shape)
       case _      => place(Translated_Shape(shape, center_x, center_y))

@@ -64,8 +64,7 @@ class Svg_Shapes_Arg_Measurements_Test extends Svg_Shapes_Test {
                  (Line(10) -% -45) -~ center_pen
 
   override
-  protected def label_shape(shape: Drawing_Shape, name: String, ink: Ink):
-      Drawing_Shape = {
+  protected def label_shape(shape: Shape, name: String, ink: Ink): Shape = {
     super.label_shape(shape, name, ink) -&
     draw_visual_args(shape) -&
     center_X
@@ -81,7 +80,7 @@ class Svg_Shapes_Arg_Measurements_Test extends Svg_Shapes_Test {
   val vert_arg_1_pen  = Pen.stroke(vert_arg_1_color, 2)
   val vert_arg_2_pen  = Pen.stroke(vert_arg_2_color, 2)
 
-  protected def draw_visual_args(shape: Drawing_Shape): Drawing_Shape = {
+  protected def draw_visual_args(shape: Shape): Shape = {
     shape match {
       case Line(length) =>
         (Line(length) -%  0 -~ horiz_arg_1_pen -+ (0, -5))
@@ -144,8 +143,8 @@ class Svg_Shapes_Arg_Measurements_Test extends Svg_Shapes_Test {
 
 // for some reason, the following causes this error (which also appears to not generate the surefire-reports files--so hard to read, at the least!!!!)
 // [INFO] Surefire report directory: c:\projects\devel\scripts\tie\tie\target\surefire-reports
-// org.apache.maven.surefire.booter.SurefireExecutionException: (class: k_k_/test/graphics/tie/Svg_Shapes_Arg_Measurements_Test, method: draw_visual_args signature: (Lk_k_/graphics/tie/shapes/Drawing_Shape;)Lk_k_/graphics/tie/shapes/Drawing_Shape;) Accessing value from uninitialized register pair 261/262; nested exception is java.lang.VerifyError: (class: k_k_/test/graphics/tie/Svg_Shapes_Arg_Measurements_Test, method: draw_visual_args signature: (Lk_k_/graphics/tie/shapes/Drawing_Shape;)Lk_k_/graphics/tie/shapes/Drawing_Shape;) Accessing value from uninitialized register pair 261/262
-// java.lang.VerifyError: (class: k_k_/test/graphics/tie/Svg_Shapes_Arg_Measurements_Test, method: draw_visual_args signature: (Lk_k_/graphics/tie/shapes/Drawing_Shape;)Lk_k_/graphics/tie/shapes/Drawing_Shape;) Accessing value from uninitialized register pair 261/262
+// org.apache.maven.surefire.booter.SurefireExecutionException: (class: k_k_/test/graphics/tie/Svg_Shapes_Arg_Measurements_Test, method: draw_visual_args signature: (Lk_k_/graphics/tie/shapes/Shape;)Lk_k_/graphics/tie/shapes/Shape;) Accessing value from uninitialized register pair 261/262; nested exception is java.lang.VerifyError: (class: k_k_/test/graphics/tie/Svg_Shapes_Arg_Measurements_Test, method: draw_visual_args signature: (Lk_k_/graphics/tie/shapes/Shape;)Lk_k_/graphics/tie/shapes/Shape;) Accessing value from uninitialized register pair 261/262
+// java.lang.VerifyError: (class: k_k_/test/graphics/tie/Svg_Shapes_Arg_Measurements_Test, method: draw_visual_args signature: (Lk_k_/graphics/tie/shapes/Shape;)Lk_k_/graphics/tie/shapes/Shape;) Accessing value from uninitialized register pair 261/262
 //        at java.lang.Class.getDeclaredMethods0(Native Method)
 //        at java.lang.Class.privateGetDeclaredMethods(Class.java:2427)
 //        at java.lang.Class.getMethod0(Class.java:2670)
