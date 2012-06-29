@@ -64,17 +64,14 @@ abstract class Svg_Test_Base {
 
   protected def create_canvas(): Canvas
 
-  protected def label_shape(shape: Drawing_Shape, name: String, ink: Ink):
-      Drawing_Shape = {
-
+  protected def label_shape(shape: Shape, name: String, ink: Ink): Shape = {
     val name_offset_y = shape.bounding_box.height / 2 + 10
-
     (shape -~ Pen.stroke(ink)) -&
     (write(name, ink) -+ (0, name_offset_y))
 
   }
 
-  protected def label_shape(shape: Drawing_Shape, name: String): Drawing_Shape =
+  protected def label_shape(shape: Shape, name: String): Shape =
     label_shape(shape, name, C.Black)
 
   protected def write(text: String, ink: Ink,

@@ -1,5 +1,5 @@
 /*
-   file: k_k_/graphics/tie/tile/pos/Drawing_Shape_Pos.scala
+   file: k_k_/graphics/tie/tile/pos/Shape_Pos.scala
 
    Tie - Tie Illustrates Everything.
 
@@ -18,33 +18,32 @@ package k_k_.graphics.tie.tile
 
 package pos {
 
-import k_k_.graphics.tie.shapes.{Bounding_Boxed, Drawing_Shape, Line, Point}
+import k_k_.graphics.tie.shapes.{Bounding_Boxed, Line, Point, Shape}
 import k_k_.graphics.tie.shapes.path.Path
 
 import conversions._
 
 
-final class Positionable_Drawing_Shape(self: Drawing_Shape) {
+final class Positionable_Shape(self: Shape) {
 
-  def at(where: Bounding_Box_Pos): Drawing_Shape_Pos =
-    Drawing_Shape_Pos(self, where)
+  def at(where: Bounding_Box_Pos): Shape_Pos =
+    Shape_Pos(self, where)
 
-  def ->(where: Bounding_Box_Pos): Drawing_Shape_Pos =
+  def ->(where: Bounding_Box_Pos): Shape_Pos =
     at(where)
 }
 
 
-object Drawing_Shape_Pos {
+object Shape_Pos {
 
-  implicit def to_Point(shape_pos: Drawing_Shape_Pos): Point =
+  implicit def to_Point(shape_pos: Shape_Pos): Point =
     shape_pos.point
 
-  implicit def to_Path(shape_pos: Drawing_Shape_Pos): Path =
+  implicit def to_Path(shape_pos: Shape_Pos): Path =
     shape_pos.path
 }
 
-final case class Drawing_Shape_Pos(shape: Drawing_Shape,
-                                   pos: Bounding_Box_Pos) {
+final case class Shape_Pos(shape: Shape, pos: Bounding_Box_Pos) {
 
   def point: Point =
     pos(shape)
@@ -52,19 +51,19 @@ final case class Drawing_Shape_Pos(shape: Drawing_Shape,
   def path: Path =
     Path.from_@(point)
 
-  def on(other: Drawing_Shape_Pos): Drawing_Shape =
+  def on(other: Shape_Pos): Shape =
     align_with(other.shape, other.pos)
 
   def on(other_bboxed: Bounding_Boxed, where_on_other: Bounding_Box_Pos):
-      Drawing_Shape =
+      Shape =
     align_with(other_bboxed, where_on_other)
 
-  def align_with(other: Drawing_Shape_Pos): Drawing_Shape =
+  def align_with(other: Shape_Pos): Shape =
     align_with(other.shape, other.pos)
 
   def align_with(other_bboxed: Bounding_Boxed,
                  where_on_other: Bounding_Box_Pos):
-      Drawing_Shape = {
+      Shape = {
     // NOTE: `normalize` positions to enable equality testing
     (pos.normalize, where_on_other.normalize) match {
       case (Center, pos) =>
@@ -99,15 +98,13 @@ final case class Drawing_Shape_Pos(shape: Drawing_Shape,
 
 
   //??????????`attach` / `attach_to`???????
-  def align_under(other: Drawing_Shape_Pos): Drawing_Shape =
+  def align_under(other: Shape_Pos): Shape =
     align_under(other.shape, other.pos)
 
-  def align_under(over: Drawing_Shape, where_on_over: Bounding_Box_Pos):
-      Drawing_Shape =
+  def align_under(over: Shape, where_on_over: Bounding_Box_Pos): Shape =
     shape combo (where_on_over of over).align_with(shape, pos)
 
-  def align_under(over: Drawing_Shape, how: Alignment_Relation = Centered):
-      Drawing_Shape =
+  def align_under(over: Shape, how: Alignment_Relation = Centered): Shape =
     shape combo over.align_with(shape, pos, how)
 
 
@@ -122,10 +119,10 @@ final case class Drawing_Shape_Pos(shape: Drawing_Shape,
 //                                Bottom_Left of shape_to_left)
 
 
-  def line_to(pt: Point): Drawing_Shape =
+  def line_to(pt: Point): Shape =
     Line.between(this.point, pt)
 
-  def line_to(other: Drawing_Shape_Pos): Drawing_Shape =
+  def line_to(other: Shape_Pos): Shape =
     line_to(other.point)
 }
 

@@ -72,7 +72,7 @@ class Svg_Fonts_Test extends Svg_Test_Base {
               )
   }
 
-  protected def render_fonts(fonts: Seq[Font]): Drawing_Shape = {
+  protected def render_fonts(fonts: Seq[Font]): Shape = {
     val (horiz_pad, vert_pad) = (2.5, 2.5)
     val (n, n_groups) = (fonts.length, 3)
     val group_size = n / n_groups + (if (n % n_groups == 0) 0 else 1)
@@ -83,7 +83,7 @@ class Svg_Fonts_Test extends Svg_Test_Base {
     }.join(B_Mid)
   }
 
-  protected def render_font(font: Font): Drawing_Shape = {
+  protected def render_font(font: Font): Shape = {
     Text_Line(name_font(font), font) -~ Default_Writing_Pen
   }
 

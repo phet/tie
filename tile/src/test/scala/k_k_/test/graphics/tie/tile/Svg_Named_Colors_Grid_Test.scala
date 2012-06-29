@@ -62,7 +62,7 @@ class Svg_Named_Colors_Grid_Test extends Svg_Test_Base {
               )
   }
 
-  protected def render_colors(colors: Seq[Named_Color]): Drawing_Shape = {
+  protected def render_colors(colors: Seq[Named_Color]): Shape = {
     val (horiz_pad, vert_pad) = (2.5, 2.5)
     val (n, n_groups) = (colors.length, 14)
     val group_size = n / n_groups + (if (n % n_groups == 0) 0 else 1)
@@ -74,7 +74,7 @@ class Svg_Named_Colors_Grid_Test extends Svg_Test_Base {
     }.join(Bottom_Middle)
   }
 
-  protected def render_color(color: Named_Color): Drawing_Shape = {
+  protected def render_color(color: Named_Color): Shape = {
     val name_font = Font("Arial", 10)
     val text_colors = Seq(C.White, C.Black)
     val name_caption = text_colors.map( Text_Line(color.name, name_font, 1.1) -~

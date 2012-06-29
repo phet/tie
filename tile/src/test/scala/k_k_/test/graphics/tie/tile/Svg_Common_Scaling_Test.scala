@@ -80,12 +80,12 @@ class Svg_Common_Scaling_Test extends Svg_Test_Base {
     val entities = get_entities.toIterable
     assert(!entities.isEmpty)
 
-    type Shape_Combo = (Drawing_Shape, Drawing_Shape) => Drawing_Shape
+    type Shape_Combo = (Shape, Shape) => Shape
 
     val naive_combo: Shape_Combo = ( _ combo _ )
     val fit_combo  : Shape_Combo = ( _ scale_up_asym_combo _.pad(5, 0) )
 
-    val uniform_scaling = ( _: Iterable[Drawing_Shape] ).scale_up_to_uniform
+    val uniform_scaling = ( _: Iterable[Shape] ).scale_up_to_uniform
 
     val (render_naive_fit, render_true_fit, render_uniform_fit) = 
           (render_entities( render_entity(naive_combo) _ )(identity) _ ,
@@ -123,11 +123,11 @@ class Svg_Common_Scaling_Test extends Svg_Test_Base {
   }
 
 
-  protected def render_entities(render_entity: OO_Entity => Drawing_Shape)
-                               (shapes_transform: Iterable[Drawing_Shape] =>
-                                                  Iterable[Drawing_Shape])
+  protected def render_entities(render_entity: OO_Entity => Shape)
+                               (shapes_transform: Iterable[Shape] =>
+                                                  Iterable[Shape])
                                (entities: Iterable[OO_Entity]):
-      Drawing_Shape = {
+      Shape = {
     val (horiz_pad, vert_pad) = (10, 10)
     val (n, n_groups) = (entities.size, 4)
     val group_size = n / n_groups + (if (n % n_groups == 0) 0 else 1)
@@ -178,9 +178,8 @@ class Svg_Common_Scaling_Test extends Svg_Test_Base {
   }
 
   // argument order: combine_shapes(bounding_rect, caption_writing)
-  protected def render_entity(combine_shapes:
-                                (Drawing_Shape, Drawing_Shape) => Drawing_Shape)
-                             (entity: OO_Entity): Drawing_Shape = {
+  protected def render_entity(combine_shapes: (Shape, Shape) => Shape)
+                             (entity: OO_Entity): Shape = {
 
     val font_family_name = "Arial"
   

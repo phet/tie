@@ -103,10 +103,10 @@ class Svg_Alignment_Test extends Svg_Test_Base {
               )
   }
 
-  protected def align_shape(shape: Drawing_Shape, where: Bounding_Box_Pos,
-                            how: Alignment_Relation): Drawing_Shape = {
+  protected def align_shape(shape: Shape, where: Bounding_Box_Pos,
+                            how: Alignment_Relation): Shape = {
 
-    def prepare(shape: Drawing_Shape) =
+    def prepare(shape: Shape) =
       shape -~ shape_pen -& center_X
 
     val name = fmt_name _ tupled calc_name(where, how)

@@ -63,10 +63,11 @@ abstract class Svg_Bounding_Box_Points_Test_Base extends Svg_Test_Base {
   lazy val placed_shape = shape -~ Pen.stroke(C.black) -+ (200, 150)
 
   //????not clear why PartialFunction.cond can infer type of PartialFunction
-  // arg, but Drawing_Shape_Traversal.collect can not... precipitates ugly type
+  // arg, but Shape_Traversal.collect can not... precipitates ugly type
   // and essentially precludes inline definition:
-  val ignore_rectangular: PartialFunction[Drawing_Shape, Drawing_Shape] =
-        { case Rectangular(_, _) => Null_Shape }
+  val ignore_rectangular: PartialFunction[Shape, Shape] = {
+    case Rectangular(_, _) => Null_Shape
+  }
   lazy val bboxed_placed_shape = placed_shape -&
            (placed_shape.collect(ignore_rectangular).headOption.
               getOrElse(placed_shape.bounding_box_shape -~ bbox_pen))
@@ -119,7 +120,7 @@ abstract class Svg_Bounding_Box_Points_Test_Base extends Svg_Test_Base {
               )
   }
 
-  def label_pt(named_pt_method: Drawing_Shape => Point, name: String,
+  def label_pt(named_pt_method: Shape => Point, name: String,
                ink: Ink, name_offset_x: Double, name_offset_y: Double) = {
 
     (write(name, ink) -+ named_pt_method(placed_shape)

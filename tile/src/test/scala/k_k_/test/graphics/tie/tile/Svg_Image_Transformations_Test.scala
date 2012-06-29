@@ -56,32 +56,32 @@ class Svg_Image_Transformations_Test extends Svg_Test_Base {
 
     val transformations = Seq(
                                (img -# .5 -&
-                                 (_: Drawing_Shape).move(20, 20) -&
+                                 (_: Shape).move(20, 20) -&
                                     (Circle(5) -~ Pen.fill(C.Yellow)),
                                 "move(20, 20)"),
-                               ((_: Drawing_Shape).scale(1.5),
+                               ((_: Shape).scale(1.5),
                                 "scale(1.5)"),
-                               ((_: Drawing_Shape).scale(1, 1.5),
+                               ((_: Shape).scale(1, 1.5),
                                 "scale(1, 1.5)"),
                                (img -# .5 -&
-                                  (_: Drawing_Shape).rotate(45),
+                                  (_: Shape).rotate(45),
                                 "rotate(45)"),
                                (img -# .5 -&
-                                 (_: Drawing_Shape).rotate(45, 0, 30) -&
+                                 (_: Shape).rotate(45, 0, 30) -&
                                    (Circle(5) -~ Pen.fill(C.Yellow) -+ (0, 30)),
                                 "rotate(45, 0, 30)"),
                                (img -# .5 -&
-                                 (_: Drawing_Shape).skew_horiz(30),
+                                 (_: Shape).skew_horiz(30),
                                 "skew_horiz(30)"),
                                (img -# .5 -&
-                                  (_: Drawing_Shape).reflect(60),
+                                  (_: Shape).reflect(60),
                                 "reflect(60)"),
                                (img -# .5 -&
-                                 (_: Drawing_Shape).reflect(60, 5, 20) -&
+                                 (_: Shape).reflect(60, 5, 20) -&
                                    (Circle(5) -~ Pen.fill(C.Yellow) -+ (5, 20)),
                                 "reflect(60, 5, 20)"),
                                (img -# .5 -&
-                                 (_: Drawing_Shape).skew_vert(30),
+                                 (_: Shape).skew_vert(30),
                                 "skew_vert(30)") )
     val transformed_images =
           transformations.map( p => (p._1(img), Text_Line(p._2, desc_font)) ).
@@ -95,8 +95,7 @@ class Svg_Image_Transformations_Test extends Svg_Test_Base {
               )
   }
 
-  protected def layout_grid(shapes: Seq[Drawing_Shape], row_size: Int):
-      Drawing_Shape = {
+  protected def layout_grid(shapes: Seq[Shape], row_size: Int): Shape = {
     val (horiz_pad, vert_pad) = (8, 4)
     val shape_groups_it = shapes.grouped(row_size)
     shape_groups_it.map { shape_group =>
@@ -104,7 +103,7 @@ class Svg_Image_Transformations_Test extends Svg_Test_Base {
     }.join(B_Mid)
   }
 
-  def box_image(img: Drawing_Shape): Drawing_Shape = {
+  def box_image(img: Shape): Shape = {
     val box = Rectangle(actual_img_dims._1 * .28, actual_img_dims._2 * .28)
     img -& box
   }

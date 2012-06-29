@@ -16,12 +16,12 @@
 
 package k_k_.graphics.tie
 
-import k_k_.graphics.tie.shapes.{Bounding_Boxed, Drawing_Shape, Point}
+import k_k_.graphics.tie.shapes.{Bounding_Boxed, Point, Shape}
 
 
 package object tile {
 
-  // conversion for Drawing_Shape, Ortho_Rectangle
+  // conversion for Shape, Ortho_Rectangle
   implicit def Bounding_Boxed_to_Bounding_Box_Points(bboxed: Bounding_Boxed) =
     new Bounding_Box_Points(bboxed)
 }
@@ -73,8 +73,8 @@ sealed abstract class Bounding_Box_Pos(pt_method: Bounding_Box_Points => Point){
     apply(Point(x, y))
 
 
-  def of(shape: Drawing_Shape): pos.Drawing_Shape_Pos =
-    pos.Drawing_Shape_Pos(shape, this)
+  def of(shape: Shape): pos.Shape_Pos =
+    pos.Shape_Pos(shape, this)
 
 
   def cycle_cw: Seq[Bounding_Box_Pos] = {
@@ -433,9 +433,9 @@ Test set: k_k_.test.graphics.tie.tile.Svg_Alignment_Test
 Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 0.578 sec <<< FAILURE!
 test_alignment(k_k_.test.graphics.tie.tile.Svg_Alignment_Test)  Time elapsed: 0.25 sec  <<< ERROR!
 java.lang.NullPointerException
-        at k_k_.graphics.tie.tile.adjust.Adjustable_Drawing_Shape.calc_offset$1(adjust.scala:201)
-        at k_k_.graphics.tie.tile.adjust.Adjustable_Drawing_Shape.align_with(adjust.scala:206)
-        at k_k_.graphics.tie.tile.adjust.Adjustable_Drawing_Shape.align_with(adjust.scala:212)
+        at k_k_.graphics.tie.tile.adjust.Adjustable_Shape.calc_offset$1(adjust.scala:201)
+        at k_k_.graphics.tie.tile.adjust.Adjustable_Shape.align_with(adjust.scala:206)
+        at k_k_.graphics.tie.tile.adjust.Adjustable_Shape.align_with(adjust.scala:212)
         at k_k_.test.graphics.tie.tile.Svg_Alignment_Test.align_shape(Svg_Alignment_Test.scala:65)
         at k_k_.test.graphics.tie.tile.Svg_Alignment_Test.create_canvas(Svg_Alignment_Test.scala:111)
         at k_k_.test.graphics.tie.tile.Svg_Alignment_Test.test_alignment(Svg_Alignment_Test.scala:36)
@@ -529,9 +529,9 @@ Test set: k_k_.test.graphics.tie.tile.Svg_Alignment_Test
 Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 0.641 sec <<< FAILURE!
 test_alignment(k_k_.test.graphics.tie.tile.Svg_Alignment_Test)  Time elapsed: 0.234 sec  <<< ERROR!
 java.lang.NullPointerException
-        at k_k_.graphics.tie.tile.adjust.Adjustable_Drawing_Shape.calc_offset$1(adjust.scala:319)
-        at k_k_.graphics.tie.tile.adjust.Adjustable_Drawing_Shape.align_with(adjust.scala:324)
-        at k_k_.graphics.tie.tile.adjust.Adjustable_Drawing_Shape.align_with(adjust.scala:330)
+        at k_k_.graphics.tie.tile.adjust.Adjustable_Shape.calc_offset$1(adjust.scala:319)
+        at k_k_.graphics.tie.tile.adjust.Adjustable_Shape.align_with(adjust.scala:324)
+        at k_k_.graphics.tie.tile.adjust.Adjustable_Shape.align_with(adjust.scala:330)
         at k_k_.test.graphics.tie.tile.Svg_Alignment_Test.align_shape(Svg_Alignment_Test.scala:65)
         at k_k_.test.graphics.tie.tile.Svg_Alignment_Test.create_canvas(Svg_Alignment_Test.scala:117)
         at k_k_.test.graphics.tie.tile.Svg_Alignment_Test.test_alignment(Svg_Alignment_Test.scala:36)

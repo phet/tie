@@ -18,11 +18,11 @@ package k_k_.graphics.tie.tile
 
 package adjust {
 
-import k_k_.graphics.tie.shapes.{Bounding_Boxed, Drawing_Shape, Point,
+import k_k_.graphics.tie.shapes.{Bounding_Boxed, Point, Shape,
                                  Rectangular, Invis_Rectangle,
                                  Pre_Formulated_Shape}
 
-import k_k_.graphics.tie.tile.pos.Drawing_Shape_Pos
+import k_k_.graphics.tie.tile.pos.Shape_Pos
 import conversions._
 
 
@@ -228,7 +228,7 @@ object Padding_Strategy {
           formulate_instructions(l - common_horiz, r - common_horiz,
                                  t - common_vert, b - common_vert)
       }
-    *********/
+    */
   }
 }
 
@@ -258,36 +258,36 @@ import k_k_.graphics.tie.ink.Pen
 
 /*  moved to tile.conversions package object:
 
-object Renderable_Drawing_Shape {
+object Renderable_Shape {
 
-  implicit def Drawing_Shape_to_Renderable_Drawing_Shape(shape: Drawing_Shape) =
-    new Renderable_Drawing_Shape(shape)
+  implicit def Shape_to_Renderable_Shape(shape: Shape) =
+    new Renderable_Shape(shape)
 }
 */
-class Renderable_Drawing_Shape(self: Drawing_Shape) {
+class Renderable_Shape(self: Shape) {
 
-  def under_bounding_box(bbox_pen: Pen): Drawing_Shape =
+  def under_bounding_box(bbox_pen: Pen): Shape =
     under_bounding_box(Some(bbox_pen))
 
-  def under_bounding_box(bbox_pen: Option[Pen] = None): Drawing_Shape =
+  def under_bounding_box(bbox_pen: Option[Pen] = None): Shape =
     bbox_pen match {
       case Some(pen) => self -& (self.bounding_box_shape -~ pen)
       case None      => self -&  self.bounding_box_shape
     }
 
-  def over_bounding_box(bbox_pen: Pen): Drawing_Shape =
+  def over_bounding_box(bbox_pen: Pen): Shape =
     over_bounding_box(Some(bbox_pen))
 
-  def over_bounding_box(bbox_pen: Option[Pen] = None): Drawing_Shape =
+  def over_bounding_box(bbox_pen: Option[Pen] = None): Shape =
     bbox_pen match {
       case Some(pen) => (self.bounding_box_shape -~ pen) -& self
       case None      =>  self.bounding_box_shape         -& self
     }
 
-  def with_bounding_box(bbox_pen: Pen): Drawing_Shape =
+  def with_bounding_box(bbox_pen: Pen): Shape =
     under_bounding_box(Some(bbox_pen))
 
-  def with_bounding_box(bbox_pen: Option[Pen] = None): Drawing_Shape =
+  def with_bounding_box(bbox_pen: Option[Pen] = None): Shape =
     under_bounding_box(bbox_pen)
 }
 
@@ -336,22 +336,22 @@ Scaled_Pre_Formulated_Shape
 Rotated_Pre_Formulated_Shape
 
 
-  def expand_up_combo(over: Drawing_Shape): Drawing_Shape =
+  def expand_up_combo(over: Shape): Shape =
     self.expand_to(Scale_To_Min(over)) combo over
 
-  def expand_up_asym_combo(over: Drawing_Shape): Drawing_Shape =
+  def expand_up_asym_combo(over: Shape): Shape =
     self.expand_to(Scale_To_Min_Asym(over)) combo over
 
-  def expand_down_combo(over: Drawing_Shape): Drawing_Shape =
+  def expand_down_combo(over: Shape): Shape =
     self.expand_to(Scale_To_Max(over)) combo over
 
-  def expand_down_asym_combo(over: Drawing_Shape): Drawing_Shape =
+  def expand_down_asym_combo(over: Shape): Shape =
     self.expand_to(Scale_To_Max_Asym(over)) combo over
 }
 */
 
 
-object Adjustable_Drawing_Shape {
+object Adjustable_Shape {
 
   def calc_scaling_factors(shape: Bounding_Boxed,
                            scaling_strategy: Scaling_Strategy):
@@ -402,14 +402,14 @@ object Adjustable_Drawing_Shape {
   }
 }
 
-final class Adjustable_Drawing_Shape(self: Drawing_Shape) {
+final class Adjustable_Shape(self: Shape) {
 
-  def recenter: Drawing_Shape =
+  def recenter: Shape =
     self move_@ (0, 0)
 
 
   def align_with(other_bboxed: Bounding_Boxed, where_on_other: Bounding_Box_Pos,
-                 how: Alignment_Relation = Centered): Drawing_Shape = {
+                 how: Alignment_Relation = Centered): Shape = {
 
     val other_bbox = Bounding_Boxed(other_bboxed)
 
@@ -426,23 +426,22 @@ final class Adjustable_Drawing_Shape(self: Drawing_Shape) {
     self.move(-x_offset, -y_offset)
   }
 
-  def align_with(shape_pos: Drawing_Shape_Pos, how: Alignment_Relation):
-      Drawing_Shape =
+  def align_with(shape_pos: Shape_Pos, how: Alignment_Relation): Shape =
     align_with(shape_pos.shape, shape_pos.pos, how)
 
-  def align_with(shape_pos: Drawing_Shape_Pos): Drawing_Shape =
+  def align_with(shape_pos: Shape_Pos): Shape =
     align_with(shape_pos.shape, shape_pos.pos)
 
 
-  def scale_to(scaling_strategy: Scaling_Strategy): Drawing_Shape = {
+  def scale_to(scaling_strategy: Scaling_Strategy): Shape = {
     val (x_factor, y_factor) =
-            Adjustable_Drawing_Shape.calc_scaling_factors(self.bounding_box,
-                                                          scaling_strategy)
+        Adjustable_Shape.calc_scaling_factors(self.bounding_box,
+                                              scaling_strategy)
     self.scale(x_factor, y_factor)
   }
 
-  def scale_combo(scaling_strategizer: Drawing_Shape => Scaling_Strategy)
-                 (over: Drawing_Shape): Drawing_Shape =
+  def scale_combo(scaling_strategizer: Shape => Scaling_Strategy)
+                 (over: Shape): Shape =
     self.scale_to(scaling_strategizer(over)) combo over
 
   val scale_up_combo        = scale_combo( Scale_To_Min     (_) ) _
@@ -451,40 +450,39 @@ final class Adjustable_Drawing_Shape(self: Drawing_Shape) {
   val scale_down_asym_combo = scale_combo( Scale_To_Max_Asym(_) ) _
 
 //??????????????
-//  def -*&(over: Drawing_Shape): Drawing_Shape =
+//  def -*&(over: Shape): Shape =
 //    scale_up_combo(over)
 
 
 
-  def pad(strategy: Padding_Strategy): Drawing_Shape =
+  def pad(strategy: Padding_Strategy): Shape =
     (self /: strategy.instructions) { (shape, padding_instruction) =>
       shape.pad(padding_instruction)
     }
 
-  def pad(instruction: Padding_Instruction): Drawing_Shape =
+  def pad(instruction: Padding_Instruction): Shape =
     pad(instruction.where, instruction.width, instruction.height)
 
   def pad(left_padding: Double, right_padding: Double,
-          top_padding: Double,  bottom_padding: Double): Drawing_Shape =
+          top_padding: Double,  bottom_padding: Double): Shape =
     pad(new Padding_Strategy(left_padding, right_padding,
                              top_padding,  bottom_padding))
 
   // uses same 'counter-clockwise-from-top' param order as W3C CSS
   def pad_css(top_padding: Double, right_padding: Double,
-              bottom_padding: Double,  left_padding: Double): Drawing_Shape =
+              bottom_padding: Double,  left_padding: Double): Shape =
     pad(left_padding, right_padding, top_padding,  bottom_padding)
 
-  def pad(uniform_padding: Double): Drawing_Shape =
+  def pad(uniform_padding: Double): Shape =
     pad(Center, uniform_padding, uniform_padding)
 
-  def pad(where: Bounding_Box_Pos, uniform_padding: Double): Drawing_Shape =
+  def pad(where: Bounding_Box_Pos, uniform_padding: Double): Shape =
     pad(where, uniform_padding, uniform_padding)
 
-  def pad(width: Double, height: Double): Drawing_Shape =
+  def pad(width: Double, height: Double): Shape =
     pad(Center, width, height)
 
-  def pad(where: Bounding_Box_Pos, width: Double, height: Double):
-      Drawing_Shape = {
+  def pad(where: Bounding_Box_Pos, width: Double, height: Double): Shape = {
     def calc_new_bbox_size: (Double, Double) = {
       val (width_increase, height_increase) = where match {
           case Center                => (width * 2, height * 2)

@@ -16,32 +16,29 @@
 
 package k_k_.graphics.tie.tile
 
-import k_k_.graphics.tie.shapes.Drawing_Shape
+import k_k_.graphics.tie.shapes.Shape
 
 
 package object conversions {
+//!!!!!!!!!!Renderable_Shape will likely change packages!!!!!!!!
+  import adjust.{Adjustable_Shape, Collected_Shapes, Renderable_Shape}
+  import pos.Positionable_Shape
 
-  implicit def Drawing_Shape_to_Adjustable_Drawing_Shape(shape: Drawing_Shape):
-      adjust.Adjustable_Drawing_Shape =
-    new adjust.Adjustable_Drawing_Shape(shape)
+  implicit def Shape_to_Adjustable_Shape(shape: Shape): Adjustable_Shape =
+    new Adjustable_Shape(shape)
 
-  implicit def Drawing_Shape_to_Positionable_Drawing_Shape(shape:Drawing_Shape):
-      pos.Positionable_Drawing_Shape =
-    new pos.Positionable_Drawing_Shape(shape)
+  implicit def Shape_to_Positionable_Shape(shape:Shape): Positionable_Shape =
+    new Positionable_Shape(shape)
 
-
-
-//!!!!!!!!!!Renderable_Drawing_Shape will likely change packages!!!!!!!!
-  implicit def Drawing_Shape_to_Renderable_Drawing_Shape(shape: Drawing_Shape) =
-    new adjust.Renderable_Drawing_Shape(shape)
-
-
+  implicit def Shape_to_Renderable_Shape(shape: Shape): Renderable_Shape =
+    new Renderable_Shape(shape)
 
   implicit def Traversable_to_Collected_Shapes[C[X] <: Traversable[X]](
-                                                     shapes: C[Drawing_Shape]) =
-    new adjust.Collected_Shapes[C](shapes)
+      shapes: C[Shape]
+    ): Collected_Shapes[C] =
+    new Collected_Shapes[C](shapes)
 
-  implicit def Iterator_to_Collected_Shapes(shapes_it:
-                                                Iterator[Drawing_Shape]) =
+  implicit def Iterator_to_Collected_Shapes(shapes_it: Iterator[Shape]):
+      Collected_Shapes[Seq] =
     Traversable_to_Collected_Shapes(shapes_it.toSeq)
 }

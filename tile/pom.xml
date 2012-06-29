@@ -6,7 +6,7 @@
 
   <groupId>k_k_.graphics.tie</groupId>
   <artifactId>k_k_.graphics.tie.tile</artifactId>
-  <version>0.8.0-SNAPSHOT</version>
+  <version>0.9.0-SNAPSHOT</version>
 
   <name>Tile Library for Tie Layout Assistance</name>
   <description>
@@ -62,7 +62,7 @@
     <dependency>
       <groupId>k_k_.graphics</groupId>
       <artifactId>k_k_.graphics.tie</artifactId>
-      <version>0.10.0</version>
+      <version>0.11.0</version>
     </dependency>
     <dependency>
       <groupId>k_k_.lib</groupId>

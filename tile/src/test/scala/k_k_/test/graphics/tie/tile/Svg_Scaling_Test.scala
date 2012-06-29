@@ -65,8 +65,8 @@ class Svg_Scaling_Test extends Svg_Test_Base {
 */
   }
 
-  protected def exhibit_scaling(shape: Drawing_Shape, bounds: Ortho_Rectangle):
-      Drawing_Shape = {
+  protected def exhibit_scaling(shape: Shape, bounds: Ortho_Rectangle):
+      Shape = {
     val boxed_shape = shape -~ shape_pen -&
                       (bounds.as_drawing_shape -~ bbox_pen)
 
@@ -131,22 +131,22 @@ class Svg_Scaling_Test extends Svg_Test_Base {
 
     //?????why does the following not work (in the map func. above)??????
     //[ERROR] C:\projects\devel\scripts\tie\tile\src\test\scala\k_k_\test\graphics\tietile\Svg_Scaling_Test.scala:69: error: not a legal formal parameter
-    //  ((scaled_shape, offset_x): Tuple2[Drawing_Shape, Double]) => scaled_shape -+ (offset_x, 0)
-    //  (scaled_shape, offset_x): Tuple2[Drawing_Shape, Double] => scaled_shape -+ (offset_x, 0)
-    //  Tuple2[Drawing_Shape, Double](scaled_shape, offset_x) => scaled_shape -+ (offset_x, 0)
+    //  ((scaled_shape, offset_x): Tuple2[Shape, Double]) => scaled_shape -+ (offset_x, 0)
+    //  (scaled_shape, offset_x): Tuple2[Shape, Double] => scaled_shape -+ (offset_x, 0)
+    //  Tuple2[Shape, Double](scaled_shape, offset_x) => scaled_shape -+ (offset_x, 0)
 
 
     box_and_arrow -&
     translated_shapes.reduceLeft(_ -& _)
   }
 
-  protected def scale_shape(shape: Drawing_Shape, how: Scaling_Strategy):
-      (Drawing_Shape, Drawing_Shape) = {
+  protected def scale_shape(shape: Shape, how: Scaling_Strategy):
+      (Shape, Shape) = {
 
-    def prepare(shape: Drawing_Shape) =
+    def prepare(shape: Shape) =
       shape -~ shape_pen -& center_X
 
-    def add_bounding_box(prepared_shape: Drawing_Shape): Drawing_Shape = {
+    def add_bounding_box(prepared_shape: Shape): Shape = {
       val bbox_shape = how match {
         case Orig_Scale              => None
         case Scale_To(w, h)          => Some(Origin_Ortho_Rectangle(w, h))
