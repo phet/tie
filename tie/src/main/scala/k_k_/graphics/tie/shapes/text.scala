@@ -158,7 +158,7 @@ case object Top_Bottom__Right_Left extends Writing_Mode {
 
 
 trait Text_Ruler {
-  def measure(s: String, compress_spaces_? : Boolean): Ortho_Rectangle
+  def measure(s: String, compress_spaces_? : Boolean): Dims
 }
 
 trait Text_Ruler_Factory {
@@ -179,7 +179,7 @@ sealed abstract class Text {
   def *(scale_factor: Double) =
     scale(scale_factor)
 
-  def text_bounding_box(ruler_factory: Text_Ruler_Factory): Ortho_Rectangle
+  def text_bounding_box(ruler_factory: Text_Ruler_Factory): Dims
 }
 
 
@@ -187,7 +187,7 @@ trait Text_Bounding_Box_Memoization { self: Text =>
 
   //!!!!!!!verify that the definition of equals on ConcurrentHashMap (held by Memoizing_Text_Ruler_Factory) would play well with modifications due to interceding forget_all()!!!!!!!!!
 
-  def text_bounding_box(ruler_factory: Text_Ruler_Factory): Ortho_Rectangle =
+  def text_bounding_box(ruler_factory: Text_Ruler_Factory): Dims =
     last_bb_calc match {
       case Some((prev_rlr_factory,bbox)) if prev_rlr_factory == ruler_factory =>
         bbox
@@ -198,12 +198,11 @@ trait Text_Bounding_Box_Memoization { self: Text =>
     }
 
 
-  protected def calc_text_bounding_box(ruler_factory: Text_Ruler_Factory):
-      Ortho_Rectangle
+  protected def calc_text_bounding_box(ruler_factory: Text_Ruler_Factory): Dims
 
 
   @volatile
-  private var last_bb_calc: Option[(Text_Ruler_Factory,Ortho_Rectangle)] = None
+  private[this] var last_bb_calc: Option[(Text_Ruler_Factory, Dims)] = None
 }
 
 
@@ -274,7 +273,7 @@ final case class Basic_Text_Span(text: String,
     copy(font = font scale factor)
 
   protected def calc_text_bounding_box(ruler_factory: Text_Ruler_Factory):
-      Ortho_Rectangle = {
+      Dims = {
     val ruler = ruler_factory.create(font)
     ruler.measure(text, compress_spaces_?)
   }
@@ -301,7 +300,7 @@ final case class Baseline_Shifted_Text_Span(span: Text_Span,
 
 
   protected def calc_text_bounding_box(ruler_factory: Text_Ruler_Factory):
-      Ortho_Rectangle = {
+      Dims = {
     def calc_font_height(font: Font): Double =
       font.size match {
         case Std_Size(num) => num
@@ -315,29 +314,27 @@ final case class Baseline_Shifted_Text_Span(span: Text_Span,
 }
 
 
-trait Ortho_Rectangle_Manipulation { self: Text =>
+trait Dims_Manipulation { self: Text =>
 
-  val null_rect = Origin_Ortho_Rectangle(0, 0)
+  val null_rect = Origin_Dims(0, 0)
 
-  protected def sum_width__max_height(r1: Origin_Ortho_Rectangle,
-                                      r2: Ortho_Rectangle) =
-    Origin_Ortho_Rectangle(r1.width + r2.width, math.max(r1.height, r2.height))
+  protected def sum_width__max_height(r1: Origin_Dims, r2: Dims) =
+    Origin_Dims(r1.width + r2.width, math.max(r1.height, r2.height))
 
-  protected def max_width__sum_height(r1: Origin_Ortho_Rectangle,
-                                      r2: Ortho_Rectangle) =
-    Origin_Ortho_Rectangle(math.max(r1.width, r2.width), r1.height + r2.height)
+  protected def max_width__sum_height(r1: Origin_Dims, r2: Dims) =
+    Origin_Dims(math.max(r1.width, r2.width), r1.height + r2.height)
 
-  protected def quarter_turn(r: Origin_Ortho_Rectangle) =
-    Origin_Ortho_Rectangle(r.height, r.width)
+  protected def quarter_turn(r: Origin_Dims) =
+    Origin_Dims(r.height, r.width)
 
-  protected def identity(r: Origin_Ortho_Rectangle) =
+  protected def identity(r: Origin_Dims) =
     r
 
-  protected def scale_width(r: Ortho_Rectangle, s: Double) =
-    Origin_Ortho_Rectangle(r.width * s, r.height)
+  protected def scale_width(r: Dims, s: Double) =
+    Origin_Dims(r.width * s, r.height)
 
-  protected def scale_height(r: Ortho_Rectangle, s: Double) =
-    Origin_Ortho_Rectangle(r.width, r.height * s)
+  protected def scale_height(r: Dims, s: Double) =
+    Origin_Dims(r.width, r.height * s)
 }
 
 
@@ -495,9 +492,8 @@ case class Text_Line(content: List[Text_Span],
                      breadth: Double     = Text_Line.default_breadth,
                      align: Text_Align   = Text_Line.default_text_align,
                      dir: Text_Direction = Text_Line.default_text_dir)
-    extends Text
-       with Text_Bounding_Box_Memoization
-       with Ortho_Rectangle_Manipulation {
+    extends Text with Text_Bounding_Box_Memoization
+       with Dims_Manipulation {
 
   def ::(span: Text_Span): Text_Line =
     copy(content = span :: content)
@@ -521,7 +517,7 @@ case class Text_Line(content: List[Text_Span],
 
   def text_bounding_box(ruler_factory: Text_Ruler_Factory,
                         enclosing_text_block_mode: Writing_Mode):
-      Ortho_Rectangle = {
+      Dims = {
     val horiz_flow = (max_width__sum_height _, scale_height _, identity     _)
     val vert_flow  = (sum_width__max_height _, scale_width  _, quarter_turn _)
 
@@ -541,7 +537,7 @@ case class Text_Line(content: List[Text_Span],
 
 
   protected def calc_text_bounding_box(ruler_factory: Text_Ruler_Factory):
-      Ortho_Rectangle =
+      Dims =
     text_bounding_box(ruler_factory, Text_Block.default_writing_mode)
 }
 
@@ -638,9 +634,8 @@ object Text_Block {
 
 case class Text_Block(content: List[Text_Line],
                       mode: Writing_Mode = Text_Block.default_writing_mode)
-    extends Text
-       with Text_Bounding_Box_Memoization
-       with Ortho_Rectangle_Manipulation {
+    extends Text with Text_Bounding_Box_Memoization
+       with Dims_Manipulation {
 
   def ::(line: Text_Line): Text_Block =
     copy(content = line :: content)
@@ -663,7 +658,7 @@ case class Text_Block(content: List[Text_Line],
     scale(scale_factor)
 
   protected def calc_text_bounding_box(ruler_factory: Text_Ruler_Factory):
-      Ortho_Rectangle = {
+      Dims = {
     val horiz_flow  = (max_width__sum_height _, identity     _)
     val vert_flow   = (sum_width__max_height _, quarter_turn _)
 
@@ -718,9 +713,9 @@ trait Fallback_To_Avg_Text_Ruler
     extends Text_Ruler
        with Char_Filtering_Text_Ruler { self: Char_Measurements_Source =>
 
-  def measure(s: String, compress_spaces_? : Boolean): Ortho_Rectangle =
-    Origin_Ortho_Rectangle(measure_width(filter_chars(s, compress_spaces_?)),
-                           uniform_char_height)
+  def measure(s: String, compress_spaces_? : Boolean): Dims =
+    Origin_Dims(measure_width(filter_chars(s, compress_spaces_?)),
+                uniform_char_height)
 
 
   protected def measure_width(s: String): Double =
@@ -787,8 +782,7 @@ trait Loadable_Char_Measurements extends Char_Measurements_Source {
 }
 
 object Default_Text_Ruler_Factory
-    extends Text_Ruler_Factory
-       with Memoizing_Text_Ruler_Factory {
+    extends Text_Ruler_Factory with Memoizing_Text_Ruler_Factory {
 
   protected def do_create(font0: Font): Text_Ruler =
     new Fallback_To_Avg_Text_Ruler

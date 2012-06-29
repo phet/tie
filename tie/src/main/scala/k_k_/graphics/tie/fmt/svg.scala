@@ -838,9 +838,9 @@ sealed abstract class Svg_Content_Renderer extends Svg_Renderer_Base {
       }
 
 
-      def calc_line_w_offsets(prev: (Text_Line, Point, Ortho_Rectangle),
-                              curr: (Text_Line, Ortho_Rectangle)):
-          (Text_Line, Point, Ortho_Rectangle) = {
+      def calc_line_w_offsets(prev: (Text_Line, Point, Dims),
+                              curr: (Text_Line, Dims)):
+          (Text_Line, Point, Dims) = {
         val (_, prev_pt, _) = prev
         val (curr_line, curr_line_bb @ Rectangular(w, h)) = curr
         val line_start = calc_line_start(curr_line.align, w, h, prev_pt)
@@ -856,8 +856,7 @@ sealed abstract class Svg_Content_Renderer extends Svg_Renderer_Base {
       //   3/4 (above baseline) :: 1/4 (below baseline)
       // then, to compensate for misaligned appearance when initial char is not
       // descender (no latin-1 caps are), split the difference to 1/8 down
-      def balance_ascent_descent(line_w_offsets_w_bb:
-                                   (Text_Line, Point, Ortho_Rectangle)):
+      def balance_ascent_descent(line_w_offsets_w_bb: (Text_Line, Point, Dims)):
           (Text_Line, Point) = {
         val (line, offset_point, Rectangular(bb_w, bb_h)) = line_w_offsets_w_bb
         (line, offset_point -+ (0, -(bb_h/8)))
@@ -866,8 +865,7 @@ sealed abstract class Svg_Content_Renderer extends Svg_Renderer_Base {
       // NOTE: analogous complication due to fact that <tspan>.{x,y} pos is
       // center-line (for Vertical orientation); simpler solution, here: shift
       // all chars left by half line width
-      def shift_center_line(line_w_offsets_w_bb:
-                              (Text_Line, Point, Ortho_Rectangle)):
+      def shift_center_line(line_w_offsets_w_bb: (Text_Line, Point, Dims)):
           (Text_Line, Point) = {
         val (line, offset_point, Rectangular(bb_w, bb_h)) = line_w_offsets_w_bb
         (line, offset_point -+ (-(bb_w/2), 0))
@@ -875,14 +873,15 @@ sealed abstract class Svg_Content_Renderer extends Svg_Renderer_Base {
 
 
       val line_w_bbs = block.content map { line =>
-                (line, line.text_bounding_box(text_ruler_factory, block.mode)) }
+        (line, line.text_bounding_box(text_ruler_factory, block.mode))
+      }
       // init. scan with a dummy line and starting_pt, later dropped w/ `tail`
       val (starting_pt, start_pt_compensation) = block.mode.orientation match {
         case Horizontal => (upper_left,  balance_ascent_descent _ )
         case Vertical   => (upper_right, shift_center_line      _ )
       }
       val dummy_init = (Text_Line("", Default_Font), starting_pt,
-                        Origin_Ortho_Rectangle(1, 1): Ortho_Rectangle)
+                        Origin_Dims(1, 1): Dims)
       val line_w_offsets =
             ((line_w_bbs scanLeft dummy_init) { calc_line_w_offsets(_, _) }).
               tail.map ( start_pt_compensation(_) )

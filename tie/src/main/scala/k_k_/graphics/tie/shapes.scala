@@ -49,16 +49,16 @@ trait Rectangular {
 
 object Bounding_Boxed {
 
-  def apply(bboxed: Bounding_Boxed): Ortho_Rectangle =
+  def apply(bboxed: Bounding_Boxed): Dims =
     bboxed match {
-      case ortho_rect: Ortho_Rectangle => ortho_rect
-      case _                           => bboxed.bounding_box
+      case dims: Dims => dims
+      case _          => bboxed.bounding_box
     }
 }
 
 trait Bounding_Boxed {
 
-  def bounding_box: Ortho_Rectangle
+  def bounding_box: Dims
 
   def center_pt: Point =
     bounding_box.center_pt
@@ -376,9 +376,8 @@ object Shape {
    *  box capable of fully containing every respective bounding box of all
    *  `shapes`, if each of their bounding box were centered at (0, 0)
    */
-  def common_fit_bounding_box(shapes: Traversable[Shape]):
-      Ortho_Rectangle =
-    Origin_Ortho_Rectangle.apply _ tupled
+  def common_fit_bounding_box(shapes: Traversable[Shape]): Dims =
+    Origin_Dims.apply _ tupled
       ((0.0, 0.0) /: shapes) { (cf_dims, shape) =>
         val bb = shape.bounding_box
         (cf_dims._1 max bb.width,
@@ -751,7 +750,7 @@ final case class Line(length: Double)
     extends Segment {
 
   def bounding_box =
-    Origin_Ortho_Rectangle(length, 0.01)
+    Origin_Dims(length, 0.01)
 
   def as_path = {
     //????NOTE: the change from scala 2.7.7.RC2 to 2.8.1 seemed to break the
@@ -775,7 +774,7 @@ final case class Hemisphere(rad_width: Double, rad_height: Double,
     extends Segment {
 
   def bounding_box =
-    Origin_Ortho_Rectangle(rad_width * 2, rad_height)
+    Origin_Dims(rad_width * 2, rad_height)
 
   def as_path = {
     val left_start:  Point = (0 - rad_width,
@@ -799,7 +798,7 @@ sealed class Iso_Triangle(val base_width: Double, val height: Double)
     extends Pre_Formulated_Shape with Nullary_Shape_Op {
 
   def bounding_box =
-    Origin_Ortho_Rectangle(base_width, height)
+    Origin_Dims(base_width, height)
 
   def as_path = {
     val top_point: Point = (0.0, 0 - height/2) 
@@ -818,7 +817,7 @@ final case class Right_Triangle(base_width: Double, height: Double)
     extends Pre_Formulated_Shape with Nullary_Shape_Op {
 
   def bounding_box =
-    Origin_Ortho_Rectangle(base_width, height)
+    Origin_Dims(base_width, height)
 
   def as_path = {
     val top_point: Point = (0 + base_width/2, 0 - height/2) 
@@ -842,7 +841,7 @@ sealed class Rectangle(val width: Double, val height: Double)
     extends Pre_Formulated_Shape with Rectangular with Nullary_Shape_Op {
 
   def bounding_box =
-    Origin_Ortho_Rectangle(width, height)
+    Origin_Dims(width, height)
 
   def as_path = {
     val upper_left: Point = (0 - width/2, 0 - height/2)
@@ -861,7 +860,7 @@ final case class Parallelogram(side_width: Double, full_width: Double,
     extends Pre_Formulated_Shape with Nullary_Shape_Op {
 
   def bounding_box =
-    Origin_Ortho_Rectangle(full_width, height)
+    Origin_Dims(full_width, height)
 
   def as_path = {
   //??????is rearranging these a good idea or not?????
@@ -882,7 +881,7 @@ final case class Trapezoid(top_width: Double, bottom_width: Double,
     extends Pre_Formulated_Shape with Nullary_Shape_Op {
 
   def bounding_box =
-    Origin_Ortho_Rectangle(math.max(top_width, bottom_width), height)
+    Origin_Dims(math.max(top_width, bottom_width), height)
 
   def as_path = {
     val upper_left: Point = (0 - top_width/2, 0 - height/2) 
@@ -910,7 +909,7 @@ sealed class Pentagon(val side_width: Double,  val full_width: Double,
     extends Pre_Formulated_Shape with Nullary_Shape_Op {
 
   def bounding_box =
-    Origin_Ortho_Rectangle(full_width, full_height)
+    Origin_Dims(full_width, full_height)
 
   def as_path = {
     val top_point: Point = (0.0, 0 - full_height/2)
@@ -945,7 +944,7 @@ sealed class Hexagon(val side_width: Double, val full_width: Double,
     extends Pre_Formulated_Shape with Nullary_Shape_Op {
 
   def bounding_box =
-    Origin_Ortho_Rectangle(full_width, height)
+    Origin_Dims(full_width, height)
 
   def as_path = {
     val upper_left: Point = (0 - side_width/2, 0 - height/2)
@@ -978,7 +977,7 @@ sealed class Octagon(val side_width: Double,  val full_width: Double,
     extends Pre_Formulated_Shape with Nullary_Shape_Op {
 
   def bounding_box =
-    Origin_Ortho_Rectangle(full_width, full_height)
+    Origin_Dims(full_width, full_height)
 
   def as_path = {
     val upper_left: Point = (0 - side_width/2, 0 - full_height/2)
@@ -1010,7 +1009,7 @@ sealed class Ellipse(val rad_width: Double, val rad_height: Double)
     extends Pre_Formulated_Shape with Nullary_Shape_Op {
 
   def bounding_box =
-    Origin_Ortho_Rectangle(rad_width*2, rad_height*2)
+    Origin_Dims(rad_width*2, rad_height*2)
 
   def as_path = {
     val left_start:  Point = (0 - rad_width, 0.0)
@@ -1222,7 +1221,7 @@ sealed class Free_Form(val path: Path)
     }
 
     val (min_pt, max_pt) = calc_max_boundaries
-    Ortho_Rectangle.create_min_containing(min_pt, max_pt)
+    Dims.create_min_containing(min_pt, max_pt)
   }
 
   def as_path =
@@ -1304,7 +1303,7 @@ final class Image private (val path: String, dims: (Double, Double),
   val mapped_fpath = path_mapper(path)
 
   lazy val bounding_box =
-    Origin_Ortho_Rectangle(width, height)
+    Origin_Dims(width, height)
 
   override def toString =
     "Image(" + path + "," + dims + "," + path_mapper(path) + ")"
@@ -1785,26 +1784,26 @@ final case class Attributed_Shape(shape: Shape,
 }
 
 
-object Ortho_Rectangle {
+object Dims {
 
-  def unapply(o: Ortho_Rectangle) =
+  def unapply(o: Dims) =
     Some(o.width, o.height)
 
-  def create_min_containing(pt1: Point, pt2: Point): Ortho_Rectangle = {
+  def create_min_containing(pt1: Point, pt2: Point): Dims = {
     val (min_x, max_x) = More_Math.min_max(pt1.x, pt2.x)
     val (min_y, max_y) = More_Math.min_max(pt1.y, pt2.y)
     val (width, height) = (if (max_x == min_x) 0.001 else max_x - min_x,
                            if (max_y == min_y) 0.001 else max_y - min_y)
     val ctr_pt: Point = (max_x - width/2, max_y - height/2)
-    Origin_Ortho_Rectangle(width, height) move (ctr_pt.x, ctr_pt.y)
+    Origin_Dims(width, height) move (ctr_pt.x, ctr_pt.y)
   }
 }
 
 
-sealed abstract class Ortho_Rectangle
-    extends Transforming[Ortho_Rectangle]
-       with Placeable[Ortho_Rectangle]
-       with Presentable_Shape[Ortho_Rectangle]
+sealed abstract class Dims
+    extends Transforming[Dims]
+       with Placeable[Dims]
+       with Presentable_Shape[Dims]
        with Bounding_Boxed with Rectangular {
 
   def bounding_box =
@@ -1812,28 +1811,27 @@ sealed abstract class Ortho_Rectangle
 
   def as_drawing_shape: Pre_Formulated_Shape // derived class of `Shape`
 
-  type Translated_T          = Translated_Ortho_Rectangle
-  protected val Translated   = Translated_Ortho_Rectangle
+  type Translated_T          = Translated_Dims
+  protected val Translated   = Translated_Dims
 
-  type Scaled_T              = Scaled_Ortho_Rectangle
-  protected val Scaled       = Scaled_Ortho_Rectangle
+  type Scaled_T              = Scaled_Dims
+  protected val Scaled       = Scaled_Dims
 
-  type Rotated_T             = Rotated_Ortho_Rectangle
-  protected val Rotated      = Rotated_Ortho_Rectangle
+  type Rotated_T             = Rotated_Dims
+  protected val Rotated      = Rotated_Dims
 
-  type Reflected_T           = Reflected_Ortho_Rectangle
-  protected val Reflected    = Reflected_Ortho_Rectangle
+  type Reflected_T           = Reflected_Dims
+  protected val Reflected    = Reflected_Dims
 
-  type Skewed_Horiz_T        = Skewed_Horiz_Ortho_Rectangle
-  protected val Skewed_Horiz = Skewed_Horiz_Ortho_Rectangle
+  type Skewed_Horiz_T        = Skewed_Horiz_Dims
+  protected val Skewed_Horiz = Skewed_Horiz_Dims
 
-  type Skewed_Vert_T         = Skewed_Vert_Ortho_Rectangle
-  protected val Skewed_Vert  = Skewed_Vert_Ortho_Rectangle
+  type Skewed_Vert_T         = Skewed_Vert_Dims
+  protected val Skewed_Vert  = Skewed_Vert_Dims
 
 
-  protected def create_composite_shape(other: Ortho_Rectangle):
-      Ortho_Rectangle = {
-    val (Ortho_Rectangle(w1, h1), Ortho_Rectangle(w2, h2)) = (this, other)
+  protected def create_composite_shape(other: Dims): Dims = {
+    val (Dims(w1, h1), Dims(w2, h2)) = (this, other)
     val bb1_ctr = this.center_pt
     val bb2_ctr = other.center_pt
     val (half_w1, half_h1) = (w1/2, h1/2)
@@ -1847,19 +1845,18 @@ sealed abstract class Ortho_Rectangle
     val (min_x, max_x, min_y, max_y) =
       (math.min(bb1_min_x, bb2_min_x), math.max(bb1_max_x, bb2_max_x),
        math.min(bb1_min_y, bb2_min_y), math.max(bb1_max_y, bb2_max_y))
-    Ortho_Rectangle.create_min_containing((min_x, min_y), (max_x, max_y))
+    Dims.create_min_containing((min_x, min_y), (max_x, max_y))
   }
 
-  protected def create_clipped_shape(clipping: Ortho_Rectangle,
-                                     rule: Clip_Rule): Ortho_Rectangle =
+  protected def create_clipped_shape(clipping: Dims, rule: Clip_Rule): Dims =
     // since `clipping` delimits what is shown of `this`, return that instead
     clipping
 
-  protected def create_masked_shape(mask: Ortho_Rectangle): Ortho_Rectangle =
+  protected def create_masked_shape(mask: Dims): Dims =
     // since `mask` delimits what is shown of `this`, return that instead
     mask
 
-  protected def create_inked_shape(pen: Pen): Ortho_Rectangle = {
+  protected def create_inked_shape(pen: Pen): Dims = {
     // do not apply ink, merely return adjusted for size
 
     //!!!!this won't work for text, since stroke doesn't surround the figure!!!
@@ -1876,19 +1873,18 @@ sealed abstract class Ortho_Rectangle
     }
   }
 
-  protected def create_effected_shape(effect: Effect): Ortho_Rectangle =
+  protected def create_effected_shape(effect: Effect): Dims =
     // since effects alter the underlying shape in a (complicated) way that
     // always leaves its dimensions intact, return `this` unchanged
     this
 
-  protected def create_attributed_shape(attribution: Attribution):
-      Ortho_Rectangle =
+  protected def create_attributed_shape(attribution: Attribution): Dims =
     // attribution has no effect on bounding box
     this
 }
 
-final case class Origin_Ortho_Rectangle(width: Double, height: Double)
-    extends Ortho_Rectangle {
+final case class Origin_Dims(width: Double, height: Double)
+    extends Dims {
 
   override
   def center_pt =
@@ -1898,16 +1894,15 @@ final case class Origin_Ortho_Rectangle(width: Double, height: Double)
     Rectangle(width, height)
 }
 
-object Translated_Ortho_Rectangle
-    extends Translated_Transformable[Ortho_Rectangle] {
+object Translated_Dims
+    extends Translated_Transformable[Dims] {
 
   protected def isInstanceOfCompanion(x: Any): Boolean =
-    x.isInstanceOf[Translated_Ortho_Rectangle]
+    x.isInstanceOf[Translated_Dims]
 }
 
-final case class Translated_Ortho_Rectangle(rect: Ortho_Rectangle,
-                                            x_dist: Double, y_dist: Double)
-    extends Ortho_Rectangle {
+final case class Translated_Dims(rect: Dims, x_dist: Double, y_dist: Double)
+    extends Dims {
 
   lazy val width  = rect.width
   lazy val height = rect.height
@@ -1920,16 +1915,15 @@ final case class Translated_Ortho_Rectangle(rect: Ortho_Rectangle,
     rect.as_drawing_shape.move(x_dist, y_dist)
 }
 
-object Scaled_Ortho_Rectangle
-    extends Scaled_Transformable[Ortho_Rectangle] {
+object Scaled_Dims
+    extends Scaled_Transformable[Dims] {
 
   protected def isInstanceOfCompanion(x: Any): Boolean =
-    x.isInstanceOf[Scaled_Ortho_Rectangle]
+    x.isInstanceOf[Scaled_Dims]
 }
 
-final case class Scaled_Ortho_Rectangle(rect: Ortho_Rectangle,
-                                        x_scaling: Double, y_scaling: Double)
-    extends Ortho_Rectangle {
+final case class Scaled_Dims(rect: Dims, x_scaling: Double, y_scaling: Double)
+    extends Dims {
 
   lazy val width  = rect.width  * x_scaling
   lazy val height = rect.height * y_scaling
@@ -1943,9 +1937,9 @@ final case class Scaled_Ortho_Rectangle(rect: Ortho_Rectangle,
 }
 
 
-trait Ortho_Rectangle_Displaceable_Points {
+trait Dims_Displacement {
 
-  protected def calc_displacement(rect: Ortho_Rectangle): Ortho_Rectangle = {
+  protected def calc_displacement(rect: Dims): Dims = {
     val rect_ctr = rect.center_pt
     val (rect_half_w, rect_half_h) = (rect.width/2, rect.height/2)
     val rect_corner_pts: List[Point] =
@@ -1958,33 +1952,31 @@ trait Ortho_Rectangle_Displaceable_Points {
                           displaced_corner_pts map { _.x } max)
     val (min_y, max_y) = (displaced_corner_pts map { _.y } min,
                           displaced_corner_pts map { _.y } max)
-    Ortho_Rectangle.create_min_containing((min_x, min_y), (max_x, max_y))
+    Dims.create_min_containing((min_x, min_y), (max_x, max_y))
   }
 
   protected def calc_displacement(pt: Point): Point
 }
 
 
-object Rotated_Ortho_Rectangle
-    extends Rotated_Transformable[Ortho_Rectangle] {
+object Rotated_Dims
+    extends Rotated_Transformable[Dims] {
 
   protected def isInstanceOfCompanion(x: Any): Boolean =
-    x.isInstanceOf[Rotated_Ortho_Rectangle]
+    x.isInstanceOf[Rotated_Dims]
 
 //????for some reason the following is not equiv to the above:
 //  protected val isInstanceOfCompanion =
-//    (_: Any).isInstanceOf[Rotated_Ortho_Rectangle]
+//    (_: Any).isInstanceOf[Rotated_Dims]
 //
 //[ERROR] .../tie/tie/src/main/scala/k_k_/graphics/tie/shapes.scala:1328: error: object creation impossible, since method isInstanceOfCompanion in trait Rotated_Transformable of type (x: Any)Boolean is not defined
-//[INFO] object Rotated_Ortho_Rectangle
+//[INFO] object Rotated_Dims
 //[INFO]        ^
 }
 
-final case class Rotated_Ortho_Rectangle(rect: Ortho_Rectangle,
-                                         degrees: Double,
-                                         x_pivot: Double, y_pivot: Double)
-    extends Ortho_Rectangle
-       with Ortho_Rectangle_Displaceable_Points {
+final case class Rotated_Dims(rect: Dims, degrees: Double,
+                              x_pivot: Double, y_pivot: Double)
+    extends Dims with Dims_Displacement {
 
   lazy val width  = equiv_bounding_box.width
   lazy val height = equiv_bounding_box.height
@@ -2007,18 +1999,16 @@ final case class Rotated_Ortho_Rectangle(rect: Ortho_Rectangle,
   private lazy val equiv_bounding_box = calc_displacement(rect)
 }
 
-object Reflected_Ortho_Rectangle
-    extends Reflected_Transformable[Ortho_Rectangle] {
+object Reflected_Dims
+    extends Reflected_Transformable[Dims] {
 
   protected def isInstanceOfCompanion(x: Any): Boolean =
-    x.isInstanceOf[Reflected_Ortho_Rectangle]
+    x.isInstanceOf[Reflected_Dims]
 }
 
-final case class Reflected_Ortho_Rectangle(rect: Ortho_Rectangle,
-                                           degrees: Double,
-                                           x_pivot: Double, y_pivot: Double)
-    extends Ortho_Rectangle
-       with Ortho_Rectangle_Displaceable_Points {
+final case class Reflected_Dims(rect: Dims, degrees: Double,
+                                x_pivot: Double, y_pivot: Double)
+    extends Dims with Dims_Displacement {
 
   lazy val width  = equiv_bounding_box.width
   lazy val height = equiv_bounding_box.height
@@ -2041,17 +2031,15 @@ final case class Reflected_Ortho_Rectangle(rect: Ortho_Rectangle,
   private lazy val equiv_bounding_box = calc_displacement(rect)
 }
 
-object Skewed_Horiz_Ortho_Rectangle
-    extends Skewed_Horiz_Transformable[Ortho_Rectangle] {
+object Skewed_Horiz_Dims
+    extends Skewed_Horiz_Transformable[Dims] {
 
   protected def isInstanceOfCompanion(x: Any): Boolean =
-    x.isInstanceOf[Skewed_Horiz_Ortho_Rectangle]
+    x.isInstanceOf[Skewed_Horiz_Dims]
 }
 
-final case class Skewed_Horiz_Ortho_Rectangle(rect: Ortho_Rectangle,
-                                              degrees: Double)
-    extends Ortho_Rectangle
-       with Ortho_Rectangle_Displaceable_Points {
+final case class Skewed_Horiz_Dims(rect: Dims, degrees: Double)
+    extends Dims with Dims_Displacement {
 
   lazy val width  = equiv_bounding_box.width
   lazy val height = equiv_bounding_box.height
@@ -2074,17 +2062,15 @@ final case class Skewed_Horiz_Ortho_Rectangle(rect: Ortho_Rectangle,
   private lazy val equiv_bounding_box = calc_displacement(rect)
 }
 
-object Skewed_Vert_Ortho_Rectangle
-    extends Skewed_Vert_Transformable[Ortho_Rectangle] {
+object Skewed_Vert_Dims
+    extends Skewed_Vert_Transformable[Dims] {
 
   protected def isInstanceOfCompanion(x: Any): Boolean =
-    x.isInstanceOf[Skewed_Vert_Ortho_Rectangle]
+    x.isInstanceOf[Skewed_Vert_Dims]
 }
 
-final case class Skewed_Vert_Ortho_Rectangle(rect: Ortho_Rectangle,
-                                             degrees: Double)
-    extends Ortho_Rectangle
-       with Ortho_Rectangle_Displaceable_Points {
+final case class Skewed_Vert_Dims(rect: Dims, degrees: Double)
+    extends Dims with Dims_Displacement {
 
   lazy val width  = equiv_bounding_box.width
   lazy val height = equiv_bounding_box.height
@@ -2136,7 +2122,7 @@ val Null_PF_Shape: Pre_Formulated_Shape =
   val (alleged_width, alleged_height) = (0.0001, 0.0001)
 
   def bounding_box =
-    Origin_Ortho_Rectangle(alleged_width, alleged_height)
+    Origin_Dims(alleged_width, alleged_height)
 
   def as_path =
     Path.from(0, 0).
