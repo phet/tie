@@ -41,7 +41,7 @@ class Svg_Scaling_Test extends Svg_Test_Base {
               (Line(30) -+ (-40, -8)) -&
               (Line(30) -+ (-40, 8)) -~ center_pen
 
-  val bbox = Origin_Ortho_Rectangle(100, 80)
+  val bbox = Origin_Dims(100, 80)
 
 
   protected def create_canvas() = {
@@ -65,8 +65,7 @@ class Svg_Scaling_Test extends Svg_Test_Base {
 */
   }
 
-  protected def exhibit_scaling(shape: Shape, bounds: Ortho_Rectangle):
-      Shape = {
+  protected def exhibit_scaling(shape: Shape, bounds: Dims): Shape = {
     val boxed_shape = shape -~ shape_pen -&
                       (bounds.as_drawing_shape -~ bbox_pen)
 
@@ -149,12 +148,12 @@ class Svg_Scaling_Test extends Svg_Test_Base {
     def add_bounding_box(prepared_shape: Shape): Shape = {
       val bbox_shape = how match {
         case Orig_Scale              => None
-        case Scale_To(w, h)          => Some(Origin_Ortho_Rectangle(w, h))
-        case Scale_To_Asym(w, h)     => Some(Origin_Ortho_Rectangle(w, h))
-        case Scale_To_Max(w, h)      => Some(Origin_Ortho_Rectangle(w, h))
-        case Scale_To_Max_Asym(w, h) => Some(Origin_Ortho_Rectangle(w, h))
-        case Scale_To_Min(w, h)      => Some(Origin_Ortho_Rectangle(w, h))
-        case Scale_To_Min_Asym(w, h) => Some(Origin_Ortho_Rectangle(w, h))
+        case Scale_To(w, h)          => Some(Origin_Dims(w, h))
+        case Scale_To_Asym(w, h)     => Some(Origin_Dims(w, h))
+        case Scale_To_Max(w, h)      => Some(Origin_Dims(w, h))
+        case Scale_To_Max_Asym(w, h) => Some(Origin_Dims(w, h))
+        case Scale_To_Min(w, h)      => Some(Origin_Dims(w, h))
+        case Scale_To_Min_Asym(w, h) => Some(Origin_Dims(w, h))
         case _: Collection_Scaling_Strategy=> None
       }
 
