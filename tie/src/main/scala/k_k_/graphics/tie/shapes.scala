@@ -30,6 +30,8 @@ import k_k_.graphics.tie.transform._
 import k_k_.algo.{Math => More_Math}
 
 
+//????redo Rectangular as a type class????
+
 object Rectangular {
 
   def unapply(rect: Rectangular): Option[(Double, Double)] =
@@ -60,16 +62,23 @@ trait Bounding_Boxed {
 
   def bounding_box: Dims
 
-  def center_pt: Point =
-    bounding_box.center_pt
+  def center_pt: Point = bounding_box.center_pt
 
-  final def bounding_box_shape: Pre_Formulated_Shape =
+  final def bounding_box_shape: Simple_Shape =
     bounding_box.as_drawing_shape
+
+  final def bounding_box_path: Path =
+    bounding_box_shape.as_path
+
+  // aliases:
+  final def bbox       = bounding_box
+  final def bbox_shape = bounding_box_shape
+  final def bbox_path  = bounding_box_path
 }
 
 trait Bounding_Shaped { self: Bounding_Boxed =>
 
-  def best_bounding_shape: Pre_Formulated_Shape =
+  def best_bounding_shape: Simple_Shape =
     bounding_box.as_drawing_shape
 }
 
@@ -327,8 +336,11 @@ trait Presentable_Shape[T <: Presentable_Shape[T]] { self: T =>
   def as(attribution: Attribution): T =
     create_attributed_shape(attribution)
 
-  def as(attribution1: Attribution, attribution2: Attribution): T =
-    as(attribution1).as(attribution2)
+  def as(attribution1: Attribution, attributions: Attribution*): T =
+    // NOTE: evaluation respects operator's left-assoc. semantics
+    (this.as(attribution1) /: attributions) { (instance, attribution) =>
+      instance.as(attribution)
+    }
 
   def as(id: String): T =
     create_attributed_shape(Id_Attribution(id))
@@ -337,8 +349,11 @@ trait Presentable_Shape[T <: Presentable_Shape[T]] { self: T =>
   def -:(attribution: Attribution): T =
     as(attribution)
 
-  def -:(attribution1: Attribution, attribution2: Attribution): T =
-    as(attribution2).as(attribution1) // parallel right-assoc. evaluation
+  def -:(attribution1: Attribution, attributions: Attribution*): T =
+    // NOTE: evaluation respects operator's right-assoc. semantics
+    (attributions :\ this) { (attribution, instance) =>
+      instance.as(attribution)
+    }.as(attribution1)
 
   def -:(id: String): T =
     as(Id_Attribution(id))
@@ -347,8 +362,8 @@ trait Presentable_Shape[T <: Presentable_Shape[T]] { self: T =>
   def -:-(attribution: Attribution): T =
     as(attribution)
 
-  def -:-(attribution1: Attribution, attribution2: Attribution): T =
-    as(attribution1).as(attribution2)
+  def -:-(attribution1: Attribution, attributions: Attribution*): T =
+    as(attribution1, attributions: _*)
 
   def -:-(id: String): T =
     as(Id_Attribution(id))
@@ -383,6 +398,9 @@ object Shape {
         (cf_dims._1 max bb.width,
          cf_dims._2 max bb.height)
       }
+
+  // alias:
+  val common_bbox = common_fit_bounding_box _
 }
 
 sealed abstract class Shape
@@ -398,17 +416,17 @@ sealed abstract class Shape
     this
 
 
-  type Translated_T          = Translated_Non_Pre_Formulated_Shape
-  protected val Translated   = Translated_Non_Pre_Formulated_Shape
+  type Translated_T          = Translated_Non_Simple_Shape
+  protected val Translated   = Translated_Non_Simple_Shape
 
-  type Scaled_T              = Scaled_Non_Pre_Formulated_Shape
-  protected val Scaled       = Scaled_Non_Pre_Formulated_Shape
+  type Scaled_T              = Scaled_Non_Simple_Shape
+  protected val Scaled       = Scaled_Non_Simple_Shape
 
-  type Rotated_T             = Rotated_Non_Pre_Formulated_Shape
-  protected val Rotated      = Rotated_Non_Pre_Formulated_Shape
+  type Rotated_T             = Rotated_Non_Simple_Shape
+  protected val Rotated      = Rotated_Non_Simple_Shape
 
-  type Reflected_T           = Reflected_Non_Pre_Formulated_Shape
-  protected val Reflected    = Reflected_Non_Pre_Formulated_Shape
+  type Reflected_T           = Reflected_Non_Simple_Shape
+  protected val Reflected    = Reflected_Non_Simple_Shape
 
   type Skewed_Horiz_T        = Skewed_Horiz_Shape
   protected val Skewed_Horiz = Skewed_Horiz_Shape
@@ -525,202 +543,187 @@ sealed abstract class Faux_Shape
     extends Shape with Nullary_Shape_Op
 
 // for 'best' bounding shape (where shape must be necessarily 'closed')
-sealed abstract class Pre_Formulated_Shape
+sealed abstract class Simple_Shape
     extends True_Shape {  self: Shape_Op =>
 
-//     with Transforming[Pre_Formulated_Shape]
-//     with Placeable[Pre_Formulated_Shape] {
+//     with Transforming[Simple_Shape]
+//     with Placeable[Simple_Shape] {
 
 
   def as_segments: Seq[Segment] =
     Nil //!!!!!!!!!!this should be fully abstract, not defined here!!!!!!!
 
   override
-  def best_bounding_shape: Pre_Formulated_Shape =
+  def best_bounding_shape: Simple_Shape =
     this
 
 
 /*?????it would seem to be equivalent to 'override' every method to have a
-  covariant return type by extending `Transforming[Pre_Formulated_Shape]`
+  covariant return type by extending `Transforming[Simple_Shape]`
   however it causes the following error, which seems only to be solved by
   overriding every method 'by hand' to specifically state the covariant return
   type--what could be done here???????
 
 [ERROR] .../tie/tie/src/main/scala/k_k_/graphics/tie/shapes.scala:1096: error: illegal inheritance;
-[INFO]  class Rotated_Pre_Formulated_Shape inherits different type instances of trait Transforming:
-[INFO] k_k_.graphics.tie.transformable.Transforming[k_k_.graphics.tie.shapes.Pre_Formulated_Shape] and k_k_.graphics.tie.transformable.Transforming[k_k_.graphics.tie.shapes.Shape]
-[INFO] final case class Rotated_Pre_Formulated_Shape(shape: Pre_Formulated_Shape,
+[INFO]  class Rotated_Simple_Shape inherits different type instances of trait Transforming:
+[INFO] k_k_.graphics.tie.transformable.Transforming[k_k_.graphics.tie.shapes.Simple_Shape] and k_k_.graphics.tie.transformable.Transforming[k_k_.graphics.tie.shapes.Shape]
+[INFO] final case class Rotated_Simple_Shape(shape: Simple_Shape,
 [INFO]                  ^
 
 
-  override type Translated_T        = Translated_Pre_Formulated_Shape
-  override protected val Translated = Translated_Pre_Formulated_Shape
+  override type Translated_T        = Translated_Simple_Shape
+  override protected val Translated = Translated_Simple_Shape
 
-  override type Scaled_T            = Scaled_Pre_Formulated_Shape
-  override protected val Scaled     = Scaled_Pre_Formulated_Shape
+  override type Scaled_T            = Scaled_Simple_Shape
+  override protected val Scaled     = Scaled_Simple_Shape
 
-  override type Rotated_T           = Rotated_Pre_Formulated_Shape
-  override protected val Rotated    = Rotated_Pre_Formulated_Shape
+  override type Rotated_T           = Rotated_Simple_Shape
+  override protected val Rotated    = Rotated_Simple_Shape
 
-  override type Reflected_T         = Reflected_Pre_Formulated_Shape
-  override protected val Reflected  = Reflected_Pre_Formulated_Shape
+  override type Reflected_T         = Reflected_Simple_Shape
+  override protected val Reflected  = Reflected_Simple_Shape
 */
 
 
   override
-  def move(x_dist: Double, y_dist: Double): Pre_Formulated_Shape = {
+  def move(x_dist: Double, y_dist: Double): Simple_Shape =
     this match {
-      case Translated_Pre_Formulated_Shape(inner,
-                                           existing_x_dist, existing_y_dist) =>
+      case Translated_Simple_Shape(inner, existing_x_dist, existing_y_dist) =>
         val combined_x_dist = x_dist + existing_x_dist
         val combined_y_dist = y_dist + existing_y_dist
         if (combined_x_dist == 0.0 && combined_y_dist == 0.0)
           inner // successive ops cancel one another
         else
           // adjust 'previous' op by combining with sucessor
-          Translated_Pre_Formulated_Shape(inner,
-                                          combined_x_dist, combined_y_dist)
+          Translated_Simple_Shape(inner, combined_x_dist, combined_y_dist)
       case _ =>
-        Translated_Pre_Formulated_Shape(this, x_dist, y_dist)
+        Translated_Simple_Shape(this, x_dist, y_dist)
     }
-  }
 
   override
-  def move(pt_offset: Point): Pre_Formulated_Shape =
+  def move(pt_offset: Point): Simple_Shape =
     move(pt_offset.x, pt_offset.y)
 
   override
-  def move(dist: Double): Pre_Formulated_Shape =
+  def move(dist: Double): Simple_Shape =
     move(dist, dist)
 
   override
-  def -+(x_dist: Double, y_dist: Double): Pre_Formulated_Shape =
+  def -+(x_dist: Double, y_dist: Double): Simple_Shape =
     move(x_dist, y_dist)
 
   override
-  def -+(pt_offset: Point): Pre_Formulated_Shape =
+  def -+(pt_offset: Point): Simple_Shape =
     move(pt_offset.x, pt_offset.y)
 
   override
-  def -+(dist: Double): Pre_Formulated_Shape =
+  def -+(dist: Double): Simple_Shape =
     move(dist, dist)
 
 
   override
-  def move_@(dest_pt: Point): Pre_Formulated_Shape =
+  def move_@(dest_pt: Point): Simple_Shape =
     move(dest_pt -+ -center_pt)
 
   override
-  def move_@(x_coord: Double, y_coord: Double): Pre_Formulated_Shape =
+  def move_@(x_coord: Double, y_coord: Double): Simple_Shape =
     move_@(Point(x_coord, y_coord))
 
   override
-  def move_abs(dest_pt: Point): Pre_Formulated_Shape = move_@(dest_pt)
+  def move_abs(dest_pt: Point): Simple_Shape = move_@(dest_pt)
 
   override
-  def move_abs(x_coord: Double, y_coord: Double): Pre_Formulated_Shape =
+  def move_abs(x_coord: Double, y_coord: Double): Simple_Shape =
     move_@(x_coord, y_coord)
 
   override
-  def -+@(dest_pt: Point): Pre_Formulated_Shape =
+  def -+@(dest_pt: Point): Simple_Shape =
     move_@(dest_pt)
 
   override
-  def -+@(x_coord: Double, y_coord: Double): Pre_Formulated_Shape =
+  def -+@(x_coord: Double, y_coord: Double): Simple_Shape =
     move_@(Point(x_coord, y_coord))
 
 
   override
-  def scale(x_scaling: Double, y_scaling: Double): Pre_Formulated_Shape = {
+  def scale(x_scaling: Double, y_scaling: Double): Simple_Shape = {
     this match {
-      case Scaled_Pre_Formulated_Shape(inner,
-                                       existing_x_scaling,existing_y_scaling) =>
+      case Scaled_Simple_Shape(inner, existing_x_scaling,existing_y_scaling) =>
         val combined_x_scaling = x_scaling * existing_x_scaling
         val combined_y_scaling = y_scaling * existing_y_scaling
         if (combined_x_scaling == 1.0 && combined_y_scaling == 1.0)
           inner // successive ops cancel one another
         else
           // adjust 'previous' op by combining with sucessor
-          Scaled_Pre_Formulated_Shape(inner,
-                                      combined_x_scaling, combined_y_scaling)
+          Scaled_Simple_Shape(inner, combined_x_scaling, combined_y_scaling)
       case _ =>
-        Scaled_Pre_Formulated_Shape(this, x_scaling, y_scaling)
+        Scaled_Simple_Shape(this, x_scaling, y_scaling)
     }
   }
 
 
   override
-  def scale(scaling: Double): Pre_Formulated_Shape =
+  def scale(scaling: Double): Simple_Shape =
     scale(scaling, scaling)
 
   override
-  def -*(x_scaling: Double, y_scaling: Double): Pre_Formulated_Shape =
+  def -*(x_scaling: Double, y_scaling: Double): Simple_Shape =
     scale(x_scaling, y_scaling)
 
   override
-  def -*(scaling: Double): Pre_Formulated_Shape =
+  def -*(scaling: Double): Simple_Shape =
     scale(scaling, scaling)
 
 
   override
-  def rotate(degrees: Double, about_x: Double, about_y: Double):
-      Pre_Formulated_Shape = {
+  def rotate(degrees: Double, about_x: Double, about_y: Double): Simple_Shape =
     (about_x, about_y, this) match {
       // NOTE: simplify only when both rotate about (0,0)--else too complicated
-      case (0, 0, Rotated_Pre_Formulated_Shape(inner, existing_degrees, 0, 0))=>
+      case (0, 0, Rotated_Simple_Shape(inner, existing_degrees, 0, 0)) =>
         val combined_degrees = degrees + existing_degrees
         if (combined_degrees % 360 == 0.0)
           inner // successive ops cancel one another
         else
           // adjust 'previous' op by combining with sucessor
-          Rotated_Pre_Formulated_Shape(inner, combined_degrees, 0, 0)
+          Rotated_Simple_Shape(inner, combined_degrees, 0, 0)
       case _ =>
-        Rotated_Pre_Formulated_Shape(this, degrees, about_x, about_y)
+        Rotated_Simple_Shape(this, degrees, about_x, about_y)
     }
-  }
 
   override
-  def rotate(degrees: Double, center_pt: Point = Point(0, 0)):
-      Pre_Formulated_Shape =
+  def rotate(degrees: Double, center_pt: Point = Point(0, 0)): Simple_Shape =
     rotate(degrees, center_pt.x, center_pt.y)
 
   override
-  def -%(degrees: Double, about_x: Double, about_y: Double):
-      Pre_Formulated_Shape =
+  def -%(degrees: Double, about_x: Double, about_y: Double): Simple_Shape =
     rotate(degrees, about_x, about_y)
 
   override
-  def -%(degrees: Double, center_pt: Point = Point(0, 0)):
-      Pre_Formulated_Shape =
+  def -%(degrees: Double, center_pt: Point = Point(0, 0)): Simple_Shape =
     rotate(degrees, center_pt.x, center_pt.y)
 
 
   override
-  def reflect(degrees: Double, about_x: Double, about_y: Double):
-      Pre_Formulated_Shape = {
+  def reflect(degrees: Double, about_x: Double, about_y: Double): Simple_Shape =
     (about_x, about_y, this) match {
       // NOTE: simplify only when both reflect about (0,0)--else too complicated
-      case (0, 0, Reflected_Pre_Formulated_Shape(inner, existing_degrees, 0, 0))
+      case (0, 0, Reflected_Simple_Shape(inner, existing_degrees, 0, 0))
              if ((degrees % 360) == (existing_degrees % 360)) =>
           inner // successive ops cancel one another
       case _ =>
-        Reflected_Pre_Formulated_Shape(this, degrees, about_x, about_y)
+        Reflected_Simple_Shape(this, degrees, about_x, about_y)
     }
-  }
 
   override
-  def reflect(degrees: Double, about_pt: Point = Point(0, 0)):
-      Pre_Formulated_Shape =
+  def reflect(degrees: Double, about_pt: Point = Point(0, 0)): Simple_Shape =
     reflect(degrees, about_pt.x, about_pt.y)
 
   override
-  def -|-(degrees: Double, about_x: Double, about_y: Double):
-      Pre_Formulated_Shape =
+  def -|-(degrees: Double, about_x: Double, about_y: Double): Simple_Shape =
     reflect(degrees, about_x, about_y)
 
   override
-  def -|-(degrees: Double, about_pt: Point = Point(0, 0)):
-      Pre_Formulated_Shape =
+  def -|-(degrees: Double, about_pt: Point = Point(0, 0)): Simple_Shape =
     reflect(degrees, about_pt.x, about_pt.y)
 }
 
@@ -753,14 +756,6 @@ final case class Line(length: Double)
     Origin_Dims(length, 0.01)
 
   def as_path = {
-    //????NOTE: the change from scala 2.7.7.RC2 to 2.8.1 seemed to break the
-    // following, giving: 'error: type mismatch;
-    // [INFO]  found   : (Double, Int)
-    // [INFO]  required: k_k_.graphics.tie.shapes.Point'
-    // the implicit is: implicit def from_double2(x_and_y: (Double, Double)) =
-    //????prior to 2.8.1 Int must have been auto-converted to Double; did the
-    // language spec change, or is this a bug????
-    //...pper_left: Point = (0 - length/2, 0)
     val upper_left: Point = (0 - length/2, 0.0)
     Path.from(upper_left).
          horiz(length)
@@ -770,17 +765,17 @@ final case class Line(length: Double)
 
 
 final case class Hemisphere(rad_width: Double, rad_height: Double,
-                            top_? : Boolean = true)
+                            is_top_half: Boolean = true)
     extends Segment {
 
   def bounding_box =
     Origin_Dims(rad_width * 2, rad_height)
 
   def as_path = {
-    val left_start:  Point = (0 - rad_width,
-                              if (top_?) rad_height/2 else 0 - rad_height/2)
+    val left_start = Point(0 - rad_width,
+                           if (is_top_half) rad_height/2 else 0 - rad_height/2)
     Path.from(left_start).
-         arc(rad_width, rad_height, if (top_?) Large_CW else Large_CCW,
+         arc(rad_width, rad_height, if (is_top_half) Large_CW else Large_CCW,
              rad_width * 2, 0)
   }
 }
@@ -795,7 +790,7 @@ object Iso_Triangle {
 }
 
 sealed class Iso_Triangle(val base_width: Double, val height: Double)
-    extends Pre_Formulated_Shape with Nullary_Shape_Op {
+    extends Simple_Shape with Nullary_Shape_Op {
 
   def bounding_box =
     Origin_Dims(base_width, height)
@@ -814,7 +809,7 @@ sealed class Iso_Triangle(val base_width: Double, val height: Double)
 }
 
 final case class Right_Triangle(base_width: Double, height: Double)
-    extends Pre_Formulated_Shape with Nullary_Shape_Op {
+    extends Simple_Shape with Nullary_Shape_Op {
 
   def bounding_box =
     Origin_Dims(base_width, height)
@@ -838,7 +833,7 @@ object Rectangle {
 }
 
 sealed class Rectangle(val width: Double, val height: Double)
-    extends Pre_Formulated_Shape with Rectangular with Nullary_Shape_Op {
+    extends Simple_Shape with Rectangular with Nullary_Shape_Op {
 
   def bounding_box =
     Origin_Dims(width, height)
@@ -857,7 +852,7 @@ sealed class Rectangle(val width: Double, val height: Double)
 
 final case class Parallelogram(side_width: Double, full_width: Double,
                                height: Double)
-    extends Pre_Formulated_Shape with Nullary_Shape_Op {
+    extends Simple_Shape with Nullary_Shape_Op {
 
   def bounding_box =
     Origin_Dims(full_width, height)
@@ -878,7 +873,7 @@ final case class Parallelogram(side_width: Double, full_width: Double,
 
 final case class Trapezoid(top_width: Double, bottom_width: Double,
                            height: Double)
-    extends Pre_Formulated_Shape with Nullary_Shape_Op {
+    extends Simple_Shape with Nullary_Shape_Op {
 
   def bounding_box =
     Origin_Dims(math.max(top_width, bottom_width), height)
@@ -906,7 +901,7 @@ object Pentagon {
 
 sealed class Pentagon(val side_width: Double,  val full_width: Double,
                       val side_height: Double, val full_height: Double)
-    extends Pre_Formulated_Shape with Nullary_Shape_Op {
+    extends Simple_Shape with Nullary_Shape_Op {
 
   def bounding_box =
     Origin_Dims(full_width, full_height)
@@ -941,7 +936,7 @@ object Hexagon {
 
 sealed class Hexagon(val side_width: Double, val full_width: Double,
                      val height: Double)
-    extends Pre_Formulated_Shape with Nullary_Shape_Op {
+    extends Simple_Shape with Nullary_Shape_Op {
 
   def bounding_box =
     Origin_Dims(full_width, height)
@@ -974,7 +969,7 @@ object Octagon {
 
 sealed class Octagon(val side_width: Double,  val full_width: Double,
                      val side_height: Double, val full_height: Double)
-    extends Pre_Formulated_Shape with Nullary_Shape_Op {
+    extends Simple_Shape with Nullary_Shape_Op {
 
   def bounding_box =
     Origin_Dims(full_width, full_height)
@@ -1006,7 +1001,7 @@ object Ellipse {
 }
 
 sealed class Ellipse(val rad_width: Double, val rad_height: Double)
-    extends Pre_Formulated_Shape with Nullary_Shape_Op {
+    extends Simple_Shape with Nullary_Shape_Op {
 
   def bounding_box =
     Origin_Dims(rad_width*2, rad_height*2)
@@ -1415,28 +1410,27 @@ final case class Diam_Circle(diam: Double)
 object Translated_Shape {
 
   def apply(shape: Shape, x_dist: Double, y_dist: Double) =
-    Translated_Non_Pre_Formulated_Shape(shape, x_dist, y_dist)
+    Translated_Non_Simple_Shape(shape, x_dist, y_dist)
 
   def unapply(shape: Shape) =
     shape match {
-      case s: Translated_Non_Pre_Formulated_Shape =>
+      case s: Translated_Non_Simple_Shape =>
         Some(s.shape, s.x_dist, s.y_dist)
-      case s: Translated_Pre_Formulated_Shape =>
+      case s: Translated_Simple_Shape =>
         Some(s.shape, s.x_dist, s.y_dist)
       case _ => None
     }
 }
 
-object Translated_Non_Pre_Formulated_Shape
+object Translated_Non_Simple_Shape
     extends Translated_Transformable[Shape] {
 
   protected def isInstanceOfCompanion(x: Any): Boolean =
-    x.isInstanceOf[Translated_Non_Pre_Formulated_Shape]
+    x.isInstanceOf[Translated_Non_Simple_Shape]
 }
 
-final case class Translated_Non_Pre_Formulated_Shape(shape: Shape,
-                                                     x_dist: Double,
-                                                     y_dist: Double)
+final case class Translated_Non_Simple_Shape(shape: Shape,
+                                             x_dist: Double, y_dist: Double)
     extends Shape with Unary_Shape_Op {
 
   lazy val bounding_box =
@@ -1446,19 +1440,19 @@ final case class Translated_Non_Pre_Formulated_Shape(shape: Shape,
     copy(shape = replacement_shape)
 }
 
-/*!!!not needed since not possible for Pre_Formulated_Shape to extend Transforming[Pre_Formulated_Shape]!!!
+/*!!!not needed since not possible for Simple_Shape to extend Transforming[Simple_Shape]!!!
 
-object Translated_Pre_Formulated_Shape
-    extends Translated_Transformable[Pre_Formulated_Shape] {
+object Translated_Simple_Shape
+    extends Translated_Transformable[Simple_Shape] {
 
   protected def isInstanceOfCompanion(x: Any): Boolean =
-    x.isInstanceOf[Translated_Pre_Formulated_Shape]
+    x.isInstanceOf[Translated_Simple_Shape]
 }
 */
 
-final case class Translated_Pre_Formulated_Shape(shape: Pre_Formulated_Shape,
-                                                 x_dist: Double, y_dist: Double)
-    extends Pre_Formulated_Shape with Unary_Shape_Op {
+final case class Translated_Simple_Shape(shape: Simple_Shape,
+                                         x_dist: Double, y_dist: Double)
+    extends Simple_Shape with Unary_Shape_Op {
 
   lazy val bounding_box =
     shape.bounding_box.move(x_dist, y_dist)
@@ -1468,8 +1462,8 @@ final case class Translated_Pre_Formulated_Shape(shape: Pre_Formulated_Shape,
 
   def replace(replacement_shape: Shape) =
     replacement_shape match {
-      case pre_form_shape: Pre_Formulated_Shape =>
-        copy(shape = pre_form_shape)
+      case simple_shape: Simple_Shape =>
+        copy(shape = simple_shape)
       case _ =>
         Translated_Shape(replacement_shape, x_dist, y_dist)
     }
@@ -1479,28 +1473,27 @@ final case class Translated_Pre_Formulated_Shape(shape: Pre_Formulated_Shape,
 object Scaled_Shape {
 
   def apply(shape: Shape, x_scaling: Double, y_scaling: Double) =
-    Scaled_Non_Pre_Formulated_Shape(shape, x_scaling, y_scaling)
+    Scaled_Non_Simple_Shape(shape, x_scaling, y_scaling)
 
   def unapply(shape: Shape) =
     shape match {
-      case s: Scaled_Non_Pre_Formulated_Shape =>
+      case s: Scaled_Non_Simple_Shape =>
         Some(s.shape, s.x_scaling, s.y_scaling)
-      case s: Scaled_Pre_Formulated_Shape =>
+      case s: Scaled_Simple_Shape =>
         Some(s.shape, s.x_scaling, s.y_scaling)
       case _ => None
     }
 }
 
-object Scaled_Non_Pre_Formulated_Shape
+object Scaled_Non_Simple_Shape
     extends Scaled_Transformable[Shape] {
 
   protected def isInstanceOfCompanion(x: Any): Boolean =
-    x.isInstanceOf[Scaled_Non_Pre_Formulated_Shape]
+    x.isInstanceOf[Scaled_Non_Simple_Shape]
 }
 
-final case class Scaled_Non_Pre_Formulated_Shape(shape: Shape,
-                                                 x_scaling: Double,
-                                                 y_scaling: Double)
+final case class Scaled_Non_Simple_Shape(shape: Shape,
+                                         x_scaling: Double, y_scaling: Double)
     extends Shape with Unary_Shape_Op {
 
   lazy val bounding_box =
@@ -1510,10 +1503,9 @@ final case class Scaled_Non_Pre_Formulated_Shape(shape: Shape,
     copy(shape = replacement_shape)
 }
 
-final case class Scaled_Pre_Formulated_Shape(shape: Pre_Formulated_Shape,
-                                             x_scaling: Double,
-                                             y_scaling: Double)
-    extends Pre_Formulated_Shape with Unary_Shape_Op {
+final case class Scaled_Simple_Shape(shape: Simple_Shape,
+                                     x_scaling: Double, y_scaling: Double)
+    extends Simple_Shape with Unary_Shape_Op {
 
   lazy val bounding_box =
     shape.bounding_box.scale(x_scaling, y_scaling)
@@ -1523,8 +1515,8 @@ final case class Scaled_Pre_Formulated_Shape(shape: Pre_Formulated_Shape,
 
   def replace(replacement_shape: Shape) =
     replacement_shape match {
-      case pre_form_shape: Pre_Formulated_Shape =>
-        copy(shape = pre_form_shape)
+      case simple_shape: Simple_Shape =>
+        copy(shape = simple_shape)
       case _ =>
         Scaled_Shape(replacement_shape, x_scaling, y_scaling)
     }
@@ -1535,29 +1527,27 @@ object Rotated_Shape {
 
   def apply(shape: Shape,
             degrees: Double, x_pivot: Double, y_pivot: Double) =
-    Rotated_Non_Pre_Formulated_Shape(shape, degrees, x_pivot, y_pivot)
+    Rotated_Non_Simple_Shape(shape, degrees, x_pivot, y_pivot)
 
   def unapply(shape: Shape) =
     shape match {
-      case s: Rotated_Non_Pre_Formulated_Shape =>
+      case s: Rotated_Non_Simple_Shape =>
         Some(s.shape, s.degrees, s.x_pivot, s.y_pivot)
-      case s: Rotated_Pre_Formulated_Shape =>
+      case s: Rotated_Simple_Shape =>
         Some(s.shape, s.degrees, s.x_pivot, s.y_pivot)
       case _ => None
     }
 }
 
-object Rotated_Non_Pre_Formulated_Shape
+object Rotated_Non_Simple_Shape
     extends Rotated_Transformable[Shape] {
 
   protected def isInstanceOfCompanion(x: Any): Boolean =
-    x.isInstanceOf[Rotated_Non_Pre_Formulated_Shape]
+    x.isInstanceOf[Rotated_Non_Simple_Shape]
 }
 
-final case class Rotated_Non_Pre_Formulated_Shape(shape: Shape,
-                                                  degrees: Double,
-                                                  x_pivot: Double,
-                                                  y_pivot: Double)
+final case class Rotated_Non_Simple_Shape(shape: Shape, degrees: Double,
+                                          x_pivot: Double, y_pivot: Double)
     extends Shape with Unary_Shape_Op {
 
   lazy val bounding_box =
@@ -1567,10 +1557,9 @@ final case class Rotated_Non_Pre_Formulated_Shape(shape: Shape,
     copy(shape = replacement_shape)
 }
 
-final case class Rotated_Pre_Formulated_Shape(shape: Pre_Formulated_Shape,
-                                              degrees: Double,
-                                              x_pivot: Double, y_pivot: Double)
-    extends Pre_Formulated_Shape with Unary_Shape_Op {
+final case class Rotated_Simple_Shape(shape: Simple_Shape, degrees: Double,
+                                      x_pivot: Double, y_pivot: Double)
+    extends Simple_Shape with Unary_Shape_Op {
 
   lazy val bounding_box =
     shape.bounding_box.rotate(degrees, x_pivot, y_pivot)
@@ -1580,8 +1569,8 @@ final case class Rotated_Pre_Formulated_Shape(shape: Pre_Formulated_Shape,
 
   def replace(replacement_shape: Shape) =
     replacement_shape match {
-      case pre_form_shape: Pre_Formulated_Shape =>
-        copy(shape = pre_form_shape)
+      case simple_shape: Simple_Shape =>
+        copy(shape = simple_shape)
       case _ =>
         Rotated_Shape(replacement_shape, degrees, x_pivot, y_pivot)
     }
@@ -1590,31 +1579,28 @@ final case class Rotated_Pre_Formulated_Shape(shape: Pre_Formulated_Shape,
 
 object Reflected_Shape {
 
-  def apply(shape: Shape,
-            degrees: Double, x_pivot: Double, y_pivot: Double) =
-    Reflected_Non_Pre_Formulated_Shape(shape, degrees, x_pivot, y_pivot)
+  def apply(shape: Shape, degrees: Double, x_pivot: Double, y_pivot: Double) =
+    Reflected_Non_Simple_Shape(shape, degrees, x_pivot, y_pivot)
 
   def unapply(shape: Shape) =
     shape match {
-      case s: Reflected_Non_Pre_Formulated_Shape =>
+      case s: Reflected_Non_Simple_Shape =>
         Some(s.shape, s.degrees, s.x_pivot, s.y_pivot)
-      case s: Reflected_Pre_Formulated_Shape =>
+      case s: Reflected_Simple_Shape =>
         Some(s.shape, s.degrees, s.x_pivot, s.y_pivot)
       case _ => None
     }
 }
 
-object Reflected_Non_Pre_Formulated_Shape
+object Reflected_Non_Simple_Shape
     extends Reflected_Transformable[Shape] {
 
   protected def isInstanceOfCompanion(x: Any): Boolean =
-    x.isInstanceOf[Reflected_Non_Pre_Formulated_Shape]
+    x.isInstanceOf[Reflected_Non_Simple_Shape]
 }
 
-final case class Reflected_Non_Pre_Formulated_Shape(shape: Shape,
-                                                    degrees: Double,
-                                                    x_pivot: Double,
-                                                    y_pivot: Double)
+final case class Reflected_Non_Simple_Shape(shape: Shape, degrees: Double,
+                                            x_pivot: Double, y_pivot: Double)
     extends Shape with Unary_Shape_Op {
 
   lazy val bounding_box =
@@ -1624,10 +1610,9 @@ final case class Reflected_Non_Pre_Formulated_Shape(shape: Shape,
     copy(shape = replacement_shape)
 }
 
-final case class Reflected_Pre_Formulated_Shape(shape: Pre_Formulated_Shape,
-                                                degrees: Double,
-                                                x_pivot: Double,y_pivot: Double)
-    extends Pre_Formulated_Shape with Unary_Shape_Op {
+final case class Reflected_Simple_Shape(shape: Simple_Shape, degrees: Double,
+                                        x_pivot: Double, y_pivot: Double)
+    extends Simple_Shape with Unary_Shape_Op {
 
   lazy val bounding_box =
     shape.bounding_box.reflect(degrees, x_pivot, y_pivot)
@@ -1637,8 +1622,8 @@ final case class Reflected_Pre_Formulated_Shape(shape: Pre_Formulated_Shape,
 
   def replace(replacement_shape: Shape) =
     replacement_shape match {
-      case pre_form_shape: Pre_Formulated_Shape =>
-        copy(shape = pre_form_shape)
+      case simple_shape: Simple_Shape =>
+        copy(shape = simple_shape)
       case _ =>
         Reflected_Shape(replacement_shape, degrees, x_pivot, y_pivot)
     }
@@ -1718,7 +1703,7 @@ final case class Masked_Shape(masked: Shape, mask: Shape)
   def right = mask
 
   override
-  def best_bounding_shape: Pre_Formulated_Shape =
+  def best_bounding_shape: Simple_Shape =
     masked.best_bounding_shape
 
   def replace(replacement_left: Shape,
@@ -1733,7 +1718,7 @@ final case class Inked_Shape(shape: Shape, pen: Pen)
     shape.bounding_box.using(pen)
 
   override
-  def best_bounding_shape: Pre_Formulated_Shape =
+  def best_bounding_shape: Simple_Shape =
     shape.best_bounding_shape
 
   def replace(replacement_shape: Shape) =
@@ -1747,7 +1732,7 @@ final case class Non_Opaque_Shape(shape: Shape, opacity: Double)
     shape.bounding_box.exhibit(Opacity_Effect(opacity))
 
   override
-  def best_bounding_shape: Pre_Formulated_Shape =
+  def best_bounding_shape: Simple_Shape =
     shape.best_bounding_shape
 
   def replace(replacement_shape: Shape) =
@@ -1761,7 +1746,7 @@ final case class Filtered_Shape(shape: Shape, filter: Filter)
     shape.bounding_box.exhibit(Filter_Effect(filter))
 
   override
-  def best_bounding_shape: Pre_Formulated_Shape =
+  def best_bounding_shape: Simple_Shape =
     shape.best_bounding_shape
 
   def replace(replacement_shape: Shape) =
@@ -1776,7 +1761,7 @@ final case class Attributed_Shape(shape: Shape,
     shape.bounding_box.as(attribution)
 
   override
-  def best_bounding_shape: Pre_Formulated_Shape =
+  def best_bounding_shape: Simple_Shape =
     shape.best_bounding_shape
 
   def replace(replacement_shape: Shape) =
@@ -1809,7 +1794,7 @@ sealed abstract class Dims
   def bounding_box =
     this
 
-  def as_drawing_shape: Pre_Formulated_Shape // derived class of `Shape`
+  def as_drawing_shape: Simple_Shape // derived class of `Shape`
 
   type Translated_T          = Translated_Dims
   protected val Translated   = Translated_Dims
@@ -1890,7 +1875,7 @@ final case class Origin_Dims(width: Double, height: Double)
   def center_pt =
     (0.0, 0.0)
 
-  def as_drawing_shape: Pre_Formulated_Shape =
+  def as_drawing_shape: Simple_Shape =
     Rectangle(width, height)
 }
 
@@ -1911,7 +1896,7 @@ final case class Translated_Dims(rect: Dims, x_dist: Double, y_dist: Double)
   lazy val center_pt =
     rect.center_pt -+ (x_dist, y_dist)
 
-  def as_drawing_shape: Pre_Formulated_Shape =
+  def as_drawing_shape: Simple_Shape =
     rect.as_drawing_shape.move(x_dist, y_dist)
 }
 
@@ -1932,7 +1917,7 @@ final case class Scaled_Dims(rect: Dims, x_scaling: Double, y_scaling: Double)
   lazy val center_pt =
     rect.center_pt -* (x_scaling, y_scaling)
 
-  def as_drawing_shape: Pre_Formulated_Shape =
+  def as_drawing_shape: Simple_Shape =
     rect.as_drawing_shape.scale(x_scaling, y_scaling)
 }
 
@@ -1989,7 +1974,7 @@ final case class Rotated_Dims(rect: Dims, degrees: Double,
   def center_pt =
     equiv_bounding_box.center_pt
 
-  def as_drawing_shape: Pre_Formulated_Shape =
+  def as_drawing_shape: Simple_Shape =
     equiv_bounding_box.as_drawing_shape
 
 
@@ -2021,7 +2006,7 @@ final case class Reflected_Dims(rect: Dims, degrees: Double,
   def center_pt =
     equiv_bounding_box.center_pt
 
-  def as_drawing_shape: Pre_Formulated_Shape =
+  def as_drawing_shape: Simple_Shape =
     equiv_bounding_box.as_drawing_shape
 
 
@@ -2052,7 +2037,7 @@ final case class Skewed_Horiz_Dims(rect: Dims, degrees: Double)
   def center_pt =
     equiv_bounding_box.center_pt
 
-  def as_drawing_shape: Pre_Formulated_Shape =
+  def as_drawing_shape: Simple_Shape =
     equiv_bounding_box.as_drawing_shape
 
 
@@ -2083,7 +2068,7 @@ final case class Skewed_Vert_Dims(rect: Dims, degrees: Double)
   def center_pt =
     equiv_bounding_box.center_pt
 
-  def as_drawing_shape: Pre_Formulated_Shape =
+  def as_drawing_shape: Simple_Shape =
     equiv_bounding_box.as_drawing_shape
 
 
@@ -2116,8 +2101,8 @@ object Identity_Shape {
 //    (Null_Shape /: shapes_seq) ( _ -& _ )
 // case object Null_Shape extends Invis_Rectangle(0.0001, 0.0001) {
 
-val Null_PF_Shape: Pre_Formulated_Shape =
-    new Pre_Formulated_Shape with Nullary_Shape_Op {
+val Null_PF_Shape: Simple_Shape =
+    new Simple_Shape with Nullary_Shape_Op {
 
   val (alleged_width, alleged_height) = (0.0001, 0.0001)
 
@@ -2135,23 +2120,19 @@ val Null_PF_Shape: Pre_Formulated_Shape =
   // there is only one Null_Shape, which is constant under every transform...
 
   override
-  def move(x_dist: Double, y_dist: Double):
-      Pre_Formulated_Shape =
+  def move(x_dist: Double, y_dist: Double): Simple_Shape =
     this
 
   override
-  def scale(x_scaling: Double, y_scaling: Double):
-      Pre_Formulated_Shape =
+  def scale(x_scaling: Double, y_scaling: Double): Simple_Shape =
     this
 
   override
-  def rotate(degrees: Double, about_x: Double, about_y: Double):
-      Pre_Formulated_Shape =
+  def rotate(degrees: Double, about_x: Double, about_y: Double): Simple_Shape =
     this
 
   override
-  def reflect(degrees: Double, about_x: Double, about_y: Double):
-      Pre_Formulated_Shape =
+  def reflect(degrees: Double, about_x: Double, about_y: Double): Simple_Shape =
     this
 
   override
@@ -2222,7 +2203,7 @@ val Null_Shape: Shape = Null_PF_Shape
           Masked_Shape(cloak_rect(masked), cloak_rect(mask))
         case Inked_Shape(inner, pen) =>
           Inked_Shape(cloak_rect(inner), pen)
-        case x @ ( _ : Segment | _ : Pre_Formulated_Shape | _ : Free_Form |
+        case x @ ( _ : Segment | _ : Simple_Shape | _ : Free_Form |
                    _ : Writing) =>
           shape // ouch!--no Rectangle here, return unchanged
 */
