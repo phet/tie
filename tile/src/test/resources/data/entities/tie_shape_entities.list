@@ -2,10 +2,10 @@
 # object Unary_Shape_Op
 # object Binary_Shape_Op
 
-abstract class Drawing_Shape
-abstract class True_Drawing_Shape
-abstract class Faux_Drawing_Shape
-abstract class Pre_Formulated_Shape
+abstract class Shape
+abstract class True_Shape
+abstract class Faux_Shape
+abstract class Simple_Shape
 abstract class Segment
 class Line
 class Hemisphere
@@ -36,18 +36,18 @@ class Diam_Circle
 
 class Translated_Shape
 # object Translated_Shape
-# class Translated_Non_Pre_Formulated_Shape
-# class Translated_Pre_Formulated_Shape
+# class Translated_Non_Simple_Shape
+# class Translated_Simple_Shape
 
 class Scaled_Shape
 # object Scaled_Shape
-# class Scaled_Non_Pre_Formulated_Shape
-# class Scaled_Pre_Formulated_Shape
+# class Scaled_Non_Simple_Shape
+# class Scaled_Simple_Shape
 
 class Rotated_Shape
 # object Rotated_Shape
-# class Rotated_Non_Pre_Formulated_Shape
-# class Rotated_Pre_Formulated_Shape
+# class Rotated_Non_Simple_Shape
+# class Rotated_Simple_Shape
 
 class Skewed_Horiz_Shape
 class Skewed_Vert_Shape

@@ -18,9 +18,8 @@ package k_k_.graphics.tie.tile
 
 package adjust {
 
-import k_k_.graphics.tie.shapes.{Bounding_Boxed, Point, Shape,
-                                 Rectangular, Invis_Rectangle,
-                                 Pre_Formulated_Shape}
+import k_k_.graphics.tie.shapes.{Bounding_Boxed, Point, Shape, Simple_Shape,
+                                 Rectangular, Invis_Rectangle}
 
 import k_k_.graphics.tie.tile.pos.Shape_Pos
 import conversions._
@@ -296,16 +295,15 @@ class Renderable_Shape(self: Shape) {
 /*
 object Expandable_Shape {
 
-  implicit def Pre_Formulated_Shape_to_Expandable_Shape(shape:
-                                                         Pre_Formulated_Shape) =
+  implicit def Simple_Shape_to_Expandable_Shape(shape: Simple_Shape) =
     new Expandable_Shape(shape)
 }
 
-class Expandable_Shape(self: Pre_Formulated_Shape) {
+class Expandable_Shape(self: Simple_Shape) {
 
   import k_k_.graphics.tie.shapes.{
 
-  def expand_to(scaling_strategy: Scaling_Strategy): Pre_Formulated_Shape = {
+  def expand_to(scaling_strategy: Scaling_Strategy): Simple_Shape = {
 
 Iso_Triangle(val base_width: Double, val height: Double)
   Equi_Triangle(length: Double)
@@ -331,9 +329,9 @@ Ellipse(val rad_width: Double, val rad_height: Double)
   Circle(val rad: Double)
     Diam_Circle(diam: Double)
 
-Translated_Pre_Formulated_Shape
-Scaled_Pre_Formulated_Shape
-Rotated_Pre_Formulated_Shape
+Translated_Simple_Shape
+Scaled_Simple_Shape
+Rotated_Simple_Shape
 
 
   def expand_up_combo(over: Shape): Shape =

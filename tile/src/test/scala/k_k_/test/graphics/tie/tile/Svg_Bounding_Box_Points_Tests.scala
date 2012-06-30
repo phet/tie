@@ -58,7 +58,7 @@ class Svg_Ellipse_Bounding_Box_Points_Test
 
 abstract class Svg_Bounding_Box_Points_Test_Base extends Svg_Test_Base {
 
-  val shape: Pre_Formulated_Shape
+  val shape: Simple_Shape
 
   lazy val placed_shape = shape -~ Pen.stroke(C.black) -+ (200, 150)
 
