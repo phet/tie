@@ -404,29 +404,28 @@ trait Transformable[T <: Transformable[T]] { self: T =>
 
 ...
 
-sealed abstract class Ortho_Rectangle
-    extends Transformable[Ortho_Rectangle]
-       with Presentable_Shape[Ortho_Rectangle]
+sealed abstract class Dims
+    extends Transformable[Dims]
+       with Presentable_Shape[Dims]
        with Bounding_Boxed with Rectangular {
 
-  type Translated_T        = Translated_Ortho_Rectangle
-  protected val Translated = Translated_Ortho_Rectangle
+  type Translated_T        = Translated_Dims
+  protected val Translated = Translated_Dims
 
   ...
 }
 
 ...
 
-object Translated_Ortho_Rectangle
-    extends Translated_Transformable[Ortho_Rectangle] {
+object Translated_Dims
+    extends Translated_Transformable[Dims] {
 
   protected def isInstanceOfCompanion(x: Any): Boolean =
-    x.isInstanceOf[Translated_Ortho_Rectangle]
+    x.isInstanceOf[Translated_Dims]
 }
 
-final case class Translated_Ortho_Rectangle(rect: Ortho_Rectangle,
-                                            x_dist: Double, y_dist: Double)
-    extends Ortho_Rectangle {
+final case class Translated_Dims(rect: Dims, x_dist: Double, y_dist: Double)
+    extends Dims {
   ...
 }
 
@@ -516,8 +515,8 @@ trait Transformable[T <: Transformable[T]] { self: T =>
 
 ...
 
-object Translated_Ortho_Rectangle
-    extends Translated_Transformable[Ortho_Rectangle]
+object Translated_Dims
+    extends Translated_Transformable[Dims]
 
 
    ------------------------------------------------------------------------
@@ -539,23 +538,23 @@ trait Translated_Transformable[Transformable_T <:
 
 ...
 
-object Translated_Ortho_Rectangle
-    extends Translated_Transformable[Ortho_Rectangle] {
+object Translated_Dims
+    extends Translated_Transformable[Dims] {
 
-  def unapply(ortho_rect: Ortho_Rectangle) =
+  def unapply(ortho_rect: Dims) =
     ortho_rect match {
-       case trans: Translated_Ortho_Rectangle =>
+       case trans: Translated_Dims =>
          Some((trans.rect, trans.x_dist, trans.y_dist))
        case _ => None
     }
 
-  def apply(rect: Ortho_Rectangle, x_dist: Double, y_dist: Double) =
-    new Translated_Ortho_Rectangle(rect, x_dist, y_dist)
+  def apply(rect: Dims, x_dist: Double, y_dist: Double) =
+    new Translated_Dims(rect, x_dist, y_dist)
 }
 
-final class Translated_Ortho_Rectangle(val rect: Ortho_Rectangle,
-                                       val x_dist: Double, val y_dist: Double)
-    extends Ortho_Rectangle {
+final class Translated_Dims(val rect: Dims,
+                            val x_dist: Double, val y_dist: Double)
+    extends Dims {
   ...
 }
 
@@ -583,20 +582,18 @@ trait Translated_Transformable[Transformable_T <:
 
 ...
 
-object Translated_Ortho_Rectangle
-    extends Translated_Transformable[Ortho_Rectangle] {
+object Translated_Dims
+    extends Translated_Transformable[Dims] {
 
-  def unapply[T >: Ortho_Rectangle](ortho_rect: T):
-      Option[(Ortho_Rectangle, Double, Double)] =
-    if (ortho_rect.isInstanceOf[Translated_Ortho_Rectangle])
-      unapply(ortho_rect.asInstanceOf[Translated_Ortho_Rectangle])
+  def unapply[T >: Dims](ortho_rect: T): Option[(Dims, Double, Double)] =
+    if (ortho_rect.isInstanceOf[Translated_Dims])
+      unapply(ortho_rect.asInstanceOf[Translated_Dims])
     else
       None
 }
 
-final case class Translated_Ortho_Rectangle(rect: Ortho_Rectangle,
-                                            x_dist: Double, y_dist: Double)
-    extends Ortho_Rectangle {
+final case class Translated_Dims(rect: Dims, x_dist: Double, y_dist: Double)
+    extends Dims {
   ...
 }
 
@@ -636,10 +633,10 @@ Test set: k_k_.test.graphics.tie.ink.Svg_Venn_Diagram_Opacity_Test
 -------------------------------------------------------------------------------
 Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 0.047 sec <<< FAILURE!
 test(k_k_.test.graphics.tie.ink.Svg_Venn_Diagram_Opacity_Test)  Time elapsed: 0.031 sec  <<< ERROR!
-java.lang.ClassCastException: k_k_.graphics.tie.shapes.Origin_Ortho_Rectangle cannot be cast to k_k_.graphics.tie.shapes.Translated_Ortho_Rectangle
-        at k_k_.graphics.tie.shapes.Translated_Ortho_Rectangle$.unapply(shapes.scala:1286)
+java.lang.ClassCastException: k_k_.graphics.tie.shapes.Origin_Dims cannot be cast to k_k_.graphics.tie.shapes.Translated_Dims
+        at k_k_.graphics.tie.shapes.Translated_Dims$.unapply(shapes.scala:1286)
         at k_k_.graphics.tie.transformable.Transformable$class.move(transformable.scala:48)
-        at k_k_.graphics.tie.shapes.Ortho_Rectangle.move(shapes.scala:1175)
+        at k_k_.graphics.tie.shapes.Dims.move(shapes.scala:1175)
         at k_k_.graphics.tie.shapes.Translated_Non_Pre_Formulated_Shape.bounding_box(shapes.scala:1055)
         at k_k_.graphics.tie.shapes.Composite_Shape.bounding_box(shapes.scala:1141)
         at k_k_.graphics.tie.shapes.Composite_Shape.bounding_box(shapes.scala:1141)
@@ -665,23 +662,22 @@ trait Transformable[T <: Transformable[T]] { self: T =>
 
 ...
 
-sealed abstract class Ortho_Rectangle
-    extends Transformable[Ortho_Rectangle]
-       with Presentable_Shape[Ortho_Rectangle]
+sealed abstract class Dims
+    extends Transformable[Dims]
+       with Presentable_Shape[Dims]
        with Bounding_Boxed with Rectangular {
   ...
 
-  type Translated_T        = Translated_Ortho_Rectangle
-  protected val Translated = Translated_Ortho_Rectangle
+  type Translated_T        = Translated_Dims
+  protected val Translated = Translated_Dims
 
 ...
 
-object Translated_Ortho_Rectangle
-    extends Translated_Transformable[Ortho_Rectangle]
+object Translated_Dims
+    extends Translated_Transformable[Dims]
 
-final case class Translated_Ortho_Rectangle(rect: Ortho_Rectangle,
-                                            x_dist: Double, y_dist: Double)
-    extends Ortho_Rectangle {
+final case class Translated_Dims(rect: Dims, x_dist: Double, y_dist: Double)
+    extends Dims {
   ...
 }
 */
@@ -689,7 +685,7 @@ final case class Translated_Ortho_Rectangle(rect: Ortho_Rectangle,
 /*
 (the code below) causes:
 [ERROR] .../tie/tie/src/main/scala/k_k_/graphics/tie/shapes.scala:1304: error: cannot resolve overloaded unapply
-[INFO] final case class Translated_Ortho_Rectangle(rect: Ortho_Rectangle,
+[INFO] final case class Translated_Dims(rect: Dims,
 [INFO]                  ^
 [WARNING] .../tie/tie/src/main/scala/k_k_/graphics/tie/transformable.scala:14: warning: abstract type Transformable_T#Translated_T in type Translated_Transformable.this.Translated_T is unchecked since it is eliminated by erasure
 [INFO]     if (x.isInstanceOf[Translated_T])
@@ -724,23 +720,22 @@ trait Transformable[T <: Transformable[T]] { self: T =>
 
 ...
 
-sealed abstract class Ortho_Rectangle
-    extends Transformable[Ortho_Rectangle]
-       with Presentable_Shape[Ortho_Rectangle]
+sealed abstract class Dims
+    extends Transformable[Dims]
+       with Presentable_Shape[Dims]
        with Bounding_Boxed with Rectangular {
   ...
 
-  type Translated_T        = Translated_Ortho_Rectangle
-  protected val Translated = Translated_Ortho_Rectangle
+  type Translated_T        = Translated_Dims
+  protected val Translated = Translated_Dims
 
 ...
 
-object Translated_Ortho_Rectangle
-    extends Translated_Transformable[Ortho_Rectangle]
+object Translated_Dims
+    extends Translated_Transformable[Dims]
 
-final case class Translated_Ortho_Rectangle(rect: Ortho_Rectangle,
-                                            x_dist: Double, y_dist: Double)
-    extends Ortho_Rectangle {
+final case class Translated_Dims(rect: Dims, x_dist: Double, y_dist: Double)
+    extends Dims {
   ...
 }
 
