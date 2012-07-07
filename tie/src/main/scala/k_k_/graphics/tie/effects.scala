@@ -19,15 +19,20 @@ package k_k_.graphics.tie
 package effects {
 
 
+object Effect {
+  implicit def from_Double(opacity: Double) = Opacity_Effect(opacity)
+}
+
 sealed abstract class Effect
+
+object Opacity_Effect {
+  implicit def from_Double(opacity: Double) = Opacity_Effect(opacity)
+}
 
 final case class Opacity_Effect(opacity: Double)   extends Effect
 final case class Filter_Effect(filter: Filter)     extends Effect
 
 object Opacity {
-
-  implicit def Opacity_Effect_from_Double(opacity: Double) =
-    apply(opacity)
 
   def apply(opacity: Double) =
     Opacity_Effect(opacity)

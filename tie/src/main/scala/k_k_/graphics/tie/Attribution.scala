@@ -20,17 +20,14 @@ import java.net.URI
 
 
 object Attribution {
-
-  implicit def Attribution_from_String(id: String) =
-    Id_Attribution(id)
+  implicit def from_String(id: String) = Id_Attribution(id)
 }
 
 sealed abstract class Attribution
 
 
 object Id_Attribution {
-  implicit def Id_Attribution_from_String(id: String) =
-    Id_Attribution(id)
+  implicit def from_String(id: String) = Id_Attribution(id)
 }
 
 final case class Id_Attribution(id: String) extends Attribution

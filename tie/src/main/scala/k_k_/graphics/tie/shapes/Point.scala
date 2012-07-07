@@ -21,7 +21,7 @@ import k_k_.graphics.tie.transform.{Transformable, Placeable}
 
 object Point {
 
-  implicit def Doubles_to_Point(x_and_y: (Double, Double)) =
+  implicit def from_Doubles(x_and_y: (Double, Double)) =
     Point(x_and_y._1, x_and_y._2)
 
   implicit def to_Doubles(pt: Point): (Double, Double) =

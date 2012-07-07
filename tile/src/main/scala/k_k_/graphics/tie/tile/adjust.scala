@@ -125,12 +125,10 @@ final case class Padding_Instruction(where: Bounding_Box_Pos,
 
 object Padding_Strategy {
 
-  implicit def Padding_Instruction_to_Padding_Strategy(instruction:
-                                                         Padding_Instruction) =
+  implicit def from_Padding_Instruction(instruction: Padding_Instruction) =
     apply(instruction)
 
-  implicit def Tuple4_to_Padding_Strategy(padding:
-                                             (Double, Double, Double, Double)) =
+  implicit def from_Tuple4(padding: (Double, Double, Double, Double)) =
     new Padding_Strategy(padding._1, padding._2, padding._3, padding._4)
 
   def apply(left_padding: Double, right_padding: Double,

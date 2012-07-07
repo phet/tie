@@ -46,7 +46,7 @@ import k_k_.fs.Resources
 
 object Font_Size {
 
-  implicit def Double_to_Font_Size(num: Double): Font_Size =
+  implicit def from_Double(num: Double): Font_Size =
     Std_Size(num)
 }
 
