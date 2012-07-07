@@ -16,6 +16,22 @@
 
 package k_k_.graphics.tie.shapes
 
+
+package object text {
+
+  val Default_Font = Font("Arial", 12)
+
+  // Text_Direction aliases:
+  val L_To_R = Left_To_Right
+  val R_To_L = Right_To_Left
+
+  // Writing_Mode aliases:
+  val LR_TB = Left_Right__Top_Bottom
+  val RL_TB = Right_Left__Top_Bottom
+  val TB_RL = Top_Bottom__Right_Left
+}
+
+
 package text {
 
 
@@ -126,9 +142,7 @@ case object End_Align    extends Text_Align
 
 
 sealed abstract class Text_Direction
-case object L_To_R        extends Text_Direction
 case object Left_To_Right extends Text_Direction
-case object R_To_L        extends Text_Direction
 case object Right_To_Left extends Text_Direction
 
 
@@ -137,20 +151,11 @@ case object Horizontal extends Orientation
 case object Vertical   extends Orientation
 
 sealed abstract class Writing_Mode { val orientation: Orientation }
-case object LR_TB                  extends Writing_Mode {
-  val orientation = Horizontal
-}
 case object Left_Right__Top_Bottom extends Writing_Mode {
-  val orientation = Horizontal
-}
-case object RL_TB                  extends Writing_Mode {
   val orientation = Horizontal
 }
 case object Right_Left__Top_Bottom extends Writing_Mode {
   val orientation = Horizontal
-}
-case object TB_RL                  extends Writing_Mode {
-  val orientation = Vertical
 }
 case object Top_Bottom__Right_Left extends Writing_Mode {
   val orientation = Vertical
@@ -802,10 +807,4 @@ object Default_Text_Ruler_Factory
     }
 }
 
-}
-
-
-package object text {
-
-  val Default_Font = Font("Arial", 12)
 }

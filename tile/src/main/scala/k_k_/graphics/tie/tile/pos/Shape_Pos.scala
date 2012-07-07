@@ -64,8 +64,7 @@ final case class Shape_Pos(shape: Shape, pos: Bounding_Box_Pos) {
   def align_with(other_bboxed: Bounding_Boxed,
                  where_on_other: Bounding_Box_Pos):
       Shape = {
-    // NOTE: `normalize` positions to enable equality testing
-    (pos.normalize, where_on_other.normalize) match {
+    (pos, where_on_other) match {
       case (Center, pos) =>
         shape.align_with(other_bboxed, pos, Centered)
 

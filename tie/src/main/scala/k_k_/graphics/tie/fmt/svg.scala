@@ -1008,9 +1008,9 @@ sealed abstract class Svg_Content_Renderer extends Svg_Renderer_Base {
       case End_Align    => "end"
     })
     val writing_mode_attr = "writing-mode=\"%s\"".format(mode match {
-      case LR_TB | Left_Right__Top_Bottom => "lr-tb"
-      case RL_TB | Right_Left__Top_Bottom => "rl-tb"
-      case TB_RL | Top_Bottom__Right_Left => "tb-rl"
+      case Left_Right__Top_Bottom => "lr-tb"
+      case Right_Left__Top_Bottom => "rl-tb"
+      case Top_Bottom__Right_Left => "tb-rl"
     })
 
     val x_attr = x_pos.map("x=\"%f\"".format(_)).getOrElse("")
@@ -1023,8 +1023,8 @@ sealed abstract class Svg_Content_Renderer extends Svg_Renderer_Base {
                                        y_pos: Option[Double] = None):
       List[String] = {
     val direction_attr = "direction=\"%s\"".format(dir match {
-      case L_To_R | Left_To_Right => "ltr"
-      case R_To_L | Right_To_Left => "rtl"
+      case Left_To_Right => "ltr"
+      case Right_To_Left => "rtl"
     })
     val x_attr = x_pos.map("x=\"%f\"".format(_)).getOrElse("")
     val y_attr = y_pos.map("y=\"%f\"".format(_)).getOrElse("")

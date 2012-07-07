@@ -24,6 +24,20 @@ package object tile {
   // conversion for Shape, Ortho_Rectangle
   implicit def Bounding_Boxed_to_Bounding_Box_Points(bboxed: Bounding_Boxed) =
     new Bounding_Box_Points(bboxed)
+
+  // Bounding_Box_Pos aliases:
+  val T_Mid = Top_Middle
+  val B_Mid = Bottom_Middle
+  val L_Mid = Left_Middle
+  val R_Mid = Right_Middle
+  val T_L   = Top_Left
+  val B_R   = Bottom_Right
+  val T_R   = Top_Right
+  val B_L   = Bottom_Left
+
+  // Alignment_Shift aliases:
+  val CW  = Clockwise
+  val CCW = Counter_Clockwise
 }
 
 
@@ -78,7 +92,7 @@ sealed abstract class Bounding_Box_Pos(pt_method: Bounding_Box_Points => Point){
 
 
   def cycle_cw: Seq[Bounding_Box_Pos] = {
-    val start = this.normalize
+    val start = this
     def walk_cw(from_pos: Bounding_Box_Pos): Stream[Bounding_Box_Pos] = {
       val next_pos = from_pos.cw
       if (next_pos == start) Stream.empty
@@ -88,7 +102,7 @@ sealed abstract class Bounding_Box_Pos(pt_method: Bounding_Box_Points => Point){
   }
 
   def cycle_ccw: Seq[Bounding_Box_Pos] = {
-    val start = this.normalize
+    val start = this
     def walk_ccw(from_pos: Bounding_Box_Pos): Stream[Bounding_Box_Pos] = {
       val next_pos = from_pos.ccw
       if (next_pos == start) Stream.empty
@@ -96,20 +110,6 @@ sealed abstract class Bounding_Box_Pos(pt_method: Bounding_Box_Points => Point){
     }
     Stream.cons(start, walk_ccw(start))
   }
-
-
-  def normalize: Bounding_Box_Pos =
-    this
-
-
-  override def toString: String = normalize.toString
-
-  override def equals(other: Any): Boolean = 
-    other match {
-      case pos: Bounding_Box_Pos => this.normalize eq pos.normalize
-      case _ => false
-    }
-  override def hashCode: Int = this.normalize.hashCode
 }
 
 case object Center        extends Bounding_Box_Pos(_.center)        {
@@ -126,30 +126,12 @@ case object Top_Middle    extends Bounding_Box_Pos(_.top_middle)    {
 
   def apply(pt: Point): Point = (pt.x, -pt.y)
 }
-case object T_Mid         extends Bounding_Box_Pos(_.top_middle)    {
-  lazy val opposite           = Bottom_Middle
-  lazy val clockwise          = Top_Right
-  lazy val counter_clockwise  = Top_Left
-
-  def apply(pt: Point): Point = (pt.x, -pt.y)
-
-  override val normalize      = Top_Middle
-}
 case object Bottom_Middle extends Bounding_Box_Pos(_.bottom_middle) {
   lazy val opposite           = Top_Middle
   lazy val clockwise          = Bottom_Left
   lazy val counter_clockwise  = Bottom_Right
 
   def apply(pt: Point): Point = (pt.x, pt.y)
-}
-case object B_Mid         extends Bounding_Box_Pos(_.bottom_middle) {
-  lazy val opposite           = Top_Middle
-  lazy val clockwise          = Bottom_Left
-  lazy val counter_clockwise  = Bottom_Right
-
-  def apply(pt: Point): Point = (pt.x, pt.y)
-
-  override val normalize      = Bottom_Middle
 }
 case object Left_Middle   extends Bounding_Box_Pos(_.left_middle)   {
   lazy val opposite           = Right_Middle
@@ -158,30 +140,12 @@ case object Left_Middle   extends Bounding_Box_Pos(_.left_middle)   {
 
   def apply(pt: Point): Point = (-pt.x, pt.y)
 }
-case object L_Mid         extends Bounding_Box_Pos(_.left_middle)   {
-  lazy val opposite           = Right_Middle
-  lazy val clockwise          = Top_Left
-  lazy val counter_clockwise  = Bottom_Left
-
-  def apply(pt: Point): Point = (-pt.x, pt.y)
-
-  override val normalize      = Left_Middle
-}
 case object Right_Middle  extends Bounding_Box_Pos(_.right_middle)  {
   lazy val opposite           = Left_Middle
   lazy val clockwise          = Bottom_Right
   lazy val counter_clockwise  = Top_Right
 
   def apply(pt: Point): Point = (pt.x, pt.y)
-}
-case object R_Mid         extends Bounding_Box_Pos(_.right_middle)  {
-  lazy val opposite           = Left_Middle
-  lazy val clockwise          = Bottom_Right
-  lazy val counter_clockwise  = Top_Right
-
-  def apply(pt: Point): Point = (pt.x, pt.y)
-
-  override val normalize      = Right_Middle
 }
 case object Top_Left      extends Bounding_Box_Pos(_.top_left)      {
   lazy val opposite           = Bottom_Right
@@ -190,30 +154,12 @@ case object Top_Left      extends Bounding_Box_Pos(_.top_left)      {
 
   def apply(pt: Point): Point = (-pt.x, -pt.y)
 }
-case object T_L           extends Bounding_Box_Pos(_.top_left)      {
-  lazy val opposite           = Bottom_Right
-  lazy val clockwise          = Top_Middle
-  lazy val counter_clockwise  = Left_Middle
-
-  def apply(pt: Point): Point = (-pt.x, -pt.y)
-
-  override val normalize      = Top_Left
-}
 case object Bottom_Right  extends Bounding_Box_Pos(_.bottom_right)  {
   lazy val opposite           = Top_Left
   lazy val clockwise          = Bottom_Middle
   lazy val counter_clockwise  = Right_Middle
 
   def apply(pt: Point): Point = (pt.x, pt.y)
-}
-case object B_R           extends Bounding_Box_Pos(_.bottom_right)  {
-  lazy val opposite           = Top_Left
-  lazy val clockwise          = Bottom_Middle
-  lazy val counter_clockwise  = Right_Middle
-
-  def apply(pt: Point): Point = (pt.x, pt.y)
-
-  override val normalize      = Bottom_Right
 }
 case object Top_Right     extends Bounding_Box_Pos(_.top_right)     {
   lazy val opposite           = Bottom_Left
@@ -222,30 +168,12 @@ case object Top_Right     extends Bounding_Box_Pos(_.top_right)     {
 
   def apply(pt: Point): Point = (pt.x, -pt.y)
 }
-case object T_R           extends Bounding_Box_Pos(_.top_right)     {
-  lazy val opposite           = Bottom_Left
-  lazy val clockwise          = Right_Middle
-  lazy val counter_clockwise  = Top_Middle
-
-  def apply(pt: Point): Point = (pt.x, -pt.y)
-
-  override val normalize      = Top_Right
-}
 case object Bottom_Left   extends Bounding_Box_Pos(_.bottom_left)   {
   lazy val opposite           = Top_Right
   lazy val clockwise          = Left_Middle
   lazy val counter_clockwise  = Bottom_Middle
 
   def apply(pt: Point): Point = (-pt.x, pt.y)
-}
-case object B_L           extends Bounding_Box_Pos(_.bottom_left)   {
-  lazy val opposite           = Top_Right
-  lazy val clockwise          = Left_Middle
-  lazy val counter_clockwise  = Bottom_Middle
-
-  def apply(pt: Point): Point = (-pt.x, pt.y)
-
-  override val normalize      = Bottom_Left
 }
 
 
@@ -259,20 +187,6 @@ sealed abstract class Alignment_Shift(op: Bounding_Box_Pos => Bounding_Box_Pos){
 
   def companion: Alignment_Shift = // used to implement twists
     Stationary
-
-
-  def normalize: Alignment_Shift =
-    this
-
-
-  override def toString: String = normalize.toString
-
-  override def equals(other: Any): Boolean = 
-    other match {
-      case shift: Alignment_Shift => this.normalize eq shift.normalize
-      case _ => false
-    }
-  override def hashCode: Int = this.normalize.hashCode
 }
 case object Stationary        extends Alignment_Shift(identity) {
   lazy val opposite      = this
@@ -280,16 +194,8 @@ case object Stationary        extends Alignment_Shift(identity) {
 case object Clockwise         extends Alignment_Shift(_.clockwise) {
   lazy val opposite      = Counter_Clockwise
 }
-case object CW                extends Alignment_Shift(_.clockwise) {
-  lazy val opposite      = Counter_Clockwise
-  override val normalize = Clockwise
-}
 case object Counter_Clockwise extends Alignment_Shift(_.counter_clockwise) {
   lazy val opposite      = Clockwise
-}
-case object CCW               extends Alignment_Shift(_.counter_clockwise) {
-  lazy val opposite      = Clockwise
-  override val normalize = Counter_Clockwise
 }
 
 case object CW_Twist          extends Alignment_Shift(_.clockwise) {
@@ -332,49 +238,25 @@ case object Center        extends Bounding_Box_Pos(_.center)        {
 case object Top_Middle    extends Bounding_Box_Pos(_.top_middle)    {
   lazy val opposite = Bottom_Middle
 }
-case object T_Mid         extends Bounding_Box_Pos(_.top_middle)    {
-  lazy val opposite = Bottom_Middle
-}
 case object Bottom_Middle extends Bounding_Box_Pos(_.bottom_middle) {
-  lazy val opposite = Top_Middle
-}
-case object B_Mid         extends Bounding_Box_Pos(_.bottom_middle) {
   lazy val opposite = Top_Middle
 }
 case object Left_Middle   extends Bounding_Box_Pos(_.left_middle)   {
   lazy val opposite = Right_Middle
 }
-case object L_Mid         extends Bounding_Box_Pos(_.left_middle)   {
-  lazy val opposite = Right_Middle
-}
 case object Right_Middle  extends Bounding_Box_Pos(_.right_middle)  {
-  lazy val opposite = Left_Middle
-}
-case object R_Mid         extends Bounding_Box_Pos(_.right_middle)  {
   lazy val opposite = Left_Middle
 }
 case object Top_Left      extends Bounding_Box_Pos(_.top_left)      {
   lazy val opposite = Bottom_Right
 }
-case object T_L           extends Bounding_Box_Pos(_.top_left)      {
-  lazy val opposite = Bottom_Right
-}
 case object Bottom_Right  extends Bounding_Box_Pos(_.bottom_right)  {
-  lazy val opposite = Top_Left
-}
-case object B_R           extends Bounding_Box_Pos(_.bottom_right)  {
   lazy val opposite = Top_Left
 }
 case object Top_Right     extends Bounding_Box_Pos(_.top_right)     {
   lazy val opposite = Bottom_Left
 }
-case object T_R           extends Bounding_Box_Pos(_.top_right)     {
-  lazy val opposite = Bottom_Left
-}
 case object Bottom_Left   extends Bounding_Box_Pos(_.bottom_left)   {
-  lazy val opposite = Top_Right
-}
-case object B_L           extends Bounding_Box_Pos(_.bottom_left)   {
   lazy val opposite = Top_Right
 }
 ---------------
