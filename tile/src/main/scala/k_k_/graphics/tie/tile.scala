@@ -191,19 +191,19 @@ sealed abstract class Alignment_Shift(op: Bounding_Box_Pos => Bounding_Box_Pos){
 case object Stationary        extends Alignment_Shift(identity) {
   lazy val opposite = this
 }
-case object Clockwise         extends Alignment_Shift(_.clockwise) {
+case object Clockwise         extends Alignment_Shift(_.cw) {
   lazy val opposite = Counter_Clockwise
 }
-case object Counter_Clockwise extends Alignment_Shift(_.counter_clockwise) {
+case object Counter_Clockwise extends Alignment_Shift(_.ccw) {
   lazy val opposite = Clockwise
 }
 
-case object CW_Twist          extends Alignment_Shift(_.clockwise) {
+case object CW_Twist          extends Alignment_Shift(_.cw) {
   lazy val opposite = CCW_Twist
 
   override val companion = opposite
 }
-case object CCW_Twist         extends Alignment_Shift(_.counter_clockwise) {
+case object CCW_Twist         extends Alignment_Shift(_.ccw) {
   lazy val opposite = CW_Twist
 
   override val companion = opposite
