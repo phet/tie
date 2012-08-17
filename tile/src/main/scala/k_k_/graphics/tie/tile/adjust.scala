@@ -286,6 +286,17 @@ class Renderable_Shape(self: Shape) {
 
   def with_bounding_box(bbox_pen: Option[Pen] = None): Shape =
     under_bounding_box(bbox_pen)
+
+
+  // aliases:
+  def under_bbox(bbox_pen: Pen) = under_bounding_box(bbox_pen)
+  def under_bbox(bbox_pen: Option[Pen] = None) = under_bounding_box(bbox_pen)
+
+  def over_bbox(bbox_pen: Pen) = over_bounding_box(bbox_pen)
+  def over_bbox(bbox_pen: Option[Pen] = None) = over_bounding_box(bbox_pen)
+
+  def with_bbox(bbox_pen: Pen) = with_bounding_box(bbox_pen)
+  def with_bbox(bbox_pen: Option[Pen] = None) = with_bounding_box(bbox_pen)
 }
 
 
