@@ -324,13 +324,13 @@ sealed abstract class Pen {
 
   def scale_pen(scaling: Double): Pen
 
-  def -~*(scaling: Double): Pen =
+  def ~*(scaling: Double): Pen =
     scale_pen(scaling)
 
 
   def combo_pen(other: Pen): Pen
 
-  def -~&(other: Pen): Pen =
+  def ~&(other: Pen): Pen =
     combo_pen(other)
 
 
@@ -345,10 +345,10 @@ sealed abstract class Pen {
   def alpha(opacity: Double): Pen =
     exhibit_pen(opacity)
 
-  def -~#(opacity: Opacity_Effect): Pen =
+  def ~#(opacity: Opacity_Effect): Pen =
     exhibit_pen(opacity)
 
-  def -~#(opacity: Double): Pen =
+  def ~#(opacity: Double): Pen =
     exhibit_pen(opacity)
 }
 

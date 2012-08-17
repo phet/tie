@@ -93,15 +93,12 @@ class Svg_Common_Scaling_Test extends Svg_Test_Base {
            render_entities( render_entity(fit_combo)   _ )(uniform_scaling) _ )
 
     val naive_fitting :: true_fitting :: uniform_fitting :: _ =
-            List(render_naive_fit(entities).
-                   over_bounding_box(bbox_pen -~& Pen.stroke(C.red, 4).
-                                                      fill(C.firebrick -# .25)),
-                 render_true_fit(entities).
-                   over_bounding_box(bbox_pen -~& Pen.stroke(C.goldenrod, 4).
-                                                      fill(C.yellow -# .5)),
-                 render_uniform_fit(entities).
-                   over_bounding_box(bbox_pen -~& Pen.stroke(C.green, 6).
-                                                      fill(C.green -# .4))).
+            List(render_naive_fit(entities).over_bbox(
+                   bbox_pen ~& Pen.stroke(C.red, 4).fill(C.firebrick -# .25)),
+                 render_true_fit(entities).over_bbox(
+                   bbox_pen ~& Pen.stroke(C.goldenrod, 4).fill(C.yellow -# .5)),
+                 render_uniform_fit(entities).over_bbox(
+                   bbox_pen ~& Pen.stroke(C.green, 6).fill(C.green -# .4))).
               map ( _ -* .75 )
 
     val horiz_div = Line(600).pad(0, 10)
