@@ -92,24 +92,17 @@ trait Transformable[T] { self: T =>
 
 trait Placeable[T] { self: T with Transformable[T] =>
 
-  def move_@(dest_pt: Point): T =
+  def to(dest_pt: Point): T =
     move(dest_pt -+ -center_pt)
 
-  def move_@(x_coord: Double, y_coord: Double): T =
-    move_@(Point(x_coord, y_coord))
+  def to(x_coord: Double, y_coord: Double): T =
+    to(Point(x_coord, y_coord))
 
-  // NOTE: `move_@` is cannonical spelling, yet `move_abs` provided for use from
-  // languages where `@` is not identifier char
+  def -@(dest_pt: Point): T =
+    to(dest_pt)
 
-  def move_abs(dest_pt: Point): T = move_@(dest_pt)
-
-  def move_abs(x_coord: Double, y_coord: Double): T = move_@(x_coord, y_coord)
-
-  def -+@(dest_pt: Point): T =
-    move_@(dest_pt)
-
-  def -+@(x_coord: Double, y_coord: Double): T =
-    move_@(Point(x_coord, y_coord))
+  def -@(x_coord: Double, y_coord: Double): T =
+    to(Point(x_coord, y_coord))
 
 
   def center_pt: Point

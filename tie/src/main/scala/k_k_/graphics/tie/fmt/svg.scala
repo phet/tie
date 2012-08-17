@@ -1367,7 +1367,7 @@ sealed abstract class Svg_Content_Renderer extends Svg_Renderer_Base {
       val stamp_targ_center_pt = view_lower_left -+
                                    (lower_left_offset, -lower_left_offset) -+
                                    (scaled_w/2, -scaled_h/2)
-      scaled_stamp -+@ stamp_targ_center_pt
+      scaled_stamp -@ stamp_targ_center_pt
     }
 
     val stamp_text = fmt_stamp_text

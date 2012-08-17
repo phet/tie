@@ -622,27 +622,20 @@ sealed abstract class Simple_Shape
 
 
   override
-  def move_@(dest_pt: Point): Simple_Shape =
+  def to(dest_pt: Point): Simple_Shape =
     move(dest_pt -+ -center_pt)
 
   override
-  def move_@(x_coord: Double, y_coord: Double): Simple_Shape =
-    move_@(Point(x_coord, y_coord))
+  def to(x_coord: Double, y_coord: Double): Simple_Shape =
+    to(Point(x_coord, y_coord))
 
   override
-  def move_abs(dest_pt: Point): Simple_Shape = move_@(dest_pt)
+  def -@(dest_pt: Point): Simple_Shape =
+    to(dest_pt)
 
   override
-  def move_abs(x_coord: Double, y_coord: Double): Simple_Shape =
-    move_@(x_coord, y_coord)
-
-  override
-  def -+@(dest_pt: Point): Simple_Shape =
-    move_@(dest_pt)
-
-  override
-  def -+@(x_coord: Double, y_coord: Double): Simple_Shape =
-    move_@(Point(x_coord, y_coord))
+  def -@(x_coord: Double, y_coord: Double): Simple_Shape =
+    to(Point(x_coord, y_coord))
 
 
   override
@@ -734,7 +727,7 @@ sealed abstract class Segment
 object Line {
 
   def between(p1: Point, p2: Point): Shape =
-    if (p1 == p2) Line(0.001) -+@ p1
+    if (p1 == p2) Line(0.001) -@ p1
     else {
       val (run, rise) = p2 - p1
       val rotate_degrees = {
