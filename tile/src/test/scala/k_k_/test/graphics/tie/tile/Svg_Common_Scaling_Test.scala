@@ -111,12 +111,12 @@ class Svg_Common_Scaling_Test extends Svg_Test_Base {
                      horiz_div,
                    true_fitting,
                      horiz_div,
-                   uniform_fitting).join(Bottom_Middle)
+                   uniform_fitting).chain(Bottom_Middle)
 /*
-               naive_fitting.align_combo(horiz_div, Bottom_Middle, Outside).
-                             align_combo(true_fitting, Bottom_Middle, Outside).
-                             align_combo(horiz_div, Bottom_Middle, Outside).
-                             align_combo(uniform_fitting, Bottom_Middle, Outside)
+               naive_fitting.combo(horiz_div, Bottom_Middle, Outside).
+                             combo(true_fitting, Bottom_Middle, Outside).
+                             combo(horiz_div, Bottom_Middle, Outside).
+                             combo(uniform_fitting, Bottom_Middle, Outside)
 */
                -+@ (0, 0)
               )
@@ -135,16 +135,16 @@ class Svg_Common_Scaling_Test extends Svg_Test_Base {
                              grouped(group_size)
     entity_shapes_it.map { entity_shapes =>
       entity_shapes.map( _.pad(Center, horiz_pad, vert_pad) ).
-                    join(Right_Middle)
-    }.join(Bottom_Middle)
+                    chain(Right_Middle)
+    }.chain(Bottom_Middle)
 
-/* (pre-join):
+/* (pre-`chain`):
     entity_shapes_it.map { entity_shapes =>
       (Null_Shape /: entity_shapes) { (l, r) =>
-        l.align_combo(r.pad(Center, horiz_pad, vert_pad), Right_Middle, Outside)
+        l.combo(r.pad(Center, horiz_pad, vert_pad), Right_Middle, Outside)
       }
     }.foldLeft(Null_Shape) { (top, bottom) => 
-        top.align_combo(bottom, Bottom_Middle, Outside)
+        top.combo(bottom, Bottom_Middle, Outside)
     }
 */
   }

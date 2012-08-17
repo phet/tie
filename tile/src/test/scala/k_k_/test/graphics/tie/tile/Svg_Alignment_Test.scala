@@ -120,8 +120,7 @@ class Svg_Alignment_Test extends Svg_Test_Base {
     }
 
     (write(name, C.black) -+ (0, name_offset_y)) -&
-    (prepare(shape).align_with(bbox_shape, where, how) -& bbox_shape
-       -* scale_factor)
+    (prepare(shape).to(bbox_shape, where, how) -& bbox_shape -* scale_factor)
   }
 
   protected def calc_name(where: Bounding_Box_Pos, how: Alignment_Relation):

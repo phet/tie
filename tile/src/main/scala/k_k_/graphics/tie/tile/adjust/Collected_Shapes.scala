@@ -28,21 +28,16 @@ import conversions._
 //final case class Collected_Shapes[+T <: Traversable[Shape]](shapes: T)
 final case class Collected_Shapes[C[X] <: Traversable[X]](shapes: C[Shape]) {
 
-  // NOTE: `shifting` is relative to each new *subsequent* joining shape--not
-  // the accumulating joined shape!
-  def join(on: Bounding_Box_Pos, shifting: Alignment_Shift): Shape = {
-    val (under_pos, over_pos) = (shifting.companion(on), shifting(on.opposite))
-    (Null_Shape /: shapes) { (s1, s2) =>
-                               (under_pos of s1).align_under(s2, over_pos) }
+  def heap: Shape =
+    (Null_Shape /: shapes) { _ -& _ }
+
+
+  // NOTE: `shifting` is relative to each *subsequently* chained shape--not
+  // the accumulating chain!
+  def chain(on: Bounding_Box_Pos, shift: Alignment_Shift = Stationary): Shape = {
+    val (under_pos, over_pos) = (shift.companion(on), shift(on.opposite))
+    (Null_Shape /: shapes) { (s1, s2) => (under_pos of s1) -& (s2 @- over_pos) }
   }
-
-  def join(on: Bounding_Box_Pos): Shape =
-    (Null_Shape /: shapes) { (s1, s2) => (on of s1).align_under(s2, Outside) }
-
-
-  def mapped_join(f: Shape => Shape, on: Bounding_Box_Pos,
-                  shifting: Alignment_Shift = Stationary): Shape =
-    copy(shapes = shapes map f).join(on, shifting)
 
 
 //?????? what about using Collection_Scaling_Strategy??????????

@@ -404,8 +404,8 @@ final class Adjustable_Shape(self: Shape) {
     self move_@ (0, 0)
 
 
-  def align_with(other_bboxed: Bounding_Boxed, where_on_other: Bounding_Box_Pos,
-                 how: Alignment_Relation = Centered): Shape = {
+  def to(other_bboxed: Bounding_Boxed, where_on_other: Bounding_Box_Pos,
+         how: Alignment_Relation = Centered): Shape = {
 
     val other_bbox = Bounding_Boxed(other_bboxed)
 
@@ -422,11 +422,21 @@ final class Adjustable_Shape(self: Shape) {
     self.move(-x_offset, -y_offset)
   }
 
-  def align_with(shape_pos: Shape_Pos, how: Alignment_Relation): Shape =
-    align_with(shape_pos.shape, shape_pos.pos, how)
+  def to(shape_pos: Shape_Pos, how: Alignment_Relation): Shape =
+    to(shape_pos.shape, shape_pos.pos, how)
 
-  def align_with(shape_pos: Shape_Pos): Shape =
-    align_with(shape_pos.shape, shape_pos.pos)
+  def to(shape_pos: Shape_Pos): Shape =
+    to(shape_pos.shape, shape_pos.pos)
+
+  def -@(other_bboxed: Bounding_Boxed, where_on_other: Bounding_Box_Pos,
+         how: Alignment_Relation = Centered): Shape =
+    to(other_bboxed, where_on_other, how)
+
+  def -@(shape_pos: Shape_Pos, how: Alignment_Relation): Shape =
+    to(shape_pos, how)
+
+  def -@(shape_pos: Shape_Pos): Shape =
+    to(shape_pos)
 
 
   def scale_to(scaling_strategy: Scaling_Strategy): Shape = {
@@ -497,7 +507,7 @@ final class Adjustable_Shape(self: Shape) {
 
     val (new_bbox_width, new_bbox_height) = calc_new_bbox_size
     val invis_padding_rect = Invis_Rectangle(new_bbox_width, new_bbox_height).
-                               align_with(self, where.opposite, Inside)
+                               to(self, where.opposite, Inside)
     invis_padding_rect -& self
   }
 }

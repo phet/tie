@@ -54,10 +54,10 @@ class Svg_Hello_World_Test extends Svg_Test_Base {
 
     val H_vert_bar  = stripe -~ Pen.fill(orange)
     val H_horiz_bar = stripe -% 90 -* (.5, 1) -~ Pen.fill(blue)
-    val H_vert_horiz = (Left_Middle of H_horiz_bar).align_under(H_vert_bar)
+    val H_vert_horiz = (Left_Middle of H_horiz_bar).combo(H_vert_bar)
 
 
-    val h_ello  = (Center of H_vert_bar).align_under(R_Mid of H_vert_horiz)
+    val h_ello  = (Center of H_vert_bar).combo(R_Mid of H_vert_horiz)
     val h_e_llo = Path.from(-14, 0).
                     horiz(29).
                     arc(15, Large_CCW, -5, 12) -* 1.4 -~
@@ -78,8 +78,8 @@ class Svg_Hello_World_Test extends Svg_Test_Base {
           (stalagmite -+ ( 12, 0)) -& (stalagtite -+ (0, -15))
     } -~ Pen.fill(blue)
     val lower_cleft = Iso_Triangle(20, 40) -~ Pen.fill(blue)
-    val w_orld  = W_body -& (lower_cleft.align_with(B_Mid of W_body, Inside)
-                         -&  stalagmites.align_with(T_Mid of W_body, Inside))
+    val w_orld  = W_body -& (lower_cleft.to(B_Mid of W_body, Inside)
+                         -&  stalagmites.to(T_Mid of W_body, Inside))
 
     val w_o_rld = earth_img -* .25 -<> Rectangle(55, 55)
     // NOTE: use Text_Line.breadth = 1/100 to compensate for 'descender hang'
@@ -106,17 +106,15 @@ class Svg_Hello_World_Test extends Svg_Test_Base {
     val world_letters = Seq(w_orld, w_o_rld, wo_r_ld, wor_l_d, worl_d)
     //              map ( _.under_bounding_box(Pen.stroke(C.red).dashed(10)) )
 
-    // equivalent: map.join === mapped_join
-    val hello = hello_letters.map         ( _.pad(kerning/2, 0) ).
-                                     join(Right_Middle, CCW_Twist).recenter
-    val world = world_letters.mapped_join(( _.pad(kerning/2, 0) ),
-                                          Right_Middle, CCW_Twist).recenter
+    val hello = hello_letters.map { _.pad(kerning/2, 0) }.
+                              chain(Right_Middle, CCW_Twist).recenter
+    val world = world_letters.map {  _.pad(kerning/2, 0) }.
+                              chain(Right_Middle, CCW_Twist).recenter
 
-    val hello_world = (B_Mid of hello.pad(B_Mid, 0, 30)).align_under(world,
-                                                                     Outside)
+    val hello_world = (B_Mid of hello.pad(B_Mid, 0, 30)).combo(world, Outside)
     /*  equivalent phrasing:
     val hello_world = hello -&
-                      world.align_with(hello.pad(0, 30), Bottom_Middle, Outside)
+                      world.to(hello.pad(0, 30), Bottom_Middle, Outside)
     */
 
     new Canvas(Canvas_Props(325, 325, title = title),

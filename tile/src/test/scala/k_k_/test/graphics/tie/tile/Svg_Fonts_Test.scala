@@ -66,8 +66,8 @@ class Svg_Fonts_Test extends Svg_Test_Base {
                         map( _.pad(5, 0) )
 
     new Canvas(Canvas_Props(820, 450, title = title),
-               font_groups.take(2).join(R_Mid).pad(0, 20).
-                 at(B_Mid).align_under(Top_Middle of font_groups(2).pad(0, 20))
+               font_groups.take(2).chain(R_Mid).pad(0, 20).at(B_Mid).
+                 combo(Top_Middle of font_groups(2).pad(0, 20))
                -+@ (0, 0)
               )
   }
@@ -79,8 +79,8 @@ class Svg_Fonts_Test extends Svg_Test_Base {
     val font_groups_it = fonts.map( render_font(_) ).
                                grouped(group_size)
     font_groups_it.map { font_group =>
-      font_group.map( _.pad(Center, horiz_pad, vert_pad) ).join(Bottom_Middle)
-    }.join(B_Mid)
+      font_group.map( _.pad(Center, horiz_pad, vert_pad) ).chain(Bottom_Middle)
+    }.chain(B_Mid)
   }
 
   protected def render_font(font: Font): Shape = {

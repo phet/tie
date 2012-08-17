@@ -53,7 +53,7 @@ class Svg_Image_Transformations_Test extends Svg_Test_Base {
                     img_path_mapper)
 
     val orig_img =
-        box_image(img).at(R_Mid).align_under(arrow.pad(20, 0) @- L_Mid)
+        box_image(img).at(R_Mid).combo(arrow.pad(20, 0) @- L_Mid)
 
     val transformations = Seq(
                                (img -# .5 -&
@@ -85,13 +85,13 @@ class Svg_Image_Transformations_Test extends Svg_Test_Base {
                                  (_: Shape).skew_vert(30),
                                 "skew_vert(30)") )
     val transformed_images =
-          transformations.map( p => (p._1(img), Text_Line(p._2, desc_font)) ).
-                          map( p => (box_image(p._1), Writing(p._2).pad(0, 4))).
-                          map( p => (B_Mid of p._1).align_under(p._2, Inside) )
+        transformations.map { p => (p._1(img), Text_Line(p._2, desc_font)) }.
+                        map { p => (box_image(p._1), Writing(p._2).pad(0, 4)) }.
+                        map { p => (B_Mid of p._1).combo(p._2, Inside) }
 
     new Canvas(Canvas_Props(620, 450, title = title),
                (orig_img @- R_Mid).
-                   align_under(layout_grid(transformed_images, 3), Outside)
+                   combo(layout_grid(transformed_images, 3), Outside)
                -+@ (0, 0)
               )
   }
@@ -100,8 +100,8 @@ class Svg_Image_Transformations_Test extends Svg_Test_Base {
     val (horiz_pad, vert_pad) = (8, 4)
     val shape_groups_it = shapes.grouped(row_size)
     shape_groups_it.map { shape_group =>
-      shape_group.map( _.pad(Center, horiz_pad, vert_pad) ).join(R_Mid)
-    }.join(B_Mid)
+      shape_group.map( _.pad(Center, horiz_pad, vert_pad) ).chain(R_Mid)
+    }.chain(B_Mid)
   }
 
   def box_image(img: Shape): Shape = {

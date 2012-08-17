@@ -70,8 +70,8 @@ class Svg_Named_Colors_Grid_Test extends Svg_Test_Base {
                                scale_up_to_uniform.toIterable.
     		               grouped(group_size)
     color_rows_it.map { color_row =>
-      color_row.map( _.pad(Center, horiz_pad, vert_pad) ).join(R_Mid)
-    }.join(Bottom_Middle)
+      color_row.map( _.pad(Center, horiz_pad, vert_pad) ).chain(R_Mid)
+    }.chain(Bottom_Middle)
   }
 
   protected def render_color(color: Named_Color): Shape = {
@@ -79,7 +79,7 @@ class Svg_Named_Colors_Grid_Test extends Svg_Test_Base {
     val text_colors = Seq(C.White, C.Black)
     val name_caption = text_colors.map( Text_Line(color.name, name_font, 1.1) -~
     		       			  Pen.fill(_) ).
-                                   join(B_Mid).pad(10) -+@ (0, 0)
+                                   chain(B_Mid).pad(10) -+@ (0, 0)
     val Rectangular(w, h) = name_caption.bounding_box
     Octagon(.8*w, w, .8*h, h) -~ Pen(C.black, color) -& name_caption
   }
