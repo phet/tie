@@ -412,7 +412,7 @@ object Adjustable_Shape {
 final class Adjustable_Shape(self: Shape) {
 
   def recenter: Shape =
-    self move_@ (0, 0)
+    self to (0, 0)
 
 
   def to(other_bboxed: Bounding_Boxed, where_on_other: Bounding_Box_Pos,

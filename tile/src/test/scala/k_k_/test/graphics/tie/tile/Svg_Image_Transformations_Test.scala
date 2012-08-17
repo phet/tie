@@ -92,7 +92,7 @@ class Svg_Image_Transformations_Test extends Svg_Test_Base {
     new Canvas(Canvas_Props(620, 450, title = title),
                (orig_img @- R_Mid).
                    combo(layout_grid(transformed_images, 3), Outside)
-               -+@ (0, 0)
+               -@ (0, 0)
               )
   }
 

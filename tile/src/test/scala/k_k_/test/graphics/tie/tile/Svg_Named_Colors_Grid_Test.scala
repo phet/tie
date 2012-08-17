@@ -58,7 +58,7 @@ class Svg_Named_Colors_Grid_Test extends Svg_Test_Base {
     val color_tiles = render_colors(named_colors)//.over_bounding_box(bg_pen)
 
     new Canvas(Canvas_Props(1300, 680, title = title),
-               color_tiles -+@ (0, 0)
+               color_tiles -@ (0, 0)
               )
   }
 
@@ -79,7 +79,7 @@ class Svg_Named_Colors_Grid_Test extends Svg_Test_Base {
     val text_colors = Seq(C.White, C.Black)
     val name_caption = text_colors.map( Text_Line(color.name, name_font, 1.1) -~
     		       			  Pen.fill(_) ).
-                                   chain(B_Mid).pad(10) -+@ (0, 0)
+                                   chain(B_Mid).pad(10) -@ (0, 0)
     val Rectangular(w, h) = name_caption.bounding_box
     Octagon(.8*w, w, .8*h, h) -~ Pen(C.black, color) -& name_caption
   }

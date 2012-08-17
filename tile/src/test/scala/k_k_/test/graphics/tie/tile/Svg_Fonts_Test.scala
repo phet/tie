@@ -68,7 +68,7 @@ class Svg_Fonts_Test extends Svg_Test_Base {
     new Canvas(Canvas_Props(820, 450, title = title),
                font_groups.take(2).chain(R_Mid).pad(0, 20).at(B_Mid).
                  combo(Top_Middle of font_groups(2).pad(0, 20))
-               -+@ (0, 0)
+               -@ (0, 0)
               )
   }
 

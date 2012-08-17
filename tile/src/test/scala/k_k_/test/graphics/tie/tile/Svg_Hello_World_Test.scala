@@ -118,7 +118,7 @@ class Svg_Hello_World_Test extends Svg_Test_Base {
     */
 
     new Canvas(Canvas_Props(325, 325, title = title),
-               hello_world -+@ (0, 0) -& (earth_img -* 1.5 -+ (0, -7) -# .20)
+               hello_world -@ (0, 0) -& (earth_img -* 1.5 -+ (0, -7) -# .20)
               )
   }
 }

@@ -118,7 +118,7 @@ class Svg_Common_Scaling_Test extends Svg_Test_Base {
                              combo(horiz_div, Bottom_Middle, Outside).
                              combo(uniform_fitting, Bottom_Middle, Outside)
 */
-               -+@ (0, 0)
+               -@ (0, 0)
               )
   }
 
