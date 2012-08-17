@@ -1209,7 +1209,7 @@ sealed class Free_Form(val path: Path)
     }
 
     val (min_pt, max_pt) = calc_max_boundaries
-    Dims.create_min_containing(min_pt, max_pt)
+    Dims.min_containing(min_pt, max_pt)
   }
 
   def as_path =
@@ -1767,7 +1767,7 @@ object Dims {
   def unapply(o: Dims) =
     Some(o.width, o.height)
 
-  def create_min_containing(pt1: Point, pt2: Point): Dims = {
+  def min_containing(pt1: Point, pt2: Point): Dims = {
     val (min_x, max_x) = More_Math.min_max(pt1.x, pt2.x)
     val (min_y, max_y) = More_Math.min_max(pt1.y, pt2.y)
     val (width, height) = (if (max_x == min_x) 0.001 else max_x - min_x,
@@ -1823,7 +1823,7 @@ sealed abstract class Dims
     val (min_x, max_x, min_y, max_y) =
       (math.min(bb1_min_x, bb2_min_x), math.max(bb1_max_x, bb2_max_x),
        math.min(bb1_min_y, bb2_min_y), math.max(bb1_max_y, bb2_max_y))
-    Dims.create_min_containing((min_x, min_y), (max_x, max_y))
+    Dims.min_containing((min_x, min_y), (max_x, max_y))
   }
 
   protected def create_clipped_shape(clipping: Dims, rule: Clip_Rule): Dims =
@@ -1930,7 +1930,7 @@ trait Dims_Displacement {
                           displaced_corner_pts map { _.x } max)
     val (min_y, max_y) = (displaced_corner_pts map { _.y } min,
                           displaced_corner_pts map { _.y } max)
-    Dims.create_min_containing((min_x, min_y), (max_x, max_y))
+    Dims.min_containing((min_x, min_y), (max_x, max_y))
   }
 
   protected def calc_displacement(pt: Point): Point
