@@ -29,7 +29,7 @@ final class Positionable_Shape(self: Shape) {
   def at(where: Bounding_Box_Pos): Shape_Pos =
     Shape_Pos(self, where)
 
-  def ->(where: Bounding_Box_Pos): Shape_Pos =
+  def @-(where: Bounding_Box_Pos): Shape_Pos =
     at(where)
 }
 
@@ -112,7 +112,7 @@ final case class Shape_Pos(shape: Shape, pos: Bounding_Box_Pos) {
 //!!!!!!!show example of fixing 'intersection problem' of:
 // Top_Middle of shape line_to (Bottom_Left of shape_to_left)
 // Top_Middle of shape line_to (shape_to_left at Bottom_Left)
-// shape->Top_Middle line_to (shape_to_left->Bottom_Left)
+// shape @- Top_Middle line_to (shape_to_left @-Bottom_Left)
 // shape at Top_Middle line_to (shape_to_left at Bottom_Left)
 // Top_Middle of shape bezier2_@ (Top_Left of shape_to_left -+ (-20),
 //                                Bottom_Left of shape_to_left)

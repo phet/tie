@@ -52,7 +52,8 @@ class Svg_Image_Transformations_Test extends Svg_Test_Base {
     val img = Image(img_path, actual_img_dims._1 / 8, actual_img_dims._2 / 8,
                     img_path_mapper)
 
-    val orig_img = box_image(img).at(R_Mid).align_under(arrow.pad(20, 0)->L_Mid)
+    val orig_img =
+        box_image(img).at(R_Mid).align_under(arrow.pad(20, 0) @- L_Mid)
 
     val transformations = Seq(
                                (img -# .5 -&
@@ -89,8 +90,8 @@ class Svg_Image_Transformations_Test extends Svg_Test_Base {
                           map( p => (B_Mid of p._1).align_under(p._2, Inside) )
 
     new Canvas(Canvas_Props(620, 450, title = title),
-               (orig_img->R_Mid).align_under(layout_grid(transformed_images, 3),
-                                             Outside)
+               (orig_img @- R_Mid).
+                   align_under(layout_grid(transformed_images, 3), Outside)
                -+@ (0, 0)
               )
   }
