@@ -54,33 +54,32 @@ object Pen {
   def stroke(ink: Ink): Pen =
     Ink_Pen(Some(ink), None)
 
-  def stroke(ink: Ink, stroke_ends: Stroke_Ends): Pen =
-    Ink_Pen(Some(ink), None, stroke_ends = Some(stroke_ends))
+  def stroke(ink: Ink, ends: Stroke_Ends): Pen =
+    Ink_Pen(Some(ink), None, ends = Some(ends))
 
-  def stroke(ink: Ink, stroke_corners: Stroke_Corners): Pen =
-    Ink_Pen(Some(ink), None, stroke_corners = Some(stroke_corners))
+  def stroke(ink: Ink, corners: Stroke_Corners): Pen =
+    Ink_Pen(Some(ink), None, corners = Some(corners))
 
-  def stroke(ink: Ink,
-             stroke_ends: Stroke_Ends, stroke_corners: Stroke_Corners): Pen =
+  def stroke(ink: Ink, ends: Stroke_Ends, corners: Stroke_Corners): Pen =
     Ink_Pen(Some(ink), None,
-            stroke_ends    = Some(stroke_ends),
-            stroke_corners = Some(stroke_corners))
+            ends    = Some(ends),
+            corners = Some(corners))
 
 
   def stroke(ink: Ink, width: Double): Pen =
     Ink_Pen(Some(ink), None, Some(width))
 
-  def stroke(ink: Ink, width: Double, stroke_ends: Stroke_Ends): Pen =
-    Ink_Pen(Some(ink), None, Some(width), stroke_ends = Some(stroke_ends))
+  def stroke(ink: Ink, width: Double, ends: Stroke_Ends): Pen =
+    Ink_Pen(Some(ink), None, Some(width), ends = Some(ends))
 
-  def stroke(ink: Ink, width: Double, stroke_corners: Stroke_Corners): Pen =
-    Ink_Pen(Some(ink), None, Some(width), stroke_corners = Some(stroke_corners))
+  def stroke(ink: Ink, width: Double, corners: Stroke_Corners): Pen =
+    Ink_Pen(Some(ink), None, Some(width), corners = Some(corners))
 
   def stroke(ink: Ink, width: Double,
-             stroke_ends: Stroke_Ends, stroke_corners: Stroke_Corners): Pen =
+             ends: Stroke_Ends, corners: Stroke_Corners): Pen =
     Ink_Pen(Some(ink), None, Some(width),
-            stroke_ends    = Some(stroke_ends),
-            stroke_corners = Some(stroke_corners))
+            ends    = Some(ends),
+            corners = Some(corners))
 
 
   def fill(ink: Ink): Pen =
@@ -93,76 +92,75 @@ object Pen {
   def dashed(ink: Ink, dash_pattern: List[Double]): Pen =
     Ink_Pen(Some(ink), None, None, Some(dash_pattern))
 
-  def dashed(ink: Ink, dash_pattern: List[Double],
-             stroke_ends: Stroke_Ends): Pen =
+  def dashed(ink: Ink, dash_pattern: List[Double], ends: Stroke_Ends): Pen =
     Ink_Pen(Some(ink), None, None, Some(dash_pattern),
-            stroke_ends = Some(stroke_ends))
+            ends = Some(ends))
 
   def dashed(ink: Ink, dash_pattern: List[Double],
-             stroke_corners: Stroke_Corners): Pen =
+             corners: Stroke_Corners): Pen =
     Ink_Pen(Some(ink), None, None, Some(dash_pattern),
-            stroke_corners = Some(stroke_corners))
+            corners = Some(corners))
 
   def dashed(ink: Ink, dash_pattern: List[Double],
-             stroke_ends: Stroke_Ends, stroke_corners: Stroke_Corners): Pen =
+             ends: Stroke_Ends, corners: Stroke_Corners): Pen =
     Ink_Pen(Some(ink), None, None, Some(dash_pattern),
-            stroke_ends    = Some(stroke_ends),
-            stroke_corners = Some(stroke_corners))
+            ends    = Some(ends),
+            corners = Some(corners))
 
 
   def dashed(ink: Ink, dash_pattern: List[Double], dash_offset: Double): Pen =
     Ink_Pen(Some(ink), None, None, Some(dash_pattern), Some(dash_offset))
 
   def dashed(ink: Ink, dash_pattern: List[Double], dash_offset: Double,
-             stroke_ends: Stroke_Ends): Pen =
+             ends: Stroke_Ends): Pen =
     Ink_Pen(Some(ink), None, None, Some(dash_pattern), Some(dash_offset),
-            stroke_ends = Some(stroke_ends))
+            ends = Some(ends))
 
   def dashed(ink: Ink, dash_pattern: List[Double], dash_offset: Double,
-             stroke_corners: Stroke_Corners): Pen =
+             corners: Stroke_Corners): Pen =
     Ink_Pen(Some(ink), None, None, Some(dash_pattern), Some(dash_offset),
-            stroke_corners = Some(stroke_corners))
+            corners = Some(corners))
 
   def dashed(ink: Ink, dash_pattern: List[Double], dash_offset: Double,
-             stroke_ends: Stroke_Ends, stroke_corners: Stroke_Corners): Pen =
+             ends: Stroke_Ends, corners: Stroke_Corners): Pen =
     Ink_Pen(Some(ink), None, None, Some(dash_pattern), Some(dash_offset),
-            stroke_ends    = Some(stroke_ends),
-            stroke_corners = Some(stroke_corners))
+            ends    = Some(ends),
+            corners = Some(corners))
 
 
   def dashed(ink: Ink, dash_length: Double): Pen =
     dashed(ink, List(dash_length, dash_length))
 
-  def dashed(ink: Ink, dash_length: Double, stroke_ends: Stroke_Ends): Pen =
-    dashed(ink, List(dash_length, dash_length), stroke_ends)
+  def dashed(ink: Ink, dash_length: Double, ends: Stroke_Ends): Pen =
+    dashed(ink, List(dash_length, dash_length), ends)
 
-  def dashed(ink: Ink, dash_length: Double, stroke_corners: Stroke_Corners):
+  def dashed(ink: Ink, dash_length: Double, corners: Stroke_Corners):
       Pen =
-    dashed(ink, List(dash_length, dash_length), stroke_corners)
+    dashed(ink, List(dash_length, dash_length), corners)
 
   def dashed(ink: Ink, dash_length: Double,
-             stroke_ends: Stroke_Ends, stroke_corners: Stroke_Corners): Pen =
-    dashed(ink, List(dash_length, dash_length), stroke_ends, stroke_corners)
+             ends: Stroke_Ends, corners: Stroke_Corners): Pen =
+    dashed(ink, List(dash_length, dash_length), ends, corners)
 
 
   def dashed(ink: Ink, width: Double, dash_pattern: List[Double]): Pen =
     Ink_Pen(Some(ink), None, Some(width), Some(dash_pattern))
 
   def dashed(ink: Ink, width: Double, dash_pattern: List[Double],
-             stroke_ends: Stroke_Ends): Pen =
+             ends: Stroke_Ends): Pen =
     Ink_Pen(Some(ink), None, Some(width), Some(dash_pattern),
-            stroke_ends = Some(stroke_ends))
+            ends = Some(ends))
 
   def dashed(ink: Ink, width: Double, dash_pattern: List[Double],
-             stroke_corners: Stroke_Corners): Pen =
+             corners: Stroke_Corners): Pen =
     Ink_Pen(Some(ink), None, Some(width), Some(dash_pattern),
-            stroke_corners = Some(stroke_corners))
+            corners = Some(corners))
 
   def dashed(ink: Ink, width: Double, dash_pattern: List[Double],
-             stroke_ends: Stroke_Ends, stroke_corners: Stroke_Corners): Pen =
+             ends: Stroke_Ends, corners: Stroke_Corners): Pen =
     Ink_Pen(Some(ink), None, Some(width), Some(dash_pattern),
-            stroke_ends    = Some(stroke_ends),
-            stroke_corners = Some(stroke_corners))
+            ends    = Some(ends),
+            corners = Some(corners))
 
 
   def dashed(ink: Ink, width: Double,
@@ -171,22 +169,22 @@ object Pen {
 
   def dashed(ink: Ink, width: Double,
              dash_pattern: List[Double], dash_offset: Double,
-             stroke_ends: Stroke_Ends): Pen =
+             ends: Stroke_Ends): Pen =
     Ink_Pen(Some(ink), None, Some(width), Some(dash_pattern), Some(dash_offset),
-            stroke_ends = Some(stroke_ends))
+            ends = Some(ends))
 
   def dashed(ink: Ink, width: Double,
              dash_pattern: List[Double], dash_offset: Double,
-             stroke_corners: Stroke_Corners): Pen =
+             corners: Stroke_Corners): Pen =
     Ink_Pen(Some(ink), None, Some(width), Some(dash_pattern), Some(dash_offset),
-            stroke_corners = Some(stroke_corners))
+            corners = Some(corners))
 
   def dashed(ink: Ink, width: Double,
              dash_pattern: List[Double], dash_offset: Double,
-             stroke_ends: Stroke_Ends, stroke_corners: Stroke_Corners): Pen =
+             ends: Stroke_Ends, corners: Stroke_Corners): Pen =
     Ink_Pen(Some(ink), None, Some(width), Some(dash_pattern), Some(dash_offset),
-            stroke_ends    = Some(stroke_ends),
-            stroke_corners = Some(stroke_corners))
+            ends    = Some(ends),
+            corners = Some(corners))
 
 
   def dashed(ink: Ink, width: Double,
@@ -195,21 +193,21 @@ object Pen {
 
   def dashed(ink: Ink, width: Double,
              dash_length: Double, dash_offset: Double,
-             stroke_ends: Stroke_Ends): Pen =
+             ends: Stroke_Ends): Pen =
     dashed(ink, width, List(dash_length, dash_length), dash_offset,
-           stroke_ends)
+           ends)
 
   def dashed(ink: Ink, width: Double,
              dash_length: Double, dash_offset: Double,
-             stroke_corners: Stroke_Corners): Pen =
+             corners: Stroke_Corners): Pen =
     dashed(ink, width, List(dash_length, dash_length), dash_offset,
-           stroke_corners)
+           corners)
 
   def dashed(ink: Ink, width: Double,
              dash_length: Double, dash_offset: Double,
-             stroke_ends: Stroke_Ends, stroke_corners: Stroke_Corners): Pen =
+             ends: Stroke_Ends, corners: Stroke_Corners): Pen =
     dashed(ink, width, List(dash_length, dash_length), dash_offset,
-           stroke_ends, stroke_corners)
+           ends, corners)
 
 
   lazy val invisible =
@@ -219,54 +217,50 @@ object Pen {
   def apply(stroke: Ink, fill: Ink) =
     new Ink_Pen(stroke, fill)
 
-  def apply(stroke: Ink, fill: Ink,
-            stroke_ends: Stroke_Ends): Pen =
-    new Ink_Pen(stroke, fill, stroke_ends = stroke_ends)
+  def apply(stroke: Ink, fill: Ink, ends: Stroke_Ends): Pen =
+    new Ink_Pen(stroke, fill, ends = ends)
+
+  def apply(stroke: Ink, fill: Ink, corners: Stroke_Corners): Pen =
+    new Ink_Pen(stroke, fill, corners = corners)
 
   def apply(stroke: Ink, fill: Ink,
-            stroke_corners: Stroke_Corners): Pen =
-    new Ink_Pen(stroke, fill, stroke_corners = stroke_corners)
+            ends: Stroke_Ends, corners: Stroke_Corners): Pen =
+    new Ink_Pen(stroke, fill, ends = ends, corners = corners)
 
-  def apply(stroke: Ink, fill: Ink,
-            stroke_ends: Stroke_Ends, stroke_corners: Stroke_Corners): Pen =
-    new Ink_Pen(stroke, fill,
-                stroke_ends = stroke_ends, stroke_corners = stroke_corners)
-
-  def apply(stroke: Ink, fill: Ink,
-           fill_rule: Fill_Rule) =
+  def apply(stroke: Ink, fill: Ink, fill_rule: Fill_Rule) =
     new Ink_Pen(stroke, fill, fill_rule = fill_rule)
 
   def apply(stroke: Ink, fill: Ink,
-            stroke_ends: Stroke_Ends, stroke_corners: Stroke_Corners,
+            ends: Stroke_Ends, corners: Stroke_Corners,
             fill_rule: Fill_Rule) =
     new Ink_Pen(stroke, fill,
-                stroke_ends = stroke_ends, stroke_corners = stroke_corners,
+                ends = ends, corners = corners,
                 fill_rule = fill_rule)
 
 
-  def apply(stroke: Ink, fill: Ink, stroke_width: Double) =
-    new Ink_Pen(stroke, fill, stroke_width)
+  def apply(stroke: Ink, fill: Ink, width: Double) =
+    new Ink_Pen(stroke, fill, width)
 
-  def apply(stroke: Ink, fill: Ink, stroke_width: Double,
-            stroke_ends: Stroke_Ends): Pen =
-    new Ink_Pen(stroke, fill, stroke_width, stroke_ends)
+  def apply(stroke: Ink, fill: Ink, width: Double,
+            ends: Stroke_Ends): Pen =
+    new Ink_Pen(stroke, fill, width, ends)
 
-  def apply(stroke: Ink, fill: Ink, stroke_width: Double,
-            stroke_corners: Stroke_Corners): Pen =
-    new Ink_Pen(stroke, fill, stroke_width, stroke_corners)
+  def apply(stroke: Ink, fill: Ink, width: Double,
+            corners: Stroke_Corners): Pen =
+    new Ink_Pen(stroke, fill, width, corners)
 
-  def apply(stroke: Ink, fill: Ink, stroke_width: Double,
-            stroke_ends: Stroke_Ends, stroke_corners: Stroke_Corners): Pen =
-    new Ink_Pen(stroke, fill, stroke_width, stroke_ends, stroke_corners)
+  def apply(stroke: Ink, fill: Ink, width: Double,
+            ends: Stroke_Ends, corners: Stroke_Corners): Pen =
+    new Ink_Pen(stroke, fill, width, ends, corners)
 
-  def apply(stroke: Ink, fill: Ink, stroke_width: Double,
+  def apply(stroke: Ink, fill: Ink, width: Double,
            fill_rule: Fill_Rule) =
-    new Ink_Pen(stroke, fill, stroke_width, fill_rule)
+    new Ink_Pen(stroke, fill, width, fill_rule)
 
-  def apply(stroke: Ink, fill: Ink, stroke_width: Double,
-            stroke_ends: Stroke_Ends, stroke_corners: Stroke_Corners,
+  def apply(stroke: Ink, fill: Ink, width: Double,
+            ends: Stroke_Ends, corners: Stroke_Corners,
             fill_rule: Fill_Rule) =
-    new Ink_Pen(stroke, fill, stroke_width, stroke_ends, stroke_corners,
+    new Ink_Pen(stroke, fill, width, ends, corners,
                 fill_rule)
 }
 
@@ -274,14 +268,14 @@ object Pen {
 sealed abstract class Pen {
 
   // accessors:
-  def stroke:              Option[Ink]
-  def fill:                Option[Ink]
-  def stroke_width:        Option[Double]
-  def stroke_dash_pattern: Option[List[Double]]
-  def stroke_dash_offset:  Option[Double]
-  def stroke_ends:         Option[Stroke_Ends]
-  def stroke_corners:      Option[Stroke_Corners]
-  def fill_rule:           Option[Fill_Rule]
+  def stroke:       Option[Ink]
+  def fill:         Option[Ink]
+  def width:        Option[Double]
+  def dash_pattern: Option[List[Double]]
+  def dash_offset:  Option[Double]
+  def ends:         Option[Stroke_Ends]
+  def corners:      Option[Stroke_Corners]
+  def fill_rule:    Option[Fill_Rule]
 
 
   // modifiers:
@@ -294,26 +288,25 @@ sealed abstract class Pen {
 
 
   // `dashed` methods shall have no effect on other stroke properties
-  def dashed(stroke_dash_pattern: List[Double]): Pen
-  def dashed(stroke_dash_pattern: List[Double], stroke_dash_offset: Double): Pen
+  def dashed(dash_pattern: List[Double]): Pen
+  def dashed(dash_pattern: List[Double], dash_offset: Double): Pen
 
-  def dashed(stroke_dash_length: Double): Pen =
-    dashed(List(stroke_dash_length, stroke_dash_length))
+  def dashed(dash_length: Double): Pen =
+    dashed(List(dash_length, dash_length))
 
-  def dashed(stroke_dash_length: Double, stroke_dash_offset: Double): Pen =
-    dashed(List(stroke_dash_length, stroke_dash_length), stroke_dash_offset)
+  def dashed(dash_length: Double, dash_offset: Double): Pen =
+    dashed(List(dash_length, dash_length), dash_offset)
 
 
   def stroke(ink: Ink): Pen
-  def stroke(ink: Ink, stroke_ends: Stroke_Ends): Pen
-  def stroke(ink: Ink, stroke_corners: Stroke_Corners): Pen
-  def stroke(ink: Ink,
-             stroke_ends: Stroke_Ends, stroke_corners: Stroke_Corners): Pen
+  def stroke(ink: Ink, ends: Stroke_Ends): Pen
+  def stroke(ink: Ink, corners: Stroke_Corners): Pen
+  def stroke(ink: Ink, ends: Stroke_Ends, corners: Stroke_Corners): Pen
   def stroke(ink: Ink, width: Double): Pen
-  def stroke(ink: Ink, width: Double, stroke_ends: Stroke_Ends): Pen
-  def stroke(ink: Ink, width: Double, stroke_corners: Stroke_Corners): Pen
+  def stroke(ink: Ink, width: Double, ends: Stroke_Ends): Pen
+  def stroke(ink: Ink, width: Double, corners: Stroke_Corners): Pen
   def stroke(ink: Ink, width: Double,
-             stroke_ends: Stroke_Ends, stroke_corners: Stroke_Corners): Pen
+             ends: Stroke_Ends, corners: Stroke_Corners): Pen
   def stroke(like: Pen): Pen
 
 
@@ -323,188 +316,158 @@ sealed abstract class Pen {
 
 
   def scale_pen(scaling: Double): Pen
-
-  def ~*(scaling: Double): Pen =
-    scale_pen(scaling)
+  def ~*(scaling: Double): Pen = scale_pen(scaling)
 
 
   def combo_pen(other: Pen): Pen
-
-  def ~&(other: Pen): Pen =
-    combo_pen(other)
+  def ~&(other: Pen): Pen = combo_pen(other)
 
 
   def exhibit_pen(opacity: Opacity_Effect): Pen
-
-  def exhibit_pen(opacity: Double): Pen =
-    exhibit_pen(Opacity(opacity))
-
-  def alpha(opacity: Opacity_Effect): Pen =
-    exhibit_pen(opacity)
-
-  def alpha(opacity: Double): Pen =
-    exhibit_pen(opacity)
-
-  def ~#(opacity: Opacity_Effect): Pen =
-    exhibit_pen(opacity)
-
-  def ~#(opacity: Double): Pen =
-    exhibit_pen(opacity)
+  def exhibit_pen(opacity: Double): Pen = exhibit_pen(Opacity(opacity))
+  def alpha(opacity: Opacity_Effect): Pen = exhibit_pen(opacity)
+  def alpha(opacity: Double): Pen = exhibit_pen(opacity)
+  def ~#(opacity: Opacity_Effect): Pen = exhibit_pen(opacity)
+  def ~#(opacity: Double): Pen = exhibit_pen(opacity)
 }
 
 
 final case class Ink_Pen protected[ink] (
-                            stroke:              Option[Ink],
-                            fill:                Option[Ink],
-                            stroke_width:        Option[Double]         = None,
-                            stroke_dash_pattern: Option[List[Double]]   = None,
-                            stroke_dash_offset:  Option[Double]         = None,
-                            stroke_ends:         Option[Stroke_Ends]    = None,
-                            stroke_corners:      Option[Stroke_Corners] = None,
-                            fill_rule:           Option[Fill_Rule]      = None)
-    extends Pen {
+  stroke:       Option[Ink],
+  fill:         Option[Ink],
+  width:        Option[Double]         = None,
+  dash_pattern: Option[List[Double]]   = None,
+  dash_offset:  Option[Double]         = None,
+  ends:         Option[Stroke_Ends]    = None,
+  corners:      Option[Stroke_Corners] = None,
+  fill_rule:    Option[Fill_Rule]      = None
+  ) extends Pen {
 
   def this(stroke: Ink, fill: Ink) =
     this(Some(stroke), Some(fill))
 
-  def this(stroke: Ink, fill: Ink,
-           stroke_ends: Stroke_Ends) =
-    this(Some(stroke), Some(fill),
-         stroke_ends = Some(stroke_ends))
+  def this(stroke: Ink, fill: Ink, ends: Stroke_Ends) =
+    this(Some(stroke), Some(fill), ends = Some(ends))
 
-  def this(stroke: Ink, fill: Ink,
-           stroke_corners: Stroke_Corners) =
-    this(Some(stroke), Some(fill),
-         stroke_corners = Some(stroke_corners))
+  def this(stroke: Ink, fill: Ink, corners: Stroke_Corners) =
+    this(Some(stroke), Some(fill), corners = Some(corners))
 
-  def this(stroke: Ink, fill: Ink,
-           stroke_ends: Stroke_Ends, stroke_corners: Stroke_Corners) =
-    this(Some(stroke), Some(fill),
-         stroke_ends = Some(stroke_ends), stroke_corners = Some(stroke_corners))
+  def this(stroke: Ink, fill: Ink, ends: Stroke_Ends, corners: Stroke_Corners) =
+    this(Some(stroke), Some(fill), ends = Some(ends), corners = Some(corners))
 
-  def this(stroke: Ink, fill: Ink,
-           fill_rule: Fill_Rule) =
-    this(Some(stroke), Some(fill),
-         fill_rule = Some(fill_rule))
+  def this(stroke: Ink, fill: Ink, fill_rule: Fill_Rule) =
+    this(Some(stroke), Some(fill), fill_rule = Some(fill_rule))
 
-  def this(stroke: Ink, fill: Ink,
-           stroke_ends: Stroke_Ends, stroke_corners: Stroke_Corners,
+  def this(stroke: Ink, fill: Ink, ends: Stroke_Ends, corners: Stroke_Corners,
            fill_rule: Fill_Rule) =
     this(Some(stroke), Some(fill), None, None, None,
-         Some(stroke_ends), Some(stroke_corners), Some(fill_rule))
+         Some(ends), Some(corners), Some(fill_rule))
 
 
-  def this(stroke: Ink, fill: Ink, stroke_width: Double) =
-    this(Some(stroke), Some(fill), Some(stroke_width))
+  def this(stroke: Ink, fill: Ink, width: Double) =
+    this(Some(stroke), Some(fill), Some(width))
 
-  def this(stroke: Ink, fill: Ink, stroke_width: Double,
-           stroke_ends: Stroke_Ends) =
-    this(Some(stroke), Some(fill), Some(stroke_width),
-         stroke_ends = Some(stroke_ends))
+  def this(stroke: Ink, fill: Ink, width: Double, ends: Stroke_Ends) =
+    this(Some(stroke), Some(fill), Some(width), ends = Some(ends))
 
-  def this(stroke: Ink, fill: Ink, stroke_width: Double,
-           stroke_corners: Stroke_Corners) =
-    this(Some(stroke), Some(fill), Some(stroke_width),
-         stroke_corners = Some(stroke_corners))
+  def this(stroke: Ink, fill: Ink, width: Double, corners: Stroke_Corners) =
+    this(Some(stroke), Some(fill), Some(width), corners = Some(corners))
 
-  def this(stroke: Ink, fill: Ink, stroke_width: Double,
-           stroke_ends: Stroke_Ends, stroke_corners: Stroke_Corners) =
-    this(Some(stroke), Some(fill), Some(stroke_width),
-         stroke_ends = Some(stroke_ends), stroke_corners = Some(stroke_corners))
+  def this(stroke: Ink, fill: Ink, width: Double,
+           ends: Stroke_Ends, corners: Stroke_Corners) =
+    this(Some(stroke), Some(fill), Some(width),
+         ends = Some(ends), corners = Some(corners))
 
-  def this(stroke: Ink, fill: Ink, stroke_width: Double,
+  def this(stroke: Ink, fill: Ink, width: Double, fill_rule: Fill_Rule) =
+    this(Some(stroke), Some(fill), Some(width), fill_rule = Some(fill_rule))
+
+  def this(stroke: Ink, fill: Ink, width: Double,
+           ends: Stroke_Ends, corners: Stroke_Corners,
            fill_rule: Fill_Rule) =
-    this(Some(stroke), Some(fill), Some(stroke_width),
-         fill_rule = Some(fill_rule))
+    this(Some(stroke), Some(fill), Some(width), None, None,
+         Some(ends), Some(corners), Some(fill_rule))
 
-  def this(stroke: Ink, fill: Ink, stroke_width: Double,
-           stroke_ends: Stroke_Ends, stroke_corners: Stroke_Corners,
+
+  def this(stroke: Ink, fill: Ink, width: Double,
+           dash_pattern: List[Double], dash_offset: Double,
+           ends: Stroke_Ends) =
+    this(Some(stroke), Some(fill), Some(width),
+         Some(dash_pattern), Some(dash_offset),
+         ends = Some(ends))
+
+  def this(stroke: Ink, fill: Ink, width: Double,
+           dash_pattern: List[Double], dash_offset: Double,
+           corners: Stroke_Corners) =
+    this(Some(stroke), Some(fill), Some(width),
+         Some(dash_pattern), Some(dash_offset),
+         corners = Some(corners))
+
+  def this(stroke: Ink, fill: Ink, width: Double,
+           dash_pattern: List[Double], dash_offset: Double,
+           ends: Stroke_Ends, corners: Stroke_Corners) =
+    this(Some(stroke), Some(fill), Some(width),
+         Some(dash_pattern), Some(dash_offset),
+         Some(ends), Some(corners))
+
+  def this(stroke: Ink, fill: Ink, width: Double,
+           dash_pattern: List[Double], dash_offset: Double,
            fill_rule: Fill_Rule) =
-    this(Some(stroke), Some(fill), Some(stroke_width), None, None,
-         Some(stroke_ends), Some(stroke_corners), Some(fill_rule))
-
-
-  def this(stroke: Ink, fill: Ink, stroke_width: Double,
-           stroke_dash_pattern: List[Double], stroke_dash_offset: Double,
-           stroke_ends: Stroke_Ends) =
-    this(Some(stroke), Some(fill), Some(stroke_width),
-         Some(stroke_dash_pattern), Some(stroke_dash_offset),
-         stroke_ends = Some(stroke_ends))
-
-  def this(stroke: Ink, fill: Ink, stroke_width: Double,
-           stroke_dash_pattern: List[Double], stroke_dash_offset: Double,
-           stroke_corners: Stroke_Corners) =
-    this(Some(stroke), Some(fill), Some(stroke_width),
-         Some(stroke_dash_pattern), Some(stroke_dash_offset),
-         stroke_corners = Some(stroke_corners))
-
-  def this(stroke: Ink, fill: Ink, stroke_width: Double,
-           stroke_dash_pattern: List[Double], stroke_dash_offset: Double,
-           stroke_ends: Stroke_Ends, stroke_corners: Stroke_Corners) =
-    this(Some(stroke), Some(fill), Some(stroke_width),
-         Some(stroke_dash_pattern), Some(stroke_dash_offset),
-         Some(stroke_ends), Some(stroke_corners))
-
-  def this(stroke: Ink, fill: Ink, stroke_width: Double,
-           stroke_dash_pattern: List[Double], stroke_dash_offset: Double,
-           fill_rule: Fill_Rule) =
-    this(Some(stroke), Some(fill), Some(stroke_width),
-         Some(stroke_dash_pattern), Some(stroke_dash_offset),
+    this(Some(stroke), Some(fill), Some(width),
+         Some(dash_pattern), Some(dash_offset),
          None, None, Some(fill_rule))
 
-  def this(stroke: Ink, fill: Ink, stroke_width: Double,
-           stroke_dash_pattern: List[Double], stroke_dash_offset: Double,
-           stroke_ends: Stroke_Ends, stroke_corners: Stroke_Corners,
+  def this(stroke: Ink, fill: Ink, width: Double,
+           dash_pattern: List[Double], dash_offset: Double,
+           ends: Stroke_Ends, corners: Stroke_Corners,
            fill_rule: Fill_Rule) =
-    this(Some(stroke), Some(fill), Some(stroke_width),
-         Some(stroke_dash_pattern), Some(stroke_dash_offset),
-         Some(stroke_ends), Some(stroke_corners), Some(fill_rule))
+    this(Some(stroke), Some(fill), Some(width),
+         Some(dash_pattern), Some(dash_offset),
+         Some(ends), Some(corners), Some(fill_rule))
 
 
-  def this(stroke: Ink, fill: Ink, stroke_width: Double,
-           stroke_dash_length: Double, stroke_dash_offset: Double,
-           stroke_ends: Stroke_Ends) =
-    this(Some(stroke), Some(fill), Some(stroke_width),
-         Some(List(stroke_dash_length, stroke_dash_length)),
-         Some(stroke_dash_offset),
-         stroke_ends = Some(stroke_ends))
+  def this(stroke: Ink, fill: Ink, width: Double,
+           dash_length: Double, dash_offset: Double,
+           ends: Stroke_Ends) =
+    this(Some(stroke), Some(fill), Some(width),
+         Some(List(dash_length, dash_length)),
+         Some(dash_offset),
+         ends = Some(ends))
 
-  def this(stroke: Ink, fill: Ink, stroke_width: Double,
-           stroke_dash_length: Double, stroke_dash_offset: Double,
-           stroke_corners: Stroke_Corners) =
-    this(Some(stroke), Some(fill), Some(stroke_width),
-         Some(List(stroke_dash_length, stroke_dash_length)),
-         Some(stroke_dash_offset),
-         stroke_corners = Some(stroke_corners))
+  def this(stroke: Ink, fill: Ink, width: Double,
+           dash_length: Double, dash_offset: Double,
+           corners: Stroke_Corners) =
+    this(Some(stroke), Some(fill), Some(width),
+         Some(List(dash_length, dash_length)),
+         Some(dash_offset),
+         corners = Some(corners))
 
-  def this(stroke: Ink, fill: Ink, stroke_width: Double,
-           stroke_dash_length: Double, stroke_dash_offset: Double,
-           stroke_ends: Stroke_Ends, stroke_corners: Stroke_Corners) =
-    this(Some(stroke), Some(fill), Some(stroke_width),
-         Some(List(stroke_dash_length, stroke_dash_length)),
-         Some(stroke_dash_offset),
-         Some(stroke_ends), Some(stroke_corners))
+  def this(stroke: Ink, fill: Ink, width: Double,
+           dash_length: Double, dash_offset: Double,
+           ends: Stroke_Ends, corners: Stroke_Corners) =
+    this(Some(stroke), Some(fill), Some(width),
+         Some(List(dash_length, dash_length)),
+         Some(dash_offset),
+         Some(ends), Some(corners))
 
-  def this(stroke: Ink, fill: Ink, stroke_width: Double,
-           stroke_dash_length: Double, stroke_dash_offset: Double,
+  def this(stroke: Ink, fill: Ink, width: Double,
+           dash_length: Double, dash_offset: Double,
            fill_rule: Fill_Rule) =
-    this(Some(stroke), Some(fill), Some(stroke_width),
-         Some(List(stroke_dash_length, stroke_dash_length)),
-         Some(stroke_dash_offset),
+    this(Some(stroke), Some(fill), Some(width),
+         Some(List(dash_length, dash_length)),
+         Some(dash_offset),
          None, None, Some(fill_rule))
 
-  def this(stroke: Ink, fill: Ink, stroke_width: Double,
-           stroke_dash_length: Double, stroke_dash_offset: Double,
-           stroke_ends: Stroke_Ends, stroke_corners: Stroke_Corners,
+  def this(stroke: Ink, fill: Ink, width: Double,
+           dash_length: Double, dash_offset: Double,
+           ends: Stroke_Ends, corners: Stroke_Corners,
            fill_rule: Fill_Rule) =
-    this(Some(stroke), Some(fill), Some(stroke_width),
-         Some(List(stroke_dash_length, stroke_dash_length)),
-         Some(stroke_dash_offset),
-         Some(stroke_ends), Some(stroke_corners), Some(fill_rule))
+    this(Some(stroke), Some(fill), Some(width),
+         Some(List(dash_length, dash_length)),
+         Some(dash_offset),
+         Some(ends), Some(corners), Some(fill_rule))
 
 
-  private def this() =
-    this(None, None)
+  private def this() = this(None, None)
 
 
   val stroke_opacity: Option[Double] = stroke.map( _.opacity )
@@ -515,9 +478,7 @@ final case class Ink_Pen protected[ink] (
   def extract_fill:   Pen = new Ink_Pen().fill(this)
 
 
-  def flip_ink: Pen =
-    copy(stroke = fill,
-         fill   = stroke)
+  def flip_ink: Pen = copy(stroke = fill, fill = stroke)
 
   def flip_opacity: Pen = {
     val (base_stroke, stroke_opacity) =
@@ -538,93 +499,95 @@ final case class Ink_Pen protected[ink] (
   }
 
 
-  def dashed(stroke_dash_pattern: List[Double]): Pen =
-    copy(stroke_dash_pattern = Some(stroke_dash_pattern),
-         stroke_dash_offset  = None)
+  def dashed(dash_pattern: List[Double]): Pen =
+    copy(dash_pattern = Some(dash_pattern),
+         dash_offset  = None)
 
-  def dashed(stroke_dash_pattern: List[Double], stroke_dash_offset: Double):
-      Pen =
-    copy(stroke_dash_pattern = Some(stroke_dash_pattern),
-         stroke_dash_offset  = Some(stroke_dash_offset))
+  def dashed(dash_pattern: List[Double], dash_offset: Double): Pen =
+    copy(dash_pattern = Some(dash_pattern),
+         dash_offset  = Some(dash_offset))
 
 
   def stroke(ink: Ink): Pen =
     new Ink_Pen(Some(ink), fill,
-                stroke_width        = None,
-                stroke_dash_pattern = None,
-                stroke_dash_offset  = None,
-                stroke_ends         = None,
-                stroke_corners      = None,
-                fill_rule = fill_rule)
+                width        = None,
+                dash_pattern = None,
+                dash_offset  = None,
+                ends         = None,
+                corners      = None,
+                fill_rule    = fill_rule)
 
-  def stroke(ink: Ink, stroke_ends: Stroke_Ends): Pen =
+  def stroke(ink: Ink, ends: Stroke_Ends): Pen =
     new Ink_Pen(Some(ink), fill,
-                stroke_width        = None,
-                stroke_dash_pattern = None,
-                stroke_dash_offset  = None,
-                stroke_ends         = Some(stroke_ends),
-                stroke_corners      = None,
-                fill_rule = fill_rule)
+                width        = None,
+                dash_pattern = None,
+                dash_offset  = None,
+                ends         = Some(ends),
+                corners      = None,
+                fill_rule    = fill_rule)
 
-  def stroke(ink: Ink, stroke_corners: Stroke_Corners): Pen =
+  def stroke(ink: Ink, corners: Stroke_Corners): Pen =
     new Ink_Pen(Some(ink), fill,
-                stroke_width        = None,
-                stroke_dash_pattern = None,
-                stroke_dash_offset  = None,
-                stroke_ends         = None,
-                stroke_corners      = Some(stroke_corners),
-                fill_rule = fill_rule)
+                width        = None,
+                dash_pattern = None,
+                dash_offset  = None,
+                ends         = None,
+                corners      = Some(corners),
+                fill_rule    = fill_rule)
 
   def stroke(ink: Ink,
-             stroke_ends: Stroke_Ends, stroke_corners: Stroke_Corners): Pen =
+             ends: Stroke_Ends, corners: Stroke_Corners): Pen =
     new Ink_Pen(Some(ink), fill,
-                stroke_width        = None,
-                stroke_dash_pattern = None,
-                stroke_dash_offset  = None,
-                stroke_ends         = Some(stroke_ends),
-                stroke_corners      = Some(stroke_corners),
-                fill_rule = fill_rule)
+                width        = None,
+                dash_pattern = None,
+                dash_offset  = None,
+                ends         = Some(ends),
+                corners      = Some(corners),
+                fill_rule    = fill_rule)
 
 
   def stroke(ink: Ink, width: Double): Pen =
     new Ink_Pen(Some(ink), fill, Some(width),
-                stroke_dash_pattern = None,
-                stroke_dash_offset  = None,
-                stroke_ends         = None,
-                stroke_corners      = None,
-                fill_rule = fill_rule)
+                dash_pattern = None,
+                dash_offset  = None,
+                ends         = None,
+                corners      = None,
+                fill_rule    = fill_rule)
 
-  def stroke(ink: Ink, width: Double, stroke_ends: Stroke_Ends): Pen =
+  def stroke(ink: Ink, width: Double, ends: Stroke_Ends): Pen =
     new Ink_Pen(Some(ink), fill, Some(width),
-                stroke_dash_pattern = None,
-                stroke_dash_offset  = None,
-                stroke_ends         = Some(stroke_ends),
-                stroke_corners      = None,
-                fill_rule = fill_rule)
+                dash_pattern = None,
+                dash_offset  = None,
+                ends         = Some(ends),
+                corners      = None,
+                fill_rule    = fill_rule)
 
-  def stroke(ink: Ink, width: Double, stroke_corners: Stroke_Corners): Pen =
+  def stroke(ink: Ink, width: Double, corners: Stroke_Corners): Pen =
     new Ink_Pen(Some(ink), fill, Some(width),
-                stroke_dash_pattern = None,
-                stroke_dash_offset  = None,
-                stroke_ends         = None,
-                stroke_corners      = Some(stroke_corners),
-                fill_rule = fill_rule)
+                dash_pattern = None,
+                dash_offset  = None,
+                ends         = None,
+                corners      = Some(corners),
+                fill_rule    = fill_rule)
 
   def stroke(ink: Ink, width: Double,
-             stroke_ends: Stroke_Ends, stroke_corners: Stroke_Corners): Pen =
+             ends: Stroke_Ends, corners: Stroke_Corners): Pen =
     new Ink_Pen(Some(ink), fill, Some(width),
-                stroke_dash_pattern = None,
-                stroke_dash_offset  = None,
-                stroke_ends         = Some(stroke_ends),
-                stroke_corners      = Some(stroke_corners),
-                fill_rule = fill_rule)
+                dash_pattern = None,
+                dash_offset  = None,
+                ends         = Some(ends),
+                corners      = Some(corners),
+                fill_rule    = fill_rule)
 
 
-  def stroke(like: Pen): Pen =
-    copy(stroke = like.stroke, stroke_width = like.stroke_width,
-         stroke_dash_pattern = like.stroke_dash_pattern,
-         stroke_dash_offset = like.stroke_dash_offset,
-         stroke_ends = like.stroke_ends, stroke_corners = like.stroke_corners)
+  def stroke(like: Pen): Pen = copy(
+      stroke       = like.stroke,
+      width        = like.width,
+      dash_pattern = like.dash_pattern,
+      dash_offset  = like.dash_offset,
+      ends         = like.ends,
+      corners      = like.corners
+    )
 
 
   def fill(ink: Ink): Pen =
@@ -638,10 +601,10 @@ final case class Ink_Pen protected[ink] (
 
 
   def scale_pen(scaling: Double): Pen =
-    copy(stroke_width        = stroke_width.       map(        _ * scaling ),
-         stroke_dash_pattern = stroke_dash_pattern.map( _.map( _ * scaling ) ),
-         stroke_dash_offset  = stroke_dash_offset. map(        _ * scaling ),
-         stroke_corners      = stroke_corners.     map( _ match {
+    copy(width        = width.       map(        _ * scaling ),
+         dash_pattern = dash_pattern.map( _.map( _ * scaling ) ),
+         dash_offset  = dash_offset. map(        _ * scaling ),
+         corners      = corners.     map( _ match {
            case Exact_Corners(clip_under) =>
                                 Exact_Corners(clip_under. map( _ * scaling ))
            case curr_val                  => curr_val
@@ -649,14 +612,14 @@ final case class Ink_Pen protected[ink] (
 
 
   def combo_pen(other: Pen): Pen =
-    Ink_Pen(other.stroke.             orElse(stroke),
-            other.fill.               orElse(fill),
-            other.stroke_width.       orElse(stroke_width),
-            other.stroke_dash_pattern.orElse(stroke_dash_pattern),
-            other.stroke_dash_offset. orElse(stroke_dash_offset),
-            other.stroke_ends.        orElse(stroke_ends),
-            other.stroke_corners.     orElse(stroke_corners),
-            other.fill_rule.          orElse(fill_rule))
+    Ink_Pen(other.stroke.      orElse(stroke),
+            other.fill.        orElse(fill),
+            other.width.       orElse(width),
+            other.dash_pattern.orElse(dash_pattern),
+            other.dash_offset. orElse(dash_offset),
+            other.ends.        orElse(ends),
+            other.corners.     orElse(corners),
+            other.fill_rule.   orElse(fill_rule))
 
 
   def exhibit_pen(opacity: Opacity_Effect): Pen =
@@ -674,9 +637,10 @@ final case class Ink_Pen protected[ink] (
 
 object Pen_Transform {
 
-  private class Extension private[this] (composed_transform: Pen => Pen,
-                                         protected val inner: Pen_Transform)
-      extends Adjust_Pen(composed_transform) {
+  private class Extension private[this] (
+    composed_transform: Pen => Pen,
+    protected val inner: Pen_Transform
+    ) extends Adjust_Pen(composed_transform) {
 
     def this(transform_pen: Pen_Transform, subsequent_transform: Pen => Pen) =
       this(transform_pen.compose(subsequent_transform), transform_pen)
@@ -694,31 +658,32 @@ object Pen_Transform {
   }
 
 
-  private class Composition (transform_pen: Pen_Transform,
-                             subsequent_transform: Pen => Pen)
-      extends Extension(transform_pen, subsequent_transform) {
+  private class Composition (
+    transform_pen: Pen_Transform,
+    subsequent_transform: Pen => Pen
+    ) extends Extension(transform_pen, subsequent_transform) {
 
-    override val stroke              = inner.stroke
-    override val fill                = inner.fill
-    override val stroke_width        = inner.stroke_width
-    override val stroke_dash_pattern = inner.stroke_dash_pattern
-    override val stroke_dash_offset  = inner.stroke_dash_offset
-    override val stroke_ends         = inner.stroke_ends
-    override val stroke_corners      = inner.stroke_corners
-    override val fill_rule           = inner.fill_rule
+    override val stroke       = inner.stroke
+    override val fill         = inner.fill
+    override val width        = inner.width
+    override val dash_pattern = inner.dash_pattern
+    override val dash_offset  = inner.dash_offset
+    override val ends         = inner.ends
+    override val corners      = inner.corners
+    override val fill_rule    = inner.fill_rule
   }
 }
 
 sealed abstract class Pen_Transform extends Pen {
 
-  val stroke:              Option[Ink]            = None
-  val fill:                Option[Ink]            = None
-  val stroke_width:        Option[Double]         = None
-  val stroke_dash_pattern: Option[List[Double]]   = None
-  val stroke_dash_offset:  Option[Double]         = None
-  val stroke_ends:         Option[Stroke_Ends]    = None
-  val stroke_corners:      Option[Stroke_Corners] = None
-  val fill_rule:           Option[Fill_Rule]      = None
+  val stroke:       Option[Ink]            = None
+  val fill:         Option[Ink]            = None
+  val width:        Option[Double]         = None
+  val dash_pattern: Option[List[Double]]   = None
+  val dash_offset:  Option[Double]         = None
+  val ends:         Option[Stroke_Ends]    = None
+  val corners:      Option[Stroke_Corners] = None
+  val fill_rule:    Option[Fill_Rule]      = None
 
 
   def apply(pen: Pen): Pen
@@ -761,113 +726,109 @@ sealed abstract class Pen_Transform extends Pen {
     }
 
 
-  def dashed(stroke_dash_pattern0: List[Double]): Pen =
-    new Pen_Transform.Composition(this, _.dashed(stroke_dash_pattern0)) {
-      override val stroke_dash_pattern = Some(stroke_dash_pattern0)
-      override val stroke_dash_offset  = None
+  def dashed(dash_pattern0: List[Double]): Pen =
+    new Pen_Transform.Composition(this, _.dashed(dash_pattern0)) {
+      override val dash_pattern = Some(dash_pattern0)
+      override val dash_offset  = None
     }
 
-  def dashed(stroke_dash_pattern0: List[Double], stroke_dash_offset0: Double):
-      Pen =
-    new Pen_Transform.Composition(this, _.dashed(stroke_dash_pattern0,
-                                                 stroke_dash_offset0)) {
-      override val stroke_dash_pattern = Some(stroke_dash_pattern0)
-      override val stroke_dash_offset  = Some(stroke_dash_offset0)
+  def dashed(dash_pattern0: List[Double], dash_offset0: Double): Pen =
+    new Pen_Transform.Composition(this, _.dashed(dash_pattern0, dash_offset0)) {
+      override val dash_pattern = Some(dash_pattern0)
+      override val dash_offset  = Some(dash_offset0)
     }
 
 
   def stroke(ink: Ink): Pen =
     new Pen_Transform.Composition(this, _.stroke(ink)) {
-      override val stroke              = Some(ink)
-      override val stroke_width        = None
-      override val stroke_dash_pattern = None
-      override val stroke_dash_offset  = None
-      override val stroke_ends         = None
-      override val stroke_corners      = None
+      override val stroke       = Some(ink)
+      override val width        = None
+      override val dash_pattern = None
+      override val dash_offset  = None
+      override val ends         = None
+      override val corners      = None
     }
 
-  def stroke(ink: Ink, stroke_ends0: Stroke_Ends): Pen =
-    new Pen_Transform.Composition(this, _.stroke(ink, stroke_ends0)) {
-      override val stroke              = Some(ink)
-      override val stroke_width        = None
-      override val stroke_dash_pattern = None
-      override val stroke_dash_offset  = None
-      override val stroke_ends         = Some(stroke_ends0)
-      override val stroke_corners      = None
+  def stroke(ink: Ink, ends0: Stroke_Ends): Pen =
+    new Pen_Transform.Composition(this, _.stroke(ink, ends0)) {
+      override val stroke       = Some(ink)
+      override val width        = None
+      override val dash_pattern = None
+      override val dash_offset  = None
+      override val ends         = Some(ends0)
+      override val corners      = None
     }
 
-  def stroke(ink: Ink, stroke_corners0: Stroke_Corners): Pen =
-    new Pen_Transform.Composition(this, _.stroke(ink, stroke_corners0)) {
-      override val stroke              = Some(ink)
-      override val stroke_width        = None
-      override val stroke_dash_pattern = None
-      override val stroke_dash_offset  = None
-      override val stroke_ends         = None
-      override val stroke_corners      = Some(stroke_corners0)
+  def stroke(ink: Ink, corners0: Stroke_Corners): Pen =
+    new Pen_Transform.Composition(this, _.stroke(ink, corners0)) {
+      override val stroke       = Some(ink)
+      override val width        = None
+      override val dash_pattern = None
+      override val dash_offset  = None
+      override val ends         = None
+      override val corners      = Some(corners0)
     }
 
   def stroke(ink: Ink,
-             stroke_ends0: Stroke_Ends, stroke_corners0: Stroke_Corners): Pen =
-    new Pen_Transform.Composition(this, _.stroke(ink, stroke_ends0,
-                                                 stroke_corners0)) {
-      override val stroke              = Some(ink)
-      override val stroke_width        = None
-      override val stroke_dash_pattern = None
-      override val stroke_dash_offset  = None
-      override val stroke_ends         = Some(stroke_ends0)
-      override val stroke_corners      = Some(stroke_corners0)
+             ends0: Stroke_Ends, corners0: Stroke_Corners): Pen =
+    new Pen_Transform.Composition(this, _.stroke(ink, ends0, corners0)) {
+      override val stroke       = Some(ink)
+      override val width        = None
+      override val dash_pattern = None
+      override val dash_offset  = None
+      override val ends         = Some(ends0)
+      override val corners      = Some(corners0)
     }
 
-  def stroke(ink: Ink, width: Double): Pen =
-    new Pen_Transform.Composition(this, _.stroke(ink, width)) {
-      override val stroke              = Some(ink)
-      override val stroke_width        = Some(width)
-      override val stroke_dash_pattern = None
-      override val stroke_dash_offset  = None
-      override val stroke_ends         = None
-      override val stroke_corners      = None
+  def stroke(ink: Ink, width0: Double): Pen =
+    new Pen_Transform.Composition(this, _.stroke(ink, width0)) {
+      override val stroke       = Some(ink)
+      override val width        = Some(width0)
+      override val dash_pattern = None
+      override val dash_offset  = None
+      override val ends         = None
+      override val corners      = None
     }
 
-  def stroke(ink: Ink, width: Double, stroke_ends0: Stroke_Ends): Pen =
-    new Pen_Transform.Composition(this, _.stroke(ink, width, stroke_ends0)) {
-      override val stroke              = Some(ink)
-      override val stroke_width        = Some(width)
-      override val stroke_dash_pattern = None
-      override val stroke_dash_offset  = None
-      override val stroke_ends         = Some(stroke_ends0)
-      override val stroke_corners      = None
+  def stroke(ink: Ink, width0: Double, ends0: Stroke_Ends): Pen =
+    new Pen_Transform.Composition(this, _.stroke(ink, width0, ends0)) {
+      override val stroke       = Some(ink)
+      override val width        = Some(width0)
+      override val dash_pattern = None
+      override val dash_offset  = None
+      override val ends         = Some(ends0)
+      override val corners      = None
     }
 
-  def stroke(ink: Ink, width: Double, stroke_corners0: Stroke_Corners): Pen =
-    new Pen_Transform.Composition(this, _.stroke(ink, width, stroke_corners0)) {
-      override val stroke              = Some(ink)
-      override val stroke_width        = Some(width)
-      override val stroke_dash_pattern = None
-      override val stroke_dash_offset  = None
-      override val stroke_ends         = None
-      override val stroke_corners      = Some(stroke_corners0)
+  def stroke(ink: Ink, width0: Double, corners0: Stroke_Corners): Pen =
+    new Pen_Transform.Composition(this, _.stroke(ink, width0, corners0)) {
+      override val stroke       = Some(ink)
+      override val width        = Some(width0)
+      override val dash_pattern = None
+      override val dash_offset  = None
+      override val ends         = None
+      override val corners      = Some(corners0)
     }
 
-  def stroke(ink: Ink, width: Double,
-             stroke_ends0: Stroke_Ends, stroke_corners0: Stroke_Corners): Pen =
-    new Pen_Transform.Composition(this, _.stroke(ink, width, stroke_ends0,
-                                                 stroke_corners0)) {
-      override val stroke              = Some(ink)
-      override val stroke_width        = Some(width)
-      override val stroke_dash_pattern = None
-      override val stroke_dash_offset  = None
-      override val stroke_ends         = Some(stroke_ends0)
-      override val stroke_corners      = Some(stroke_corners0)
+  def stroke(ink: Ink, width0: Double,
+             ends0: Stroke_Ends, corners0: Stroke_Corners): Pen =
+    new Pen_Transform.Composition(this, _.stroke(ink, width0, ends0,corners0)) {
+      override val stroke       = Some(ink)
+      override val width        = Some(width0)
+      override val dash_pattern = None
+      override val dash_offset  = None
+      override val ends         = Some(ends0)
+      override val corners      = Some(corners0)
     }
 
   def stroke(like: Pen): Pen =
     new Pen_Transform.Composition(this, _.stroke(like)) {
-      override val stroke              = like.stroke
-      override val stroke_width        = like.stroke_width
-      override val stroke_dash_pattern = like.stroke_dash_pattern
-      override val stroke_dash_offset  = like.stroke_dash_offset
-      override val stroke_ends         = like.stroke_ends
-      override val stroke_corners      = like.stroke_corners
+      override val stroke       = like.stroke
+      override val width        = like.width
+      override val dash_pattern = like.dash_pattern
+      override val dash_offset  = like.dash_offset
+      override val ends         = like.ends
+      override val corners      = like.corners
     }
 
 
@@ -892,38 +853,38 @@ sealed abstract class Pen_Transform extends Pen {
 
   def scale_pen(scaling: Double): Pen =
     new Pen_Transform.Composition(this, _.scale_pen(scaling)) {
-      override val stroke_width        =
-              Pen_Transform.this.stroke_width.              map( _ * scaling )
-      override val stroke_dash_pattern =
-              Pen_Transform.this.stroke_dash_pattern.map( _.map( _ * scaling ) )
-      override val stroke_dash_offset  =
-              Pen_Transform.this.stroke_dash_offset.        map( _ * scaling )
-      override val stroke_corners      =
-              Pen_Transform.this.stroke_corners.     map( _ match {
-          case Exact_Corners(clip_under) =>
-                                Exact_Corners( clip_under.  map( _ * scaling ) )
-          case curr_val                  => curr_val
-        } )
+      override val width        =
+              Pen_Transform.this.width.       map( _ * scaling )
+      override val dash_pattern =
+              Pen_Transform.this.dash_pattern.map( _.map( _ * scaling ) )
+      override val dash_offset  =
+              Pen_Transform.this.dash_offset. map( _ * scaling )
+      override val corners      =
+              Pen_Transform.this.corners.     map( _ match {
+        case Exact_Corners(clip_under) =>
+          Exact_Corners(clip_under.map( _ * scaling ))
+        case curr_val                  => curr_val
+      } )
     }
 
   def combo_pen(other: Pen): Pen =
     new Pen_Transform.Composition(this, _.combo_pen(other)) {
-      override val stroke              =
-        other.stroke.             orElse(Pen_Transform.this.stroke)
-      override val fill                =
-        other.fill.               orElse(Pen_Transform.this.fill)
-      override val stroke_width        =
-        other.stroke_width.       orElse(Pen_Transform.this.stroke_width)
-      override val stroke_dash_pattern =
-        other.stroke_dash_pattern.orElse(Pen_Transform.this.stroke_dash_pattern)
-      override val stroke_dash_offset  =
-        other.stroke_dash_offset. orElse(Pen_Transform.this.stroke_dash_offset)
-      override val stroke_ends         =
-        other.stroke_ends.        orElse(Pen_Transform.this.stroke_ends)
-      override val stroke_corners      =
-        other.stroke_corners.     orElse(Pen_Transform.this.stroke_corners)
-      override val fill_rule           =
-        other.fill_rule.          orElse(Pen_Transform.this.fill_rule)
+      override val stroke       =
+        other.stroke.      orElse(Pen_Transform.this.stroke)
+      override val fill         =
+        other.fill.        orElse(Pen_Transform.this.fill)
+      override val width        =
+        other.width.       orElse(Pen_Transform.this.width)
+      override val dash_pattern =
+        other.dash_pattern.orElse(Pen_Transform.this.dash_pattern)
+      override val dash_offset  =
+        other.dash_offset. orElse(Pen_Transform.this.dash_offset)
+      override val ends         =
+        other.ends.        orElse(Pen_Transform.this.ends)
+      override val corners      =
+        other.corners.     orElse(Pen_Transform.this.corners)
+      override val fill_rule    =
+        other.fill_rule.   orElse(Pen_Transform.this.fill_rule)
     }
 
   def exhibit_pen(opacity: Opacity_Effect): Pen =
@@ -949,8 +910,7 @@ object Adjust_Pen extends Pen_Transform {
   def apply(pen: Pen): Pen = pen
 
 
-  def apply(adjustment: Pen => Pen): Adjust_Pen =
-    new Adjust_Pen(adjustment)
+  def apply(adjustment: Pen => Pen): Adjust_Pen = new Adjust_Pen(adjustment)
 
 
   protected[ink] val transform = identity[Pen] _

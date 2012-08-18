@@ -1146,49 +1146,46 @@ sealed abstract class Svg_Content_Renderer extends Svg_Renderer_Base {
           fill_opacity.  map( clamp_opacity(_) ).
                          map( "fill-opacity=\"%f\"".format(_)   ).getOrElse("")
 
-    val stroke_width_attr = pen.stroke_width match {
-      case Some(width) => "stroke-width=\"%f\"".format(width)
-      case None        => ""
+    val stroke_width_attr = pen.width match {
+      case Some(len) => "stroke-width=\"%f\"".format(len)
+      case None      => ""
     }
 
-    val stroke_dash_pattern_attr = pen.stroke_dash_pattern match {
-      case None
-         | Some(Nil) => ""
-      case Some(width :: Nil) =>
-        "stroke-dasharray=\"%f %f\"".format(width, width)
-      case Some(pattern_widths) =>
-        "stroke-dasharray=\"%s\"".format(pattern_widths.mkString(" "))
+    val stroke_dash_pattern_attr = pen.dash_pattern match {
+      case None 
+        |  Some(Nil) => ""
+      case Some(len :: Nil) =>
+        "stroke-dasharray=\"%f %f\"".format(len, len)
+      case Some(pattern_lens) =>
+        "stroke-dasharray=\"%s\"".format(pattern_lens.mkString(" "))
     }
-    val stroke_dash_offset_attr = pen.stroke_dash_offset match {
-      case Some(dash_offset) => "stroke-dashoffset=\"%f\"".format(dash_offset)
-      case None              => ""
+    val stroke_dash_offset_attr = pen.dash_offset match {
+      case Some(offset) => "stroke-dashoffset=\"%f\"".format(offset)
+      case None         => ""
     }
 
-    val stroke_linecap_attr = pen.stroke_ends.map( _ match {
-            case Exact_Ends   => "butt"
-            case Round_Ends   => "round"
-            case Extend_Ends  => "square"
-            case Inherit_Ends => "inherit"
-          } ).
-            map( "stroke-linecap=\"%s\"".format(_) ).getOrElse("")
-    val stroke_linejoin_attr = pen.stroke_corners.map( _ match {
-            case Exact_Corners | Exact_Corners(None) => "miter"
-            case Exact_Corners(Some(clip_under))     =>
-              // cheat by returning value with one more attr and its value
-              "miter\" stroke-miterlimit=\"%f".format(clip_under)
-            case Round_Corners                       => "round"
-            case Clip_Corners                        => "bevel"
-            case Inherit_Corners                     => "inherit"
-          } ).
-            map( "stroke-linejoin=\"%s\"".format(_) ).getOrElse("")
+    val stroke_linecap_attr = pen.ends.map {
+      case Exact_Ends   => "butt"
+      case Round_Ends   => "round"
+      case Extend_Ends  => "square"
+      case Inherit_Ends => "inherit"
+    }.map( "stroke-linecap=\"%s\"".format(_) ).getOrElse("")
+    val stroke_linejoin_attr = pen.corners.map {
+      case Exact_Corners | Exact_Corners(None) => "miter"
+      case Exact_Corners(Some(clip_under))     =>
+        // cheat by returning value with one more attr and its value
+        "miter\" stroke-miterlimit=\"%f".format(clip_under)
+      case Round_Corners                       => "round"
+      case Clip_Corners                        => "bevel"
+      case Inherit_Corners                     => "inherit"
+    }.map( "stroke-linejoin=\"%s\"".format(_) ).getOrElse("")
 
-    val fill_rule_attr = pen.fill_rule.map( _ match {
-            case Non_Zero_Fill      => "nonzero"
-            case Even_Odd_Fill      => "evenodd"
-            case Winding_Count_Fill => "nonzero" // [SVG 2.0] "winding-count"
-            case Inherit_Fill       => "inherit"
-          } ).
-            map( "fill-rule=\"%s\"".format(_) ).getOrElse("")
+    val fill_rule_attr = pen.fill_rule.map {
+      case Non_Zero_Fill      => "nonzero"
+      case Even_Odd_Fill      => "evenodd"
+      case Winding_Count_Fill => "nonzero" // [SVG 2.0] "winding-count"
+      case Inherit_Fill       => "inherit"
+    }.map( "fill-rule=\"%s\"".format(_) ).getOrElse("")
 
     write_group(defs2, os,
                 List(fmt(attrs).trim, stroke_attr, fill_attr, stroke_width_attr,

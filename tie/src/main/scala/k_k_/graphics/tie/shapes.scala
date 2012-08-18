@@ -1835,12 +1835,9 @@ sealed abstract class Dims
     //!!!!this won't work for text, since stroke doesn't surround the figure!!!
     //!!!!!it may also fail when there is a nested pen has already enlarged the bounding box: containing pens would only change the color, not add more size!!!
 
-    pen.stroke_width match {
-      case Some(thickness) =>
-        val (width_scale, height_scale) =
-          ((width + thickness)  / width,
-           (height + thickness) / height)
-        this.scale(width_scale, height_scale)
+    pen.width match {
+      case Some(len) =>
+        this.scale((width + len) / width, (height + len) / height)
       case None =>
         this
     }
