@@ -28,20 +28,12 @@ import k_k_.graphics.tie.transform._
 
 sealed abstract class Ink {
 
-  def opacity: Double =
-    1.0
+  def opacity: Double = 1.0
 
-  def alpha(opacity: Opacity_Effect): Ink =
-    create_non_opaque_ink(opacity)
-
-  def alpha(opacity: Double): Ink =
-    alpha(Opacity(opacity))
-
-  def -#(opacity: Opacity_Effect): Ink =
-    alpha(opacity)
-
-  def -#(opacity: Double): Ink =
-    alpha(opacity)
+  def alpha(opacity: Opacity_Effect): Ink = create_non_opaque_ink(opacity)
+  def alpha(opacity: Double): Ink = alpha(Opacity(opacity))
+  def -#(opacity: Opacity_Effect): Ink = alpha(opacity)
+  def -#(opacity: Double): Ink = alpha(opacity)
 
 
   protected def create_non_opaque_ink(opacity_effect: Opacity_Effect): Ink =
@@ -70,9 +62,11 @@ object Color {
     Named_Color.named(name)
 
   def with_hsl(hue: Double, saturation: Double, lightness: Double): Color =
-    new HSL_Projection(((hue % 360) + 360) % 360,
-                       math.abs(saturation % 2),
-                       math.abs(lightness % 2))
+    new HSL_Projection(
+        ((hue % 360) + 360) % 360,
+        math.abs(saturation % 2),
+        math.abs(lightness % 2)
+      )
 
 
   private def lerp(x: Int, y: Int, proportion: Double): Int = {
@@ -112,21 +106,26 @@ object Color {
                 else  /*(max == b)*/ (r - g)/chroma + 4
         H * 60 // convert ordinal sextant of hexagon to degrees of (of circle)
       }
-      new HSL_Projection(if (hue < 0.0) hue + 360 else hue,
-                         saturation, lightness, chroma)
+      new HSL_Projection(
+          if (hue < 0.0) hue + 360 else hue,
+          saturation,
+          lightness,
+          chroma
+        )
     }
 
-    implicit def to_Color(hsl: HSL_Projection): Color =
-      hsl.as_rgb
+    implicit def to_Color(hsl: HSL_Projection): Color = hsl.as_rgb
   }
 
   // HSL cylindrical geometry uses (degrees) rotation about axis to specify hue:
   // primary: 0 == red        120 == green       240 == blue          360 == red
   // secondary:    [60 == yellow]      [180 == cyan]     [300 == magenta]
-  private class HSL_Projection private (val hue: Double,        // [ 0.0,360.0 )
-                                        val saturation: Double, // [ 0.0,  1.0 ]
-                                        val lightness: Double,  // [ 0.0,  1.0 ]
-                                        chroma: Double) {
+  private class HSL_Projection private (
+    val hue: Double,        // [ 0.0,360.0 )
+    val saturation: Double, // [ 0.0,  1.0 ]
+    val lightness: Double,  // [ 0.0,  1.0 ]
+    chroma: Double
+    ) {
 
     def this(hue: Double, saturation: Double, lightness: Double) =
       this(hue, saturation, lightness,
@@ -158,9 +157,11 @@ object Color {
 
 
     def transition(other: HSL_Projection, stop: Double): HSL_Projection =
-      new HSL_Projection(lerp(hue,        other.hue,        stop),
-                         lerp(saturation, other.saturation, stop),
-                         lerp(lightness,  other.lightness,  stop))
+      new HSL_Projection(
+          lerp(hue,        other.hue,        stop),
+          lerp(saturation, other.saturation, stop),
+          lerp(lightness,  other.lightness,  stop)
+        )
 
     def transitions(other: HSL_Projection, stops: Seq[Double]):
         Seq[HSL_Projection] =
@@ -173,8 +174,12 @@ object Color {
 
 
     def transition_hue(other: HSL_Projection, stop: Double): HSL_Projection =
-      new HSL_Projection(lerp(hue, other.hue, stop),
-                         saturation, lightness, chroma)
+      new HSL_Projection(
+          lerp(hue, other.hue, stop),
+          saturation,
+          lightness,
+          chroma
+        )
 
     def transition_hues(other: HSL_Projection, stops: Seq[Double]):
         Seq[HSL_Projection] =
@@ -239,54 +244,44 @@ object Color {
   }
 }
 
-sealed class Color private (val red: Int, val green: Int, val blue: Int,
-                            hsl_projection: Option[AnyRef])
+sealed class Color private (
+  val red:   Int,
+  val green: Int,
+  val blue:  Int,
+  hsl_projection: Option[AnyRef]
+  ) extends Ink {
 
 //                          hsl_projection: Option[Color.HSL_Projection])
 //????not sure why it's not possible to access the type in the constructor, yet
 // it is perfectly acceptible below in the def. of hsl_equiv????
-//[ERROR] .../tie/tie/src/main/scala/k_k_/graphics/tie/ink.scala:146: error: class HSL_Projection cannot be accessed in object k_k_.graphics.tie.ink.Color
+//[ERROR] .../tie/tie/src/main/scala/k_k_/graphics/tie/ink.scala:251: error: class HSL_Projection cannot be accessed in object k_k_.graphics.tie.ink.Color
 //[INFO]                             hsl_projection: Option[Color.HSL_Projection])
 //[INFO]                                                          ^
-
-    extends Ink {
 
   def this(red: Int, green: Int, blue: Int) =
     this(math.abs(red % 256), math.abs(green % 256), math.abs(blue % 256), None)
 
 
-  final def as_color_only: Color =
-    new Color(red, green, blue, hsl_projection)
+  final def as_color_only: Color = new Color(red, green, blue, hsl_projection)
 
 
   // NOTE: override with covariant return type
   override
-  def alpha(opacity: Opacity_Effect): Color =
-    create_non_opaque_ink(opacity)
-
+  def alpha(opacity: Opacity_Effect): Color = create_non_opaque_ink(opacity)
   override
-  def alpha(opacity: Double): Color =
-    alpha(Opacity(opacity))
-
+  def alpha(opacity: Double): Color = alpha(Opacity(opacity))
   override
-  def -#(opacity: Opacity_Effect): Color =
-    alpha(opacity)
-
+  def -#(opacity: Opacity_Effect): Color = alpha(opacity)
   override
-  def -#(opacity: Double): Color =
-    alpha(opacity)
+  def -#(opacity: Double): Color = alpha(opacity)
 
 
   // rotate hue, preserving saturation and lightness:
 
-  def rotate(degrees: Double): Color =
-    hsl_equiv.rotate(degrees)
+  def rotate(degrees: Double): Color = hsl_equiv.rotate(degrees)
+  def -%(degrees: Double): Color = rotate(degrees)
 
-  def -%(degrees: Double): Color =
-    rotate(degrees)
-
-  final def complement: Color =
-    rotate(180)
+  final def complement: Color = rotate(180)
 
 
   def saturate(amount: Double): Color =   // amount: [ 0.0, 1.0 ]
@@ -364,20 +359,18 @@ sealed class Color private (val red: Int, val green: Int, val blue: Int,
     else lerps(other, Color.stepwise_to_1(step))
 
 
-  def as_rgb_string =
-    "rgb(%d, %d, %d)".format(red, green, blue)
+  def as_rgb_string = "rgb(%d, %d, %d)".format(red, green, blue)
 
-  def as_hex_string =
-    "#%02x%02x%02x".format(red, green, blue)
+  def as_hex_string = "#%02x%02x%02x".format(red, green, blue)
 
-  def as_hsl_string =
-    "hsl(%f, %f, %f)".format(hsl_equiv.hue,
-                             hsl_equiv.saturation,
-                             hsl_equiv.lightness)
+  def as_hsl_string = "hsl(%f, %f, %f)".format(
+      hsl_equiv.hue,
+      hsl_equiv.saturation,
+      hsl_equiv.lightness
+    )
 
   override
-  def toString: String =
-    as_rgb_string
+  def toString: String = as_rgb_string
 
 
   override
@@ -635,92 +628,98 @@ sealed abstract class Pattern
 }
 
 object Shape_Pattern {
-
-  def apply(shape: Shape): Pattern =
-    new Shape_Pattern(shape)
+  def apply(shape: Shape): Pattern = new Shape_Pattern(shape)
 }
 
-final case class Shape_Pattern(shape: Shape, width: Double, height: Double)
-    extends Pattern {
+final case class Shape_Pattern(
+  shape: Shape,
+  width: Double,
+  height: Double
+  ) extends Pattern {
 
   def this(shape: Shape) =
     this(shape, shape.bounding_box.width, shape.bounding_box.height)
 
-  def center_pt: Point =
-    shape.center_pt
+  def center_pt: Point = shape.center_pt
 }
 
 
 sealed abstract class Transformed_Pattern extends Pattern {
-
   val pattern: Pattern
 
-  def center_pt: Point =
-    pattern.center_pt
+  def center_pt: Point = pattern.center_pt
 }
 
 object Translated_Pattern extends Translated_Transformable[Pattern] {
-
   protected def isInstanceOfCompanion(x: Any): Boolean =
     x.isInstanceOf[Translated_Pattern]
 }
 
-final case class Translated_Pattern(pattern: Pattern,
-                                    x_move: Double, y_move: Double)
-    extends Transformed_Pattern
+final case class Translated_Pattern(
+  pattern: Pattern,
+  x_move: Double,
+  y_move: Double
+  ) extends Transformed_Pattern
 
 
 object Scaled_Pattern extends Scaled_Transformable[Pattern] {
-
   protected def isInstanceOfCompanion(x: Any): Boolean =
     x.isInstanceOf[Scaled_Pattern]
 }
 
-final case class Scaled_Pattern(pattern: Pattern,
-                                x_scaling: Double, y_scaling: Double)
-    extends Transformed_Pattern
+final case class Scaled_Pattern(
+  pattern: Pattern,
+  x_scaling: Double,
+  y_scaling: Double
+  ) extends Transformed_Pattern
 
 
 object Rotated_Pattern extends Rotated_Transformable[Pattern] {
-
   protected def isInstanceOfCompanion(x: Any): Boolean =
     x.isInstanceOf[Rotated_Pattern]
 }
 
-final case class Rotated_Pattern(pattern: Pattern, degrees: Double,
-                                 about_x: Double, about_y: Double)
-    extends Transformed_Pattern
+final case class Rotated_Pattern(
+  pattern: Pattern,
+  degrees: Double,
+  about_x: Double,
+  about_y: Double
+  ) extends Transformed_Pattern
 
 
 object Reflected_Pattern extends Reflected_Transformable[Pattern] {
-
   protected def isInstanceOfCompanion(x: Any): Boolean =
     x.isInstanceOf[Reflected_Pattern]
 }
 
-final case class Reflected_Pattern(pattern: Pattern, degrees: Double,
-                                 about_x: Double, about_y: Double)
-    extends Transformed_Pattern
+final case class Reflected_Pattern(
+  pattern: Pattern,
+  degrees: Double,
+  about_x: Double,
+  about_y: Double
+  ) extends Transformed_Pattern
 
 
 object Skewed_Horiz_Pattern extends Skewed_Horiz_Transformable[Pattern] {
-
   protected def isInstanceOfCompanion(x: Any): Boolean =
     x.isInstanceOf[Skewed_Horiz_Pattern]
 }
 
-final case class Skewed_Horiz_Pattern(pattern: Pattern, degrees: Double)
-    extends Transformed_Pattern
+final case class Skewed_Horiz_Pattern(
+  pattern: Pattern,
+  degrees: Double
+  ) extends Transformed_Pattern
 
 
 object Skewed_Vert_Pattern extends Skewed_Vert_Transformable[Pattern] {
-
   protected def isInstanceOfCompanion(x: Any): Boolean =
     x.isInstanceOf[Skewed_Vert_Pattern]
 }
 
-final case class Skewed_Vert_Pattern(pattern: Pattern, degrees: Double)
-    extends Transformed_Pattern
+final case class Skewed_Vert_Pattern(
+  pattern: Pattern,
+  degrees: Double
+  ) extends Transformed_Pattern
 
 
 
@@ -749,15 +748,9 @@ final case class Color_Stop(color: Color, stop_offset_pct: Double) {
 
   def alpha(opacity: Opacity_Effect): Color_Stop =
     copy(color = color alpha opacity)
-
-  def alpha(opacity: Double): Color_Stop =
-    alpha(Opacity(opacity))
-
-  def -#(opacity: Opacity_Effect): Color_Stop =
-    alpha(opacity)
-
-  def -#(opacity: Double): Color_Stop =
-    alpha(opacity)
+  def alpha(opacity: Double): Color_Stop = alpha(Opacity(opacity))
+  def -#(opacity: Opacity_Effect): Color_Stop = alpha(opacity)
+  def -#(opacity: Double): Color_Stop = alpha(opacity)
 }
 
 
@@ -848,40 +841,33 @@ trait Gradient_Construction[T <: Gradient] {
 
 object Linear_Gradient extends Gradient_Construction[Linear_Gradient]
 
-final case class Linear_Gradient(color_stops: Seq[Color_Stop],
-                                 spread: Color_Spread = Pad_Colors,
-                                 interp: Color_Interpolation =
-                                   sRGB_Interpolation)
-    extends Gradient {
+final case class Linear_Gradient(
+  color_stops: Seq[Color_Stop],
+  spread: Color_Spread = Pad_Colors,
+  interp: Color_Interpolation = sRGB_Interpolation
+  ) extends Gradient {
 
-  def restyle: Gradient =
-    as_radial
-
-  def as_radial: Radial_Gradient =
-    Radial_Gradient(color_stops, spread, interp)
+  def restyle: Gradient = as_radial
+  def as_radial: Radial_Gradient = Radial_Gradient(color_stops, spread, interp)
 }
 
 
 object Radial_Gradient extends Gradient_Construction[Radial_Gradient]
 
-final case class Radial_Gradient(color_stops: Seq[Color_Stop],
-                                 spread: Color_Spread = Pad_Colors,
-                                 interp: Color_Interpolation =
-                                   sRGB_Interpolation)
-    extends Gradient {
+final case class Radial_Gradient(
+  color_stops: Seq[Color_Stop],
+  spread: Color_Spread = Pad_Colors,
+  interp: Color_Interpolation = sRGB_Interpolation
+  ) extends Gradient {
 
-  def restyle: Gradient =
-    as_linear
-
-  def as_linear: Linear_Gradient =
-    Linear_Gradient(color_stops, spread, interp)
+  def restyle: Gradient = as_linear
+  def as_linear: Linear_Gradient = Linear_Gradient(color_stops, spread, interp)
 }
 
 
 sealed abstract class Transformed_Gradient extends Gradient {
 
-  def restyle: Gradient =
-    copy_grad(gradient.restyle)
+  def restyle: Gradient = copy_grad(gradient.restyle)
 
   def gradient: Gradient
 
@@ -901,90 +887,92 @@ sealed abstract class Transformed_Gradient extends Gradient {
 
 
 object Translated_Gradient extends Translated_Transformable[Gradient] {
-
   protected def isInstanceOfCompanion(x: Any): Boolean =
     x.isInstanceOf[Translated_Gradient]
 }
 
-final case class Translated_Gradient(gradient: Gradient,
-                                     x_move: Double, y_move: Double)
-    extends Transformed_Gradient {
+final case class Translated_Gradient(
+  gradient: Gradient,
+  x_move: Double,
+  y_move: Double
+  ) extends Transformed_Gradient {
 
-  protected def copy_grad(g: Gradient): Gradient =
-    copy(gradient = g)
+  protected def copy_grad(g: Gradient): Gradient = copy(gradient = g)
 }
 
 
 object Scaled_Gradient extends Scaled_Transformable[Gradient] {
-
   protected def isInstanceOfCompanion(x: Any): Boolean =
     x.isInstanceOf[Scaled_Gradient]
 }
 
-final case class Scaled_Gradient(gradient: Gradient,
-                                 x_scaling: Double, y_scaling: Double)
-    extends Transformed_Gradient {
+final case class Scaled_Gradient(
+  gradient: Gradient,
+  x_scaling: Double,
+  y_scaling: Double
+  ) extends Transformed_Gradient {
 
-  protected def copy_grad(g: Gradient): Gradient =
-    copy(gradient = g)
+  protected def copy_grad(g: Gradient): Gradient = copy(gradient = g)
 }
 
 
 object Rotated_Gradient extends Rotated_Transformable[Gradient] {
-
   protected def isInstanceOfCompanion(x: Any): Boolean =
     x.isInstanceOf[Rotated_Gradient]
 }
 
-final case class Rotated_Gradient(gradient: Gradient, degrees: Double,
-                                  about_x: Double, about_y: Double)
-    extends Transformed_Gradient {
+final case class Rotated_Gradient(
+  gradient: Gradient,
+  degrees: Double,
+  about_x: Double,
+  about_y: Double
+  ) extends Transformed_Gradient {
 
-  protected def copy_grad(g: Gradient): Gradient =
-    copy(gradient = g)
+  protected def copy_grad(g: Gradient): Gradient = copy(gradient = g)
 }
 
 
 object Reflected_Gradient extends Reflected_Transformable[Gradient] {
-
   protected def isInstanceOfCompanion(x: Any): Boolean =
     x.isInstanceOf[Reflected_Gradient]
 }
 
-final case class Reflected_Gradient(gradient: Gradient, degrees: Double,
-                                    about_x: Double, about_y: Double)
-    extends Transformed_Gradient {
+final case class Reflected_Gradient(
+  gradient: Gradient,
+  degrees: Double,
+  about_x: Double,
+  about_y: Double
+  ) extends Transformed_Gradient {
 
-  protected def copy_grad(g: Gradient): Gradient =
-    copy(gradient = g)
+  protected def copy_grad(g: Gradient): Gradient = copy(gradient = g)
 }
 
 
 object Skewed_Horiz_Gradient extends Skewed_Horiz_Transformable[Gradient] {
-
   protected def isInstanceOfCompanion(x: Any): Boolean =
     x.isInstanceOf[Skewed_Horiz_Gradient]
 }
 
-final case class Skewed_Horiz_Gradient(gradient: Gradient, degrees: Double)
-    extends Transformed_Gradient {
+final case class Skewed_Horiz_Gradient(
+  gradient: Gradient,
+  degrees: Double
+  ) extends Transformed_Gradient {
 
-  protected def copy_grad(g: Gradient): Gradient =
-    copy(gradient = g)
+  protected def copy_grad(g: Gradient): Gradient = copy(gradient = g)
 }
 
 
 object Skewed_Vert_Gradient extends Skewed_Vert_Transformable[Gradient] {
-
   protected def isInstanceOfCompanion(x: Any): Boolean =
     x.isInstanceOf[Skewed_Vert_Gradient]
 }
 
-final case class Skewed_Vert_Gradient(gradient: Gradient, degrees: Double)
-    extends Transformed_Gradient {
+final case class Skewed_Vert_Gradient(
+  gradient: Gradient,
+  degrees: Double
+  ) extends Transformed_Gradient {
 
-  protected def copy_grad(g: Gradient): Gradient =
-    copy(gradient = g)
+  protected def copy_grad(g: Gradient): Gradient = copy(gradient = g)
 }
 
 
