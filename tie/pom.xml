@@ -98,6 +98,8 @@
                 <arg>-unchecked</arg>
 <!-- "java in scala's clothing":
                <arg>-print</arg>
+     show implicits resolution:
+                <arg>-Xprint:typer</arg>
   -->
               </args>
             </configuration> 
