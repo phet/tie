@@ -1906,7 +1906,7 @@ final case class Scaled_Dims(rect: Dims, x_scaling: Double, y_scaling: Double)
 
 trait Dims_Displacement {
 
-  protected def calc_displacement(rect: Dims): Dims = {
+  protected def calc_displaced_rect(rect: Dims): Dims = {
     val rect_ctr = rect.center_pt
     val (rect_half_w, rect_half_h) = (rect.width/2, rect.height/2)
     val rect_corner_pts: List[Point] =
@@ -1960,7 +1960,7 @@ final case class Rotated_Dims(rect: Dims, degrees: Double,
   protected def calc_displacement(pt: Point): Point =
     pt.rotate(degrees, x_pivot, y_pivot)
 
-  private lazy val equiv_bounding_box = calc_displacement(rect)
+  private lazy val equiv_bounding_box = calc_displaced_rect(rect)
 }
 
 object Reflected_Dims
@@ -1989,7 +1989,7 @@ final case class Reflected_Dims(rect: Dims, degrees: Double,
   protected def calc_displacement(pt: Point): Point =
     pt.reflect(degrees, x_pivot, y_pivot)
 
-  private lazy val equiv_bounding_box = calc_displacement(rect)
+  private lazy val equiv_bounding_box = calc_displaced_rect(rect)
 }
 
 object Skewed_Horiz_Dims
@@ -2017,7 +2017,7 @@ final case class Skewed_Horiz_Dims(rect: Dims, degrees: Double)
   protected def calc_displacement(pt: Point): Point =
     pt.skew_horiz(degrees)
 
-  private lazy val equiv_bounding_box = calc_displacement(rect)
+  private lazy val equiv_bounding_box = calc_displaced_rect(rect)
 }
 
 object Skewed_Vert_Dims
@@ -2045,7 +2045,7 @@ final case class Skewed_Vert_Dims(rect: Dims, degrees: Double)
   protected def calc_displacement(pt: Point): Point =
     pt.skew_vert(degrees)
 
-  private lazy val equiv_bounding_box = calc_displacement(rect)
+  private lazy val equiv_bounding_box = calc_displaced_rect(rect)
 }
 
 }
