@@ -21,7 +21,7 @@ import k_k_.graphics.tie.shapes.{Bounding_Boxed, Point, Shape}
 
 package object tile {
 
-  // conversion for Shape, Ortho_Rectangle
+  // conversion for Shape, Dims
   implicit def Bounding_Boxed_to_Bounding_Box_Points(bboxed: Bounding_Boxed) =
     new Bounding_Box_Points(bboxed)
 
@@ -57,6 +57,18 @@ final class Bounding_Box_Points(bboxed: Bounding_Boxed) {
   def top_right    : Point = center_pt move ( width/2, -height/2)
   def bottom_left  : Point = center_pt move (-width/2,  height/2)
   def bottom_right : Point = center_pt move ( width/2,  height/2)
+
+
+  // aliases:
+  def t_mid = top_middle
+  def b_mid = bottom_middle
+  def l_mid = left_middle
+  def r_mid = right_middle
+
+  def t_l   = top_left
+  def b_r   = bottom_right
+  def t_r   = top_right
+  def b_l   = bottom_left
 
 
   private val (center_pt, width, height) = {
