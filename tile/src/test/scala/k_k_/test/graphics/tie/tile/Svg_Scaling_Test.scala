@@ -66,8 +66,7 @@ class Svg_Scaling_Test extends Svg_Test_Base {
   }
 
   protected def exhibit_scaling(shape: Shape, bounds: Dims): Shape = {
-    val boxed_shape = shape -~ shape_pen -&
-                      (bounds.as_drawing_shape -~ bbox_pen)
+    val boxed_shape = shape -~ shape_pen -& (bounds.as_shape -~ bbox_pen)
 
     val arrow_offset_x = boxed_shape.bounding_box.width + 30
     val box_and_arrow = boxed_shape -& 
@@ -158,7 +157,7 @@ class Svg_Scaling_Test extends Svg_Test_Base {
       }
 
       bbox_shape match {
-        case Some(bbox) => prepared_shape -& (bbox.as_drawing_shape -~ bbox_pen)
+        case Some(bbox) => prepared_shape -& (bbox.as_shape -~ bbox_pen)
         case None       => prepared_shape
       }
     }

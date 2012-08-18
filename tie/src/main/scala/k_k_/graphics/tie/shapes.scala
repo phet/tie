@@ -64,11 +64,9 @@ trait Bounding_Boxed {
 
   def center_pt: Point = bounding_box.center_pt
 
-  final def bounding_box_shape: Simple_Shape =
-    bounding_box.as_drawing_shape
+  final def bounding_box_shape: Simple_Shape = bounding_box.as_shape
 
-  final def bounding_box_path: Path =
-    bounding_box_shape.as_path
+  final def bounding_box_path: Path = bounding_box_shape.as_path
 
   // aliases:
   final def bbox       = bounding_box
@@ -78,8 +76,7 @@ trait Bounding_Boxed {
 
 trait Bounding_Shaped { self: Bounding_Boxed =>
 
-  def best_bounding_shape: Simple_Shape =
-    bounding_box.as_drawing_shape
+  def best_bounding_shape: Simple_Shape = bounding_box.as_shape
 }
 
 
@@ -412,8 +409,7 @@ sealed abstract class Shape
 
   // technically, this method with it's 'conversion' is useless; yet, it nicely
   // captures a useful invariant
-  final def as_shape_op: Shape_Op =
-    this
+  final def as_shape_op: Shape_Op = this
 
 
   type Translated_T          = Translated_Non_Simple_Shape
@@ -476,9 +472,8 @@ sealed abstract class Shape
       // NOTE: crucial to combo, not each shape, but each shape's bounding_box,
       // to eliminate potential for infinite recursion, since
       // (Shape).combo implemented ITO this very method
-      // Invis_Rectangle.cloak_rect((r1 -& r2).bounding_box.as_drawing_shape)
-      Invis_Rectangle.cloak_rect((r1.bounding_box -& r2.bounding_box).
-                                   as_drawing_shape)
+      // Invis_Rectangle.cloak_rect((r1 -& r2).bounding_box.as_shape)
+      Invis_Rectangle.cloak_rect((r1.bounding_box -& r2.bounding_box).as_shape)
 
     if (is_invis_rect(this)) {
       other match {
@@ -1787,7 +1782,7 @@ sealed abstract class Dims
   def bounding_box =
     this
 
-  def as_drawing_shape: Simple_Shape // derived class of `Shape`
+  def as_shape: Simple_Shape // derived class of `Shape`
 
   type Translated_T          = Translated_Dims
   protected val Translated   = Translated_Dims
@@ -1865,11 +1860,9 @@ final case class Origin_Dims(width: Double, height: Double)
     extends Dims {
 
   override
-  def center_pt =
-    (0.0, 0.0)
+  def center_pt = (0.0, 0.0)
 
-  def as_drawing_shape: Simple_Shape =
-    Rectangle(width, height)
+  def as_shape: Simple_Shape = Rectangle(width, height)
 }
 
 object Translated_Dims
@@ -1886,11 +1879,9 @@ final case class Translated_Dims(rect: Dims, x_dist: Double, y_dist: Double)
   lazy val height = rect.height
 
   override
-  lazy val center_pt =
-    rect.center_pt -+ (x_dist, y_dist)
+  lazy val center_pt = rect.center_pt -+ (x_dist, y_dist)
 
-  def as_drawing_shape: Simple_Shape =
-    rect.as_drawing_shape.move(x_dist, y_dist)
+  def as_shape: Simple_Shape = rect.as_shape.move(x_dist, y_dist)
 }
 
 object Scaled_Dims
@@ -1907,11 +1898,9 @@ final case class Scaled_Dims(rect: Dims, x_scaling: Double, y_scaling: Double)
   lazy val height = rect.height * y_scaling
 
   override
-  lazy val center_pt =
-    rect.center_pt -* (x_scaling, y_scaling)
+  lazy val center_pt = rect.center_pt -* (x_scaling, y_scaling)
 
-  def as_drawing_shape: Simple_Shape =
-    rect.as_drawing_shape.scale(x_scaling, y_scaling)
+  def as_shape: Simple_Shape = rect.as_shape.scale(x_scaling, y_scaling)
 }
 
 
@@ -1960,15 +1949,12 @@ final case class Rotated_Dims(rect: Dims, degrees: Double,
   lazy val height = equiv_bounding_box.height
 
   override
-  def bounding_box =
-    equiv_bounding_box
+  def bounding_box = equiv_bounding_box
 
   override
-  def center_pt =
-    equiv_bounding_box.center_pt
+  def center_pt = equiv_bounding_box.center_pt
 
-  def as_drawing_shape: Simple_Shape =
-    equiv_bounding_box.as_drawing_shape
+  def as_shape: Simple_Shape = equiv_bounding_box.as_shape
 
 
   protected def calc_displacement(pt: Point): Point =
@@ -1992,15 +1978,12 @@ final case class Reflected_Dims(rect: Dims, degrees: Double,
   lazy val height = equiv_bounding_box.height
 
   override
-  def bounding_box =
-    equiv_bounding_box
+  def bounding_box = equiv_bounding_box
 
   override
-  def center_pt =
-    equiv_bounding_box.center_pt
+  def center_pt = equiv_bounding_box.center_pt
 
-  def as_drawing_shape: Simple_Shape =
-    equiv_bounding_box.as_drawing_shape
+  def as_shape: Simple_Shape = equiv_bounding_box.as_shape
 
 
   protected def calc_displacement(pt: Point): Point =
@@ -2023,15 +2006,12 @@ final case class Skewed_Horiz_Dims(rect: Dims, degrees: Double)
   lazy val height = equiv_bounding_box.height
 
   override
-  def bounding_box =
-    equiv_bounding_box
+  def bounding_box = equiv_bounding_box
 
   override
-  def center_pt =
-    equiv_bounding_box.center_pt
+  def center_pt = equiv_bounding_box.center_pt
 
-  def as_drawing_shape: Simple_Shape =
-    equiv_bounding_box.as_drawing_shape
+  def as_shape: Simple_Shape = equiv_bounding_box.as_shape
 
 
   protected def calc_displacement(pt: Point): Point =
@@ -2054,15 +2034,12 @@ final case class Skewed_Vert_Dims(rect: Dims, degrees: Double)
   lazy val height = equiv_bounding_box.height
 
   override
-  def bounding_box =
-    equiv_bounding_box
+  def bounding_box = equiv_bounding_box
 
   override
-  def center_pt =
-    equiv_bounding_box.center_pt
+  def center_pt = equiv_bounding_box.center_pt
 
-  def as_drawing_shape: Simple_Shape =
-    equiv_bounding_box.as_drawing_shape
+  def as_shape: Simple_Shape = equiv_bounding_box.as_shape
 
 
   protected def calc_displacement(pt: Point): Point =

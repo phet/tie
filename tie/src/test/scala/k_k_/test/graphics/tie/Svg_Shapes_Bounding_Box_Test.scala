@@ -44,7 +44,7 @@ class Svg_Shapes_Bounding_Box_Test extends Svg_Shapes_Test {
   override
   protected def label_shape(shape: Shape, name: String, ink: Ink): Shape = {
     super.label_shape(shape, name, ink) -&
-    (shape.bounding_box.as_drawing_shape -~ bbox_pen) -&
+    (shape.bounding_box.as_shape -~ bbox_pen) -&
     center_X
   }
 }

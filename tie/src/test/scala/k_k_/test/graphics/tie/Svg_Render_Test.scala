@@ -184,7 +184,7 @@ class Svg_Renderer_Test extends JUnitSuite {
                                (Line(30) -% 90 -~ measure_pen -+ (0, -15))
                              -& center_X
                              -& (Ellipse(40, 30).
-                                   bounding_box.as_drawing_shape -~ bbox_pen)
+                                   bounding_box.as_shape -~ bbox_pen)
                                -+ 100 -+ (100,0)),
                             Parallelogram(40, 60, 40) -~ Pen.fill(C.brown) -&
                               (Line(40) -%  0 -~ measure_pen -+ (10, -25)) -&
@@ -192,7 +192,7 @@ class Svg_Renderer_Test extends JUnitSuite {
                               (Line(40) -% 90 -~ measure_pen -+ (-35, 0))
                             -& center_X
                             -& ((Parallelogram(40, 60, 40)-~ Pen.fill(C.brown)).
-                                  bounding_box.as_drawing_shape -~ bbox_pen)
+                                  bounding_box.as_shape -~ bbox_pen)
                               -+ 300 -+ (0, -200),
                             ("feds" -: Link("http://us.gov") -: Ellipse(40, 30))
                                -+ (400,100) -~
@@ -213,7 +213,7 @@ class Svg_Renderer_Test extends JUnitSuite {
                             -& center_X
                             -& ((Octagon(40, 80, 40, 80) -~
                                     Pen(C.red, C.yellow)).
-                                  bounding_box.as_drawing_shape -~ bbox_pen)
+                                  bounding_box.as_shape -~ bbox_pen)
                             -+ (350, 200),
                             Square(50) -~
                               Pen.fill(red_yellow_grad) -&
@@ -222,14 +222,14 @@ class Svg_Renderer_Test extends JUnitSuite {
                             -& center_X
                               -% 45 
                             -& ((Square(50)-~ Pen.fill(red_yellow_grad)-% 45).
-                                  bounding_box.as_drawing_shape -~ bbox_pen)
+                                  bounding_box.as_shape -~ bbox_pen)
                             -+ 350,
                             Free_Form(free_form_3d_cylinder) -:-
                                 Link("http://www.wikipedia.org") -* .5 -* 2 -~
                               Pen(C.Black, red_yellow_grad -% 80 -% -20)
                             -& ((Free_Form(free_form_3d_cylinder) -* .5 -* 2 -~
                               Pen(C.Black, red_yellow_grad -% 80 -% -20)).
-                                   bounding_box.as_drawing_shape -~ bbox_pen)
+                                   bounding_box.as_shape -~ bbox_pen)
                             -& center_X
                               -+ (440, 200),
                             Line(50) -~ Pen.stroke(C.Green, 2.5) -&
@@ -258,7 +258,7 @@ class Svg_Renderer_Test extends JUnitSuite {
                                  (Line(40) -% 90 -~ measure_pen -+ (-20, 0))
                                  -& center_X
                                  -% 105 -% -15).
-                                   bounding_box.as_drawing_shape -~ bbox_pen)
+                                   bounding_box.as_shape -~ bbox_pen)
                              , 350, 410).
                        place(Right_Triangle(30, 40) -~ Pen.fill(C.indigo) -&
                                (Line(30) -%  0 -~ measure_pen -+ (0, 25)) -&
@@ -291,7 +291,7 @@ class Svg_Renderer_Test extends JUnitSuite {
                              Pen.stroke(C.Black, 1)
                             -& ((Free_Form(free_form_vase) -* (2, 0.75) -~
                                  Pen.stroke(C.Black, 1)).
-                                   bounding_box.as_drawing_shape -~ bbox_pen)
+                                   bounding_box.as_shape -~ bbox_pen)
                              -& center_X, 450, 300).
                        place(Pentagon(35, 50, 15, 40) -~
                              Pen.fill(checker_diamond_pat) -&
@@ -336,20 +336,20 @@ class Svg_Renderer_Test extends JUnitSuite {
                              (Ellipse(40, 30) -~ grid_fill_pen.stroke(C.blue)
                               -& center_X), 600, 100).
                        place(Ellipse(40, 30) -~ grid_fill_pen.stroke(C.Blue)
-                             -& (Ellipse(40, 30).bounding_box.as_drawing_shape
+                             -& (Ellipse(40, 30).bounding_box.as_shape
                                  -~ grid_fill_pen.stroke(C.Green))
                              -/- 45
                              -& ((Ellipse(40, 30)
                                   -/- 45).
-                                  bounding_box.as_drawing_shape -~ bbox_pen)
+                                  bounding_box.as_shape -~ bbox_pen)
                              -& center_X, 605, 170).
                        place(Ellipse(40, 30) -~ grid_fill_pen.stroke(C.blue)
-                             -& (Ellipse(40, 30).bounding_box.as_drawing_shape
+                             -& (Ellipse(40, 30).bounding_box.as_shape
                                  -~ grid_fill_pen.stroke(C.green))
                              -/| 45
                              -& ((Ellipse(40, 30)
                                   -/| 45).
-                                  bounding_box.as_drawing_shape -~ bbox_pen)
+                                  bounding_box.as_shape -~ bbox_pen)
                              -& center_X, 605, 280).
                        place(example_scene -& (Free_Form(keyhole) -* 2)
                              -& center_X, 590, 390).
