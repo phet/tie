@@ -5,7 +5,7 @@
 
      http://www.tie-illustrates-everything.com/
 
-   Copyright (c)2010-2012 by Corbin "Kip" Kohn
+   Copyright (c)2010-2013 by Corbin "Kip" Kohn
    All Rights Reserved.
 
    Please reference the following for applicable terms, conditions,
@@ -21,209 +21,189 @@ import k_k_.graphics.tie.shapes.Point
 
 trait Transformable[T] { self: T =>
 
-  def move(x_dist: Double, y_dist: Double): T
+  def move(xDist: Double, yDist: Double): T
 
-  def move(pt_offset: Point): T =
-    move(pt_offset.x, pt_offset.y)
+  def move(ptOffset: Point): T = move(ptOffset.x, ptOffset.y)
 
-  def move(dist: Double): T =
-    move(dist, dist)
+  def move(dist: Double): T = move(dist, dist)
 
-  def -+(x_dist: Double, y_dist: Double): T =
-    move(x_dist, y_dist)
+  def -+(xDist: Double, yDist: Double): T = move(xDist, yDist)
 
-  def -+(pt_offset: Point): T =
-    move(pt_offset.x, pt_offset.y)
+  def -+(ptOffset: Point): T = move(ptOffset.x, ptOffset.y)
 
-  def -+(dist: Double): T =
-    move(dist, dist)
+  def -+(dist: Double): T = move(dist, dist)
 
 
-  def scale(x_scaling: Double, y_scaling: Double): T
+  def scale(xScaling: Double, yScaling: Double): T
 
-  def scale(scaling: Double): T =
-    scale(scaling, scaling)
+  def scale(scaling: Double): T = scale(scaling, scaling)
 
-  def -*(x_scaling: Double, y_scaling: Double): T =
-    scale(x_scaling, y_scaling)
+  def -*(xScaling: Double, yScaling: Double): T = scale(xScaling, yScaling)
 
-  def -*(scaling: Double): T =
-    scale(scaling, scaling)
+  def -*(scaling: Double): T = scale(scaling, scaling)
 
 
   // NOTE: angles measured clockwise
-  def rotate(degrees: Double, about_x: Double, about_y: Double): T
+  def rotate(degrees: Double, aboutX: Double, aboutY: Double): T
 
-  def rotate(degrees: Double, about_pt: Point = Point(0, 0)): T =
-    rotate(degrees, about_pt.x, about_pt.y)
+  def rotate(degrees: Double, aboutPt: Point = Point(0, 0)): T =
+    rotate(degrees, aboutPt.x, aboutPt.y)
 
-  def -%(degrees: Double, about_x: Double, about_y: Double): T =
-    rotate(degrees, about_x, about_y)
+  def -%(degrees: Double, aboutX: Double, aboutY: Double): T =
+    rotate(degrees, aboutX, aboutY)
 
-  def -%(degrees: Double, about_pt: Point = Point(0, 0)): T =
-    rotate(degrees, about_pt.x, about_pt.y)
+  def -%(degrees: Double, aboutPt: Point = Point(0, 0)): T =
+    rotate(degrees, aboutPt.x, aboutPt.y)
 
 
   // NOTE: angles measured clockwise
-  def reflect(degrees: Double, about_x: Double, about_y: Double): T
+  def reflect(degrees: Double, aboutX: Double, aboutY: Double): T
 
-  def reflect(degrees: Double, about_pt: Point = Point(0, 0)): T =
-    reflect(degrees, about_pt.x, about_pt.y)
+  def reflect(degrees: Double, aboutPt: Point = Point(0, 0)): T =
+    reflect(degrees, aboutPt.x, aboutPt.y)
 
-  def -|-(degrees: Double, about_x: Double, about_y: Double): T =
-    reflect(degrees, about_x, about_y)
+  def -|-(degrees: Double, aboutX: Double, aboutY: Double): T =
+    reflect(degrees, aboutX, aboutY)
 
-  def -|-(degrees: Double, about_pt: Point = Point(0, 0)): T =
-    reflect(degrees, about_pt.x, about_pt.y)
-
-
-  def skew_horiz(degrees: Double): T
-
-  def -/-(degrees: Double): T =
-    skew_horiz(degrees)
+  def -|-(degrees: Double, aboutPt: Point = Point(0, 0)): T =
+    reflect(degrees, aboutPt.x, aboutPt.y)
 
 
-  def skew_vert(degrees: Double): T
+  def skewHoriz(degrees: Double): T
 
-  def -/|(degrees: Double): T =
-    skew_vert(degrees)
+  def -/-(degrees: Double): T = skewHoriz(degrees)
+
+
+  def skewVert(degrees: Double): T
+
+  def -/|(degrees: Double): T = skewVert(degrees)
 }
 
 
 trait Placeable[T] { self: T with Transformable[T] =>
 
-  def to(dest_pt: Point): T =
-    move(dest_pt -+ -center_pt)
+  def to(destPt: Point): T = move(destPt -+ -centerPt)
 
-  def to(x_coord: Double, y_coord: Double): T =
-    to(Point(x_coord, y_coord))
+  def to(xCoord: Double, yCoord: Double): T = to(Point(xCoord, yCoord))
 
-  def -@(dest_pt: Point): T =
-    to(dest_pt)
+  def -@(destPt: Point): T = to(destPt)
 
-  def -@(x_coord: Double, y_coord: Double): T =
-    to(Point(x_coord, y_coord))
+  def -@(xCoord: Double, yCoord: Double): T = to(Point(xCoord, yCoord))
 
 
-  def center_pt: Point
+  def centerPt: Point
 }
 
 
-trait Translated_Transformable[Transforming_T <: Transforming[Transforming_T]] {
+trait TranslatedTransformable[TransformingT <: Transforming[TransformingT]] {
 
-  protected type Translated_T = Transforming_T#Translated_T
+  protected type TranslatedT = TransformingT#TranslatedT
 
-  def unapply(x: Translated_T): Option[(Transforming_T, Double, Double)]
+  def unapply(x: TranslatedT): Option[(TransformingT, Double, Double)]
 
-  def unapply[T >: Transforming_T](x: T):
-      Option[(Transforming_T, Double, Double)] =
-    if (isInstanceOfCompanion(x))
-      unapply(x.asInstanceOf[Translated_T])
-    else
-      None
+  def unapply[T >: TransformingT](x: T):
+      Option[(TransformingT, Double, Double)] =
+    if (isInstanceOfCompanion(x)) unapply(x.asInstanceOf[TranslatedT])
+    else None
 
-  def apply(tformable: Transforming_T, x_dist: Double, y_dist: Double):
-      Transforming_T
+  def apply(tformable: TransformingT, xDist: Double, yDist: Double):
+      TransformingT
 
 
   protected def isInstanceOfCompanion(x: Any): Boolean
 }
 
-trait Scaled_Transformable[Transforming_T <: Transforming[Transforming_T]] {
+trait ScaledTransformable[TransformingT <: Transforming[TransformingT]] {
 
-  protected type Scaled_T = Transforming_T#Scaled_T
+  protected type ScaledT = TransformingT#ScaledT
 
-  def unapply(x: Scaled_T): Option[(Transforming_T, Double, Double)]
+  def unapply(x: ScaledT): Option[(TransformingT, Double, Double)]
 
-  def unapply[T >: Transforming_T](x: T):
-      Option[(Transforming_T, Double, Double)] =
+  def unapply[T >: TransformingT](x: T):
+      Option[(TransformingT, Double, Double)] =
     if (isInstanceOfCompanion(x))
-      unapply(x.asInstanceOf[Scaled_T])
+      unapply(x.asInstanceOf[ScaledT])
     else
       None
 
-  def apply(tformable: Transforming_T, x_scaling: Double, y_scaling: Double):
-      Transforming_T
+  def apply(tformable: TransformingT, xScaling: Double, yScaling: Double):
+      TransformingT
 
 
   protected def isInstanceOfCompanion(x: Any): Boolean
 }
 
-trait Rotated_Transformable[Transforming_T <: Transforming[Transforming_T]] {
+trait RotatedTransformable[TransformingT <: Transforming[TransformingT]] {
 
-  protected type Rotated_T = Transforming_T#Rotated_T
+  protected type RotatedT = TransformingT#RotatedT
 
-  def unapply(x: Rotated_T): Option[(Transforming_T, Double, Double, Double)]
+  def unapply(x: RotatedT): Option[(TransformingT, Double, Double, Double)]
 
-  def unapply[T >: Transforming_T](x: T):
-      Option[(Transforming_T, Double, Double, Double)] =
-    if (isInstanceOfCompanion(x))
-      unapply(x.asInstanceOf[Rotated_T])
-    else
-      None
+  def unapply[T >: TransformingT](x: T):
+      Option[(TransformingT, Double, Double, Double)] =
+    if (isInstanceOfCompanion(x)) unapply(x.asInstanceOf[RotatedT])
+    else None
 
-  def apply(tformable: Transforming_T, degrees: Double,
-            about_x: Double, about_y: Double):
-      Transforming_T
-
-
-  protected def isInstanceOfCompanion(x: Any): Boolean
-}
-
-trait Reflected_Transformable[Transforming_T <: Transforming[Transforming_T]] {
-
-  protected type Reflected_T = Transforming_T#Reflected_T
-
-  def unapply(x: Reflected_T): Option[(Transforming_T, Double, Double, Double)]
-
-  def unapply[T >: Transforming_T](x: T):
-      Option[(Transforming_T, Double, Double, Double)] =
-    if (isInstanceOfCompanion(x))
-      unapply(x.asInstanceOf[Reflected_T])
-    else
-      None
-
-  def apply(tformable: Transforming_T, degrees: Double,
-            about_x: Double, about_y: Double):
-      Transforming_T
+  def apply(
+      tformable: TransformingT,
+      degrees: Double,
+      aboutX: Double,
+      aboutY: Double
+    ): TransformingT
 
 
   protected def isInstanceOfCompanion(x: Any): Boolean
 }
 
-trait Skewed_Horiz_Transformable[Transforming_T <:
-                                   Transforming[Transforming_T]] {
+trait ReflectedTransformable[TransformingT <: Transforming[TransformingT]] {
 
-  protected type Skewed_Horiz_T = Transforming_T#Skewed_Horiz_T
+  protected type ReflectedT = TransformingT#ReflectedT
 
-  def unapply(x: Skewed_Horiz_T): Option[(Transforming_T, Double)]
+  def unapply(x: ReflectedT): Option[(TransformingT, Double, Double, Double)]
 
-  def unapply[T >: Transforming_T](x: T): Option[(Transforming_T, Double)] =
-    if (isInstanceOfCompanion(x))
-      unapply(x.asInstanceOf[Skewed_Horiz_T])
-    else
-      None
+  def unapply[T >: TransformingT](x: T):
+      Option[(TransformingT, Double, Double, Double)] =
+    if (isInstanceOfCompanion(x)) unapply(x.asInstanceOf[ReflectedT])
+    else None
 
-  def apply(tformable: Transforming_T, degrees: Double): Transforming_T
+  def apply(
+      tformable: TransformingT,
+      degrees: Double,
+      aboutX: Double,
+      aboutY: Double
+    ): TransformingT
 
 
   protected def isInstanceOfCompanion(x: Any): Boolean
 }
 
-trait Skewed_Vert_Transformable[Transforming_T <:
-                                  Transforming[Transforming_T]] {
+trait SkewedHorizTransformable[TransformingT <: Transforming[TransformingT]] {
 
-  protected type Skewed_Vert_T = Transforming_T#Skewed_Vert_T
+  protected type SkewedHorizT = TransformingT#SkewedHorizT
 
-  def unapply(x: Skewed_Vert_T): Option[(Transforming_T, Double)]
+  def unapply(x: SkewedHorizT): Option[(TransformingT, Double)]
 
-  def unapply[T >: Transforming_T](x: T): Option[(Transforming_T, Double)] =
-    if (isInstanceOfCompanion(x))
-      unapply(x.asInstanceOf[Skewed_Vert_T])
-    else
-      None
+  def unapply[T >: TransformingT](x: T): Option[(TransformingT, Double)] =
+    if (isInstanceOfCompanion(x)) unapply(x.asInstanceOf[SkewedHorizT])
+    else None
 
-  def apply(tformable: Transforming_T, degrees: Double): Transforming_T
+  def apply(tformable: TransformingT, degrees: Double): TransformingT
+
+
+  protected def isInstanceOfCompanion(x: Any): Boolean
+}
+
+trait SkewedVertTransformable[TransformingT <: Transforming[TransformingT]] {
+
+  protected type SkewedVertT = TransformingT#SkewedVertT
+
+  def unapply(x: SkewedVertT): Option[(TransformingT, Double)]
+
+  def unapply[T >: TransformingT](x: T): Option[(TransformingT, Double)] =
+    if (isInstanceOfCompanion(x)) unapply(x.asInstanceOf[SkewedVertT])
+    else None
+
+  def apply(tformable: TransformingT, degrees: Double): TransformingT
 
 
   protected def isInstanceOfCompanion(x: Any): Boolean
@@ -232,116 +212,116 @@ trait Skewed_Vert_Transformable[Transforming_T <:
 
 trait Transforming[T <: Transforming[T]] extends Transformable[T] { self: T =>
 
-  type Translated_T <: T
+  type TranslatedT <: T
 
-  protected val Translated: Translated_Transformable[T]
+  protected val Translated: TranslatedTransformable[T]
 
-  def move(x_dist: Double, y_dist: Double): T = {
+  def move(xDist: Double, yDist: Double): T = {
     this match {
-      case Translated(inner, existing_x_dist, existing_y_dist) =>
-        val combined_x_dist = x_dist + existing_x_dist
-        val combined_y_dist = y_dist + existing_y_dist
-        if (combined_x_dist == 0.0 && combined_y_dist == 0.0)
+      case Translated(inner, existingXDist, existingYDist) =>
+        val combinedXDist = xDist + existingXDist
+        val combinedYDist = yDist + existingYDist
+        if (combinedXDist == 0.0 && combinedYDist == 0.0)
           inner // successive ops cancel one another
         else
           // adjust 'previous' op by combining with sucessor
-          Translated(inner, combined_x_dist, combined_y_dist)
+          Translated(inner, combinedXDist, combinedYDist)
       case _ =>
-        Translated(this, x_dist, y_dist)
+        Translated(this, xDist, yDist)
     }
   }
 
 
-  type Scaled_T <: T
+  type ScaledT <: T
 
-  protected val Scaled: Scaled_Transformable[T]
+  protected val Scaled: ScaledTransformable[T]
 
-  def scale(x_scaling: Double, y_scaling: Double): T = {
+  def scale(xScaling: Double, yScaling: Double): T = {
     this match {
-      case Scaled(inner, existing_x_scaling, existing_y_scaling) =>
-        val combined_x_scaling = x_scaling * existing_x_scaling
-        val combined_y_scaling = y_scaling * existing_y_scaling
-        if (combined_x_scaling == 1.0 && combined_y_scaling == 1.0)
+      case Scaled(inner, existingXScaling, existingYScaling) =>
+        val combinedXScaling = xScaling * existingXScaling
+        val combinedYScaling = yScaling * existingYScaling
+        if (combinedXScaling == 1.0 && combinedYScaling == 1.0)
           inner // successive ops cancel one another
         else
           // adjust 'previous' op by combining with sucessor
-          Scaled(inner, combined_x_scaling, combined_y_scaling)
+          Scaled(inner, combinedXScaling, combinedYScaling)
       case _ =>
-        Scaled(this, x_scaling, y_scaling)
+        Scaled(this, xScaling, yScaling)
     }
   }
 
 
-  type Rotated_T <: T
+  type RotatedT <: T
 
-  protected val Rotated: Rotated_Transformable[T]
+  protected val Rotated: RotatedTransformable[T]
 
-  def rotate(degrees: Double, about_x: Double, about_y: Double): T = {
-    (about_x, about_y, this) match {
+  def rotate(degrees: Double, aboutX: Double, aboutY: Double): T = {
+    (aboutX, aboutY, this) match {
       // NOTE: simplify only when both rotate about (0,0)--else too complicated
-      case (0, 0, Rotated(inner, existing_degrees, 0, 0)) =>
-        val combined_degrees = degrees + existing_degrees
-        if (combined_degrees % 360 == 0.0)
+      case (0, 0, Rotated(inner, existingDegrees, 0, 0)) =>
+        val combinedDegrees = degrees + existingDegrees
+        if (combinedDegrees % 360 == 0.0)
           inner // successive ops cancel one another
         else
           // adjust 'previous' op by combining with sucessor
-          Rotated(inner, combined_degrees, 0, 0)
+          Rotated(inner, combinedDegrees, 0, 0)
       case _ =>
-        Rotated(this, degrees, about_x, about_y)
+        Rotated(this, degrees, aboutX, aboutY)
     }
   }
 
 
-  type Reflected_T <: T
+  type ReflectedT <: T
 
-  protected val Reflected: Reflected_Transformable[T]
+  protected val Reflected: ReflectedTransformable[T]
 
-  def reflect(degrees: Double, about_x: Double, about_y: Double): T = {
-    (about_x, about_y, this) match {
+  def reflect(degrees: Double, aboutX: Double, aboutY: Double): T = {
+    (aboutX, aboutY, this) match {
       // NOTE: simplify only when both reflect about (0,0)--else too complicated
-      case (0, 0, Reflected(inner, existing_degrees, 0, 0))
-             if ((degrees % 360) == (existing_degrees % 360)) =>
+      case (0, 0, Reflected(inner, existingDegrees, 0, 0))
+             if ((degrees % 360) == (existingDegrees % 360)) =>
           inner // successive ops cancel one another
       case _ =>
-        Reflected(this, degrees, about_x, about_y)
+        Reflected(this, degrees, aboutX, aboutY)
     }
   }
 
 
-  type Skewed_Horiz_T <: T
+  type SkewedHorizT <: T
 
-  protected val Skewed_Horiz: Skewed_Horiz_Transformable[T]
+  protected val SkewedHoriz: SkewedHorizTransformable[T]
 
-  def skew_horiz(degrees: Double): T = {
+  def skewHoriz(degrees: Double): T = {
     this match {
-      case Skewed_Horiz(inner, existing_degrees) =>
-        val combined_degrees = degrees + existing_degrees
-        if (combined_degrees == 0)
+      case SkewedHoriz(inner, existingDegrees) =>
+        val combinedDegrees = degrees + existingDegrees
+        if (combinedDegrees == 0)
           inner // successive ops cancel one another
         else
           // adjust 'previous' op by combining with sucessor
-          Skewed_Horiz(inner, combined_degrees)
+          SkewedHoriz(inner, combinedDegrees)
       case _ =>
-        Skewed_Horiz(this, degrees)
+        SkewedHoriz(this, degrees)
     }
   }
 
 
-  type Skewed_Vert_T <: T
+  type SkewedVertT <: T
 
-  protected val Skewed_Vert: Skewed_Vert_Transformable[T]
+  protected val SkewedVert: SkewedVertTransformable[T]
 
-  def skew_vert(degrees: Double): T = {
+  def skewVert(degrees: Double): T = {
     this match {
-      case Skewed_Vert(inner, existing_degrees) =>
-        val combined_degrees = degrees + existing_degrees
-        if (combined_degrees == 0)
+      case SkewedVert(inner, existingDegrees) =>
+        val combinedDegrees = degrees + existingDegrees
+        if (combinedDegrees == 0)
           inner // successive ops cancel one another
         else
           // adjust 'previous' op by combining with sucessor
-          Skewed_Vert(inner, combined_degrees)
+          SkewedVert(inner, combinedDegrees)
       case _ =>
-        Skewed_Vert(this, degrees)
+        SkewedVert(this, degrees)
     }
   }
 }
@@ -355,30 +335,27 @@ trait Transforming[T <: Transforming[T]] extends Transformable[T] { self: T =>
 
    update II: it's even possible to safely factor the whole unapply
    overload impl into this class, so long as the
-   isInstanceOf[Translated_T] is safely implemented by the extending
+   isInstanceOf[TranslatedT] is safely implemented by the extending
    object.  'safely' is the key concept, since this is not checked by the
    compiler: one need be damn sure that for any value x, for which
-   isInstanceOfCompanion(x) is true, that x.asInstanceOf[Translated_T]
+   isInstanceOfCompanion(x) is true, that x.asInstanceOf[TranslatedT]
    will not blow up!!!!!
 
    this is the final, chosen solution:
 
-trait Translated_Transformable[Transformable_T <:
-                                 Transformable[Transformable_T]] {
+trait TranslatedTransformable[TransformableT <: Transformable[TransformableT]] {
 
-  protected type Translated_T = Transformable_T#Translated_T
+  protected type TranslatedT = TransformableT#TranslatedT
 
-  def unapply(x: Translated_T): Option[(Transformable_T, Double, Double)]
+  def unapply(x: TranslatedT): Option[(TransformableT, Double, Double)]
 
-  def unapply[T >: Transformable_T](x: T):
-      Option[(Transformable_T, Double, Double)] =
-    if (isInstanceOfCompanion(x))
-      unapply(x.asInstanceOf[Translated_T])
-    else
-      None
+  def unapply[T >: TransformableT](x: T):
+      Option[(TransformableT, Double, Double)] =
+    if (isInstanceOfCompanion(x)) unapply(x.asInstanceOf[TranslatedT])
+    else None
 
-  def apply(tformable: Transformable_T, x_dist: Double, y_dist: Double):
-      Transformable_T
+  def apply(tformable: TransformableT, xDist: Double, yDist: Double):
+      TransformableT
 
 
   protected def isInstanceOfCompanion(x: Any): Boolean
@@ -388,9 +365,9 @@ trait Translated_Transformable[Transformable_T <:
 
 trait Transformable[T <: Transformable[T]] { self: T =>
 
-  type Translated_T <: T
+  type TranslatedT <: T
 
-  protected val Translated: Translated_Transformable[T]
+  protected val Translated: TranslatedTransformable[T]
 
   ...
 }
@@ -399,25 +376,25 @@ trait Transformable[T <: Transformable[T]] { self: T =>
 
 sealed abstract class Dims
     extends Transformable[Dims]
-       with Presentable_Shape[Dims]
-       with Bounding_Boxed with Rectangular {
+       with PresentableShape[Dims]
+       with BoundingBoxed with Rectangular {
 
-  type Translated_T        = Translated_Dims
-  protected val Translated = Translated_Dims
+  type TranslatedT         = TranslatedDims
+  protected val Translated = TranslatedDims
 
   ...
 }
 
 ...
 
-object Translated_Dims
-    extends Translated_Transformable[Dims] {
+object TranslatedDims
+    extends TranslatedTransformable[Dims] {
 
   protected def isInstanceOfCompanion(x: Any): Boolean =
-    x.isInstanceOf[Translated_Dims]
+    x.isInstanceOf[TranslatedDims]
 }
 
-final case class Translated_Dims(rect: Dims, x_dist: Double, y_dist: Double)
+final case class TranslatedDims(rect: Dims, xDist: Double, yDist: Double)
     extends Dims {
   ...
 }
@@ -425,8 +402,7 @@ final case class Translated_Dims(rect: Dims, x_dist: Double, y_dist: Double)
    ------------------------------------------------------------------------
 NOTE: (in terms of the chosen solution above) attempting to replace:
 
-trait Translated_Transformable[Transformable_T <:
-                                 Transformable[Transformable_T]] {
+trait TranslatedTransformable[TransformableT <: Transformable[TransformableT]] {
   ...
 }
 
@@ -440,7 +416,7 @@ trait Transformable[T <: Transformable[T]] { self: T =>
 with the following:
 
 
-trait Translated_Transformable[Transforming_T <: Transforming[_]] {
+trait TranslatedTransformable[TransformingT <: Transforming[_]] {
   ...
 }
 
@@ -453,63 +429,60 @@ trait Transformable[T] { self: T =>
 
 results in the errors:
 
-[ERROR] .../tie/tie/src/main/scala/k_k_/graphics/tie/transformable.scala:173: error: type arguments [T] do not conform to trait Translated_Transformable's type parameter bounds [Transforming_T <: k_k_.graphics.tie.transformable.Transforming[_]]
-[INFO]   protected val Translated: Translated_Transformable[T]
+[ERROR] .../tie/tie/src/main/scala/k_k_/graphics/tie/transformable.scala:173: error: type arguments [T] do not conform to trait TranslatedTransformable's type parameter bounds [TransformingT <: k_k_.graphics.tie.transformable.Transforming[_]]
+[INFO]   protected val Translated: TranslatedTransformable[T]
 [INFO]                             ^
-[ERROR] .../tie/tie/src/main/scala/k_k_/graphics/tie/transformable.scala:193: error: type arguments [T] do not conform to trait Scaled_Transformable's type parameter bounds [Transforming_T <: k_k_.graphics.tie.transformable.Transforming[_]]
-[INFO]   protected val Scaled: Scaled_Transformable[T]
+[ERROR] .../tie/tie/src/main/scala/k_k_/graphics/tie/transformable.scala:193: error: type arguments [T] do not conform to trait ScaledTransformable's type parameter bounds [TransformingT <: k_k_.graphics.tie.transformable.Transforming[_]]
+[INFO]   protected val Scaled: ScaledTransformable[T]
 [INFO]                         ^
-[ERROR] .../tie/tie/src/main/scala/k_k_/graphics/tie/transformable.scala:213: error: type arguments [T] do not conform to trait Rotated_Transformable's type parameter bounds [Transforming_T <: k_k_.graphics.tie.transformable.Transforming[_]]
-[INFO]   protected val Rotated: Rotated_Transformable[T]
+[ERROR] .../tie/tie/src/main/scala/k_k_/graphics/tie/transformable.scala:213: error: type arguments [T] do not conform to trait RotatedTransformable's type parameter bounds [TransformingT <: k_k_.graphics.tie.transformable.Transforming[_]]
+[INFO]   protected val Rotated: RotatedTransformable[T]
 [INFO]                          ^
-[ERROR] .../tie/tie/src/main/scala/k_k_/graphics/tie/transformable.scala:233: error: type arguments [T] do not conform to trait Skewed_Horiz_Transformable's type parameter bounds [Transforming_T <: k_k_.graphics.tie.transformable.Transforming[_]]
-[INFO]   protected val Skewed_Horiz: Skewed_Horiz_Transformable[T]
-[INFO]                               ^
-[ERROR] .../tie/tie/src/main/scala/k_k_/graphics/tie/transformable.scala:252: error: type arguments [T] do not conform to trait Skewed_Vert_Transformable's type parameter bounds [Transforming_T <: k_k_.graphics.tie.transformable.Transforming[_]]
-[INFO]   protected val Skewed_Vert: Skewed_Vert_Transformable[T]
+[ERROR] .../tie/tie/src/main/scala/k_k_/graphics/tie/transformable.scala:233: error: type arguments [T] do not conform to trait SkewedHorizTransformable's type parameter bounds [TransformingT <: k_k_.graphics.tie.transformable.Transforming[_]]
+[INFO]   protected val SkewedHoriz: SkewedHorizTransformable[T]
 [INFO]                              ^
+[ERROR] .../tie/tie/src/main/scala/k_k_/graphics/tie/transformable.scala:252: error: type arguments [T] do not conform to trait SkewedVertTransformable's type parameter bounds [TransformingT <: k_k_.graphics.tie.transformable.Transforming[_]]
+[INFO]   protected val SkewedVert: SkewedVertTransformable[T]
+[INFO]                             ^
 
    ------------------------------------------------------------------------
-this is what happens when x.asInstanceOf[Translated_T] is used directly:
+this is what happens when x.asInstanceOf[TranslatedT] is used directly:
 
-[WARNING] .../tie/tie/src/main/scala/k_k_/graphics/tie/transformable.scala:18: warning: abstract type Transformable_T#Translated_T in type Translated_Transformable.this.Translated_T is unchecked since it is eliminated by erasure
-[INFO]     if (x.isInstanceOf[Translated_T])
+[WARNING] .../tie/tie/src/main/scala/k_k_/graphics/tie/transformable.scala:18: warning: abstract type TransformableT#TranslatedT in type TranslatedTransformable.this.TranslatedT is unchecked since it is eliminated by erasure
+[INFO]     if (x.isInstanceOf[TranslatedT])
 [INFO]                       ^
 [WARNING] one warning found
 
-trait Translated_Transformable[Transformable_T <:
-                                 Transformable[Transformable_T]] {
+trait TranslatedTransformable[TransformableT <: Transformable[TransformableT]] {
 
-  type Translated_T = Transformable_T#Translated_T
+  type TranslatedT = TransformableT#TranslatedT
 
-  def unapply(x: Translated_T): Option[(Transformable_T, Double, Double)]
+  def unapply(x: TranslatedT): Option[(TransformableT, Double, Double)]
 
-  def unapply[T >: Transformable_T](x: T):
-      Option[(Transformable_T, Double, Double)] =
-    if (x.isInstanceOf[Translated_T])
-      unapply(x.asInstanceOf[Translated_T])
-    else
-      None
+  def unapply[T >: TransformableT](x: T):
+      Option[(TransformableT, Double, Double)] =
+    if (x.isInstanceOf[TranslatedT]) unapply(x.asInstanceOf[TranslatedT])
+    else None
 
-  def apply(tformable: Transformable_T, x_dist: Double, y_dist: Double):
-      Transformable_T
+  def apply(tformable: TransformableT, xDist: Double, yDist: Double):
+      TransformableT
 }
 
 ...
 
 trait Transformable[T <: Transformable[T]] { self: T =>
 
-  type Translated_T <: T
+  type TranslatedT <: T
 
-  protected val Translated: Translated_Transformable[T]
+  protected val Translated: TranslatedTransformable[T]
 
   ...
 }
 
 ...
 
-object Translated_Dims
-    extends Translated_Transformable[Dims]
+object TranslatedDims
+    extends TranslatedTransformable[Dims]
 
 
    ------------------------------------------------------------------------
@@ -520,72 +493,69 @@ object Translated_Dims
    assuming the following:
 
 
-trait Translated_Transformable[Transformable_T <:
-                                 Transformable[Transformable_T]] {
+trait TranslatedTransformable[TransformableT <: Transformable[TransformableT]] {
 
-  def unapply(x Transformable_T): Option[(Transformable_T, Double, Double)]
+  def unapply(x TransformableT): Option[(TransformableT, Double, Double)]
 
-  def apply(tformable: Transformable_T, x_dist: Double, y_dist: Double):
-      Transformable_T
+  def apply(tformable: TransformableT, xDist: Double, yDist: Double):
+      TransformableT
 }
 
 ...
 
-object Translated_Dims
-    extends Translated_Transformable[Dims] {
+object TranslatedDims
+    extends TranslatedTransformable[Dims] {
 
-  def unapply(ortho_rect: Dims) =
-    ortho_rect match {
-       case trans: Translated_Dims =>
-         Some((trans.rect, trans.x_dist, trans.y_dist))
+  def unapply(orthoRect: Dims) =
+    orthoRect match {
+       case trans: TranslatedDims =>
+         Some((trans.rect, trans.xDist, trans.yDist))
        case _ => None
     }
 
-  def apply(rect: Dims, x_dist: Double, y_dist: Double) =
-    new Translated_Dims(rect, x_dist, y_dist)
+  def apply(rect: Dims, xDist: Double, yDist: Double) =
+    new TranslatedDims(rect, xDist, yDist)
 }
 
-final class Translated_Dims(val rect: Dims,
-                            val x_dist: Double, val y_dist: Double)
+final class TranslatedDims(val rect: Dims, val xDist: Double, val yDist: Double)
     extends Dims {
   ...
 }
 
 
-but it is actually possible to limit unapply to Transformable_T or a
+but it is actually possible to limit unapply to TransformableT or a
 super type, which then causes no overload resolution error with the
 definition of unapply generated by the case class.  thus, the
 companion class may remain a case class with a nice unapply method
 that may be used directly, and its companion object must only define
 another unapply which delegates to the case class version when the
-value which is statically-typed as a Transformable_T or a super type
+value which is statically-typed as a TransformableT or a super type
 is actually dynamically found to be the correct sub type of
-Transformable_T!
+TransformableT!
 
 
-trait Translated_Transformable[Transformable_T <:
-                                 Transformable[Transformable_T]] {
+trait TranslatedTransformable[TransformableT <: Transformable[TransformableT]] {
 
-  def unapply[T >: Transformable_T](x: T):
-      Option[(Transformable_T, Double, Double)]
+  def unapply[T >: TransformableT](x: T):
+      Option[(TransformableT, Double, Double)]
 
-  def apply(tformable: Transformable_T, x_dist: Double, y_dist: Double):
-      Transformable_T
+  def apply(tformable: TransformableT, xDist: Double, yDist: Double):
+      TransformableT
 }
 
 ...
 
-object Translated_Dims
-    extends Translated_Transformable[Dims] {
+object TranslatedDims
+    extends TranslatedTransformable[Dims] {
 
-  def unapply[T >: Dims](ortho_rect: T): Option[(Dims, Double, Double)] =
-    if (ortho_rect.isInstanceOf[Translated_Dims])
-      unapply(ortho_rect.asInstanceOf[Translated_Dims])
+  def unapply[T >: Dims](orthoRect: T): Option[(Dims, Double, Double)] =
+    if (orthoRect.isInstanceOf[TranslatedDims])
+      unapply(orthoRect.asInstanceOf[TranslatedDims])
     else
       None
 }
 
-final case class Translated_Dims(rect: Dims, x_dist: Double, y_dist: Double)
+final case class TranslatedDims(rect: Dims, xDist: Double, yDist: Double)
     extends Dims {
   ...
 }
@@ -594,7 +564,7 @@ final case class Translated_Dims(rect: Dims, x_dist: Double, y_dist: Double)
    ------------------------------------------------------------------------
 
   the approach above requires extra work in that the object extending
-  Translated_Transformable must implement unapply (and apply, if
+  TranslatedTransformable must implement unapply (and apply, if
   wanted), since making its companion class a case class is not an
   possiblity, because doing so leaves the compiler unabile to resolve
   'overloaded unapply' (since the definition above uses the base type
@@ -606,70 +576,70 @@ final case class Translated_Dims(rect: Dims, x_dist: Double, y_dist: Double)
 
 
 (the code below) causes:
-[WARNING] .../tie/tie/src/main/scala/k_k_/graphics/tie/transformable.scala:88: warning: abstract type T#Translated_T in type pattern T#Translated_T is unchecked since it is eliminated by erasure
-[INFO]       case Translated(inner, existing_x_dist, existing_y_dist) =>
+[WARNING] .../tie/tie/src/main/scala/k_k_/graphics/tie/transformable.scala:88: warning: abstract type T#TranslatedT in type pattern T#TranslatedT is unchecked since it is eliminated by erasure
+[INFO]       case Translated(inner, existingXDist, existingYDist) =>
 [INFO]                      ^
 [WARNING] one warning found
 ...
 Tests in error:
-  test(k_k_.test.graphics.tie.Svg_Sierpinski_Triangle_Test)
-  test_Rendering(k_k_.test.graphics.tie.Svg_Renderer_Test)
+  test(k_k_.test.graphics.tie.SvgSierpinskiTriangleTest)
+  test_Rendering(k_k_.test.graphics.tie.SvgRendererTest)
   test(k_k_.test.graphics.tie.ink.Svg_Color_Rings_v_Radial_Gradient_Test)
-  test(k_k_.test.graphics.tie.ink.Svg_Venn_Diagram_Opacity_Test)
+  test(k_k_.test.graphics.tie.ink.SvgVennDiagramOpacityTest)
   test(k_k_.test.graphics.tie.ink.Svg_Color_Stripes_v_Linear_Gradient_Test)
 
 Tests run: 8, Failures: 0, Errors: 5, Skipped: 0
 ...
 of:
 -------------------------------------------------------------------------------
-Test set: k_k_.test.graphics.tie.ink.Svg_Venn_Diagram_Opacity_Test
+Test set: k_k_.test.graphics.tie.ink.SvgVennDiagramOpacityTest
 -------------------------------------------------------------------------------
 Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 0.047 sec <<< FAILURE!
-test(k_k_.test.graphics.tie.ink.Svg_Venn_Diagram_Opacity_Test)  Time elapsed: 0.031 sec  <<< ERROR!
-java.lang.ClassCastException: k_k_.graphics.tie.shapes.Origin_Dims cannot be cast to k_k_.graphics.tie.shapes.Translated_Dims
-        at k_k_.graphics.tie.shapes.Translated_Dims$.unapply(shapes.scala:1286)
+test(k_k_.test.graphics.tie.ink.SvgVennDiagramOpacityTest)  Time elapsed: 0.031 sec  <<< ERROR!
+java.lang.ClassCastException: k_k_.graphics.tie.shapes.OriginDims cannot be cast to k_k_.graphics.tie.shapes.TranslatedDims
+        at k_k_.graphics.tie.shapes.TranslatedDims$.unapply(shapes.scala:1286)
         at k_k_.graphics.tie.transformable.Transformable$class.move(transformable.scala:48)
         at k_k_.graphics.tie.shapes.Dims.move(shapes.scala:1175)
-        at k_k_.graphics.tie.shapes.Translated_Non_Pre_Formulated_Shape.bounding_box(shapes.scala:1055)
-        at k_k_.graphics.tie.shapes.Composite_Shape.bounding_box(shapes.scala:1141)
-        at k_k_.graphics.tie.shapes.Composite_Shape.bounding_box(shapes.scala:1141)
+        at k_k_.graphics.tie.shapes.TranslatedNonPreFormulatedShape.boundingBox(shapes.scala:1055)
+        at k_k_.graphics.tie.shapes.CompositeShape.boundingBox(shapes.scala:1141)
+        at k_k_.graphics.tie.shapes.CompositeShape.boundingBox(shapes.scala:1141)
 
 
-trait Translated_Transformable[Transformable_T <: Transformable[Transformable_T]] {
+trait TranslatedTransformable[TransformableT <: Transformable[TransformableT]] {
 
-  type Translated_T = Transformable_T#Translated_T
+  type TranslatedT = TransformableT#TranslatedT
 
-  def unapply(x: Translated_T): Option[(Transformable_T, Double, Double)]
+  def unapply(x: TranslatedT): Option[(TransformableT, Double, Double)]
 
 ...
 
 trait Transformable[T <: Transformable[T]] { self: T =>
 
-  type Translated_T <: T
+  type TranslatedT <: T
 
-  protected val Translated: Translated_Transformable[T]
+  protected val Translated: TranslatedTransformable[T]
 
-  def move(x_dist: Double, y_dist: Double): T = {
+  def move(xDist: Double, yDist: Double): T = {
     this match {
-      case Translated(inner, existing_x_dist, existing_y_dist) =>
+      case Translated(inner, existingXDist, existingYDist) =>
 
 ...
 
 sealed abstract class Dims
     extends Transformable[Dims]
-       with Presentable_Shape[Dims]
-       with Bounding_Boxed with Rectangular {
+       with PresentableShape[Dims]
+       with BoundingBoxed with Rectangular {
   ...
 
-  type Translated_T        = Translated_Dims
-  protected val Translated = Translated_Dims
+  type TranslatedT         = TranslatedDims
+  protected val Translated = TranslatedDims
 
 ...
 
-object Translated_Dims
-    extends Translated_Transformable[Dims]
+object TranslatedDims
+    extends TranslatedTransformable[Dims]
 
-final case class Translated_Dims(rect: Dims, x_dist: Double, y_dist: Double)
+final case class TranslatedDims(rect: Dims, xDist: Double, yDist: Double)
     extends Dims {
   ...
 }
@@ -678,24 +648,24 @@ final case class Translated_Dims(rect: Dims, x_dist: Double, y_dist: Double)
 /*
 (the code below) causes:
 [ERROR] .../tie/tie/src/main/scala/k_k_/graphics/tie/shapes.scala:1304: error: cannot resolve overloaded unapply
-[INFO] final case class Translated_Dims(rect: Dims,
-[INFO]                  ^
-[WARNING] .../tie/tie/src/main/scala/k_k_/graphics/tie/transformable.scala:14: warning: abstract type Transformable_T#Translated_T in type Translated_Transformable.this.Translated_T is unchecked since it is eliminated by erasure
-[INFO]     if (x.isInstanceOf[Translated_T])
+[INFO] case class TranslatedDims(rect: Dims,
+[INFO]            ^
+[WARNING] .../tie/tie/src/main/scala/k_k_/graphics/tie/transformable.scala:14: warning: abstract type TransformableT#TranslatedT in type TranslatedTransformable.this.TranslatedT is unchecked since it is eliminated by erasure
+[INFO]     if (x.isInstanceOf[TranslatedT])
 [INFO]                       ^
 [WARNING] one warning found
 [ERROR] one error found
 
 
-trait Translated_Transformable[Transformable_T <: Transformable[Transformable_T]] {
+trait TranslatedTransformable[TransformableT <: Transformable[TransformableT]] {
 
-  type Translated_T = Transformable_T#Translated_T
+  type TranslatedT = TransformableT#TranslatedT
 
-  def unapply(x: Translated_T): Option[(Transformable_T, Double, Double)]
+  def unapply(x: TranslatedT): Option[(TransformableT, Double, Double)]
 
-  def unapply(x: Transformable_T): Option[(Transformable_T, Double, Double)] =
-    if (x.isInstanceOf[Translated_T])
-      unapply(x.asInstanceOf[Translated_T])
+  def unapply(x: TransformableT): Option[(TransformableT, Double, Double)] =
+    if (x.isInstanceOf[TranslatedT])
+      unapply(x.asInstanceOf[TranslatedT])
     else
       None
 
@@ -703,31 +673,31 @@ trait Translated_Transformable[Transformable_T <: Transformable[Transformable_T]
 
 trait Transformable[T <: Transformable[T]] { self: T =>
 
-  type Translated_T <: T
+  type TranslatedT <: T
 
-  protected val Translated: Translated_Transformable[T]
+  protected val Translated: TranslatedTransformable[T]
 
-  def move(x_dist: Double, y_dist: Double): T = {
+  def move(xDist: Double, yDist: Double): T = {
     this match {
-      case Translated(inner, existing_x_dist, existing_y_dist) =>
+      case Translated(inner, existingXDist, existingYDist) =>
 
 ...
 
 sealed abstract class Dims
     extends Transformable[Dims]
-       with Presentable_Shape[Dims]
-       with Bounding_Boxed with Rectangular {
+       with PresentableShape[Dims]
+       with BoundingBoxed with Rectangular {
   ...
 
-  type Translated_T        = Translated_Dims
-  protected val Translated = Translated_Dims
+  type TranslatedT         = TranslatedDims
+  protected val Translated = TranslatedDims
 
 ...
 
-object Translated_Dims
-    extends Translated_Transformable[Dims]
+object TranslatedDims
+    extends TranslatedTransformable[Dims]
 
-final case class Translated_Dims(rect: Dims, x_dist: Double, y_dist: Double)
+final case class TranslatedDims(rect: Dims, xDist: Double, yDist: Double)
     extends Dims {
   ...
 }

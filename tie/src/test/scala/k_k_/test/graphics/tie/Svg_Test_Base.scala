@@ -5,7 +5,7 @@
 
      http://www.tie-illustrates-everything.com/
 
-   Copyright (c)2010-2012 by Corbin "Kip" Kohn
+   Copyright (c)2010-2013 by Corbin "Kip" Kohn
    All Rights Reserved.
 
    Please reference the following for applicable terms, conditions,
@@ -23,60 +23,62 @@ import org.scalatest.junit.JUnitSuite
 import java.io.File
 
 import k_k_.graphics.tie._
-import k_k_.graphics.tie.fmt.svg.Svg_Renderer
-import k_k_.graphics.tie.ink.{Named_Colors => C, _}
+import k_k_.graphics.tie.fmt.svg.SvgRenderer
+import k_k_.graphics.tie.ink.{NamedColors => C, _}
 import k_k_.graphics.tie.shapes._
 import k_k_.graphics.tie.shapes.text._
 
 
-abstract class Svg_Test_Base extends JUnitSuite {
+abstract class SvgTestBase extends JUnitSuite {
 
   val filename: String
 
-  val out_dir = "target/test-classes/rendered_out"
+  val outDir = "target/test-classes/rendered_out"
 
 
   val title: String
 
-  val desc_font = new Font("Arial", 12, weight = Bold)
+  val descFont = new Font("Arial", 12, weight = FontWeight.Bold)
 
-  val renderer: Renderer = Svg_Renderer
+  val renderer: Renderer = SvgRenderer
 
 
   @Test
   def test() {
-    val filepath = out_dir + "/" + filename
-    val out_file = new File(filepath)
-    assertTrue(out_file.getParentFile.isDirectory ||
-               out_file.getParentFile.mkdirs)
+    val filepath = outDir + "/" + filename
+    val outFile = new File(filepath)
+    assertTrue(outFile.getParentFile.isDirectory ||outFile.getParentFile.mkdirs)
 
-    val shapes_canvas = create_canvas()
+    val shapesCanvas = createCanvas()
 
-    assertTrue("unable to render to file '" + out_file.getPath + "'",
-               renderer.render(shapes_canvas, out_file, true))
+    assertTrue(
+        "unable to render to file '" + outFile.getPath + "'",
+        renderer.render(shapesCanvas, outFile, true)
+      )
   }
 
-  protected def create_canvas(): Canvas
+  protected def createCanvas(): Canvas
 
-  protected def label_shape(shape: Shape, name: String, ink: Ink): Shape = {
+  protected def labelShape(shape: Shape, name: String, ink: Ink): Shape = {
       
-    val name_offset_y = shape.bounding_box.height / 2 + 10
+    val nameOffsetY = shape.boundingBox.height / 2 + 10
 
-//    val bbox_pen = Pen.dashed(C.Pink, 0.6, 10, 0)
+//    val bboxPen = Pen.dashed(C.Pink, 0.6, 10, 0)
 
     (shape -~ Pen.stroke(ink)) -&
     (write(name, ink)
 
-//-& (write(name, ink).bounding_box.as_drawing_shape -~ bbox_pen)
+//-& (write(name, ink).boundingBox.asDrawingShape -~ bboxPen)
 
- -+ (0, name_offset_y))
+     -+ (0, nameOffsetY))
 
   }
 
-  protected def label_shape(shape: Shape, name: String): Shape =
-    label_shape(shape, name, C.Black)
+  protected def labelShape(shape: Shape, name: String): Shape =
+    labelShape(shape, name, C.Black)
 
-  protected def write(text: String, ink: Ink,
-                      align: Text_Align = Middle_Align) =
-    Text_Line(text, desc_font, align) -~ Pen.fill(ink)
+  protected def write(
+      text: String, ink: Ink, align: TextAlign = TextAlign.Middle
+    ) =
+    TextLine(text, descFont, align) -~ Pen.fill(ink)
 }

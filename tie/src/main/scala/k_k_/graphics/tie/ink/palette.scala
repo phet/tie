@@ -5,7 +5,7 @@
 
      http://www.tie-illustrates-everything.com/
 
-   Copyright (c)2010-2012 by Corbin "Kip" Kohn
+   Copyright (c)2010-2013 by Corbin "Kip" Kohn
    All Rights Reserved.
 
    Please reference the following for applicable terms, conditions,
@@ -18,60 +18,60 @@ package k_k_.graphics.tie.ink
 
 package palette {
 
-import k_k_.io.data.String_Seq_From_Data_File
+import k_k_.io.data.StringSeqFromDataFile
 
 
-trait Color_Palette {
+trait ColorPalette {
 
   val colors: IndexedSeq[Color]
 
-  lazy val color_names: IndexedSeq[String] =
-    colors.map( name_color(_) )
+  lazy val colorNames: IndexedSeq[String] =
+    colors.map { nameColor }
 
-  lazy val every_color_with_name: IndexedSeq[(Color, String)] =
-    colors.map( c => (c, name_color(c)) )
+  lazy val everyColorWithName: IndexedSeq[(Color, String)] =
+    colors.map { c => (c, nameColor(c)) }
 
 
-  protected def name_color(color: Color) =
+  protected def nameColor(color: Color) =
     color match {
-      case Described_Color(desc)      => desc
-      case Named_Color(name, _, _, _) => name
-      case c: Color                   => c.as_rgb_string
+      case DescribedColor(desc)      => desc
+      case NamedColor(name, _, _, _) => name
+      case c: Color                  => c.asRgbString
     }
 }
 
-trait Named_Color_Palette {
-
-  val colors: IndexedSeq[Named_Color]
+trait NamedColorPalette {
+  val colors: IndexedSeq[NamedColor]
 }
 
 
-abstract class Color_Palette_From_Color_Name_Seq extends Named_Color_Palette {
+abstract class ColorPaletteFromColorNameSeq extends NamedColorPalette {
 
-  lazy val colors: IndexedSeq[Named_Color] =
-      Vector( color_name_seq.map( Named_Color(_).get ) : _* )
+  override lazy val colors: IndexedSeq[NamedColor] = Vector(
+      colorNameSeq.map { NamedColor(_).get } : _*
+    )
 
-  protected val color_name_seq: Seq[String]
+  protected val colorNameSeq: Seq[String]
 }
 
 
-object All_Named_Colors extends Color_Palette_From_Color_Name_Seq {
+object AllNamedColors extends ColorPaletteFromColorNameSeq {
 
-  protected lazy val color_name_seq = named_colors_data.get_seq
+  override protected lazy val colorNameSeq = namedColorsData.getSeq
 
-  val path_name = "/data/k_k_.graphics.tie/color/css2_color_names.list"
+  val pathName = "/data/k_k_.graphics.tie/color/css2_color_names.list"
 
-  private val named_colors_data = new String_Seq_From_Data_File(path_name) {
-
-    override protected val load_via = classOf[Color]
+  private val namedColorsData = new StringSeqFromDataFile(pathName) {
+    override protected val loadVia = classOf[Color]
   }
 }
 
 
-object Rainbow_Palette extends Color_Palette_From_Color_Name_Seq {
+object RainbowPalette extends ColorPaletteFromColorNameSeq {
 
-  protected val color_name_seq =
-    Seq("red", "orange", "yellow", "green", "blue", "indigo", "violet")
+  override protected val colorNameSeq = Seq(
+      "red", "orange", "yellow", "green", "blue", "indigo", "violet"
+    )
 }
 
 }

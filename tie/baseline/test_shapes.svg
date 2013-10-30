@@ -49,10 +49,10 @@ hemisphere
     </g>
     <g transform="translate(0.000000, 35.000000)">
     <g fill="black">
-    <text text-anchor="start" writing-mode="lr-tb" x="-33.676758" y="-7.500000">
-      <tspan x="-33.676758" y="5.625000" direction="ltr">
+    <text text-anchor="start" writing-mode="lr-tb" x="-32.006836" y="-7.500000">
+      <tspan x="-32.006836" y="5.625000" direction="ltr">
         <tspan font-family="Arial" font-size="12.0" font-style="normal" font-weight="700" text-decoration="none">
-iso_triangle
+isoTriangle
         </tspan>
       </tspan>
     </text>
@@ -65,10 +65,10 @@ iso_triangle
     </g>
     <g transform="translate(0.000000, 35.000000)">
     <g fill="black">
-    <text text-anchor="start" writing-mode="lr-tb" x="-38.337891" y="-7.500000">
-      <tspan x="-38.337891" y="5.625000" direction="ltr">
+    <text text-anchor="start" writing-mode="lr-tb" x="-36.667969" y="-7.500000">
+      <tspan x="-36.667969" y="5.625000" direction="ltr">
         <tspan font-family="Arial" font-size="12.0" font-style="normal" font-weight="700" text-decoration="none">
-right_triangle
+rightTriangle
         </tspan>
       </tspan>
     </text>
@@ -81,10 +81,10 @@ right_triangle
     </g>
     <g transform="translate(0.000000, 35.980762)">
     <g fill="gray">
-    <text text-anchor="start" writing-mode="lr-tb" x="-37.341797" y="-7.500000">
-      <tspan x="-37.341797" y="5.625000" direction="ltr">
+    <text text-anchor="start" writing-mode="lr-tb" x="-35.671875" y="-7.500000">
+      <tspan x="-35.671875" y="5.625000" direction="ltr">
         <tspan font-family="Arial" font-size="12.0" font-style="normal" font-weight="700" text-decoration="none">
-equi_triangle
+equiTriangle
         </tspan>
       </tspan>
     </text>
@@ -213,10 +213,10 @@ octagon
     </g>
     <g transform="translate(0.000000, 38.531695)">
     <g fill="gray">
-    <text text-anchor="start" writing-mode="lr-tb" x="-39.670898" y="-7.500000">
-      <tspan x="-39.670898" y="5.625000" direction="ltr">
+    <text text-anchor="start" writing-mode="lr-tb" x="-36.670898" y="-7.500000">
+      <tspan x="-36.670898" y="5.625000" direction="ltr">
         <tspan font-family="Arial" font-size="12.0" font-style="normal" font-weight="700" text-decoration="none">
-reg_pentagon
+regPentagon
         </tspan>
       </tspan>
     </text>
@@ -249,10 +249,10 @@ reg_pentagon
     </g>
     <g transform="translate(0.000000, 35.000000)">
     <g fill="gray">
-    <text text-anchor="start" writing-mode="lr-tb" x="-43.687500" y="-7.500000">
-      <tspan x="-43.687500" y="5.625000" direction="ltr">
+    <text text-anchor="start" writing-mode="lr-tb" x="-42.348633" y="-7.500000">
+      <tspan x="-42.348633" y="5.625000" direction="ltr">
         <tspan font-family="Arial" font-size="12.0" font-style="normal" font-weight="700" text-decoration="none">
-invis_rectangle
+invisRectangle
         </tspan>
       </tspan>
     </text>
@@ -265,10 +265,10 @@ invis_rectangle
     </g>
     <g transform="translate(0.000000, 35.980762)">
     <g fill="gray">
-    <text text-anchor="start" writing-mode="lr-tb" x="-37.344727" y="-7.500000">
-      <tspan x="-37.344727" y="5.625000" direction="ltr">
+    <text text-anchor="start" writing-mode="lr-tb" x="-34.675781" y="-7.500000">
+      <tspan x="-34.675781" y="5.625000" direction="ltr">
         <tspan font-family="Arial" font-size="12.0" font-style="normal" font-weight="700" text-decoration="none">
-reg_hexagon
+regHexagon
         </tspan>
       </tspan>
     </text>
@@ -315,10 +315,10 @@ circle
     </g>
     <g transform="translate(0.000000, 40.000000)">
     <g fill="gray">
-    <text text-anchor="start" writing-mode="lr-tb" x="-36.005859" y="-7.500000">
-      <tspan x="-36.005859" y="5.625000" direction="ltr">
+    <text text-anchor="start" writing-mode="lr-tb" x="-33.670898" y="-7.500000">
+      <tspan x="-33.670898" y="5.625000" direction="ltr">
         <tspan font-family="Arial" font-size="12.0" font-style="normal" font-weight="700" text-decoration="none">
-reg_octagon
+regOctagon
         </tspan>
       </tspan>
     </text>
@@ -333,10 +333,10 @@ reg_octagon
     </g>
     <g transform="translate(0.000000, 22.500000)">
     <g fill="gray">
-    <text text-anchor="start" writing-mode="lr-tb" x="-36.017578" y="-7.500000">
-      <tspan x="-36.017578" y="5.625000" direction="ltr">
+    <text text-anchor="start" writing-mode="lr-tb" x="-33.345703" y="-7.500000">
+      <tspan x="-33.345703" y="5.625000" direction="ltr">
         <tspan font-family="Arial" font-size="12.0" font-style="normal" font-weight="700" text-decoration="none">
-diam_ellipse
+diamEllipse
         </tspan>
       </tspan>
     </text>
@@ -349,10 +349,10 @@ diam_ellipse
     </g>
     <g transform="translate(0.000000, 22.500000)">
     <g fill="gray">
-    <text text-anchor="start" writing-mode="lr-tb" x="-33.020508" y="-7.500000">
-      <tspan x="-33.020508" y="5.625000" direction="ltr">
+    <text text-anchor="start" writing-mode="lr-tb" x="-30.679688" y="-7.500000">
+      <tspan x="-30.679688" y="5.625000" direction="ltr">
         <tspan font-family="Arial" font-size="12.0" font-style="normal" font-weight="700" text-decoration="none">
-diam_circle
+diamCircle
         </tspan>
       </tspan>
     </text>
@@ -373,7 +373,7 @@ diam_circle
       <tspan x="-119.715820" y="-21.300000" direction="ltr">
 <tspan xml:space="preserve" font-family="Arial" font-size="12.0" font-style="normal" font-weight="400" text-decoration="none">  http://tie-illustrates-everything.com/</tspan>      </tspan>
       <tspan x="-119.715820" y="-4.500000" direction="ltr">
-<tspan xml:space="preserve" font-family="Arial" font-size="12.0" font-style="normal" font-weight="400" text-decoration="none">rendered: 2012-08-27 22:35:15+0000</tspan>      </tspan>
+<tspan xml:space="preserve" font-family="Arial" font-size="12.0" font-style="normal" font-weight="400" text-decoration="none">rendered: 2013-10-30 23:12:27+0000</tspan>      </tspan>
       <tspan x="-119.715820" y="12.300000" direction="ltr">
 <tspan xml:space="preserve" font-family="Arial" font-size="12.0" font-style="normal" font-weight="400" text-decoration="none">under Apache License, v.2.0 // see:</tspan>      </tspan>
       <tspan x="-119.715820" y="29.100000" direction="ltr">

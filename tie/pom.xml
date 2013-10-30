@@ -6,7 +6,7 @@
 
   <groupId>k_k_.graphics</groupId>
   <artifactId>k_k_.graphics.tie</artifactId>
-  <version>0.11.0</version>
+  <version>0.12.0</version>
 
   <name>Tie Library for Two-Dimensional Drawing in Scala</name>
   <description>
@@ -14,7 +14,7 @@
 
       http://www.tie-illustrates-everything.com/
 
-    Copyright (c)2010-2012 by Corbin "Kip" Kohn
+    Copyright (c)2010-2013 by Corbin "Kip" Kohn
     All Rights Reserved.
 
     Licensed under the Apache License, Version 2.0 (the "License");
@@ -36,7 +36,7 @@
   <inceptionYear>2010</inceptionYear>
 
   <properties>
-    <scala.version>2.9.1</scala.version>
+    <scala.version>2.9.2</scala.version>
 
     <!-- Common plugin settings -->
     <encoding>UTF-8</encoding>
@@ -67,19 +67,19 @@
     <dependency>
       <groupId>k_k_.lib</groupId>
       <artifactId>k_k_.lib.util</artifactId>
-      <version>1.2.0</version>
+      <version>1.3.0</version>
     </dependency>
 
     <dependency>
       <groupId>org.scalatest</groupId>
-      <artifactId>scalatest_2.9.1</artifactId>
-      <version>1.6.1</version>
+      <artifactId>scalatest_2.9.2</artifactId>
+      <version>1.9.2</version>
       <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
-      <version>4.7</version>
+      <version>4.11</version>
       <scope>test</scope>
     </dependency>
   </dependencies>

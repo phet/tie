@@ -5,7 +5,7 @@
 
      http://www.tie-illustrates-everything.com/
 
-   Copyright (c)2010-2012 by Corbin "Kip" Kohn
+   Copyright (c)2010-2013 by Corbin "Kip" Kohn
    All Rights Reserved.
 
    Please reference the following for applicable terms, conditions,
@@ -21,455 +21,472 @@ package path {
 import k_k_.graphics.tie.transform.{Transformable, Placeable}
 
 
-sealed abstract class Path_Cmd extends Transformable[Path_Cmd] {
+sealed abstract class PathCmd extends Transformable[PathCmd] {
 
-  protected val end_pt: Point
+  protected val endPt: Point
 
-  protected val End_Pt_Ctor: (Point) => Path_Cmd
+  protected val EndPtCtor: (Point) => PathCmd
 
-  def move(x_dist: Double, y_dist: Double) =
-    End_Pt_Ctor(end_pt move (x_dist, y_dist))
+  def move(xDist: Double, yDist: Double) =
+    EndPtCtor(endPt move (xDist, yDist))
 
-  def scale(x_scaling: Double, y_scaling: Double) =
-    End_Pt_Ctor(end_pt scale (x_scaling, y_scaling))
+  def scale(xScaling: Double, yScaling: Double) =
+    EndPtCtor(endPt scale (xScaling, yScaling))
 
-  def rotate(degrees: Double, about_x: Double, about_y: Double) =
-    End_Pt_Ctor(end_pt rotate (degrees, about_x, about_y))
+  def rotate(degrees: Double, aboutX: Double, aboutY: Double) =
+    EndPtCtor(endPt rotate (degrees, aboutX, aboutY))
 
-  def reflect(degrees: Double, about_x: Double, about_y: Double) =
-    End_Pt_Ctor(end_pt reflect (degrees, about_x, about_y))
+  def reflect(degrees: Double, aboutX: Double, aboutY: Double) =
+    EndPtCtor(endPt reflect (degrees, aboutX, aboutY))
 
-  def skew_horiz(degrees: Double) =
-    End_Pt_Ctor(end_pt skew_horiz (degrees))
+  def skewHoriz(degrees: Double) =
+    EndPtCtor(endPt skewHoriz (degrees))
 
-  def skew_vert(degrees: Double) =
-    End_Pt_Ctor(end_pt skew_vert (degrees))
+  def skewVert(degrees: Double) =
+    EndPtCtor(endPt skewVert (degrees))
 }
 
 
-sealed abstract class Arc_Choice
-case object Small_CW  extends Arc_Choice
-case object Large_CW  extends Arc_Choice
-case object Small_CCW extends Arc_Choice
-case object Large_CCW extends Arc_Choice
+sealed abstract class ArcChoice
+object ArcChoice {
+  case object SmallCW  extends ArcChoice
+  case object LargeCW  extends ArcChoice
+  case object SmallCCW extends ArcChoice
+  case object LargeCCW extends ArcChoice
+}
 
 
-sealed trait Path_Commandable {
+sealed trait PathCommandable {
 
-  protected def ::(path_cmd: Path_Cmd): Path
+  protected def ::(pathCmd: PathCmd): Path
 
   protected def :::(path: Path): Path
 
 
-  def subpath(path: Path): Path =
-    path ::: this
+  def subpath(path: Path): Path = path ::: this
 
-  def subpath(pathable: { def as_path: Path }): Path =
-    subpath(pathable.as_path)
+  def subpath(pathable: { def asPath: Path }): Path = subpath(pathable.asPath)
 
-  def &(path: Path): Path =
-    subpath(path)
+  def &(path: Path): Path = subpath(path)
 
-  def &(pathable: { def as_path: Path }): Path =
-    subpath(pathable)
+//!!!!!!!!!use a type class, rather than a structural type!!!!
+
+  def &(pathable: { def asPath: Path }): Path = subpath(pathable)
 
 
   // NOTE: the name `move` is already inherited by `Path` from `Transformable`;
   // in addition it feels ambiguous as to whether 'path pen' would be up or down
 
-  def jump(x: Double, y: Double): Path =
-    Move_Rel(x, y) :: this
+  def jump(x: Double, y: Double): Path = MoveRel(x, y) :: this
 
   def jump(pt: Point): Path = jump(pt.x, pt.y)
 
-  def jump_@(x: Double, y: Double): Path =
-    Move_Abs(x, y) :: this
+  def jump_@(x: Double, y: Double): Path = MoveAbs(x, y) :: this
 
   def jump_@(pt: Point): Path = jump_@(pt.x, pt.y)
 
-  // NOTE: `jump_@` is cannonical spelling, yet `jump_abs` provided for use from
+  // NOTE: `jump_@` is cannonical spelling, yet `jumpAbs` provided for use from
   // languages where `@` is not identifier char; analogous correlates follow...
 
-  def jump_abs(x: Double, y: Double): Path = jump_@(x, y)
+  def jumpAbs(x: Double, y: Double): Path = jump_@(x, y)
 
-  def jump_abs(pt: Point): Path = jump_@(pt.x, pt.y)
+  def jumpAbs(pt: Point): Path = jump_@(pt.x, pt.y)
 
 
-  def line(x: Double, y: Double): Path =
-    Line_Rel(x, y) :: this
+  def line(x: Double, y: Double): Path = LineRel(x, y) :: this
 
   def line(pt: Point): Path = line(pt.x, pt.y)
 
-  def line_@(x: Double, y: Double): Path =
-    Line_Abs(x, y) :: this
+  def line_@(x: Double, y: Double): Path = LineAbs(x, y) :: this
 
   def line_@(pt: Point): Path = line_@(pt.x, pt.y)
 
-  def line_abs(x: Double, y: Double): Path = line_@(x, y)
+  def lineAbs(x: Double, y: Double): Path = line_@(x, y)
 
-  def line_abs(pt: Point): Path = line_@(pt.x, pt.y)
+  def lineAbs(pt: Point): Path = line_@(pt.x, pt.y)
 
 
-  def horizontal(x: Double): Path =
-    Horizontal_Rel(x) :: this
+  def horizontal(x: Double): Path = HorizontalRel(x) :: this
 
   def horiz(x: Double): Path = horizontal(x)
 
-  def horizontal_@(x: Double): Path =
-    Horizontal_Abs(x) :: this
+  def horizontal_@(x: Double): Path = HorizontalAbs(x) :: this
 
-  def horizontal_abs(x: Double): Path = horizontal_@(x)
+  def horizontalAbs(x: Double): Path = horizontal_@(x)
 
   def horiz_@(x: Double): Path = horizontal_@(x)
 
-  def horiz_abs(x: Double): Path = horizontal_@(x)
+  def horizAbs(x: Double): Path = horizontal_@(x)
 
 
-  def vertical(y: Double): Path =
-    Vertical_Rel(y) :: this
+  def vertical(y: Double): Path = VerticalRel(y) :: this
 
   def vert(y: Double): Path = vertical(y)
 
-  def vertical_@(y: Double): Path =
-    Vertical_Abs(y) :: this
+  def vertical_@(y: Double): Path = VerticalAbs(y) :: this
 
-  def vertical_abs(y: Double): Path = vertical_@(y)
+  def verticalAbs(y: Double): Path = vertical_@(y)
 
   def vert_@(y: Double): Path = vertical_@(y)
 
-  def vert_abs(y: Double): Path = vertical_@(y)
+  def vertAbs(y: Double): Path = vertical_@(y)
 
 
-  def arc(rad_width: Double, rad_height: Double, x_rotate_degrees: Double,
-          kind: Arc_Choice, x: Double, y: Double): Path =
-    Elliptical_Arc_Rel(rad_width, rad_height, x_rotate_degrees, kind, x, y) ::
-      this
+  def arc(
+      radWidth: Double, radHeight: Double,
+      xRotateDegrees: Double,
+      kind: ArcChoice,
+      x: Double, y: Double
+    ): Path =
+    EllipticalArcRel(radWidth, radHeight, xRotateDegrees, kind, x, y) :: this
 
-  def arc(rad_width: Double, rad_height: Double, x_rotate_degrees: Double,
-          kind: Arc_Choice, pt: Point): Path =
-    arc(rad_width, rad_height, x_rotate_degrees, kind, pt.x, pt.y)
+  def arc(
+      radWidth: Double, radHeight: Double,
+      xRotateDegrees: Double,
+      kind: ArcChoice,
+      pt: Point
+    ): Path =
+    arc(radWidth, radHeight, xRotateDegrees, kind, pt.x, pt.y)
 
-  def arc_@(rad_width: Double, rad_height: Double, x_rotate_degrees: Double,
-            kind: Arc_Choice, x: Double, y: Double): Path =
-    Elliptical_Arc_Abs(rad_width, rad_height, x_rotate_degrees, kind, x, y) ::
-      this
+  def arc_@(
+      radWidth: Double, radHeight: Double,
+      xRotateDegrees: Double,
+      kind: ArcChoice,
+      x: Double, y: Double
+    ): Path =
+    EllipticalArcAbs(radWidth, radHeight, xRotateDegrees, kind, x, y) :: this
 
-  def arc_@(rad_width: Double, rad_height: Double, x_rotate_degrees: Double,
-            kind: Arc_Choice, pt: Point): Path =
-    arc_@(rad_width, rad_height, x_rotate_degrees, kind, pt.x, pt.y)
+  def arc_@(
+      radWidth: Double, radHeight: Double,
+      xRotateDegrees: Double,
+      kind: ArcChoice,
+      pt: Point
+    ): Path =
+    arc_@(radWidth, radHeight, xRotateDegrees, kind, pt.x, pt.y)
 
-  def arc_abs(rad_width: Double, rad_height: Double, x_rotate_degrees: Double,
-              kind: Arc_Choice, x: Double, y: Double): Path =
-    arc_@(rad_width, rad_height, x_rotate_degrees, kind, x, y)
+  def arcAbs(
+      radWidth: Double, radHeight: Double,
+      xRotateDegrees: Double,
+      kind: ArcChoice,
+      x: Double, y: Double
+    ): Path =
+    arc_@(radWidth, radHeight, xRotateDegrees, kind, x, y)
 
-  def arc_abs(rad_width: Double, rad_height: Double, x_rotate_degrees: Double,
-              kind: Arc_Choice, pt: Point): Path =
-    arc_@(rad_width, rad_height, x_rotate_degrees, kind, pt.x, pt.y)
+  def arcAbs(
+      radWidth: Double, radHeight: Double,
+      xRotateDegrees: Double,
+      kind: ArcChoice,
+      pt: Point
+    ): Path =
+    arc_@(radWidth, radHeight, xRotateDegrees, kind, pt.x, pt.y)
 
 
-  def arc(rad_width: Double, rad_height: Double, kind: Arc_Choice,
-          x: Double, y: Double): Path =
-    Elliptical_Arc_Rel(rad_width, rad_height, 0, kind, x, y) :: this
+  def arc(
+      radWidth: Double, radHeight: Double,
+      kind: ArcChoice,
+      x: Double, y: Double
+    ): Path =
+    EllipticalArcRel(radWidth, radHeight, 0, kind, x, y) :: this
 
-  def arc(rad_width: Double, rad_height: Double, kind: Arc_Choice, pt: Point):
+  def arc(radWidth: Double, radHeight: Double, kind: ArcChoice, pt: Point):
       Path =
-    arc(rad_width, rad_height, kind, pt.x, pt.y)
+    arc(radWidth, radHeight, kind, pt.x, pt.y)
 
-  def arc_@(rad_width: Double, rad_height: Double, kind: Arc_Choice,
-            x: Double, y: Double): Path =
-    Elliptical_Arc_Abs(rad_width, rad_height, 0, kind, x, y) :: this
+  def arc_@(
+      radWidth: Double, radHeight: Double,
+      kind: ArcChoice,
+      x: Double, y: Double
+    ): Path =
+    EllipticalArcAbs(radWidth, radHeight, 0, kind, x, y) :: this
 
-  def arc_@(rad_width: Double, rad_height: Double, kind: Arc_Choice,
-            pt: Point): Path =
-    arc_@(rad_width, rad_height, kind, pt.x, pt.y)
+  def arc_@(
+      radWidth: Double, radHeight: Double,
+      kind: ArcChoice,
+      pt: Point
+    ): Path =
+    arc_@(radWidth, radHeight, kind, pt.x, pt.y)
 
-  def arc_abs(rad_width: Double, rad_height: Double, kind: Arc_Choice,
-              x: Double, y: Double): Path =
-    arc_@(rad_width, rad_height, kind, x, y)
+  def arcAbs(
+      radWidth: Double, radHeight: Double,
+      kind: ArcChoice,
+      x: Double, y: Double
+    ): Path =
+    arc_@(radWidth, radHeight, kind, x, y)
 
-  def arc_abs(rad_width: Double, rad_height: Double, kind: Arc_Choice,
-              pt: Point): Path =
-    arc_@(rad_width, rad_height, kind, pt.x, pt.y)
+  def arcAbs(
+      radWidth: Double, radHeight: Double,
+      kind: ArcChoice,
+      pt: Point
+    ): Path =
+    arc_@(radWidth, radHeight, kind, pt.x, pt.y)
 
 
-  def arc(rad: Double, kind: Arc_Choice, x: Double, y: Double): Path =
-    Elliptical_Arc_Rel(rad, rad, 0, kind, x, y) :: this
+  def arc(rad: Double, kind: ArcChoice, x: Double, y: Double): Path =
+    EllipticalArcRel(rad, rad, 0, kind, x, y) :: this
 
-  def arc(rad: Double, kind: Arc_Choice, pt: Point): Path =
+  def arc(rad: Double, kind: ArcChoice, pt: Point): Path =
     arc(rad, kind, pt.x, pt.y)
 
-  def arc_@(rad: Double, kind: Arc_Choice, x: Double, y: Double): Path =
-    Elliptical_Arc_Abs(rad, rad, 0, kind, x, y) :: this
+  def arc_@(rad: Double, kind: ArcChoice, x: Double, y: Double): Path =
+    EllipticalArcAbs(rad, rad, 0, kind, x, y) :: this
 
-  def arc_@(rad: Double, kind: Arc_Choice, pt: Point): Path =
+  def arc_@(rad: Double, kind: ArcChoice, pt: Point): Path =
     arc_@(rad, kind, pt.x, pt.y)
 
-  def arc_abs(rad: Double, kind: Arc_Choice, x: Double, y: Double): Path =
+  def arcAbs(rad: Double, kind: ArcChoice, x: Double, y: Double): Path =
     arc_@(rad, kind, x, y)
 
-  def arc_abs(rad: Double, kind: Arc_Choice, pt: Point): Path =
+  def arcAbs(rad: Double, kind: ArcChoice, pt: Point): Path =
     arc_@(rad, kind, pt.x, pt.y)
 
 
-  def quadratic(x_ctl1: Double, y_ctl1: Double, x: Double, y: Double):
-      Quad_Bezier_Path =
-    new Quad_Bezier_Path(Quad_Bezier_Rel(x_ctl1, y_ctl1, x, y) :: this)
+  def quadratic(xCtl1: Double, yCtl1: Double, x: Double, y: Double):
+      QuadBezierPath =
+    new QuadBezierPath(QuadBezierRel(xCtl1, yCtl1, x, y) :: this)
 
-  def quadratic(pt_ctl1: Point, pt: Point): Quad_Bezier_Path =
-    quadratic(pt_ctl1.x, pt_ctl1.y, pt.x, pt.y)
+  def quadratic(ptCtl1: Point, pt: Point): QuadBezierPath =
+    quadratic(ptCtl1.x, ptCtl1.y, pt.x, pt.y)
 
-  def quad(x_ctl1: Double, y_ctl1: Double, x: Double, y: Double):
-      Quad_Bezier_Path =
-    quadratic(x_ctl1, y_ctl1, x, y)
+  def quad(xCtl1: Double, yCtl1: Double, x: Double, y: Double): QuadBezierPath =
+    quadratic(xCtl1, yCtl1, x, y)
 
-  def quad(pt_ctl1: Point, pt: Point): Quad_Bezier_Path =
-    quadratic(pt_ctl1, pt)
-
-
-  def quadratic_@(x_ctl1: Double, y_ctl1: Double, x: Double, y: Double):
-      Quad_Bezier_Path =
-    new Quad_Bezier_Path(Quad_Bezier_Abs(x_ctl1, y_ctl1, x, y) :: this)
-
-  def quadratic_@(pt_ctl1: Point, pt: Point): Quad_Bezier_Path =
-    quadratic_@(pt_ctl1.x, pt_ctl1.y, pt.x, pt.y)
-
-  def quadratic_abs(x_ctl1: Double, y_ctl1: Double, x: Double, y: Double):
-      Quad_Bezier_Path =
-    quadratic_@(x_ctl1, y_ctl1, x, y)
-
-  def quadratic_abs(pt_ctl1: Point, pt: Point): Quad_Bezier_Path =
-    quadratic_@(pt_ctl1.x, pt_ctl1.y, pt.x, pt.y)
+  def quad(ptCtl1: Point, pt: Point): QuadBezierPath =
+    quadratic(ptCtl1, pt)
 
 
-  def quad_@(x_ctl1: Double, y_ctl1: Double, x: Double, y: Double):
-      Quad_Bezier_Path =
-    quadratic_@(x_ctl1, y_ctl1, x, y)
+  def quadratic_@(xCtl1: Double, yCtl1: Double, x: Double, y: Double):
+      QuadBezierPath =
+    new QuadBezierPath(QuadBezierAbs(xCtl1, yCtl1, x, y) :: this)
 
-  def quad_@(pt_ctl1: Point, pt: Point): Quad_Bezier_Path =
-    quadratic_@(pt_ctl1, pt)
+  def quadratic_@(ptCtl1: Point, pt: Point): QuadBezierPath =
+    quadratic_@(ptCtl1.x, ptCtl1.y, pt.x, pt.y)
 
-  def quad_abs(x_ctl1: Double, y_ctl1: Double, x: Double, y: Double):
-      Quad_Bezier_Path =
-    quadratic_@(x_ctl1, y_ctl1, x, y)
+  def quadraticAbs(xCtl1: Double, yCtl1: Double, x: Double, y: Double):
+      QuadBezierPath =
+    quadratic_@(xCtl1, yCtl1, x, y)
 
-  def quad_abs(pt_ctl1: Point, pt: Point): Quad_Bezier_Path =
-    quadratic_@(pt_ctl1, pt)
-
-
-  def cubic(x_ctl1: Double, y_ctl1: Double, x_ctl2: Double, y_ctl2: Double,
-            x: Double, y: Double): Cubic_Bezier_Path =
-    new Cubic_Bezier_Path(Cubic_Bezier_Rel(x_ctl1, y_ctl1, x_ctl2, y_ctl2,
-                                           x, y) :: this)
-
-  def cubic(pt_ctl1: Point, pt_ctl2: Point, pt: Point): Cubic_Bezier_Path =
-    cubic(pt_ctl1.x, pt_ctl1.y, pt_ctl2.x, pt_ctl2.y, pt.x, pt.y)
-
-  def cubic_@(x_ctl1: Double, y_ctl1: Double, x_ctl2: Double, y_ctl2: Double,
-              x: Double, y: Double): Cubic_Bezier_Path =
-    new Cubic_Bezier_Path(Cubic_Bezier_Abs(x_ctl1, y_ctl1, x_ctl2, y_ctl2,
-                                           x, y) :: this)
-
-  def cubic_@(pt_ctl1: Point, pt_ctl2: Point, pt: Point): Cubic_Bezier_Path =
-    cubic_@(pt_ctl1.x, pt_ctl1.y, pt_ctl2.x, pt_ctl2.y, pt.x, pt.y)
-
-  def cubic_abs(x_ctl1: Double, y_ctl1: Double, x_ctl2: Double,y_ctl2: Double,
-                  x: Double, y: Double): Cubic_Bezier_Path =
-    cubic_@(x_ctl1, y_ctl1, x_ctl2, y_ctl2, x, y)
-
-  def cubic_abs(pt_ctl1: Point, pt_ctl2: Point, pt: Point):Cubic_Bezier_Path =
-    cubic_@(pt_ctl1.x, pt_ctl1.y, pt_ctl2.x, pt_ctl2.y, pt.x, pt.y)
+  def quadraticAbs(ptCtl1: Point, pt: Point): QuadBezierPath =
+    quadratic_@(ptCtl1.x, ptCtl1.y, pt.x, pt.y)
 
 
-  def close =
-    Close :: this    
+  def quad_@(xCtl1: Double, yCtl1: Double, x: Double, y: Double):
+      QuadBezierPath =
+    quadratic_@(xCtl1, yCtl1, x, y)
+
+  def quad_@(ptCtl1: Point, pt: Point): QuadBezierPath =
+    quadratic_@(ptCtl1, pt)
+
+  def quadAbs(xCtl1: Double, yCtl1: Double, x: Double, y: Double):
+      QuadBezierPath =
+    quadratic_@(xCtl1, yCtl1, x, y)
+
+  def quadAbs(ptCtl1: Point, pt: Point): QuadBezierPath =
+    quadratic_@(ptCtl1, pt)
+
+
+  def cubic(
+      xCtl1: Double, yCtl1: Double,
+      xCtl2: Double, yCtl2: Double,
+      x: Double, y: Double
+    ): CubicBezierPath =
+    new CubicBezierPath(
+        CubicBezierRel(xCtl1, yCtl1, xCtl2, yCtl2, x, y) :: this
+      )
+
+  def cubic(ptCtl1: Point, ptCtl2: Point, pt: Point): CubicBezierPath =
+    cubic(ptCtl1.x, ptCtl1.y, ptCtl2.x, ptCtl2.y, pt.x, pt.y)
+
+  def cubic_@(
+      xCtl1: Double, yCtl1: Double,
+      xCtl2: Double, yCtl2: Double,
+      x: Double, y: Double
+    ): CubicBezierPath =
+    new CubicBezierPath(CubicBezierAbs(xCtl1, yCtl1, xCtl2, yCtl2, x,y) :: this)
+
+  def cubic_@(ptCtl1: Point, ptCtl2: Point, pt: Point): CubicBezierPath =
+    cubic_@(ptCtl1.x, ptCtl1.y, ptCtl2.x, ptCtl2.y, pt.x, pt.y)
+
+  def cubicAbs(
+      xCtl1: Double, yCtl1: Double,
+      xCtl2: Double,yCtl2: Double,
+      x: Double, y: Double
+    ): CubicBezierPath =
+    cubic_@(xCtl1, yCtl1, xCtl2, yCtl2, x, y)
+
+  def cubicAbs(ptCtl1: Point, ptCtl2: Point, pt: Point):CubicBezierPath =
+    cubic_@(ptCtl1.x, ptCtl1.y, ptCtl2.x, ptCtl2.y, pt.x, pt.y)
+
+
+  def close = Close :: this    
 }
 
 
-object Path extends Path_Commandable {
-
-  def from(x: Double, y: Double): Path =
-    new Path(Move_Rel(x, y))
-
+object Path extends PathCommandable {
+  def from(x: Double, y: Double): Path = new Path(MoveRel(x, y))
   def from(pt: Point): Path = from(pt.x, pt.y)
 
   // NOTE: at Path start, when no prev. segment is present to provide the
-  // current point, Move_Rel and Move_Abs would seem equivalent--and are.  yet,
+  // current point, MoveRel and MoveAbs would seem equivalent--and are.  yet,
   // when Paths are combined, the final command of first path suddenly provides
-  // a current Point to the second; in this case, a Path-initial Move_Rel or
-  // Move_Abs aquire distinct meaning.
-  def from_@(x: Double, y: Double): Path =
-    new Path(Move_Abs(x, y))
-
+  // a current Point to the second; in this case, a Path-initial MoveRel or
+  // MoveAbs aquire distinct meaning.
+  def from_@(x: Double, y: Double): Path = new Path(MoveAbs(x, y))
   def from_@(pt: Point): Path = from_@(pt.x, pt.y)
 
-  // NOTE: `from_@` is cannonical spelling, yet `from_abs` provided for use from
+  // NOTE: `from_@` is cannonical spelling, yet `fromAbs` provided for use from
   // languages where `@` is not identifier char
 
-  def from_abs(x: Double, y: Double): Path = from_@(x, y)
-
-  def from_abs(pt: Point): Path = from_@(pt)
-
-
-  implicit def to_Free_Form(path: Path) =
-    Free_Form(path)
+  def fromAbs(x: Double, y: Double): Path = from_@(x, y)
+  def fromAbs(pt: Point): Path = from_@(pt)
 
 
-  protected def ::(path_cmd: Path_Cmd): Path =
-    path_cmd :: Path.from(0, 0)
-
-  protected def :::(path: Path): Path =
-    path ::: Path.from(0, 0)
+  implicit def toFreeForm(path: Path) = FreeForm(path)
 
 
-  case class Pos_Memory(curr_pt: Point, sub_path_start_pt: Point) {
+  protected def ::(pathCmd: PathCmd): Path = pathCmd :: Path.from(0, 0)
+  protected def :::(path: Path): Path = path ::: Path.from(0, 0)
 
+
+  case class PosMemory(currPt: Point, subPathStartPt: Point) {
     import Point._
 
-    def this(start_pt: Point) =
-      this(start_pt, start_pt)
+    def this(startPt: Point) = this(startPt, startPt)
 
-    def follow(cmd: Path_Cmd): Pos_Memory =
-      cmd match {
-        case Move_Abs(x, y)                        => start_sub_path_abs(x, y)
-        case Line_Abs(x, y)                        => replace_pt_abs(x, y)
-        case Horizontal_Abs(x)                     => replace_pt_horiz_abs(x)
-        case Vertical_Abs(y)                       => replace_pt_vert_abs(y)
-        case Elliptical_Arc_Abs(_, _, _, _, x, y)  => replace_pt_abs(x, y)
-        case Quad_Bezier_Abs(_, _, x, y)           => replace_pt_abs(x, y)
-        case Tangent_Quad_Bezier_Abs(x, y)         => replace_pt_abs(x, y)
-        case Cubic_Bezier_Abs(_, _, _, _, x, y)    => replace_pt_abs(x, y)
-        case Tangent_Cubic_Bezier_Abs(_, _, x, y)  => replace_pt_abs(x, y)
-  
-        case Move_Rel(x, y)                        => start_sub_path_rel(x, y)
-        case Line_Rel(x, y)                        => replace_pt_rel(x, y)
-        case Horizontal_Rel(x)                     => replace_pt_rel(x, 0)
-        case Vertical_Rel(y)                       => replace_pt_rel(0, y)
-        case Elliptical_Arc_Rel(_, _, _, _, x, y)  => replace_pt_rel(x, y)
-        case Quad_Bezier_Rel(_, _, x, y)           => replace_pt_rel(x, y)
-        case Tangent_Quad_Bezier_Rel(x, y)         => replace_pt_rel(x, y)
-        case Cubic_Bezier_Rel(_, _, _, _, x, y)    => replace_pt_rel(x, y)
-        case Tangent_Cubic_Bezier_Rel(_, _, x, y)  => replace_pt_rel(x, y)
-  
-        case Close                                 => close_sub_path
+    def follow(cmd: PathCmd): PosMemory = cmd match {
+      case MoveAbs(x, y)                      => startSubPathAbs(x, y)
+      case LineAbs(x, y)                      => replacePtAbs(x, y)
+      case HorizontalAbs(x)                   => replacePtHorizAbs(x)
+      case VerticalAbs(y)                     => replacePtVertAbs(y)
+      case EllipticalArcAbs(_, _, _, _, x, y) => replacePtAbs(x, y)
+      case QuadBezierAbs(_, _, x, y)          => replacePtAbs(x, y)
+      case TangentQuadBezierAbs(x, y)         => replacePtAbs(x, y)
+      case CubicBezierAbs(_, _, _, _, x, y)   => replacePtAbs(x, y)
+      case TangentCubicBezierAbs(_, _, x, y)  => replacePtAbs(x, y)
+
+      case MoveRel(x, y)                      => startSubPathRel(x, y)
+      case LineRel(x, y)                      => replacePtRel(x, y)
+      case HorizontalRel(x)                   => replacePtRel(x, 0)
+      case VerticalRel(y)                     => replacePtRel(0, y)
+      case EllipticalArcRel(_, _, _, _, x, y) => replacePtRel(x, y)
+      case QuadBezierRel(_, _, x, y)          => replacePtRel(x, y)
+      case TangentQuadBezierRel(x, y)         => replacePtRel(x, y)
+      case CubicBezierRel(_, _, _, _, x, y)   => replacePtRel(x, y)
+      case TangentCubicBezierRel(_, _, x, y)  => replacePtRel(x, y)
+
+      case Close                              => closeSubPath
     }
 
 
-    def start_sub_path_rel(x_rel: Double, y_rel: Double) =
-      new Pos_Memory(calc_pt_rel(x_rel, y_rel))
+    def startSubPathRel(xRel: Double, yRel: Double) =
+      new PosMemory(calcPtRel(xRel, yRel))
 
-    def start_sub_path_abs(x_abs: Double, y_abs: Double) =
-      new Pos_Memory((x_abs, y_abs))
+    def startSubPathAbs(xAbs: Double, yAbs: Double) =
+      new PosMemory((xAbs, yAbs))
 
-    def close_sub_path =
-      new Pos_Memory(sub_path_start_pt)
-
-
-    def replace_pt_rel(x_rel: Double, y_rel: Double) =
-      Pos_Memory(calc_pt_rel(x_rel, y_rel), sub_path_start_pt)
-
-    def replace_pt_abs(x_abs: Double, y_abs: Double) =
-      Pos_Memory((x_abs, y_abs), sub_path_start_pt)
-
-    def replace_pt_horiz_abs(x_abs: Double) =
-      Pos_Memory((x_abs, curr_pt.y), sub_path_start_pt)
-
-    def replace_pt_vert_abs(y_abs: Double) =
-      Pos_Memory((curr_pt.x, y_abs), sub_path_start_pt)
+    def closeSubPath = new PosMemory(subPathStartPt)
 
 
-    private def calc_pt_rel(x_rel: Double, y_rel: Double): Point =
-      curr_pt move (x_rel, y_rel)
+    def replacePtRel(xRel: Double, yRel: Double) =
+      PosMemory(calcPtRel(xRel, yRel), subPathStartPt)
+
+    def replacePtAbs(xAbs: Double, yAbs: Double) =
+      PosMemory((xAbs, yAbs), subPathStartPt)
+
+    def replacePtHorizAbs(xAbs: Double) =
+      PosMemory((xAbs, currPt.y), subPathStartPt)
+
+    def replacePtVertAbs(yAbs: Double) =
+      PosMemory((currPt.x, yAbs), subPathStartPt)
+
+
+    private def calcPtRel(xRel: Double, yRel: Double): Point =
+      currPt move (xRel, yRel)
   }
 }
 
 // ctor called only by derived classes, and always w/ prev Path as `cmds` tail
-sealed class Path protected (cmds: List[Path_Cmd])
-    extends Path_Commandable
+sealed class Path protected (cmds: List[PathCmd])
+    extends PathCommandable
        with Transformable[Path]
        with Placeable[Path] {
 
   // invariant: called only within Path object, and always with Move_{Abs,Rel}
-  private def this(cmd: Path_Cmd) =
-    this(List(cmd))
+  private def this(cmd: PathCmd) = this(List(cmd))
 
 
-  def get_cmds: List[Path_Cmd] =
-    cmds.reverse
+  def getCmds: List[PathCmd] = cmds.reverse
 
   // faster, but the List returned is in reverse 'turtle-graphics' order
-  def get_cmds_backwards: List[Path_Cmd] =
-    cmds
+  def getCmdsBackwards: List[PathCmd] = cmds
 
-  // returns initialized Pos_Memory, and remaining get_cmds.**tail**
-  def init_pos_memory: (Path.Pos_Memory, List[Path_Cmd]) = {
-    val all_cmds = get_cmds
-    val initial_pos_memory = all_cmds.head match {
+  // returns initialized PosMemory, and remaining getCmds.**tail**
+  def initPosMemory: (Path.PosMemory, List[PathCmd]) = {
+    val allCmds = getCmds
+    val initialPosMemory = allCmds.head match {
       // since this is path-initial move, both rel and abs give same result
-      case Move_Rel(x, y) => new Path.Pos_Memory((x, y))
-      case Move_Abs(x, y) => new Path.Pos_Memory((x, y))
+      case MoveRel(x, y) => new Path.PosMemory((x, y))
+      case MoveAbs(x, y) => new Path.PosMemory((x, y))
       case _ =>
         throw new RuntimeException("Path starting w/ non-move should be " +
-                                   "impossible!\n[Path Cmds]:\n" + all_cmds)
+                                   "impossible!\n[Path Cmds]:\n" + allCmds)
     }
-    (initial_pos_memory, all_cmds.tail)
+    (initialPosMemory, allCmds.tail)
   }
 
 
   // append reflection of existing path about prev. end point at angle `degrees`
   def reflection(degrees: Double): Path = {
     // NOTE: helpful that head (Move_{Abs,Rel}) dropped; reflect everything else
-    val (initial_pos_memory, subsequent_cmds) = this.init_pos_memory
-    val curr_pos = (initial_pos_memory /: subsequent_cmds)( _.follow(_) )
-    this & (subsequent_cmds ::: Path.from(0, 0)).reflect(degrees,
-                                                         curr_pos.curr_pt)
+    val (initialPosMemory, subsequentCmds) = this.initPosMemory
+    val currPos = (initialPosMemory /: subsequentCmds) { _.follow(_) }
+    this & (subsequentCmds ::: Path.from(0, 0)).reflect(degrees,
+                                                         currPos.currPt)
   }
 
-  // WARNING: center_pt, used to implement move_@/move_abs/-+@ may be EXPENSIVE!
-  def center_pt: Point =
-    Free_Form(this).center_pt    
+  // WARNING: centerPt, used to implement move_@/moveAbs/-+@ may be EXPENSIVE!
+  def centerPt: Point = FreeForm(this).centerPt    
 
 
-  def move(x_dist: Double, y_dist: Double): Path = {
-    // while, technically, a rel `Path_Cmd` would be unchanged under `move`,
-    // the special case of a path-initial Move_Rel does require movement
-    def adjust_terminal_Move_Rel_map(list: List[Path_Cmd])
-                                    (f: Path_Cmd => Path_Cmd): List[Path_Cmd] =
+  def move(xDist: Double, yDist: Double): Path = {
+    // while, technically, a rel `PathCmd` would be unchanged under `move`,
+    // the special case of a path-initial MoveRel does require movement
+    def adjustTerminalMoveRelMap(list: List[PathCmd])(f: PathCmd => PathCmd):
+        List[PathCmd] = {
       list match {
         case Nil =>
           Nil
-        case Move_Rel(x, y) :: Nil =>
-          Move_Rel.tupled(Point(x, y) move (x_dist, y_dist)) :: Nil
+        case MoveRel(x, y) :: Nil =>
+          MoveRel.tupled(Point(x, y) move (xDist, yDist)) :: Nil
         case x :: xs =>
-          f(x) :: adjust_terminal_Move_Rel_map(xs)(f)
+          f(x) :: adjustTerminalMoveRelMap(xs)(f)
       }
-    new Path(adjust_terminal_Move_Rel_map(cmds) { _.move(x_dist, y_dist) } )
+    }
+    new Path(adjustTerminalMoveRelMap(cmds) { _.move(xDist, yDist) } )
   }
 
-  def scale(x_scaling: Double, y_scaling: Double): Path =
-    new Path(cmds map { _.scale(x_scaling, y_scaling) })
+  def scale(xScaling: Double, yScaling: Double): Path =
+    new Path(cmds map { _.scale(xScaling, yScaling) })
 
-  def rotate(degrees: Double, about_x: Double, about_y: Double): Path =
-    new Path(cmds map { _.rotate(degrees, about_x, about_y) })
+  def rotate(degrees: Double, aboutX: Double, aboutY: Double): Path =
+    new Path(cmds map { _.rotate(degrees, aboutX, aboutY) })
 
-  def reflect(degrees: Double, about_x: Double, about_y: Double): Path =
-    new Path(cmds map { _.reflect(degrees, about_x, about_y) })
+  def reflect(degrees: Double, aboutX: Double, aboutY: Double): Path =
+    new Path(cmds map { _.reflect(degrees, aboutX, aboutY) })
 
-  def skew_horiz(degrees: Double): Path =
-    new Path(cmds map { _.skew_horiz(degrees) })
+  def skewHoriz(degrees: Double): Path =
+    new Path(cmds map { _.skewHoriz(degrees) })
 
-  def skew_vert(degrees: Double): Path =
-    new Path(cmds map { _.skew_vert(degrees) })
-
-
-  protected def ::(path_cmd: Path_Cmd) =
-    new Path(path_cmd :: cmds)
-
-  protected def :::(path: Path) =
-    new Path(path.get_cmds_backwards ::: cmds)
+  def skewVert(degrees: Double): Path =
+    new Path(cmds map { _.skewVert(degrees) })
 
 
-  private def :::(rev_cmds: List[Path_Cmd]) =
-    (this /: rev_cmds)( _.::(_) ) // foldl revs `cmds`; `.` so `::` left-assoc
+  protected def ::(pathCmd: PathCmd) = new Path(pathCmd :: cmds)
+
+  protected def :::(path: Path) = new Path(path.getCmdsBackwards ::: cmds)
+
+
+  private def :::(revCmds: List[PathCmd]) =
+    (this /: revCmds) { _.::(_) } // foldl revs `cmds`; `.` so `::` left-assoc
 }
 
 // NOTE: SVG 1.1 spec appears to allow tangent/'smooth-curveto' to follow
@@ -477,274 +494,255 @@ sealed class Path protected (cmds: List[Path_Cmd])
 // tie does *NOT*: tangent may only follow prev bezier cmd (incl. tangent) of
 // same degree (viz. quadratic v. cubic)
 
-final class Quad_Bezier_Path private (cmds: List[Path_Cmd])
+final class QuadBezierPath private (cmds: List[PathCmd])
     extends Path(cmds) {
 
-  def this(p: Path) =
-    this(p.get_cmds_backwards)
+  def this(p: Path) = this(p.getCmdsBackwards)
 
-  def tangent(x: Double, y: Double): Quad_Bezier_Path =
-    new Quad_Bezier_Path(Tangent_Quad_Bezier_Rel(x, y) :: cmds)
+  def tangent(x: Double, y: Double): QuadBezierPath =
+    new QuadBezierPath(TangentQuadBezierRel(x, y) :: cmds)
 
-  def tangent(pt: Point): Quad_Bezier_Path =
-    tangent(pt.x, pt.y)
+  def tangent(pt: Point): QuadBezierPath = tangent(pt.x, pt.y)
 
-  def tangent_@(x: Double, y: Double): Quad_Bezier_Path =
-    new Quad_Bezier_Path(Tangent_Quad_Bezier_Abs(x, y) :: cmds)
+  def tangent_@(x: Double, y: Double): QuadBezierPath =
+    new QuadBezierPath(TangentQuadBezierAbs(x, y) :: cmds)
 
-  def tangent_@(pt: Point): Quad_Bezier_Path =
-    tangent_@(pt.x, pt.y)
+  def tangent_@(pt: Point): QuadBezierPath = tangent_@(pt.x, pt.y)
 
-  // NOTE: `tangent_@` is cannonical spelling, yet `tangent_abs` provided for
+  // NOTE: `tangent_@` is cannonical spelling, yet `tangentAbs` provided for
   // use from languages where `@` is not identifier char
 
-  def tangent_abs(x: Double, y: Double): Quad_Bezier_Path =
-    tangent_@(x, y)
+  def tangentAbs(x: Double, y: Double): QuadBezierPath = tangent_@(x, y)
 
-  def tangent_abs(pt: Point): Quad_Bezier_Path =
-    tangent_@(pt)
+  def tangentAbs(pt: Point): QuadBezierPath = tangent_@(pt)
 }
 
-final class Cubic_Bezier_Path private (cmds: List[Path_Cmd])
+final class CubicBezierPath private (cmds: List[PathCmd])
     extends Path(cmds) {
 
-  def this(p: Path) =
-    this(p.get_cmds_backwards)
+  def this(p: Path) = this(p.getCmdsBackwards)
 
-  def tangent(x_ctl1: Double, y_ctl1: Double, x: Double, y: Double):
-      Cubic_Bezier_Path =
-    new Cubic_Bezier_Path(Tangent_Cubic_Bezier_Rel(x_ctl1, y_ctl1, x, y) ::
-                          cmds)
+  def tangent(xCtl1: Double, yCtl1: Double, x: Double, y: Double):
+      CubicBezierPath =
+    new CubicBezierPath(TangentCubicBezierRel(xCtl1, yCtl1, x, y) :: cmds)
 
-  def tangent(pt_ctl1: Point, pt: Point): Cubic_Bezier_Path =
-    tangent(pt_ctl1.x, pt_ctl1.y, pt.x, pt.y)
+  def tangent(ptCtl1: Point, pt: Point): CubicBezierPath =
+    tangent(ptCtl1.x, ptCtl1.y, pt.x, pt.y)
 
-  def tangent_@(x_ctl1: Double, y_ctl1: Double, x: Double, y: Double):
-      Cubic_Bezier_Path =
-    new Cubic_Bezier_Path(Tangent_Cubic_Bezier_Abs(x_ctl1, y_ctl1, x, y) ::
-                          cmds)
+  def tangent_@(xCtl1: Double, yCtl1: Double, x: Double, y: Double):
+      CubicBezierPath =
+    new CubicBezierPath(TangentCubicBezierAbs(xCtl1, yCtl1, x, y) :: cmds)
 
-  def tangent_@(pt_ctl1: Point, pt: Point): Cubic_Bezier_Path =
-    tangent_@(pt_ctl1.x, pt_ctl1.y, pt.x, pt.y)
+  def tangent_@(ptCtl1: Point, pt: Point): CubicBezierPath =
+    tangent_@(ptCtl1.x, ptCtl1.y, pt.x, pt.y)
 
-  // NOTE: `tangent_@` is cannonical spelling, yet `tangent_abs` provided for
+  // NOTE: `tangent_@` is cannonical spelling, yet `tangentAbs` provided for
   // use from languages where `@` is not identifier char
 
-  def tangent_abs(x_ctl1: Double, y_ctl1: Double, x: Double, y: Double):
-      Cubic_Bezier_Path =
-    tangent_@(x_ctl1, y_ctl1, x, y)
+  def tangentAbs(xCtl1: Double, yCtl1: Double, x: Double, y: Double):
+      CubicBezierPath =
+    tangent_@(xCtl1, yCtl1, x, y)
 
-  def tangent_abs(pt_ctl1: Point, pt: Point): Cubic_Bezier_Path =
-    tangent_@(pt_ctl1, pt)
+  def tangentAbs(ptCtl1: Point, pt: Point): CubicBezierPath =
+    tangent_@(ptCtl1, pt)
 }
 
 
-sealed abstract class Rel_Path_Cmd extends Path_Cmd {
-
-  override
-  def move(x_dist: Double, y_dist: Double): Path_Cmd =
-    this
+sealed abstract class RelPathCmd extends PathCmd {
+  override def move(xDist: Double, yDist: Double): PathCmd = this
 }
 
 
-case class Move_Abs(x: Double, y: Double)
-    extends Path_Cmd {
-
-  protected val end_pt: Point = (x, y)
-  protected val End_Pt_Ctor = Move_Abs.tupled.compose(Point.to_Doubles)
+case class MoveAbs(x: Double, y: Double)
+    extends PathCmd {
+  override protected val endPt: Point = (x, y)
+  override protected val EndPtCtor = MoveAbs.tupled.compose(Point.toDoubles)
 }
 
-case class Move_Rel(x: Double, y: Double)
-    extends Rel_Path_Cmd {
-
-  protected val end_pt: Point = (x, y)
-  protected val End_Pt_Ctor = Move_Rel.tupled.compose(Point.to_Doubles)
-}
-
-
-case class Line_Abs(x: Double, y: Double)
-    extends Path_Cmd {
-
-  protected val end_pt: Point = (x, y)
-  protected val End_Pt_Ctor = Line_Abs.tupled.compose(Point.to_Doubles)
-}
-
-case class Line_Rel(x: Double, y: Double)
-    extends Rel_Path_Cmd {
-
-  protected val end_pt: Point = (x, y)
-  protected val End_Pt_Ctor = Line_Rel.tupled.compose(Point.to_Doubles)
-}
-
-case class Horizontal_Abs(x: Double)
-    extends Path_Cmd {
-
-  protected val end_pt: Point = (x, 0.0)
-  protected val End_Pt_Ctor = (pt: Point) => Horizontal_Abs(pt.x)
-}
-
-case class Horizontal_Rel(x: Double)
-    extends Rel_Path_Cmd {
-
-  protected val end_pt: Point = (x, 0.0)
-  protected val End_Pt_Ctor = (pt: Point) => Horizontal_Rel(pt.x)
-}
-
-case class Vertical_Abs(y: Double)
-    extends Path_Cmd {
-
-  protected val end_pt: Point = (0.0, y)
-  protected val End_Pt_Ctor = (pt: Point) => Vertical_Abs(pt.y)
-}
-
-case class Vertical_Rel(y: Double)
-    extends Rel_Path_Cmd {
-
-  protected val end_pt: Point = (0.0, y)
-  protected val End_Pt_Ctor = (pt: Point) => Vertical_Rel(pt.y)
+case class MoveRel(x: Double, y: Double)
+    extends RelPathCmd {
+  override protected val endPt: Point = (x, y)
+  override protected val EndPtCtor = MoveRel.tupled.compose(Point.toDoubles)
 }
 
 
-case class Elliptical_Arc_Abs(rad_width: Double, rad_height: Double,
-                              x_rotate_degrees: Double, kind: Arc_Choice,
-                              x: Double, y: Double)
-    extends Path_Cmd {
-
-  protected val end_pt: Point = (x, y)
-  protected val End_Pt_Ctor = (pt: Point) =>
-                                 Elliptical_Arc_Abs(rad_width, rad_height,
-                                                    x_rotate_degrees, kind,
-                                                    pt.x, pt.y)
-
-  override
-  def scale(x_scaling: Double, y_scaling: Double) =
-    Elliptical_Arc_Abs(rad_width * x_scaling, rad_height * y_scaling,
-                       x_rotate_degrees, kind,
-                       x * x_scaling, y * y_scaling)
+case class LineAbs(x: Double, y: Double)
+    extends PathCmd {
+  override protected val endPt: Point = (x, y)
+  override protected val EndPtCtor = LineAbs.tupled.compose(Point.toDoubles)
 }
 
-case class Elliptical_Arc_Rel(rad_width: Double, rad_height: Double,
-                              x_rotate_degrees: Double, kind: Arc_Choice,
-                              x: Double, y: Double)
-    extends Rel_Path_Cmd {
+case class LineRel(x: Double, y: Double)
+    extends RelPathCmd {
+  override protected val endPt: Point = (x, y)
+  override protected val EndPtCtor = LineRel.tupled.compose(Point.toDoubles)
+}
 
-  protected val end_pt: Point = (x, y)
-  protected val End_Pt_Ctor = (pt: Point) =>
-                                 Elliptical_Arc_Rel(rad_width, rad_height,
-                                                    x_rotate_degrees, kind,
-                                                    pt.x, pt.y)
+case class HorizontalAbs(x: Double)
+    extends PathCmd {
+  override protected val endPt: Point = (x, 0.0)
+  override protected val EndPtCtor = (pt: Point) => HorizontalAbs(pt.x)
+}
 
-  override
-  def scale(x_scaling: Double, y_scaling: Double) =
-    Elliptical_Arc_Rel(rad_width * x_scaling, rad_height * y_scaling,
-                       x_rotate_degrees, kind,
-                       x * x_scaling, y * y_scaling)
+case class HorizontalRel(x: Double)
+    extends RelPathCmd {
+  override protected val endPt: Point = (x, 0.0)
+  override protected val EndPtCtor = (pt: Point) => HorizontalRel(pt.x)
+}
+
+case class VerticalAbs(y: Double)
+    extends PathCmd {
+  override protected val endPt: Point = (0.0, y)
+  override protected val EndPtCtor = (pt: Point) => VerticalAbs(pt.y)
+}
+
+case class VerticalRel(y: Double)
+    extends RelPathCmd {
+  override protected val endPt: Point = (0.0, y)
+  override protected val EndPtCtor = (pt: Point) => VerticalRel(pt.y)
+}
+
+
+case class EllipticalArcAbs(
+    radWidth: Double, radHeight: Double,
+    xRotateDegrees: Double,
+    kind: ArcChoice,
+    x: Double, y: Double
+  ) extends PathCmd {
+  override protected val endPt: Point = (x, y)
+  override protected val EndPtCtor = (pt: Point) =>
+    EllipticalArcAbs(radWidth, radHeight, xRotateDegrees, kind, pt.x, pt.y)
+
+  override def scale(xScaling: Double, yScaling: Double) =
+    EllipticalArcAbs(
+        radWidth * xScaling,
+        radHeight * yScaling,
+        xRotateDegrees,
+        kind,
+        x * xScaling,
+        y * yScaling
+      )
+}
+
+case class EllipticalArcRel(
+    radWidth: Double, radHeight: Double,
+    xRotateDegrees: Double,
+    kind: ArcChoice,
+    x: Double, y: Double
+  ) extends RelPathCmd {
+  override protected val endPt: Point = (x, y)
+  override protected val EndPtCtor = (pt: Point) =>
+    EllipticalArcRel(radWidth, radHeight, xRotateDegrees, kind, pt.x, pt.y)
+
+  override def scale(xScaling: Double, yScaling: Double) =
+    EllipticalArcRel(
+        radWidth * xScaling,
+        radHeight * yScaling,
+        xRotateDegrees,
+        kind,
+        x * xScaling,
+        y * yScaling
+      )
 
 //????????do any of the others need to be overridden too?????
 }
 
 /*
-case class Circular_Arc_Abs(rad: Double, start_angle_degrees: Double,
-                            sweep_angle_degrees: Double,
-                            about_x: Double, about_y: Double)
+case class CircularArcAbs(
+    rad: Double,
+    startAngleDegrees: Double,
+    sweepAngleDegrees: Double,
+    aboutX: Double,
+    aboutY: Double
+  )
 */
 
 
-case class Quad_Bezier_Abs(x_ctl1: Double, y_ctl1: Double,
-                           x: Double, y: Double)
-    extends Path_Cmd {
-
-  protected val end_pt: Point = (x, y)
-  protected val End_Pt_Ctor = (pt: Point) =>
-                                Quad_Bezier_Abs(x_ctl1, y_ctl1, pt.x, pt.y)
+case class QuadBezierAbs(xCtl1: Double, yCtl1: Double, x: Double, y: Double)
+    extends PathCmd {
+  override protected val endPt: Point = (x, y)
+  override protected val EndPtCtor = (pt: Point) =>
+    QuadBezierAbs(xCtl1, yCtl1, pt.x, pt.y)
 
 //!!!!!!!some of the other Transformable methods need to be overridden too!!!!!!
 }
 
-case class Quad_Bezier_Rel(x_ctl1: Double, y_ctl1: Double,
-                           x: Double, y: Double)
-    extends Rel_Path_Cmd {
-
-  protected val end_pt: Point = (x, y)
-  protected val End_Pt_Ctor = (pt: Point) =>
-                                Quad_Bezier_Rel(x_ctl1, y_ctl1, pt.x, pt.y)
+case class QuadBezierRel(xCtl1: Double, yCtl1: Double, x: Double, y: Double)
+    extends RelPathCmd {
+  override protected val endPt: Point = (x, y)
+  override protected val EndPtCtor = (pt: Point) =>
+    QuadBezierRel(xCtl1, yCtl1, pt.x, pt.y)
 
 //!!!!!!!some of the other Transformable methods need to be overridden too!!!!!!
 }
 
-case class Tangent_Quad_Bezier_Abs(x: Double, y: Double)
-    extends Path_Cmd {
-
-  protected val end_pt: Point = (x, y)
-  protected val End_Pt_Ctor = Tangent_Quad_Bezier_Abs.tupled.
-                                                   compose(Point.to_Doubles)
+case class TangentQuadBezierAbs(x: Double, y: Double)
+    extends PathCmd {
+  override protected val endPt: Point = (x, y)
+  override protected val EndPtCtor =
+      TangentQuadBezierAbs.tupled.compose(Point.toDoubles)
 }
 
-case class Tangent_Quad_Bezier_Rel(x: Double, y: Double)
-    extends Rel_Path_Cmd {
-
-  protected val end_pt: Point = (x, y)
-  protected val End_Pt_Ctor = Tangent_Quad_Bezier_Rel.tupled.
-                                                   compose(Point.to_Doubles)
+case class TangentQuadBezierRel(x: Double, y: Double)
+    extends RelPathCmd {
+  override protected val endPt: Point = (x, y)
+  override protected val EndPtCtor =
+      TangentQuadBezierRel.tupled.compose(Point.toDoubles)
 }
 
 
-case class Cubic_Bezier_Abs(x_ctl1: Double, y_ctl1: Double,
-                            x_ctl2: Double, y_ctl2: Double,
-                            x: Double, y: Double)
-    extends Path_Cmd {
-
-  protected val end_pt: Point = (x, y)
-  protected val End_Pt_Ctor = (pt: Point) =>
-                                Cubic_Bezier_Abs(x_ctl1, y_ctl1, x_ctl2, y_ctl2,
-                                                 pt.x, pt.y)
+case class CubicBezierAbs(
+    xCtl1: Double, yCtl1: Double,
+    xCtl2: Double, yCtl2: Double,
+    x: Double, y: Double
+  ) extends PathCmd {
+  override protected val endPt: Point = (x, y)
+  override protected val EndPtCtor = (pt: Point) =>
+    CubicBezierAbs(xCtl1, yCtl1, xCtl2, yCtl2, pt.x, pt.y)
 
 //!!!!!!!some of the other Transformable methods need to be overridden too!!!!!!
 }
 
-case class Cubic_Bezier_Rel(x_ctl1: Double, y_ctl1: Double,
-                            x_ctl2: Double, y_ctl2: Double,
-                            x: Double, y: Double)
-    extends Rel_Path_Cmd {
-
-  protected val end_pt: Point = (x, y)
-  protected val End_Pt_Ctor = (pt: Point) =>
-                                Cubic_Bezier_Rel(x_ctl1, y_ctl1, x_ctl2, y_ctl2,
-                                                 pt.x, pt.y)
-
-//!!!!!!!some of the other Transformable methods need to be overridden too!!!!!!
-}
-
-case class Tangent_Cubic_Bezier_Abs(x_ctl1: Double, y_ctl1: Double,
-                                    x: Double, y: Double)
-    extends Path_Cmd {
-
-  protected val end_pt: Point = (x, y)
-  protected val End_Pt_Ctor = (pt: Point) =>
-                                Tangent_Cubic_Bezier_Abs(x_ctl1, y_ctl1,
-                                                         pt.x, pt.y)
+case class CubicBezierRel(
+    xCtl1: Double, yCtl1: Double,
+    xCtl2: Double, yCtl2: Double,
+    x: Double, y: Double
+  ) extends RelPathCmd {
+  override protected val endPt: Point = (x, y)
+  override protected val EndPtCtor = (pt: Point) =>
+    CubicBezierRel(xCtl1, yCtl1, xCtl2, yCtl2, pt.x, pt.y)
 
 //!!!!!!!some of the other Transformable methods need to be overridden too!!!!!!
 }
 
-case class Tangent_Cubic_Bezier_Rel(x_ctl1: Double, y_ctl1: Double,
-                                    x: Double, y: Double)
-    extends Rel_Path_Cmd {
+case class TangentCubicBezierAbs(
+    xCtl1: Double, yCtl1: Double,
+    x: Double, y: Double
+  ) extends PathCmd {
+  override protected val endPt: Point = (x, y)
+  override protected val EndPtCtor = (pt: Point) =>
+    TangentCubicBezierAbs(xCtl1, yCtl1, pt.x, pt.y)
 
-  protected val end_pt: Point = (x, y)
-  protected val End_Pt_Ctor = (pt: Point) =>
-                                Tangent_Cubic_Bezier_Rel(x_ctl1, y_ctl1,
-                                                         pt.x, pt.y)
+//!!!!!!!some of the other Transformable methods need to be overridden too!!!!!!
+}
+
+case class TangentCubicBezierRel(
+    xCtl1: Double, yCtl1: Double,
+    x: Double, y: Double
+  ) extends RelPathCmd {
+  override protected val endPt: Point = (x, y)
+  override protected val EndPtCtor = (pt: Point) =>
+    TangentCubicBezierRel(xCtl1, yCtl1, pt.x, pt.y)
 
 //!!!!!!!some of the other Transformable methods need to be overridden too!!!!!!
 }
 
 
 case object Close
-    extends Rel_Path_Cmd {
-
-  protected val end_pt: Point = (0.0, 0.0)       // dummy val...
-  protected val End_Pt_Ctor = (_: Point) => this // ...since every tform == this
+    extends RelPathCmd {
+  override protected val endPt: Point = (0.0, 0.0) // dummy val...
+  override protected val EndPtCtor =
+      (_: Point) => this // ...since every transform == this
 }
 
 }

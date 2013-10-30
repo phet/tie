@@ -5,7 +5,7 @@
 
      http://www.tie-illustrates-everything.com/
 
-   Copyright (c)2010-2012 by Corbin "Kip" Kohn
+   Copyright (c)2010-2013 by Corbin "Kip" Kohn
    All Rights Reserved.
 
    Please reference the following for applicable terms, conditions,
@@ -22,60 +22,63 @@ import org.junit._
 import Assert._
 
 import k_k_.graphics.tie._
-import k_k_.graphics.tie.ink.{Named_Colors => C, _}
+import k_k_.graphics.tie.ink.{NamedColors => C, _}
 import k_k_.graphics.tie.ink.palette._
 import k_k_.graphics.tie.shapes._
 import k_k_.graphics.tie.shapes.text._
 
 
 @Test
-class Svg_Color_Spaces_Green_Red_Test extends Svg_Color_Spaces_Test_Base {
+class SvgColorSpacesGreenRedTest extends SvgColorSpacesTestBase {
 
   val filename = "test_color_spaces[green-red].svg"
 
   val title = "Color Spaces: RGB lerp v. HSL transition v. HSL hue transition"
 
 
-  protected def create_canvas() = {
-    val (color_a, color_b) = (C.green, C.red)
-    val (color_a_name, color_b_name) = (color_a.name, color_b.name)
+  protected def createCanvas() = {
+    val (colorA, colorB) = (C.green, C.red)
+    val (colorAName, colorBName) = (colorA.name, colorB.name)
 
-    val color_a_swatch = swatch_ctor(swatch_w, swatch_h) -~ Pen.fill(color_a)
-    val color_b_swatch = swatch_ctor(swatch_w, swatch_h) -~ Pen.fill(color_b)
+    def labeledSwatch(c: NamedColor): Shape = {
+      val swatch = swatchCtor(swatchW, swatchH) -~ Pen.fill(c)
+      labelShape(swatch, c.name)
+    }
 
-    val labeled_color_a = label_shape(color_a_swatch, color_a_name)
-    val labeled_color_b = label_shape(color_b_swatch, color_b_name)
+    val labeledColorA = labeledSwatch(colorA)
+    val labeledColorB = labeledSwatch(colorB)
 
-    val transition_name = color_a_name + " ... " + color_b_name
+    val transitionName = colorAName + " ... " + colorBName
+    def labelTransition(c: NamedColor): String = {
+      transitionName +
+          " [HSL transition hue (constant lightness of '%s')]".format(c.name)
+    }
 
-    val const_L_a_label = transition_name + " [HSL transition hue (constant " +
-                            "lightness of '" + color_a_name + "')]"
-    val const_L_b_label = transition_name + " [HSL transition hue (constant " +
-                            "lightness of '" + color_b_name + "')]"
-    val const_L_cmp =
-          draw_swatch_cmp(color_a.transition_hues_by(color_b, 1.0 / n_stops),
-                          const_L_a_label,
-                          color_b.transition_hues_by(color_a, 1.0 / n_stops).
-                            reverse,
-                          const_L_b_label,
-                          labeled_color_a, labeled_color_b)
+    val const_L_cmp = drawSwatchCmp(
+        colorA.transitionHuesBy(colorB, 1.0 / nStops),
+        labelTransition(colorA),
+        colorB.transitionHuesBy(colorA, 1.0 / nStops).reverse,
+        labelTransition(colorB),
+        labeledColorA,
+        labeledColorB
+      )
 
-    val rgb_hsl_cmp = draw_rgb_hsl_cmp(color_a, color_b)
+    val rgbHslCmp = drawRgbHslCmp(colorA, colorB)
 
     // NOTE: size of both layouts expected to be identical
-    val Rectangular(_, layout_h) = rgb_hsl_cmp.bounding_box
+    val Rectangular(_, layoutH) = rgbHslCmp.boundingBox
 
-    new Canvas(Canvas_Props(1000, 400, title = title),
-               (rgb_hsl_cmp -+ (0, -(layout_h/2 + 30))) -&
-
-               (const_L_cmp -+ (0,  (layout_h/2 + 30)))
-              )
+    new Canvas(
+        CanvasProps(1000, 400, title = title),
+        (rgbHslCmp   -+ (0, -(layoutH/2 + 30))) -&
+        (const_L_cmp -+ (0,  (layoutH/2 + 30)))
+      )
   }
 }
 
 
 @Test
-class Svg_Color_Spaces_Blue_Orange_Test extends Svg_Color_Spaces_Test_Base {
+class SvgColorSpacesBlueOrangeTest extends SvgColorSpacesTestBase {
 
   val filename = "test_color_spaces[blue-orange].svg"
 
@@ -83,133 +86,136 @@ class Svg_Color_Spaces_Blue_Orange_Test extends Svg_Color_Spaces_Test_Base {
         "Color Spaces: RGB lerp v. HSL transition v. HSL saturation, lightness"
 
 
-  protected def create_canvas() = {
-    val (color_a, color_b) = (C.blue, C.orange)
-    val (color_a_name, color_b_name) = (color_a.name, color_b.name)
+  protected def createCanvas() = {
+    val (colorA, colorB) = (C.blue, C.orange)
+    val (colorAName, colorBName) = (colorA.name, colorB.name)
 
-    val (color_a_sat, color_a_desat) = (color_a.saturate(1.0),
-                                        color_a.desaturate(1.0))
-    val (color_b_sat, color_b_desat) = (color_b.saturate(1.0),
-                                        color_b.desaturate(1.0))
-    val desat_cmp =
-          draw_swatch_cmp(color_a_sat.transition_saturations_by(color_a_desat,
-                                                                1.0 / n_stops),
-                            color_a_name + " desaturation",
-                          color_b_sat.transition_saturations_by(color_b_desat,
-                                                                1.0 / n_stops),
-                            color_b_name + " desaturation",
-                          Null_Shape, Null_Shape)
+    val (colorASat, colorADesat) = (colorA.saturate(1.0),colorA.desaturate(1.0))
+    val (colorBSat, colorBDesat) = (colorB.saturate(1.0),colorB.desaturate(1.0))
 
-    val (color_a_light, color_a_dark) = (color_a.lighten(1.0),
-                                         color_a.darken(1.0))
-    val (color_b_light, color_b_dark) = (color_b.lighten(1.0),
-                                         color_b.darken(1.0))
-    val lightness_cmp =
-          draw_swatch_cmp(color_a_light.transition_lightnesses_by(color_a_dark,
-                                                                 1.0 / n_stops),
-                            color_a_name + " lightness",
-                          color_b_light.transition_lightnesses_by(color_b_dark,
-                                                                 1.0 / n_stops),
-                            color_b_name + " lightness",
-                          Null_Shape, Null_Shape)
+    val desatCmp = drawSwatchCmp(
+        colorASat.transitionSaturationsBy(colorADesat, 1.0 / nStops),
+        colorAName + " desaturation",
+        colorBSat.transitionSaturationsBy(colorBDesat, 1.0 / nStops),
+        colorBName + " desaturation",
+        NullShape, NullShape
+      )
 
-    val rgb_hsl_cmp = draw_rgb_hsl_cmp(color_a, color_b)
+    val (colorALight, colorADark) = (colorA.lighten(1.0), colorA.darken(1.0))
+    val (colorBLight, colorBDark) = (colorB.lighten(1.0), colorB.darken(1.0))
+    val lightnessCmp = drawSwatchCmp(
+        colorALight.transitionLightnessesBy(colorADark, 1.0 / nStops),
+        colorAName + " lightness",
+        colorBLight.transitionLightnessesBy(colorBDark, 1.0 / nStops),
+        colorBName + " lightness",
+        NullShape, NullShape
+      )
+
+    val rgbHslCmp = drawRgbHslCmp(colorA, colorB)
 
     // NOTE: size of both layouts expected to be identical
-    val Rectangular(_, layout_h) = rgb_hsl_cmp.bounding_box
+    val Rectangular(_, layoutH) = rgbHslCmp.boundingBox
 
-    new Canvas(Canvas_Props(1000, 540, title = title),
-               (rgb_hsl_cmp   -+ (0, -(layout_h + 30))) -&
-               (desat_cmp     -+ (0,  0))                 -&
-               (lightness_cmp -+ (0,  (layout_h + 30)))
-              )
+    new Canvas(
+        CanvasProps(1000, 540, title = title),
+        (rgbHslCmp    -+ (0, -(layoutH + 30))) -&
+        (desatCmp     -+ (0,  0))              -&
+        (lightnessCmp -+ (0,  (layoutH + 30)))
+      )
   }
 }
 
 
-abstract class Svg_Color_Spaces_Test_Base extends Svg_Test_Base {
+abstract class SvgColorSpacesTestBase extends SvgTestBase {
 
-  val n_stops = 16
-  val (swatch_w, swatch_h) = (50, 50)
-  val each_swatch_pad_x = 5
+  val nStops = 16
+  val (swatchW, swatchH) = (50, 50)
+  val eachSwatchPadX = 5
 
-  final val (row_w, row_h) = (n_stops*(each_swatch_pad_x + swatch_w), swatch_h)
+  final val (rowW, rowH) = (nStops*(eachSwatchPadX + swatchW), swatchH)
 
-  val swatch_ctor = Rectangle(_, _)
-  // val swatch_ctor = (w: Double, h: Double) => Hexagon(.6*w, w, h)
+  val swatchCtor = Rectangle(_, _)
+  // val swatchCtor = (w: Double, h: Double) => Hexagon(.6*w, w, h)
 
 
   @Test
-  def test_complement_is_inverse() = {
-    for (color <- Rainbow_Palette.colors) {
+  def testComplementIsInverse() = {
+    for (color <- RainbowPalette.colors) {
       // NOTE: due to impl., additionally tests RGB -> HSL -> RGB (re)conversion
       assertEquals(color, color.complement.complement)
     }
   }
 
 
-  def draw_rgb_hsl_cmp(color_a: Named_Color, color_b: Named_Color): Shape = {
-    val (color_a_name, color_b_name) = (color_a.name, color_b.name)
+  def drawRgbHslCmp(colorA: NamedColor, colorB: NamedColor): Shape = {
+    val (colorAName, colorBName) = (colorA.name, colorB.name)
 
-    val color_a_swatch = swatch_ctor(swatch_w, swatch_h) -~ Pen.fill(color_a)
-    val color_b_swatch = swatch_ctor(swatch_w, swatch_h) -~ Pen.fill(color_b)
+    val colorASwatch = swatchCtor(swatchW, swatchH) -~ Pen.fill(colorA)
+    val colorBSwatch = swatchCtor(swatchW, swatchH) -~ Pen.fill(colorB)
 
-    val labeled_color_a = label_shape(color_a_swatch, color_a_name)
-    val labeled_color_b = label_shape(color_b_swatch, color_b_name)
+    val labeledColorA = labelShape(colorASwatch, colorAName)
+    val labeledColorB = labelShape(colorBSwatch, colorBName)
 
-    val transition_name = color_a_name + " ... " + color_b_name
-    draw_swatch_cmp(color_a.lerps_by      (color_b, 1.0 / n_stops),
-                      transition_name + " [RGB lerps]",
-                    color_a.transitions_by(color_b, 1.0 / n_stops),
-                      transition_name + " [HSL transitions]",
-                    labeled_color_a, labeled_color_b)
+    val transitionName = colorAName + " ... " + colorBName
+    drawSwatchCmp(
+        colorA.lerpsBy      (colorB, 1.0 / nStops),
+        transitionName + " [RGB lerps]",
+        colorA.transitionsBy(colorB, 1.0 / nStops),
+        transitionName + " [HSL transitions]",
+        labeledColorA, labeledColorB
+      )
   }
 
   // horizontally aligned color swatches
-  def draw_color_swatch_row(S: (Double, Double) => Shape)
-                           (row_w: Double, row_h: Double, horiz_pad: Double)
-                           (colors: Seq[Color]):
-      Shape = {
-    val each_col_w = row_w / colors.length
-    val each_swatch_w = each_col_w - horiz_pad
-    val swatches = colors map { S(each_swatch_w, row_h) -~ Pen.fill(_) }
-    val translated_swatches = swatches.zipWithIndex.map { x =>
-      x._1 -+ (x._2 * each_col_w, 0)
+  def drawColorSwatchRow(
+      S: (Double, Double) => Shape
+    )(
+      rowW: Double, rowH: Double, horizPad: Double
+    )(
+      colors: Seq[Color]
+    ): Shape = {
+    val eachColW = rowW / colors.length
+    val eachSwatchW = eachColW - horizPad
+    val swatches = colors map { S(eachSwatchW, rowH) -~ Pen.fill(_) }
+    val translatedSwatches = swatches.zipWithIndex.map { x =>
+      x._1 -+ (x._2 * eachColW, 0)
     }
-    (Null_Shape /: translated_swatches) ( _ -& _ ) -+
-      (-row_w/2 + each_col_w/2, 0)
+    (NullShape /: translatedSwatches) ( _ -& _ ) -+ (-rowW/2 + eachColW/2, 0)
   }
 
-  def draw_swatch_cmp(swatch_x_colors: Seq[Color], swatch_x_label: String,
-                      swatch_y_colors: Seq[Color], swatch_y_label: String,
-                      open_shape: Shape, close_shape: Shape):
-      Shape = {
+  def drawSwatchCmp(
+      swatchXColors: Seq[Color], swatchXLabel: String,
+      swatchYColors: Seq[Color], swatchYLabel: String,
+      openShape: Shape, closeShape: Shape
+    ): Shape = {
 
-    val swatch_colors = draw_color_swatch_row(swatch_ctor)(row_w, row_h,
-                                                           each_swatch_pad_x) _
-    val layout_cmp = layout_swatch_row_cmp(row_w, row_h, each_swatch_pad_x) _
+    val swatchColors =
+        drawColorSwatchRow(swatchCtor)(rowW, rowH, eachSwatchPadX) _
+                                                           
+    val layoutCmp = layoutSwatchRowCmp(rowW, rowH, eachSwatchPadX) _
 
 
-    val x_swatches = swatch_colors(swatch_x_colors)
-    val y_swatches = swatch_colors(swatch_y_colors)
+    val xSwatches = swatchColors(swatchXColors)
+    val ySwatches = swatchColors(swatchYColors)
 
-    val labeled_x_swatches = label_shape(x_swatches, swatch_x_label)
-    val labeled_y_swatches = label_shape(y_swatches, swatch_y_label)
+    val labeledXSwatches = labelShape(xSwatches, swatchXLabel)
+    val labeledYSwatches = labelShape(ySwatches, swatchYLabel)
 
-    layout_cmp(open_shape, close_shape, labeled_x_swatches, labeled_y_swatches)
+    layoutCmp(openShape, closeShape, labeledXSwatches, labeledYSwatches)
   }
 
-  def layout_swatch_row_cmp(row_w: Double, row_h: Double, horiz_pad: Double)
-                           (swatch_a: Shape, swatch_b: Shape,
-                            row_x: Shape, row_y: Shape):
-      Shape = {
+  def layoutSwatchRowCmp(
+      rowW: Double, rowH: Double, horizPad: Double
+    )(
+      swatchA: Shape, swatchB: Shape, rowX: Shape, rowY: Shape
+    ): Shape = {
     // NOTE: size of both swatches expected to be identical
-    val Rectangular(swatch_w, _) = swatch_a.bounding_box
-    ((swatch_a -+ (-(row_w + swatch_w + horiz_pad)/2, 0)) -&
-     (swatch_b -+ ( (row_w + swatch_w + horiz_pad)/2, 0)) -&
+    val Rectangular(swatchW, _) = swatchA.boundingBox
+    ((swatchA -+ (-(rowW + swatchW + horizPad)/2, 0)) -&
+     (swatchB -+ ( (rowW + swatchW + horizPad)/2, 0)) -&
 
-     (row_x    -+ (0, -(row_h/2 + 15))) -&
-     (row_y    -+ (0,  (row_h/2 + 15))))
+     (rowX    -+ (0, -(rowH/2 + 15))) -&
+     (rowY    -+ (0,  (rowH/2 + 15))))
   }
 }
 

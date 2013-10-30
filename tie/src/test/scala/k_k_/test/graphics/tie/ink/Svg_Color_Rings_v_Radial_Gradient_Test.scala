@@ -5,7 +5,7 @@
 
      http://www.tie-illustrates-everything.com/
 
-   Copyright (c)2010-2012 by Corbin "Kip" Kohn
+   Copyright (c)2010-2013 by Corbin "Kip" Kohn
    All Rights Reserved.
 
    Please reference the following for applicable terms, conditions,
@@ -29,68 +29,79 @@ import k_k_.graphics.tie.shapes.text._
 
 
 @Test
-class Svg_Color_Rings_v_Radial_Gradient_Test extends Svg_Test_Base {
+class SvgColorRings_v_RadialGradientTest extends SvgTestBase {
 
   val filename = "test_color_rings__v__radial_gradient.svg"
 
   val title = "Color Rings v. (Radial) Gradient"
 
 
-  val colors = Rainbow_Palette.colors
+  val colors = RainbowPalette.colors
 
 
-  protected def create_canvas() = {
-    val ellipse_ctor = Diam_Ellipse(_, _)
-    val hex_ctor = (w: Double, h: Double) => Hexagon(.6*w, w, h)
+  protected def createCanvas() = {
+    val ellipseCtor = DiamEllipse(_, _)
+    val hexCtor = (w: Double, h: Double) => Hexagon(.6*w, w, h)
 
-    val (each_w, each_h) = (200, 160)
+    val (eachW, eachH) = (200, 160)
 
-    val stripes1 = draw_color_rings(ellipse_ctor)(each_w, each_h)(colors)
-    val gradient1 = draw_gradient(ellipse_ctor)(each_w, each_h)(colors)
+    val stripes1 = drawColorRings(ellipseCtor)(eachW, eachH)(colors)
+    val gradient1 = drawGradient(ellipseCtor)(eachW, eachH)(colors)
 
-    val gradient2 = draw_gradient(Rectangle(_, _))(each_w, each_h)(colors)
-    val gradient3 = draw_gradient(hex_ctor)(each_w, each_h)(colors)
+    val gradient2 = drawGradient(Rectangle(_, _))(eachW, eachH)(colors)
+    val gradient3 = drawGradient(hexCtor)(eachW, eachH)(colors)
 
-    new Canvas(Canvas_Props(450, 450, title = title),
-               ((label_shape(stripes1,  "color rings")
-                   -+ (-(each_w/2 + 15), 0)) -&
-                (label_shape(gradient1, "(radial) gradient")
-                   -+ (each_w/2 + 15, 0))
-                  -+ (0, -(each_h/2 + 20))) -&
+    new Canvas(
+        CanvasProps(450, 450, title = title),
+        ((labelShape(stripes1,  "color rings")       -+ (-(eachW/2 + 15), 0)) -&
+         (labelShape(gradient1, "(radial) gradient") -+ (  eachW/2 + 15,  0))
+             -+ (0, -(eachH/2 + 20))) -&
 
-               ((label_shape((gradient2 -+ (-(each_w/2 + 15), 0)) -&
-                             (gradient3 -+ (each_w/2 + 15, 0)),
-                             "additional (radial) gradients [reflect colors]")
-                  -+ (0, each_h/2 + 20)))
-              )
+        ((labelShape(
+              (gradient2 -+ (-(eachW/2 + 15), 0)) -&
+              (gradient3 -+ (eachW/2 + 15, 0)),
+              "additional (radial) gradients [reflect colors]"
+            )
+             -+ (0,   eachH/2 + 20)
+          ))
+      )
   }
 
   // concentric colored rings
-  def draw_color_rings(S: (Double, Double) => Shape)
-                      (w: Double, h: Double)(colors: Seq[Color]):
-      Shape = {
-    val each_ring_w = w / colors.length
-    val each_ring_h = h / colors.length
-    val colored_shapes = colors.reverse.zipWithIndex.map { p =>
+  def drawColorRings(
+      S: (Double, Double) => Shape
+    )(
+      w: Double, h: Double
+    )(
+      colors: Seq[Color]
+    ): Shape = {
+    val eachRingW = w / colors.length
+    val eachRingH = h / colors.length
+    val coloredShapes = colors.reverse.zipWithIndex.map { p =>
       (p._1, p._2 + 1)
     }.map { case (color, i) =>
-      val pen_transform: Pen => Pen =
-          if (i == colors.length) identity _ else _.stroke(Null_Ink)
-      S(each_ring_w * i, each_ring_h * i) -~ pen_transform(Pen.fill(color))
+      val penTransform: Pen => Pen =
+          if (i == colors.length) identity _ else _.stroke(NullInk)
+      S(eachRingW * i, eachRingH * i) -~ penTransform(Pen.fill(color))
     }
     // reverse so smaller shapes over larger ones, and thereby not occluded
-    (Null_Shape /: colored_shapes.reverse) ( _ -& _ )
+    (NullShape /: coloredShapes.reverse) ( _ -& _ )
   }
 
   // concentric radial gradient
-  def draw_gradient(S: (Double, Double) => Shape)
-                   (w: Double, h: Double)(colors: Seq[Color]): Shape = {
-    val each_stripe_offset_pct = 100.0 / (colors.length - 1)
+  def drawGradient(
+      S: (Double, Double) => Shape
+    )(
+      w: Double, h: Double
+    )(
+      colors: Seq[Color]
+    ): Shape = {
+    val eachStripeOffsetPct = 100.0 / (colors.length - 1)
     val shape = S(w, h)
-    val color_stops = colors.reverse.zipWithIndex.map { p =>
-      Color_Stop(p._1, p._2 * each_stripe_offset_pct)
+    val colorStops = colors.reverse.zipWithIndex.map { p =>
+      ColorStop(p._1, p._2 * eachStripeOffsetPct)
     }
-    shape -~ Pen.fill(Radial_Gradient(color_stops, Reflect_Colors))
+    shape -~ Pen.fill(RadialGradient(colorStops, ColorSpread.Reflect))
   }
 }
 
