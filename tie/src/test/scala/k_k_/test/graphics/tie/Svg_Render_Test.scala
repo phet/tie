@@ -104,38 +104,6 @@ class SvgRendererTest extends JUnitSuite {
         (RightTriangle(30, 40) -~ Pen.fill(C.indigo)   -+ (-15, -19)) -&
         (Circle(20) -~ Pen.fill(redYellowGrad -/- 45) -+ (12, 15))
 
-/*
-    val canvas = new Canvas(CanvasProps(500, 500, OriginPos.TopLeft),
-                            Rectangle(80, 50).using(Pen.fill(C.red)) -+ 100,
-                            Ellipse(40, 30) -+ (200,100),
-                            Parallelogram(40, 60, 40) -+ (300, 100)
-                              -~ Pen.fill(C.brown),
-                            Ellipse(40, 30) -+ (400,100) -~
-                              Pen.fill(redYellowGrad -% 90),
-                            Octagon(60, 100, 30, 70) -~
-                              Pen.fill(redYellowGrad) -+ 200,
-                            Octagon(40, 80, 40, 80) -~
-                              Pen(C.red, C.yellow) -+ (350, 200),
-                            Square(50) -% 45 -~
-                              Pen.fill(redYellowGrad) -+ 350,
-                            FreeForm(freeForm3dCylinder) -~
-                              Pen(C.Black, redYellowGrad -% 60) -+
-                              (450, 200),
-                            Line(50) -% 45 -+ 300 -~ Pen.stroke(C.green, 2.5)).
-                       place(Hexagon(50, 80, 50) -% 90 -* (2, 1.5) -~
-                             Pen.fill(C.blue), 200, 350).
-                       place(Pentagon(50, 50, 35, 55) -~
-                             Pen.dashed(C.orange, 10), 100, 180).
-                       place(Pentagon(50, 50, 35, 55) -~ Pen.fill(C.Purple)
-                             -% 180 -+ (100, 250)).
-                       place(FreeForm(freeFormVase) -* (2, 0.75) -~
-                             Pen.stroke(C.Black, 1), 450, 300).
-                       place(Pentagon(35, 50, 15, 40) -+ (100, 400)).
-                       place(Trapezoid(60, 80, 50) using
-                             Pen.fill(C.green), 100, 350)
-*/
-
-
     val arialFont = Font("Arial", FontSize.Std(12))
     // val trialText = TextBlock(TextLine("testing 1, 2, 3", nameFont))
     val trialText = TextLine("testing 1, 2, 3", arialFont, TextAlign.Middle)
@@ -160,27 +128,6 @@ class SvgRendererTest extends JUnitSuite {
         (Line(50) -% 90 -~ measurePen -+ (-45, 0))
         -& centerX
         -+ 100,
-//??????why isn't this possible????:
-// NOTE: there are no 'default argument' methods in PresentableShape, merely:
-//  def -:(attribution: Attribution): T =
-//    as(attribution)
-//
-//  def -:(attribution1: Attribution, attribution2: Attribution): T =
-//    as(attribution1).as(attribution2)
-//
-//  def -:(id: String): T =
-//    as(IdAttribution(id))
-//
-//[ERROR] ../tie/tie/src/test/scala/kK_/test/graphics/tie/SvgRenderTest.scala:143: error: overloaded method value -: with alternatives:
-//[INFO]   (id: String)kK_.graphics.tie.shapes.DrawingShape <and>
-//[INFO]   (attribution: kK_.graphics.tie.Attribution)kK_.graphics.tie.shapes.DrawingShape
-//[INFO]  cannot be applied to ((kK_.graphics.tie.IdAttribution, kK_.graphics.tie.LinkAttribution))
-//[ERROR] Error occurred in an application involving default arguments.
-//[INFO]                             (Ellipse(40, 30) -&
-//[INFO]                             ^
-//                          (IdAttribution("measured"),
-//                           LinkAttribution("http://scala-lang.org",
-//                                            TargetBlank)) -:
         IdAttribution("measured") -:
         LinkAttribution("http://scala-lang.org", LinkTarget.Blank) -:
         (Ellipse(40, 30) -&
