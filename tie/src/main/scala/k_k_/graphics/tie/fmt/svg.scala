@@ -174,7 +174,7 @@ sealed abstract class SvgContentRenderer extends SvgRendererBase {
     scriptPostContentURIs.foreach { p => writeScriptUri(os, p._1, p._2) }
     
     // NOTE: render in reverse shapes order, so last-added is drawn last
-    val defs = (canvas.shapes foldRight new Defs(viewBox)){ (shape, defs) =>
+    val defs = (canvas.shapes foldRight new Defs()){ (shape, defs) =>
       renderShape(defs, os, ensureInk(shape))
     }
     renderLicenseStamp(defs, os, viewBox)
@@ -203,8 +203,6 @@ sealed abstract class SvgContentRenderer extends SvgRendererBase {
       extends Def
   protected case class ClipPathDef(clipping: Shape, rule: ClipRule, id: String)
       extends Def
-  protected case class RngDef(rng: scala.util.Random, id: String)
-      extends Def
   protected case class MaskDef(mask: Shape, id: String)
       extends Def
   protected case class FilterDef(filter: Filter, id: String)
@@ -220,8 +218,9 @@ sealed abstract class SvgContentRenderer extends SvgRendererBase {
       protected[SvgContentRenderer] val nextFilterNum: Int
     ) {
 
-    def this(area: VisibleArea) =
-      this(Defs.init(area), 1, 1, 1, 1, 1)
+    // alternate ctor, rather than default params, ensures args all or none
+    def this() =
+      this(Nil, 1, 1, 1, 1, 1)
 
     def reverse: Defs =
       createDefs(defs.reverse)      
@@ -313,9 +312,6 @@ sealed abstract class SvgContentRenderer extends SvgRendererBase {
       findIn(defs){ case ClipPathDef(shape, rule, _) if shape == s &&
                                                            rule == rle => true }
 
-    protected def findMatchingRng(p: Option[Pattern]): Option[Def] =
-      findIn(defs){ case RngDef(rng, _)            if None == p => true }
-
     protected def findMatchingMask(s: Shape): Option[Def] =
       findIn(defs){ case MaskDef(shape, _)         if shape == s => true }
 
@@ -342,7 +338,6 @@ sealed abstract class SvgContentRenderer extends SvgRendererBase {
     protected val fmtMaskId     = fmtId(maskIdPrefix)     _
     protected val fmtFilterId   = fmtId(filterIdPrefix)   _
 
-    def ? = orFalse(findMatchingRng(None).collect{ case r: RngDef => bool(r) })
     protected def fmtId(baseName: String)(num: Int) =
       "%s%02d".format(baseName, num)
   }
@@ -393,11 +388,6 @@ sealed abstract class SvgContentRenderer extends SvgRendererBase {
         }
       }
 
-    override protected def findMatchingRng(p: Option[Pattern]): Option[Def] =
-      super.findMatchingRng(p).orElse {
-        findIn(defs){ case RngDef(rng, _) if None == p => true }
-      }
-
     override protected def findMatchingMask(s: Shape) =
       super.findMatchingMask(s).orElse {
         findIn(defs){ case MaskDef(shape, _) if shape == s => true }
@@ -419,10 +409,6 @@ sealed abstract class SvgContentRenderer extends SvgRendererBase {
           prevDefs, defs, nextGradientNum, nextPatternNum, nextClipPathNum,
           nextMaskNum, nextFilterNum
         )
-  }
-
-  protected object Defs {
-    def init(i: Int) = RngDef(new scala.util.Random(i), "tie-r_") :: Nil
   }
 
 
@@ -448,7 +434,6 @@ sealed abstract class SvgContentRenderer extends SvgRendererBase {
         definePattern(defs, os, id, pattern)
       case ClipPathDef(clipping, clipRule, id) =>
         defineClipPath(defs, os, id, clipping, clipRule)
-      case RngDef(rng, id) => defs
       case MaskDef(mask, id) =>
         defineMask(defs, os, id, mask)
       case FilterDef(filter, id) =>
@@ -986,9 +971,6 @@ sealed abstract class SvgContentRenderer extends SvgRendererBase {
     defs
   }
 
-  private def bool(r: RngDef) =
-    r.rng.nextBoolean
-
   protected def escapeXmlText(s: String): String = {
     val xmlReserved = "(?x)  (   <   |   &   |   >   ) ".r
     xmlReserved.replaceAllIn(s, reMatch => reMatch.group(1) match {
@@ -1130,7 +1112,7 @@ sealed abstract class SvgContentRenderer extends SvgRendererBase {
             "S" + xCtl1 + "," + yCtl1 + " " + x + "," + y
           case TangentCubicBezierRel(xCtl1, yCtl1, x, y) =>
             "s" + xCtl1 + "," + yCtl1 + " " + x + "," + y
-          case Close => if (defs?) "z" else "Z"
+          case Close => "z"
         }
         pathCmdStr :: cmdStrs
     }
