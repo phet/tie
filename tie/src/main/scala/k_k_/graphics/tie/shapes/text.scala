@@ -20,7 +20,7 @@ package text {
 
 import java.util.concurrent.ConcurrentHashMap
 
-import scala.collection.mutable.ConcurrentMap
+import scala.collection.concurrent.{Map => ConcurrentMap}
 import scala.collection.JavaConversions._
 
 import k_k_.io.data.CharDoubleSeqFromDataFile

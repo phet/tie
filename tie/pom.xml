@@ -6,7 +6,7 @@
 
   <groupId>k_k_.graphics</groupId>
   <artifactId>k_k_.graphics.tie</artifactId>
-  <version>0.12.0</version>
+  <version>0.13.0</version>
 
   <name>Tie Library for Two-Dimensional Drawing in Scala</name>
   <description>
@@ -36,7 +36,7 @@
   <inceptionYear>2010</inceptionYear>
 
   <properties>
-    <scala.version>2.9.2</scala.version>
+    <scala.version>2.10.3</scala.version>
 
     <!-- Common plugin settings -->
     <encoding>UTF-8</encoding>
@@ -67,12 +67,12 @@
     <dependency>
       <groupId>k_k_.lib</groupId>
       <artifactId>k_k_.lib.util</artifactId>
-      <version>1.3.0</version>
+      <version>1.4.0</version>
     </dependency>
 
     <dependency>
       <groupId>org.scalatest</groupId>
-      <artifactId>scalatest_2.9.2</artifactId>
+      <artifactId>scalatest_2.10</artifactId>
       <version>1.9.2</version>
       <scope>test</scope>
     </dependency>

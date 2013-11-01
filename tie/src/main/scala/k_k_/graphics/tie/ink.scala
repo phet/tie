@@ -422,7 +422,7 @@ object NamedColor {
 
   lazy val allNamedColors = {
     // NOTE: use lowercase `val`, not `object`, which won't load enclosing class
-    NamedColors.black // ...like the scourge of mutability ;)
+    val _ = NamedColors.black // ...like the scourge of mutability ;)
     HashMap(registeredColors.toSeq : _*)
   }
 
